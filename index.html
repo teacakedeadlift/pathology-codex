@@ -1,0 +1,2417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathology Codex – FRCPath Reference</title>
+<style>
+  :root {
+    --navy: #1a2235;
+    --navy2: #243050;
+    --navy3: #2e3d66;
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --red: #dc2626;
+    --red-bg: #fff1f2;
+    --red-border: #fecdd3;
+    --orange: #d97706;
+    --bg: #f1f4f9;
+    --card: #ffffff;
+    --border: #dde3ef;
+    --text: #1e293b;
+    --muted: #64748b;
+    --light: #94a3b8;
+    --sidebar-w: 240px;
+    --header-h: 60px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── Header ─────────────────────────────────────────── */
+  #header {
+    height: var(--header-h);
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 16px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    z-index: 100;
+  }
+  #header .logo {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
+  #header .logo span { color: var(--accent2); }
+  #search-wrap {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+  }
+  #search {
+    width: 100%;
+    padding: 8px 14px 8px 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.09);
+    color: #fff;
+    font-size: 13.5px;
+    outline: none;
+    transition: all 0.2s;
+  }
+  #search::placeholder { color: rgba(255,255,255,0.4); }
+  #search:focus { background: rgba(255,255,255,0.15); border-color: var(--accent); }
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.4);
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .header-btns { display: flex; gap: 8px; margin-left: auto; }
+  .btn {
+    padding: 7px 14px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-ghost {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.15); }
+  .btn-danger { background: #ef4444; color: #fff; }
+  .btn-danger:hover { background: #dc2626; }
+
+  /* ── Layout ─────────────────────────────────────────── */
+  #layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────────── */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--navy);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 16px 0;
+  }
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+
+  .sidebar-section { padding: 0 12px 16px; }
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    padding: 0 4px 8px;
+  }
+  .filter-tag {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.65);
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-bottom: 2px;
+  }
+  .filter-tag:hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .filter-tag.active { background: var(--accent); color: #fff; font-weight: 600; }
+  .filter-tag .count {
+    float: right;
+    font-size: 10px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 1px 6px;
+    margin-top: 1px;
+  }
+  .filter-tag.active .count { background: rgba(255,255,255,0.25); }
+
+  .add-subspecialty {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 0 4px;
+  }
+  .add-subspecialty input {
+    flex: 1;
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.07);
+    color: #fff;
+    font-size: 11.5px;
+    outline: none;
+  }
+  .add-subspecialty input::placeholder { color: rgba(255,255,255,0.3); }
+  .add-subspecialty button {
+    padding: 5px 9px;
+    background: var(--navy3);
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.15s;
+  }
+  .add-subspecialty button:hover { background: var(--accent); color: #fff; }
+
+  .sidebar-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    margin: 4px 12px 12px;
+  }
+
+  /* ── Main ─────────────────────────────────────────── */
+  #main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  #main::-webkit-scrollbar { width: 6px; }
+  #main::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  #results-info {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    padding-left: 2px;
+  }
+
+  /* ── Entity Card ─────────────────────────────────────── */
+  .entity-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .entity-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+  .card-chevron {
+    width: 20px;
+    height: 20px;
+    color: var(--light);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .entity-card.open .card-chevron { transform: rotate(90deg); }
+  .card-name {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--navy);
+    flex: 1;
+  }
+  .card-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge {
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .badge-sub { background: #e0eaff; color: #1d4ed8; }
+  .badge-cat { background: #fef3c7; color: #92400e; }
+  .badge-mal { background: #fee2e2; color: #991b1b; }
+  .badge-ben { background: #dcfce7; color: #166534; }
+  .badge-int { background: #fde68a; color: #78350f; }
+  .card-preview {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+  }
+  .card-actions {
+    display: flex;
+    gap: 6px;
+    margin-left: 8px;
+  }
+  .card-action-btn {
+    padding: 4px 9px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .card-action-btn:hover { background: #fee2e2; color: var(--red); border-color: #fecaca; }
+
+  .card-body { border-top: 1px solid var(--border); padding: 18px 20px 20px; display: none; }
+  .entity-card.open .card-body { display: block; }
+
+  /* ── Card Body Sections ─────────────────────────────── */
+  .section-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .section-grid.full { grid-template-columns: 1fr; }
+
+  .section-block {
+    background: #f8fafc;
+    border: 1px solid #e8edf5;
+    border-radius: 7px;
+    padding: 12px 14px;
+  }
+  .section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-block ul { padding-left: 16px; }
+  .section-block li {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.55;
+    margin-bottom: 3px;
+  }
+
+  .ihc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .ihc-block {
+    border-radius: 7px;
+    padding: 11px 13px;
+  }
+  .ihc-pos { background: var(--green-bg); border: 1px solid var(--green-border); }
+  .ihc-neg { background: var(--red-bg); border: 1px solid var(--red-border); }
+  .ihc-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .ihc-pos .ihc-title { color: var(--green); }
+  .ihc-neg .ihc-title { color: var(--red); }
+  .ihc-marker {
+    display: inline-block;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11.5px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin: 2px 3px 2px 0;
+  }
+  .ihc-pos .ihc-marker { background: #dcfce7; color: #15803d; }
+  .ihc-neg .ihc-marker { background: #fee2e2; color: #b91c1c; }
+
+  .diffs-block { margin-bottom: 14px; }
+  .diff-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #f8fafc;
+    border: 1px solid #e8edf5;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 12.5px;
+  }
+  .diff-vs {
+    font-weight: 700;
+    color: var(--navy2);
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    white-space: nowrap;
+    min-width: 120px;
+  }
+  .diff-discriminator { color: var(--muted); }
+
+  .comments-block {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 7px;
+    padding: 12px 14px;
+  }
+  .comments-block .section-title { color: var(--orange); }
+  .comments-block ul { padding-left: 18px; }
+  .comments-block li { font-size: 12.5px; color: #44403c; line-height: 1.55; margin-bottom: 3px; }
+
+  /* ── Pattern badge ─────────────────────────────────── */
+  .badge-pat { background: #f3e8ff; color: #6b21a8; }
+
+  /* ── Related entities ────────────────────────────────── */
+  .related-block {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #f0f7ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 7px;
+  }
+  .related-block .section-title { color: #1d4ed8; margin-bottom: 8px; }
+  .related-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .related-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #bfdbfe;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .related-chip:hover { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+  .related-chip.unlinked { background: #f1f5f9; color: var(--muted); border-color: var(--border); cursor: default; font-style: italic; }
+  .related-chip.unlinked:hover { background: #f1f5f9; color: var(--muted); border-color: var(--border); }
+  .diff-link {
+    font-size: 10px;
+    margin-left: 4px;
+    opacity: 0.6;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--accent);
+  }
+  .diff-link:hover { opacity: 1; }
+
+  /* ── Disambiguation popup ─────────────────────────────── */
+  #disambig {
+    position: fixed;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    z-index: 2000;
+    min-width: 260px;
+    max-width: 380px;
+    display: none;
+    overflow: hidden;
+  }
+  #disambig.open { display: block; }
+  #disambig-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 14px 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .disambig-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    cursor: pointer;
+    transition: background 0.12s;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .disambig-option:last-child { border-bottom: none; }
+  .disambig-option:hover { background: #f0f7ff; }
+  .disambig-option-name { font-size: 12.5px; font-weight: 600; color: var(--navy); flex: 1; }
+  .disambig-option-sub { font-size: 10.5px; color: var(--muted); }
+
+  /* ── Tag picker (Related Entities) ───────────────────── */
+  .tag-picker-wrap {
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: #fff;
+    min-height: 42px;
+    padding: 6px 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+    position: relative;
+    cursor: text;
+  }
+  .tag-picker-wrap:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+  }
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 4px;
+    padding: 2px 7px 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tag-chip-x {
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    color: #3b82f6;
+    opacity: 0.7;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: inherit;
+  }
+  .tag-chip-x:hover { opacity: 1; color: var(--red); }
+  .tag-picker-input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 3px 4px !important;
+    font-size: 12.5px !important;
+    min-width: 140px;
+    flex: 1;
+    background: transparent;
+  }
+  .tag-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0; right: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    z-index: 3000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+  }
+  .tag-dropdown.open { display: block; }
+  .tag-dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 12.5px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.1s;
+  }
+  .tag-dropdown-item:last-child { border-bottom: none; }
+  .tag-dropdown-item:hover, .tag-dropdown-item.active { background: #f0f7ff; }
+  .tag-dropdown-item-name { flex: 1; color: var(--navy); font-weight: 600; }
+  .tag-dropdown-item-sub { font-size: 10.5px; color: var(--muted); }
+
+  /* ── Empty State ─────────────────────────────────────── */
+  #empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    display: none;
+  }
+  #empty svg { opacity: 0.3; margin-bottom: 12px; }
+  #empty p { font-size: 15px; }
+
+  /* ── Modal ─────────────────────────────────────────── */
+  #modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #modal-overlay.open { display: flex; }
+  #modal {
+    background: var(--card);
+    border-radius: 12px;
+    width: 680px;
+    max-width: 96vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  #modal::-webkit-scrollbar { width: 5px; }
+  #modal::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  .modal-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    z-index: 1;
+  }
+  .modal-title {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--muted);
+    line-height: 1;
+    padding: 4px;
+  }
+  .modal-close:hover { color: var(--red); }
+  .modal-body { padding: 20px 24px 24px; }
+
+  .form-row { margin-bottom: 16px; }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--navy2);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 5px;
+  }
+  label .hint {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  input[type=text], select, textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 13px;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  input[type=text]:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+  .modal-footer {
+    padding: 14px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    position: sticky;
+    bottom: 0;
+    background: var(--card);
+  }
+  .btn-cancel {
+    background: #f1f5f9;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-cancel:hover { background: #e2e8f0; }
+
+  /* ── Toast ─────────────────────────────────────────── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── Import hidden ─────────────────────────────────── */
+  #import-input { display: none; }
+
+  /* ── Highlight ─────────────────────────────────────── */
+  mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 1px; }
+
+  /* ── Tab bar ──────────────────────────────────────────── */
+  #tab-bar {
+    background: var(--navy2);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0 16px;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.85); }
+  .tab-btn.active { color: #fff; border-bottom-color: var(--accent); }
+
+  /* ── IHC Explorer panel ───────────────────────────────── */
+  #ihc-panel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--bg);
+  }
+  #ihc-panel.active { display: block; }
+  #ihc-panel::-webkit-scrollbar { width: 6px; }
+  #ihc-panel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  .ihc-search-wrap {
+    max-width: 560px;
+    margin: 0 auto 28px;
+    text-align: center;
+  }
+  .ihc-search-wrap h2 {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .ihc-search-wrap p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  #ihc-search {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  #ihc-search:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(59,130,246,0.1); }
+  #ihc-search::placeholder { text-transform: none; font-family: 'Segoe UI', system-ui, sans-serif; letter-spacing: 0; }
+
+  .ihc-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .ihc-suggest-chip {
+    padding: 4px 10px;
+    background: #e0eaff;
+    color: #1d4ed8;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: 'Courier New', monospace;
+    transition: all 0.15s;
+  }
+  .ihc-suggest-chip:hover { background: var(--accent); color: #fff; }
+
+  #ihc-results { max-width: 900px; margin: 0 auto; }
+  #ihc-results.hidden { display: none; }
+
+  .ihc-results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .ihc-result-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .ihc-result-block .block-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ihc-result-block.pos-block { border-top: 3px solid var(--green); }
+  .ihc-result-block.pos-block .block-title { color: var(--green); }
+  .ihc-result-block.neg-block { border-top: 3px solid var(--red); }
+  .ihc-result-block.neg-block .block-title { color: var(--red); }
+
+  .ihc-entity-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-radius: 4px;
+    padding: 7px 6px;
+  }
+  .ihc-entity-row:last-child { border-bottom: none; }
+  .ihc-entity-row:hover { background: #f0f7ff; }
+  .ihc-entity-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+    flex: 1;
+    line-height: 1.35;
+  }
+  .ihc-entity-note {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+  }
+  .ihc-entity-pct {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--green);
+    background: var(--green-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .ihc-entity-neg-pct {
+    font-size: 11.5px;
+    color: var(--red);
+    background: var(--red-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* Discriminatory pairs */
+  .disc-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .disc-block .block-title { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .disc-pair {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 6px;
+    border-bottom: 1px solid #f1f5f9;
+    flex-wrap: wrap;
+  }
+  .disc-pair:last-child { border-bottom: none; }
+  .disc-entity {
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 3px 9px;
+    border-radius: 5px;
+    transition: all 0.12s;
+  }
+  .disc-entity.pos { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .disc-entity.pos:hover { background: var(--green); color: #fff; }
+  .disc-entity.neg { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .disc-entity.neg:hover { background: var(--red); color: #fff; }
+  .disc-arrow { font-size: 18px; color: var(--light); flex-shrink: 0; }
+  .disc-marker-label {
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    color: var(--muted);
+    margin-left: auto;
+  }
+  .ihc-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .ihc-marker-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .ihc-marker-title h3 {
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    background: #e0eaff;
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+  }
+  .ihc-marker-title p { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* ── Mobile hamburger ─────────────────────────────────── */
+  #hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: rgba(255,255,255,0.8);
+    flex-shrink: 0;
+  }
+  #hamburger svg { display: block; }
+  #sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+  }
+  #sidebar-backdrop.open { display: block; }
+
+  /* ── Media queries ────────────────────────────────────── */
+  @media (max-width: 768px) {
+    #hamburger { display: flex; align-items: center; }
+    #sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 300;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      width: 260px;
+      padding-top: 60px;
+    }
+    #sidebar.open { transform: translateX(0); }
+    #layout { flex-direction: column; }
+    #main { padding: 12px; }
+    #ihc-panel { padding: 16px; }
+    .ihc-results-grid { grid-template-columns: 1fr; }
+    .header-btns .btn-ghost { display: none; }
+    .card-preview { display: none; }
+    .card-badges { display: none; }
+    #search-wrap { max-width: unset; }
+    .ihc-search-wrap { margin-bottom: 20px; }
+    .disc-pair { gap: 6px; }
+    .tab-btn { padding: 10px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div id="header">
+  <button id="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <div class="logo">Pathology <span>Codex</span></div>
+  <div id="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input id="search" type="text" placeholder="Search entities, IHC markers, differentials…" oninput="handleSearch()">
+  </div>
+  <div class="header-btns">
+    <button class="btn btn-primary" onclick="openModal()">+ Add Entity</button>
+    <button class="btn btn-ghost" onclick="exportData()">↓ Export</button>
+    <button class="btn btn-ghost" onclick="document.getElementById('import-input').click()">↑ Import</button>
+    <button class="btn btn-ghost" onclick="saveHTML()" title="Download updated HTML file with all your entities baked in">⬇ Save File</button>
+  </div>
+</div>
+
+<!-- Tab bar -->
+<div id="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('entities', this)">📋 Entities</button>
+  <button class="tab-btn" onclick="switchTab('ihc', this)">🔬 IHC Explorer</button>
+</div>
+<input type="file" id="import-input" accept=".json" onchange="importData(event)">
+
+<!-- Sidebar backdrop (mobile) -->
+<div id="sidebar-backdrop" onclick="toggleSidebar()"></div>
+
+<!-- Layout -->
+<div id="layout">
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Filter</div>
+      <button class="filter-tag active" data-filter="all" onclick="setFilter('all',this)">
+        All Entities <span class="count" id="count-all">0</span>
+      </button>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Subspecialty</div>
+      <div id="subspecialty-filters"></div>
+      <div class="add-subspecialty">
+        <input type="text" id="new-sub-input" placeholder="New subspecialty…" onkeydown="if(event.key==='Enter')addSubspecialty()">
+        <button onclick="addSubspecialty()" title="Add">+</button>
+      </div>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Behaviour</div>
+      <div id="behaviour-filters"></div>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Category</div>
+      <div id="category-filters"></div>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Pattern</div>
+      <div id="pattern-filters"></div>
+    </div>
+  </div>
+
+  <!-- Entities main panel -->
+  <div id="main">
+    <div id="results-info"></div>
+    <div id="entity-list"></div>
+    <div id="empty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <p>No entities match your search.</p>
+    </div>
+  </div>
+
+  <!-- IHC Explorer panel -->
+  <div id="ihc-panel">
+    <div class="ihc-search-wrap">
+      <h2>IHC Explorer</h2>
+      <p>Search any marker to see which entities express it, which don't, and where it's discriminatory.</p>
+      <input id="ihc-search" type="text" placeholder="e.g. SOX10, CD117, Desmin…"
+        oninput="ihcExplore()" autocomplete="off" spellcheck="false">
+      <div class="ihc-suggestions" id="ihc-suggestions"></div>
+    </div>
+    <div id="ihc-results" class="hidden"></div>
+  </div>
+</div>
+
+<!-- Add Entity Modal -->
+<div id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Add New Entity</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row-2">
+        <div class="form-row" style="margin:0">
+          <label>Entity Name</label>
+          <input type="text" id="f-name" placeholder="e.g. GASTROINTESTINAL STROMAL TUMOUR">
+        </div>
+        <div class="form-row" style="margin:0">
+          <label>Subspecialty</label>
+          <select id="f-sub"></select>
+        </div>
+      </div>
+      <br>
+      <div class="form-row-2">
+        <div class="form-row" style="margin:0">
+          <label>Category <span class="hint">(e.g. Mesenchymal, Epithelial, NET…)</span></label>
+          <input type="text" id="f-cat" placeholder="e.g. Mesenchymal">
+        </div>
+        <div class="form-row" style="margin:0">
+          <label>Behaviour</label>
+          <select id="f-beh">
+            <option value="">— Select —</option>
+            <option value="Benign">Benign</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Malignant">Malignant</option>
+            <option value="Variable">Variable</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="form-row">
+        <label>Pattern <span class="hint">— histological reaction pattern for grouping (e.g. Lichenoid, Nephritic, Cholestatic, Spongiotic, Interface…)</span></label>
+        <input type="text" id="f-pat" placeholder="e.g. Lichenoid interface dermatitis">
+      </div>
+      <div class="form-row">
+        <label>Clinical Context <span class="hint">— one point per line</span></label>
+        <textarea id="f-clin" placeholder="Age / sex predilection&#10;Site(s)&#10;Presentation / trigger phrases&#10;Syndromic associations"></textarea>
+      </div>
+      <div class="form-row">
+        <label>Key Microscopic Features <span class="hint">— one per line (aim for 3)</span></label>
+        <textarea id="f-micro" placeholder="Low-power architecture&#10;High-power cytology&#10;Characteristic feature"></textarea>
+      </div>
+      <div class="form-row-2">
+        <div class="form-row" style="margin:0">
+          <label>IHC Positive <span class="hint">— one per line</span></label>
+          <textarea id="f-pos" style="min-height:100px" placeholder="CD117 – 95%&#10;DOG1 – 98%&#10;CD34 – 60%"></textarea>
+        </div>
+        <div class="form-row" style="margin:0">
+          <label>IHC Negative <span class="hint">— one per line</span></label>
+          <textarea id="f-neg" style="min-height:100px" placeholder="S100 – negative&#10;Desmin – negative"></textarea>
+        </div>
+      </div>
+      <br>
+      <div class="form-row">
+        <label>Top Differentials + Discriminators <span class="hint">— format: Diagnosis | discriminating feature</span></label>
+        <textarea id="f-diff" placeholder="Schwannoma | S100+, SOX10+; CD117−, DOG1−&#10;Leiomyoma | Desmin+, h-caldesmon+; CD117−&#10;Inflammatory fibroid polyp | CD34+, eosinophil-rich stroma"></textarea>
+      </div>
+      <div class="form-row">
+        <label>Comments — Molecular / Risk / Management <span class="hint">— one point per line</span></label>
+        <textarea id="f-comm" style="min-height:120px" placeholder="KIT exon 11 deletion – best imatinib response&#10;SDH-deficient: young adults, lymph node mets possible&#10;NACT: imatinib pre-op to downsize&#10;ACT: adjuvant imatinib 3 years for high-risk"></textarea>
+      </div>
+      <div class="form-row">
+        <label>Related Entities <span class="hint">— type to search and select; links by ID, no ambiguity</span></label>
+        <div class="tag-picker-wrap" id="tag-picker-wrap" onclick="document.getElementById('tag-input').focus()">
+          <div id="tag-chips"></div>
+          <input type="text" id="tag-input" class="tag-picker-input" placeholder="Search entities…"
+            oninput="tagSearch()" onkeydown="tagKeydown(event)" autocomplete="off">
+          <div class="tag-dropdown" id="tag-dropdown"></div>
+        </div>
+        <input type="hidden" id="f-related">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEntity()">Save Entity</button>
+    </div>
+  </div>
+</div>
+
+<!-- Disambiguation popup -->
+<div id="disambig">
+  <div id="disambig-title">Multiple matches — select one:</div>
+  <div id="disambig-options"></div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// ENTITY DATA — edit this array to add/modify entities permanently
+// ═══════════════════════════════════════════════════════════════════════════
+const SEED_DATA = [
+  {
+    id: "gist-001",
+    name: "GASTROINTESTINAL STROMAL TUMOUR (GIST)",
+    subspecialty: "LGI / UGI",
+    category: "Mesenchymal",
+    behaviour: "Variable",
+    clinical: [
+      "Derived from interstitial cells of Cajal (pacemaker cells of GI tract).",
+      "Most common GI mesenchymal tumour in adults.",
+      "Stomach 60%, small bowel 30%, colorectum/oesophagus <10%.",
+      "Intramural, submucosal, or subserosal location.",
+      "Most often spindled (70%); epithelioid (20%) or mixed.",
+      "Trigger: incidental mass; GI bleed; obstruction."
+    ],
+    micro: [
+      "Spindle cells in short fascicles/storiform pattern; perinuclear vacuolation (cytoplasmic vacuoles flanking nucleus) — characteristic.",
+      "Skenoid fibres (extracellular collagen globules) — especially small intestinal GISTs; nuclear palisading may mimic schwannoma.",
+      "Epithelioid variant: round/polygonal cells, clear or eosinophilic cytoplasm; multinodular growth in SDH-deficient; multinucleate giant cells."
+    ],
+    ihcPos: ["CD117 (cKIT) – 95%", "DOG-1 – 95-98% (most sensitive; retained post-imatinib)", "CD34 – 60-70%", "SMA – 30% focal", "PKC-theta – diffuse cytoplasmic"],
+    ihcNeg: ["S100 – <2%", "Desmin – <5%", "Keratin – negative", "Note: CD117-negative GISTs exist (SDH-deficient; PDGFRA D842V — DOG1 retained)"],
+    differentials: [
+      { dx: "GI Schwannoma", disc: "S100+, SOX10+; CD117−, DOG1−; peritumoural lymphoid cuff; no Antoni A/B" },
+      { dx: "Leiomyoma", disc: "Desmin+, h-caldesmon+, SMA+; CD117−, DOG1−; pink fibrillar cytoplasm" },
+      { dx: "Inflammatory Fibroid Polyp", disc: "CD34+, PDGFRA mut; CD117−, DOG1−; eosinophil-rich stroma; perivascular whorling" }
+    ],
+    comments: [
+      "Prognostication: size + mitotic count (per 5mm²/20HPF, highest density area) + site. Use NIH/Miettinen criteria.",
+      "KIT exon 11 del/ins (50%) – most common; best imatinib response. Exon 9 – double-dose imatinib. Exon 17/18 – imatinib resistance.",
+      "PDGFRA exon 18 D842V (10%) – good prognosis; imatinib-resistant → avapritinib.",
+      "Wild-type (10%): SDH-deficient, NF1-associated, BRAF V600E (~10% of wt), NTRK-fused — all imatinib-insensitive.",
+      "SDH-deficient: young adults/children; gastric; multinodular/multifocal; LVI common but indolent; lymph node mets (unique). SDHB IHC loss = surrogate.",
+      "Syndromic: NF1 (multiple small bowel GISTs); Carney triad (GIST + pulmonary chondroma + paraganglioma); Carney-Stratakis (GIST + paraganglioma, SDH germline, AD).",
+      "NACT: imatinib pre-op to downsize. ACT: all high-risk (adjuvant imatinib 3 years).",
+      "Post-imatinib: CD117 may be lost; DOG1 retained. No lymph node mets except SDH-deficient.",
+      "Surgical margins most important prognostic factor in non-metastatic disease. Mutational analysis mandatory for all high-risk/metastatic."
+    ]
+  },
+  {
+    id: "schwannoma-001",
+    name: "GI SCHWANNOMA",
+    subspecialty: "LGI / UGI",
+    category: "Mesenchymal",
+    behaviour: "Benign",
+    clinical: [
+      "Benign peripheral nerve sheath tumour of Schwannian differentiation.",
+      "Stomach 60-70%, then colorectum; oesophagus rare.",
+      "Adults; no sex predilection.",
+      "Often incidental — radiologists frequently call these GISTs.",
+      "No NF2 association (unlike conventional schwannoma)."
+    ],
+    micro: [
+      "Spindle cells in loose fascicles; uniform elongated nuclei; NO Antoni A/B, NO Verocay bodies, NO thick-walled hyalinised vessels.",
+      "Characteristic peritumoural lymphoid cuff — virtually diagnostic.",
+      "Variants: microcystic/reticular (GFAP+); signet-ring cell variant (intracytoplasmic mucin, EMA−)."
+    ],
+    ihcPos: ["S100 – diffuse strong", "SOX10 – diffuse", "GFAP – variable (strong in microcystic variant)", "CD34 – focal/stromal only"],
+    ihcNeg: ["CD117 – negative", "DOG1 – negative", "Desmin – negative", "SMA – negative"],
+    differentials: [
+      { dx: "GIST", disc: "CD117+, DOG1+; no lymphoid cuff; skenoid fibres; perinuclear vacuolation" },
+      { dx: "Leiomyoma", disc: "Desmin+, SMA+, h-caldesmon+; pink fibrillar cytoplasm; S100−" },
+      { dx: "Conventional Schwannoma", disc: "Antoni A/B, Verocay bodies, thick vessels, NF2 mutation; rarely in GI tract" }
+    ],
+    comments: [
+      "Benign; no recurrence after complete excision. No NF2 mutation — distinct from peripheral schwannoma.",
+      "No malignant variant described in GI tract.",
+      "Microcystic/reticular subtype: GFAP+, alarming morphology but still benign.",
+      "Signet-ring cell variant: intracytoplasmic mucin; S100+ distinguishes from mucinous carcinoma.",
+      "H. pylori gastritis association reported (controversial)."
+    ]
+  },
+  {
+    id: "leiomyoma-001",
+    name: "LEIOMYOMA (GI)",
+    subspecialty: "LGI / UGI",
+    category: "Mesenchymal",
+    behaviour: "Benign",
+    clinical: [
+      "Most common mesenchymal tumour of oesophagus (muscularis propria) and colorectum (muscularis mucosae).",
+      "Stomach uncommon (unlike GIST). Anorectal: muscularis mucosae, women.",
+      "Adults; oesophageal favours men.",
+      "Usually incidental; may present as intramural mass or polyp.",
+      "Syndromic: oesophago-gastric leiomyomatosis in Alport syndrome (COL4A5/COL4A6 deletion at Xq22)."
+    ],
+    micro: [
+      "Fascicles of bland spindle cells with abundant eosinophilic fibrillar cytoplasm (pink at low power); cigar-shaped blunt-ended nuclei.",
+      "Low cellularity, minimal nuclear atypia, no/rare mitoses (<1/50HPF), no necrosis.",
+      "Secondary hyperplasia of interstitial cells of Cajal at periphery (focal CD117+ staining — do not misdiagnose as GIST)."
+    ],
+    ihcPos: ["SMA – diffuse", "Desmin – diffuse", "h-caldesmon – diffuse", "Calponin – positive"],
+    ihcNeg: ["CD117 – negative (except ICC hyperplasia periphery)", "DOG1 – negative", "S100 – negative", "CD34 – negative"],
+    differentials: [
+      { dx: "GIST", disc: "CD117+/DOG1+; perinuclear vacuolation; skenoid fibres; smooth muscle markers absent/focal" },
+      { dx: "Leiomyosarcoma", disc: "Cytological atypia, mitoses ≥5/50HPF, necrosis; same IHC profile" },
+      { dx: "GI Schwannoma", disc: "S100+, SOX10+, lymphoid cuff; Desmin/SMA−" }
+    ],
+    comments: [
+      "Benign; no malignant transformation in GI tract (unlike uterine smooth muscle tumours).",
+      "ICC hyperplasia at periphery: focal CD117 — do not misdiagnose as GIST; DOG1 negative, context is key.",
+      "Alport syndrome leiomyomatosis: COL4A5-COL4A6 contiguous deletion; oesophageal thickening.",
+      "EBV-associated smooth muscle tumour (EBV-SMT): immunocompromised; SMA/Desmin+; EBER ISH+ — distinct entity."
+    ]
+  },
+  {
+    id: "lms-001",
+    name: "LEIOMYOSARCOMA (GI)",
+    subspecialty: "LGI / UGI",
+    category: "Mesenchymal",
+    behaviour: "Malignant",
+    clinical: [
+      "Rare in GI tract; most retroperitoneal/somatic soft tissue.",
+      "Stomach and small bowel most common GI sites; can arise from muscularis propria or vascular wall.",
+      "Adults (median 6th-7th decade).",
+      "IMPORTANT: exclude GIST first — most spindle cell GI sarcomas are GIST."
+    ],
+    micro: [
+      "Intersecting fascicles of spindle cells at right angles; moderate-to-severe nuclear atypia; hyperchromatic cigar-shaped nuclei.",
+      "Mitoses ≥5/50HPF (often very high); atypical mitoses; coagulative necrosis common.",
+      "Eosinophilic fibrillar cytoplasm; epithelioid morphology possible (worse prognosis)."
+    ],
+    ihcPos: ["SMA – diffuse", "Desmin – diffuse (may be focal)", "h-caldesmon – diffuse (most specific)", "Calponin – positive"],
+    ihcNeg: ["CD117 – negative", "DOG1 – negative", "S100 – negative", "MDM2/CDK4 – negative (excludes dedifferentiated LPS)"],
+    differentials: [
+      { dx: "GIST", disc: "CD117+, DOG1+; KIT/PDGFRA mutation; smooth muscle markers absent/focal" },
+      { dx: "Dedifferentiated Liposarcoma", disc: "MDM2+, CDK4+; MDM2 amplification (FISH); retroperitoneal; heterologous LMS component" },
+      { dx: "IMT", disc: "ALK+; inflammatory infiltrate (plasma cells); less atypia; younger patients" }
+    ],
+    comments: [
+      "Grade by FNCLCC: differentiation + mitotic count + necrosis.",
+      "Surgery primary; wide excision. Chemotherapy (doxorubicin ± ifosfamide) for metastatic/unresectable.",
+      "No KIT/PDGFRA mutations; TP53 alterations common; RB1 loss.",
+      "Prognosis poor for high-grade; 5-year OS ~50% localised, ~15% metastatic.",
+      "Vascular leiomyosarcoma (IVC, pulmonary veins): distinct site-specific entity."
+    ]
+  },
+  {
+    id: "ifp-001",
+    name: "INFLAMMATORY FIBROID POLYP (IFP)",
+    subspecialty: "LGI / UGI",
+    category: "Mesenchymal",
+    behaviour: "Benign",
+    clinical: [
+      "Benign intramural/submucosal lesion; not a true inflammatory process.",
+      "Stomach (antrum) most common; also terminal ileum (can cause intussusception); colorectum rare.",
+      "Adults; mean age ~50.",
+      "Ileum: intussusception (lead point) — classic trigger phrase.",
+      "Associated with H. pylori (gastric)."
+    ],
+    micro: [
+      "Loose oedematous myxoid stroma with bland spindle/stellate cells; 'onion-skin' perivascular whorling — characteristic.",
+      "Prominent eosinophilic infiltrate throughout stroma; mast cells.",
+      "Thin-walled vessels; no atypia; no/rare mitoses."
+    ],
+    ihcPos: ["CD34 – diffuse", "Vimentin – positive", "SMA – focal/weak only"],
+    ihcNeg: ["CD117 – negative (key GIST exclusion)", "DOG1 – negative", "S100 – negative", "Desmin – negative"],
+    differentials: [
+      { dx: "GIST", disc: "CD117+, DOG1+; no eosinophil-rich stroma; no perivascular whorling" },
+      { dx: "Eosinophilic GI Disorder", disc: "Diffuse mucosal eosinophilia without spindle cell component" },
+      { dx: "GI Schwannoma", disc: "S100+; lymphoid cuff; no eosinophil-rich stroma" }
+    ],
+    comments: [
+      "PDGFRA mutations (exon 12, 14, 18) — same gene as GIST but different location/biology; benign.",
+      "Endoscopic or surgical resection curative; no recurrence. No malignant potential.",
+      "Ileal IFP is classic cause of adult intussusception.",
+      "H. pylori eradication may resolve small gastric IFPs."
+    ]
+  },
+  {
+    id: "desmoid-001",
+    name: "DESMOID TUMOUR / INTRA-ABDOMINAL FIBROMATOSIS",
+    subspecialty: "LGI",
+    category: "Mesenchymal",
+    behaviour: "Intermediate",
+    clinical: [
+      "Locally aggressive myofibroblastic neoplasm; no metastatic potential.",
+      "Mesenteric: 50% associated with FAP/APC (Gardner); sporadic ~50% (CTNNB1).",
+      "FAP-associated: younger; follows colectomy; mesentery; multiple.",
+      "Sporadic: young women; abdominal wall; prior trauma/surgery/pregnancy.",
+      "Trigger: FAP patient with abdominal mass post-colectomy; Gardner syndrome."
+    ],
+    micro: [
+      "Long sweeping fascicles of bland fibroblasts/myofibroblasts with abundant collagen; low-to-moderate cellularity.",
+      "Uniform elongated nuclei; small nucleoli; vesicular chromatin; no significant atypia; no/rare mitoses; no necrosis.",
+      "Infiltrative margins — tongues into surrounding fat/muscle; may encase mesenteric vessels."
+    ],
+    ihcPos: ["Nuclear beta-catenin – positive (CTNNB1/APC mutation surrogate)", "SMA – variable", "Vimentin – positive"],
+    ihcNeg: ["S100 – negative", "CD117 – negative", "DOG1 – negative", "STAT6 – negative (excludes SFT)", "MUC4 – negative (excludes LGFMS)"],
+    differentials: [
+      { dx: "Solitary Fibrous Tumour", disc: "STAT6+, CD34+, NAB2-STAT6 fusion; hemangiopericytoma pattern; no infiltrative margins" },
+      { dx: "LGFMS", disc: "MUC4+, FUS-CREB3L2; alternating fibrous/myxoid zones; no nuclear beta-catenin" },
+      { dx: "IMT", disc: "ALK+; inflammatory infiltrate; younger patients; less collagenous" }
+    ],
+    comments: [
+      "APC (FAP): germline APC → nuclear beta-catenin. Test APC if no known FAP.",
+      "Sporadic: CTNNB1 exon 3 hotspot (T41A, S45F — worse prognosis; higher recurrence).",
+      "Active surveillance preferred over surgery (surgery can trigger growth).",
+      "Systemic: sulindac/tamoxifen; sorafenib/imatinib for progressive disease.",
+      "Monitor with MRI (no radiation). Local recurrence up to 70%; distant spread does not occur.",
+      "Screen all desmoid patients for FAP. MDT essential before any resection."
+    ]
+  },
+  {
+    id: "imt-001",
+    name: "INFLAMMATORY MYOFIBROBLASTIC TUMOUR (IMT)",
+    subspecialty: "LGI / UGI",
+    category: "Mesenchymal",
+    behaviour: "Intermediate",
+    clinical: [
+      "Intermediate malignant potential: ~25% local recurrence; rare distant mets (~5%).",
+      "Children and young adults (median ~10 years); most common mesenchymal tumour of lung in children.",
+      "Mesentery, omentum, retroperitoneum, lung; GI primary uncommon.",
+      "Systemic symptoms: fever, weight loss, anaemia, thrombocytosis (paraneoplastic IL-6).",
+      "Trigger: young patient, soft tissue mass, systemic inflammatory symptoms."
+    ],
+    micro: [
+      "Three patterns: (1) myxoid/vascular — loose stroma, abundant plasma cells + lymphocytes; (2) compact spindle cell — dense fascicles; (3) hypocellular fibrous — collagen-rich.",
+      "Spindle to epithelioid myofibroblasts; vesicular nuclei; prominent nucleoli; mild-to-moderate atypia.",
+      "Mixed inflammatory infiltrate (plasma cells, lymphocytes, eosinophils) — always present."
+    ],
+    ihcPos: ["ALK – 50-60% (cytoplasmic, perinuclear, or nuclear depending on fusion partner)", "SMA – diffuse", "Desmin – variable", "Vimentin – positive"],
+    ihcNeg: ["CD117 – negative", "DOG1 – negative", "S100 – negative", "CD34 – negative", "STAT6 – negative"],
+    differentials: [
+      { dx: "Desmoid Fibromatosis", disc: "Nuclear beta-catenin+; no inflammatory infiltrate; paucicellular collagenous; ALK−" },
+      { dx: "Leiomyosarcoma", disc: "Significant atypia; mitoses; no inflammatory infiltrate; h-caldesmon+; ALK−" },
+      { dx: "Follicular Dendritic Cell Sarcoma", disc: "CD21+, CD35+; storiform; Castleman association; whorling around lymphoid aggregates" }
+    ],
+    comments: [
+      "ALK rearrangements 50-60%: partners include TPM3, TPM4, CLTC, RANBP2, EML4 (50+ described).",
+      "ALK FISH (break-apart) for confirmation; RNA-seq if ALK IHC+/FISH−.",
+      "ALK-negative IMT: NTRK, ROS1, RET, PDGFRB fusions — use RNA-seq panel.",
+      "RANBP2-ALK: epithelioid IMT; perinuclear staining; more aggressive.",
+      "ALK inhibitors (crizotinib, entrectinib) for unresectable/metastatic ALK+ disease.",
+      "Prognosis excellent for resectable; aggressive epithelioid variant worst prognosis."
+    ]
+  },
+  {
+    id: "glomus-001",
+    name: "GLOMUS TUMOUR (GI)",
+    subspecialty: "UGI",
+    category: "Mesenchymal",
+    behaviour: "Benign",
+    clinical: [
+      "Perivascular smooth muscle neoplasm differentiating toward glomus cells.",
+      "Stomach is the most common GI site (>90%); antrum/body.",
+      "Adults; wide age range; no sex predilection.",
+      "Usually submucosal; often incidental endoscopic finding.",
+      "Trigger: gastric submucosal mass, GIST excluded on IHC."
+    ],
+    micro: [
+      "Sheets/nests of monotonous round cells; central round nuclei, inconspicuous nucleoli; pale-to-clear cytoplasm with sharp cell borders.",
+      "Prominent perivascular growth — tumour cells surround capillary-sized thin-walled vessels.",
+      "Hyalinised/myxoid stroma; no nuclear atypia; mitoses rare; no necrosis."
+    ],
+    ihcPos: ["SMA – diffuse", "Collagen IV – pericellular (around individual cells) — distinctive", "Laminin – pericellular", "Calponin – positive"],
+    ihcNeg: ["CD117 – negative", "DOG1 – negative", "S100 – negative", "Synaptophysin/Chromogranin – negative", "Desmin – negative"],
+    differentials: [
+      { dx: "GIST (epithelioid)", disc: "CD117+, DOG1+; KIT/PDGFRA mutation; Collagen IV not pericellular" },
+      { dx: "Well-differentiated NET", disc: "Synaptophysin+, Chromogranin+; salt-and-pepper nuclei; no SMA" },
+      { dx: "Paraganglioma", disc: "S100+ sustentacular cells; Synaptophysin+; Zellballen pattern; no SMA" }
+    ],
+    comments: [
+      "Majority benign. Malignant criteria: size >2cm + deep location, OR mitoses >5/50HPF, OR atypical mitoses, OR moderate-to-high nuclear grade.",
+      "No recurrent molecular alterations in most; rare NOTCH alterations in malignant.",
+      "Surgery curative for benign; no adjuvant therapy needed.",
+      "Collagen IV pericellular staining is key discriminator from other round cell tumours."
+    ]
+  },
+  {
+    id: "plexiform-001",
+    name: "PLEXIFORM FIBROMYXOMA",
+    subspecialty: "UGI",
+    category: "Mesenchymal",
+    behaviour: "Benign",
+    clinical: [
+      "Previously 'plexiform angiomyxoid myofibroblastic tumour (PAMT)'.",
+      "Stomach — antrum and pylorus almost exclusively (>95%).",
+      "Adults; wide age range.",
+      "Present: obstruction, bleeding, incidental.",
+      "Trigger: antral/pyloric intramural mass, GIST excluded."
+    ],
+    micro: [
+      "Multinodular/plexiform architecture: multiple rounded nodules of bland spindle cells in myxoid stroma separated by fibromuscular septa — the plexiform pattern.",
+      "Prominent thin-walled vessels within each nodule; low cellularity.",
+      "No nuclear atypia; no/rare mitoses; no necrosis."
+    ],
+    ihcPos: ["SMA – variable, focal-to-diffuse", "CD34 – focal", "Vimentin – positive"],
+    ihcNeg: ["CD117 – negative", "DOG1 – negative", "S100 – negative", "Desmin – negative", "ALK – negative"],
+    differentials: [
+      { dx: "GIST", disc: "CD117+, DOG1+; fascicular/storiform; perinuclear vacuolation; non-plexiform" },
+      { dx: "Inflammatory Fibroid Polyp", disc: "CD34+, eosinophil-rich stroma; perivascular whorling; PDGFRA mutation" },
+      { dx: "GI Schwannoma", disc: "S100+, SOX10+, lymphoid cuff; not plexiform multinodular" }
+    ],
+    comments: [
+      "Benign; no recurrence after complete excision. No malignant counterpart described.",
+      "No known molecular alterations (PDGFRA, KIT, SDH all wild-type).",
+      "Antral location + plexiform multinodular architecture + myxoid stroma = virtually diagnostic.",
+      "Small biopsies may be insufficient — plexiform pattern only apparent on resection."
+    ]
+  },
+  {
+    id: "synovial-001",
+    name: "SYNOVIAL SARCOMA (GI)",
+    subspecialty: "LGI / UGI",
+    category: "Mesenchymal",
+    behaviour: "Malignant",
+    clinical: [
+      "Rare in GI tract; defined by SS18-SSX translocation regardless of site.",
+      "Oesophagus and stomach most reported GI sites.",
+      "Young adults (peak 15-40 years); male predominance.",
+      "Trigger: young adult, spindle cell malignancy — always exclude SS18-SSX fusion."
+    ],
+    micro: [
+      "Monophasic (most common in GI): dense sheets/fascicles of uniform spindle cells; scant cytoplasm; herringbone pattern; hemangiopericytoma-like vasculature.",
+      "Biphasic: spindle cell + epithelial component (glands/nests/cords); both share fusion.",
+      "Mast cells often prominent; focal calcification; necrosis in high-grade."
+    ],
+    ihcPos: ["TLE1 – diffuse nuclear (~95% sensitive — best screening marker)", "EMA – focal-to-diffuse", "BCL2 – diffuse", "CD99 – diffuse membranous", "CK – focal (monophasic) to diffuse (biphasic)"],
+    ihcNeg: ["CD117 – negative", "SMA – negative or focal only", "Desmin – negative", "SOX10 – negative (helpful vs MPNST)"],
+    differentials: [
+      { dx: "GIST", disc: "CD117+, DOG1+; KIT/PDGFRA mutation; TLE1−" },
+      { dx: "MPNST", disc: "S100 focal/lost; SOX10+; NF1 association; loss of H3K27me3; no SS18-SSX" },
+      { dx: "Solitary Fibrous Tumour", disc: "STAT6+, CD34+; hemangiopericytoma pattern; NAB2-STAT6 fusion" }
+    ],
+    comments: [
+      "SS18-SSX1, SS18-SSX2, or SS18-SSX4 fusion — define the entity (FISH or RNA-seq).",
+      "SS18-SSX1: more often biphasic; SS18-SSX2: more often monophasic.",
+      "TLE1 IHC: excellent screening but can be focally positive in SFT and MPNST — confirm with molecular testing.",
+      "Aggressive: high local recurrence; distant mets (lung, bone, nodes).",
+      "Ifosfamide-based chemotherapy (higher sensitivity than most sarcomas).",
+      "Prognosis: 5-year OS ~50-60% for localised. Radiotherapy for positive/close margins.",
+      "HDAC inhibitor (entinostat) under investigation."
+    ]
+  },
+  {
+    id: "lamn-001",
+    name: "LOW-GRADE APPENDICEAL MUCINOUS NEOPLASM (LAMN)",
+    subspecialty: "LGI",
+    category: "Appendiceal",
+    behaviour: "Variable",
+    clinical: [
+      "Often incidental; can present as 'mucocele' on imaging.",
+      "Any age; mean 50s-60s.",
+      "Risk of pseudomyxoma peritonei (PMP) even after appendicectomy.",
+      "KRAS (codon 12/13) and GNAS mutations most common."
+    ],
+    micro: [
+      "Villous/flat mucinous epithelium with low-grade cytology: compressed pseudostratified columnar cells, nuclei basal.",
+      "Broad pushing border with obliteration of lamina propria and muscularis mucosae; submucosal fibrosis — key feature.",
+      "Mucin may dissect into wall or beyond serosa (with or without epithelium); loss of normal appendiceal architecture."
+    ],
+    ihcPos: ["N/A — morphological diagnosis"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "HAMN", disc: "Complex micropapillary/cribriform architecture; high-grade cytological atypia; same pushing invasion" },
+      { dx: "Mucinous Adenocarcinoma", disc: "Infiltrative invasion; desmoplasia; signet ring cells; complex growth; lymph node risk" },
+      { dx: "Retention cyst / simple mucocele", disc: "Lined by flat non-neoplastic epithelium; no atypia; benign" }
+    ],
+    comments: [
+      "Staging: pTis(LAMN) if confined to mucosa; pT3 through muscularis into periappendiceal fat; pT4a if serosa involved.",
+      "Acellular peritoneal deposits → pM1a (lower risk); cellular deposits → pM1b (higher risk).",
+      "Pseudomyxoma peritonei: treatment = CRS + HIPEC.",
+      "Appendicectomy sufficient if confined; right hemicolectomy NOT required for LAMN.",
+      "Prognosis stage-dependent; acellular PMP (G1) best prognosis."
+    ]
+  },
+  {
+    id: "hamn-001",
+    name: "HIGH-GRADE APPENDICEAL MUCINOUS NEOPLASM (HAMN)",
+    subspecialty: "LGI",
+    category: "Appendiceal",
+    behaviour: "Variable",
+    clinical: [
+      "Rare; defined by high-grade cytological atypia OR complex architecture with pushing borders.",
+      "Similar demographics to LAMN.",
+      "Behaves like LAMN (pushing invasion) but higher risk if perforated.",
+      "Staged as CIS (pTis) like LAMN."
+    ],
+    micro: [
+      "Similar to LAMN: pushing border, obliterated muscularis mucosae, mucinous epithelium.",
+      "Complex architecture: micropapillary or cribriform growth; AND/OR high-grade cytological features (loss of polarity, prominent nucleoli).",
+      "Infiltrative invasion absent — if present → reclassify as adenocarcinoma."
+    ],
+    ihcPos: ["N/A — morphological diagnosis"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "LAMN", disc: "Low-grade cytology; simpler architecture; same staging framework" },
+      { dx: "Mucinous Adenocarcinoma", disc: "Infiltrative invasion; desmoplasia; signet ring cells; lymph node/systemic mets" },
+      { dx: "Conventional Adenocarcinoma", disc: "Colonic-type, non-mucinous, different molecular biology" }
+    ],
+    comments: [
+      "KRAS, GNAS mutations (same as LAMN).",
+      "Staged identically to LAMN: pTis(HAMN) if mucosa; same T-staging framework.",
+      "Risk of PMP if perforated; cellular peritoneal deposits = G2 PMP.",
+      "True extraluminal mucin: neovascularisation, tissue response, dissecting mucin = confirmed extravasation.",
+      "CRS + HIPEC for peritoneal disease."
+    ]
+  },
+  {
+    id: "goblet-001",
+    name: "GOBLET CELL ADENOCARCINOMA (GCA)",
+    subspecialty: "LGI",
+    category: "Appendiceal",
+    behaviour: "Malignant",
+    clinical: [
+      "Previously 'goblet cell carcinoid' or 'adenocarcinoma ex goblet cell carcinoid' (WHO 2022).",
+      "Appendix only (virtually exclusive); usually arises at tip.",
+      "Adults (mean ~55 years); equal sex distribution.",
+      "Present: acute appendicitis (most common), mass, peritoneal disease.",
+      "Stage as adenocarcinoma — NOT NET staging."
+    ],
+    micro: [
+      "Amphicrine (dual endocrine + exocrine): goblet-like mucinous cells, endocrine cells, and Paneth-like cells in same clusters/tubules.",
+      "MUST have low-grade (LG) architectural pattern for diagnosis; if entirely high-grade → classify as adenocarcinoma.",
+      "LG: small tubules/clusters, mild atypia, no stromal reaction. HG: infiltrating single cells, cribriform/anastomosing tubules, signet ring cells, desmoplasia."
+    ],
+    ihcPos: ["Synaptophysin – focal positive", "MUC2 – positive", "CDX2 – positive", "CK20 – positive", "Chromogranin – variable/weak"],
+    ihcNeg: ["Strong diffuse Chromogranin/Synaptophysin (unlike conventional NET)", "S100 – negative"],
+    differentials: [
+      { dx: "Metastatic mucinous/signet ring adenocarcinoma", disc: "Clinical context; CK7/CK20 panel; SATB2 for colorectal; no LG GCA pattern" },
+      { dx: "Well-differentiated NET", disc: "No goblet/mucinous component; Chromogranin++; no adenocarcinoma architecture" },
+      { dx: "MiNEN", disc: "Two distinct components each >30%; distinct from GCA which is admixed" }
+    ],
+    comments: [
+      "Grading (Tang): Grade 1 = >75% LG; Grade 2 = 50-75% LG; Grade 3 = <50% LG.",
+      "Grade 3 behaves aggressively; worse prognosis than 1/2.",
+      "Right hemicolectomy standard (for LN staging and resection).",
+      "Peritoneal dissemination common; CRS + HIPEC for peritoneal disease.",
+      "Somatostatin analogues not effective (unlike conventional NET).",
+      "Fluoropyrimidine-based chemotherapy for metastatic disease.",
+      "Molecular: KRAS; TP53 in HG; different from conventional NET (no MEN1/DAXX/ATRX)."
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════
+const STORAGE_KEY = 'pathcodex_entities_v1';
+const SUBS_KEY = 'pathcodex_subspecialties_v1';
+
+const BASE_SUBSPECIALTIES = [
+  "LGI","UGI","LGI / UGI","Hepatobiliary","Haempath","Medical Renal",
+  "Gynaecological","Thoracic","Neuropath","Skin / Dermatopath",
+  "Head & Neck","Breast","Soft Tissue / Bone","Urological"
+];
+
+let activeFilter = 'all';
+let searchTerm = '';
+let editingId = null;
+
+function getCustomEntities() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+}
+function getCustomSubs() {
+  try { return JSON.parse(localStorage.getItem(SUBS_KEY) || '[]'); } catch { return []; }
+}
+function getAllEntities() {
+  const custom = getCustomEntities();
+  const customIds = new Set(custom.map(e => e.id));
+  return [...SEED_DATA.filter(e => !customIds.has(e.id)), ...custom];
+}
+function getAllSubspecialties() {
+  const all = [...new Set([...BASE_SUBSPECIALTIES, ...getAllEntities().map(e => e.subspecialty), ...getCustomSubs()])];
+  return all.filter(Boolean).sort();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════════════════
+function hl(text) {
+  if (!searchTerm) return escHtml(text);
+  const re = new RegExp(`(${escHtml(searchTerm).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return escHtml(text).replace(re, '<mark>$1</mark>');
+}
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function matchesSearch(e) {
+  if (!searchTerm) return true;
+  const q = searchTerm.toLowerCase();
+  const hay = [
+    e.name, e.subspecialty, e.category, e.pattern||'',
+    ...(e.clinical||[]), ...(e.micro||[]),
+    ...(e.ihcPos||[]), ...(e.ihcNeg||[]),
+    ...(e.differentials||[]).map(d => d.dx + ' ' + d.disc),
+    ...(e.comments||[]),
+    ...(e.related||[])
+  ].join(' ').toLowerCase();
+  return hay.includes(q);
+}
+function matchesFilter(e) {
+  if (activeFilter === 'all') return true;
+  const type = activeFilter.split(':')[0];
+  const val = activeFilter.split(':').slice(1).join(':');
+  if (type === 'sub') return e.subspecialty === val;
+  if (type === 'beh') return e.behaviour === val;
+  if (type === 'cat') return e.category === val;
+  if (type === 'pat') return e.pattern === val;
+  return true;
+}
+
+function render() {
+  const entities = getAllEntities().filter(e => matchesFilter(e) && matchesSearch(e));
+  const list = document.getElementById('entity-list');
+  const empty = document.getElementById('empty');
+  const info = document.getElementById('results-info');
+
+  const all = getAllEntities();
+  info.textContent = entities.length === all.length
+    ? `${all.length} ${all.length === 1 ? 'entity' : 'entities'}`
+    : `${entities.length} of ${all.length} entities`;
+
+  if (entities.length === 0) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.innerHTML = entities.map(e => {
+    const bClass = e.behaviour === 'Benign' ? 'badge-ben' : e.behaviour === 'Malignant' ? 'badge-mal' : e.behaviour === 'Intermediate' ? 'badge-int' : 'badge-cat';
+    const isCustom = getCustomEntities().some(c => c.id === e.id);
+
+    // Related entities — resolve by ID first, then fuzzy name
+    const allE = getAllEntities();
+
+    // ── Link resolution helpers ──────────────────────────
+    function resolveLinks(names) {
+      // returns array of {label, matches:[entity,...]}
+      return names.map(n => {
+        // n may be an id (stored by tag picker) or a name string
+        const byId = allE.find(x => x.id === n);
+        if (byId) return { label: byId.name, matches: [byId] };
+        // fuzzy name match — return ALL matches
+        const q = n.toLowerCase();
+        const found = allE.filter(x =>
+          x.id !== e.id &&
+          (x.name.toLowerCase().includes(q) || q.includes(x.name.toLowerCase().substring(0, 10)))
+        );
+        return { label: n, matches: found };
+      });
+    }
+
+    const relatedNames = [...new Set([
+      ...(e.related||[]),
+      ...(e.differentials||[]).map(d => d.dx)
+    ])].filter(n => n && n.toLowerCase() !== e.name.toLowerCase());
+
+    const relatedHtml = (() => {
+      if (!relatedNames.length) return '';
+      const resolved = resolveLinks(relatedNames);
+      const chips = resolved.map(({label, matches}) => {
+        if (matches.length === 1) {
+          return `<span class="related-chip" onclick="jumpTo('${matches[0].id}')" title="${escHtml(matches[0].name)}">↗ ${escHtml(label)}</span>`;
+        } else if (matches.length > 1) {
+          const idsJson = escHtml(JSON.stringify(matches.map(m => m.id)));
+          return `<span class="related-chip" style="background:#fef9c3;color:#713f12;border-color:#fde047"
+            onclick="showDisambig(event, ${idsJson})" title="Multiple matches — click to choose">⚡ ${escHtml(label)}</span>`;
+        }
+        return `<span class="related-chip unlinked" title="Click to add this entity" onclick="openModal({name:'${escHtml(label)}'})" style="cursor:pointer">+ Add: ${escHtml(label)}</span>`;
+      }).join('');
+      return `<div class="related-block">
+        <div class="section-title">Related / See Also</div>
+        <div class="related-chips">${chips}</div>
+      </div>`;
+    })();
+
+    // Differential jump links — same multi-match logic
+    function diffJumpBtn(dx) {
+      const q = dx.toLowerCase();
+      const found = allE.filter(x =>
+        x.id !== e.id &&
+        (x.name.toLowerCase().includes(q) || q.includes(x.name.toLowerCase().substring(0, 10)))
+      );
+      if (found.length === 1) {
+        return `<span class="diff-link" onclick="event.stopPropagation();jumpTo('${found[0].id}')" title="Jump to ${escHtml(found[0].name)}">↗</span>`;
+      } else if (found.length > 1) {
+        const idsJson = escHtml(JSON.stringify(found.map(m => m.id)));
+        return `<span class="diff-link" style="color:#ca8a04" onclick="event.stopPropagation();showDisambig(event, ${idsJson})" title="Multiple matches">⚡</span>`;
+      }
+      return '';
+    }
+
+    return `<div class="entity-card" id="card-${e.id}">
+      <div class="card-header" onclick="toggleCard('${e.id}')">
+        <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9,18 15,12 9,6"/>
+        </svg>
+        <div class="card-name">${hl(e.name)}</div>
+        <div class="card-badges">
+          <span class="badge badge-sub">${hl(e.subspecialty)}</span>
+          ${e.category ? `<span class="badge badge-cat">${hl(e.category)}</span>` : ''}
+          ${e.pattern ? `<span class="badge badge-pat">${hl(e.pattern)}</span>` : ''}
+          ${e.behaviour ? `<span class="badge ${bClass}">${e.behaviour}</span>` : ''}
+        </div>
+        <div class="card-preview">${hl((e.clinical||[])[0]||'')}</div>
+        <div class="card-actions" onclick="event.stopPropagation()">
+          <button class="card-action-btn" onclick="editEntity('${e.id}')" title="Edit">✎</button>
+          ${isCustom ? `<button class="card-action-btn" onclick="deleteEntity('${e.id}')" title="Delete">✕</button>` : ''}
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section-grid">
+          <div class="section-block">
+            <div class="section-title">Clinical Context</div>
+            <ul>${(e.clinical||[]).map(c=>`<li>${hl(c)}</li>`).join('')}</ul>
+          </div>
+          <div class="section-block">
+            <div class="section-title">Key Microscopic Features</div>
+            <ul>${(e.micro||[]).map(m=>`<li>${hl(m)}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div class="ihc-grid">
+          <div class="ihc-block ihc-pos">
+            <div class="ihc-title">✚ Positive</div>
+            ${(e.ihcPos||[]).map(p=>`<span class="ihc-marker">${hl(p)}</span>`).join('')}
+          </div>
+          <div class="ihc-block ihc-neg">
+            <div class="ihc-title">✖ Negative (key exclusions)</div>
+            ${(e.ihcNeg||[]).map(n=>`<span class="ihc-marker">${hl(n)}</span>`).join('')}
+          </div>
+        </div>
+        <div class="diffs-block">
+          <div class="section-title" style="margin-bottom:8px">Top Differentials + Discriminators</div>
+          ${(e.differentials||[]).map(d => {
+            return `<div class="diff-item">
+              <span class="diff-vs">${hl(d.dx)}${diffJumpBtn(d.dx)}</span>
+              <span class="diff-discriminator">${hl(d.disc)}</span>
+            </div>`;
+          }).join('')}
+        </div>
+        <div class="comments-block">
+          <div class="section-title">Comments — Molecular / Risk / Management</div>
+          <ul>${(e.comments||[]).map(c=>`<li>${hl(c)}</li>`).join('')}</ul>
+        </div>
+        ${relatedHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  renderSidebar();
+}
+
+function renderSidebar() {
+  const all = getAllEntities();
+  document.getElementById('count-all').textContent = all.length;
+
+  // Subspecialties
+  const subs = {};
+  all.forEach(e => { subs[e.subspecialty] = (subs[e.subspecialty]||0)+1; });
+  const subEl = document.getElementById('subspecialty-filters');
+  subEl.innerHTML = Object.entries(subs).sort((a,b)=>a[0].localeCompare(b[0])).map(([s,n]) =>
+    `<button class="filter-tag ${activeFilter===`sub:${s}`?'active':''}" data-filter="sub:${s}" onclick="setFilter('sub:${s}',this)">
+      ${escHtml(s)} <span class="count">${n}</span>
+    </button>`
+  ).join('');
+
+  // Behaviour
+  const behs = {};
+  all.forEach(e => { if(e.behaviour) behs[e.behaviour] = (behs[e.behaviour]||0)+1; });
+  const behEl = document.getElementById('behaviour-filters');
+  behEl.innerHTML = Object.entries(behs).map(([b,n]) =>
+    `<button class="filter-tag ${activeFilter===`beh:${b}`?'active':''}" data-filter="beh:${b}" onclick="setFilter('beh:${b}',this)">
+      ${escHtml(b)} <span class="count">${n}</span>
+    </button>`
+  ).join('');
+
+  // Category
+  const cats = {};
+  all.forEach(e => { if(e.category) cats[e.category] = (cats[e.category]||0)+1; });
+  const catEl = document.getElementById('category-filters');
+  catEl.innerHTML = Object.entries(cats).sort((a,b)=>a[0].localeCompare(b[0])).map(([c,n]) =>
+    `<button class="filter-tag ${activeFilter===`cat:${c}`?'active':''}" data-filter="cat:${c}" onclick="setFilter('cat:${c}',this)">
+      ${escHtml(c)} <span class="count">${n}</span>
+    </button>`
+  ).join('');
+
+  // Pattern
+  const pats = {};
+  all.forEach(e => { if(e.pattern) pats[e.pattern] = (pats[e.pattern]||0)+1; });
+  const patEl = document.getElementById('pattern-filters');
+  patEl.innerHTML = Object.entries(pats).sort((a,b)=>a[0].localeCompare(b[0])).map(([p,n]) =>
+    `<button class="filter-tag ${activeFilter===`pat:${p}`?'active':''}" data-filter="pat:${p}" onclick="setFilter('pat:${p}',this)">
+      ${escHtml(p)} <span class="count">${n}</span>
+    </button>`
+  ).join('') || '<span style="font-size:11px;color:rgba(255,255,255,0.3);padding:4px">None yet — add a Pattern when creating entities.</span>';
+}
+
+function toggleCard(id) {
+  document.getElementById('card-'+id).classList.toggle('open');
+}
+
+function setFilter(val, el) {
+  activeFilter = val;
+  document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  render();
+}
+
+function handleSearch() {
+  searchTerm = document.getElementById('search').value.trim();
+  render();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DISAMBIGUATION POPUP
+// ═══════════════════════════════════════════════════════════════════════════
+function showDisambig(event, ids) {
+  event.stopPropagation();
+  const popup = document.getElementById('disambig');
+  const allE = getAllEntities();
+  const matches = ids.map(id => allE.find(e => e.id === id)).filter(Boolean);
+  if (!matches.length) return;
+  if (matches.length === 1) { jumpTo(matches[0].id); return; }
+
+  document.getElementById('disambig-options').innerHTML = matches.map(m =>
+    `<div class="disambig-option" onclick="closeDisambig();jumpTo('${m.id}')">
+      <span class="disambig-option-name">${escHtml(m.name)}</span>
+      <span class="disambig-option-sub">${escHtml(m.subspecialty||'')} ${m.category ? '· '+escHtml(m.category) : ''}</span>
+    </div>`
+  ).join('');
+
+  // Position near click
+  const x = Math.min(event.clientX, window.innerWidth - 400);
+  const y = Math.min(event.clientY + 8, window.innerHeight - 300);
+  popup.style.left = x + 'px';
+  popup.style.top = y + 'px';
+  popup.classList.add('open');
+
+  // Close on outside click
+  setTimeout(() => document.addEventListener('click', closeDisambigOnOutside, {once:true}), 50);
+}
+function closeDisambig() { document.getElementById('disambig').classList.remove('open'); }
+function closeDisambigOnOutside(e) {
+  if (!document.getElementById('disambig').contains(e.target)) closeDisambig();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAG PICKER (Related Entities in form)
+// ═══════════════════════════════════════════════════════════════════════════
+let tagSelected = []; // array of {id, name}
+
+function tagRender() {
+  const chips = document.getElementById('tag-chips');
+  chips.innerHTML = tagSelected.map((t,i) =>
+    `<span class="tag-chip">${escHtml(t.name)}<button class="tag-chip-x" onclick="tagRemove(${i})" type="button">×</button></span>`
+  ).join('');
+  // store as JSON in hidden field
+  document.getElementById('f-related').value = JSON.stringify(tagSelected.map(t => t.id));
+}
+
+function tagRemove(i) {
+  tagSelected.splice(i, 1);
+  tagRender();
+}
+
+function tagSearch() {
+  const q = document.getElementById('tag-input').value.trim().toLowerCase();
+  const dd = document.getElementById('tag-dropdown');
+  if (!q) { dd.classList.remove('open'); return; }
+  const existing = new Set(tagSelected.map(t => t.id));
+  const results = getAllEntities()
+    .filter(e => !existing.has(e.id) && e.name.toLowerCase().includes(q))
+    .slice(0, 10);
+  if (!results.length) { dd.classList.remove('open'); return; }
+  dd.innerHTML = results.map(e =>
+    `<div class="tag-dropdown-item" onclick="tagSelect('${e.id}','${escHtml(e.name).replace(/'/g,"\\'")}')">
+      <span class="tag-dropdown-item-name">${escHtml(e.name)}</span>
+      <span class="tag-dropdown-item-sub">${escHtml(e.subspecialty||'')}</span>
+    </div>`
+  ).join('');
+  dd.classList.add('open');
+}
+
+function tagSelect(id, name) {
+  if (!tagSelected.find(t => t.id === id)) {
+    tagSelected.push({id, name});
+    tagRender();
+  }
+  document.getElementById('tag-input').value = '';
+  document.getElementById('tag-dropdown').classList.remove('open');
+  document.getElementById('tag-input').focus();
+}
+
+function tagKeydown(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('tag-dropdown').classList.remove('open');
+  } else if (e.key === 'Backspace' && !document.getElementById('tag-input').value && tagSelected.length) {
+    tagSelected.pop();
+    tagRender();
+  }
+}
+
+function tagClear() {
+  tagSelected = [];
+  tagRender();
+  document.getElementById('tag-input').value = '';
+  document.getElementById('tag-dropdown').classList.remove('open');
+}
+
+function tagLoadFromEntity(related) {
+  // related may be old string[] of names, new string[] of IDs, or JSON string of IDs
+  tagSelected = [];
+  if (!related || !related.length) { tagRender(); return; }
+  let items = related;
+  // handle JSON-encoded array stored in hidden field
+  if (typeof related === 'string') {
+    try { items = JSON.parse(related); } catch { items = [related]; }
+  }
+  const allE = getAllEntities();
+  items.forEach(item => {
+    // try as ID first
+    const byId = allE.find(e => e.id === item);
+    if (byId) { tagSelected.push({id: byId.id, name: byId.name}); return; }
+    // fallback: name-based lookup (old format)
+    const byName = allE.find(e => e.name.toLowerCase().includes(item.toLowerCase()));
+    if (byName) { tagSelected.push({id: byName.id, name: byName.name}); return; }
+    // unresolved — store as name with temp id
+    tagSelected.push({id: 'unresolved:'+item, name: item});
+  });
+  tagRender();
+}
+
+// Close tag dropdown on outside click
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('tag-picker-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('tag-dropdown').classList.remove('open');
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════════════════════════════════
+function jumpTo(id) {
+  // clear filters/search so card is visible
+  activeFilter = 'all';
+  searchTerm = '';
+  document.getElementById('search').value = '';
+  document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  render();
+  setTimeout(() => {
+    const card = document.getElementById('card-' + id);
+    if (card) {
+      card.classList.add('open');
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      card.style.outline = '2px solid var(--accent)';
+      setTimeout(() => card.style.outline = '', 2000);
+    }
+  }, 80);
+}
+
+function populateSubSelect(selected) {
+  const sel = document.getElementById('f-sub');
+  const subs = getAllSubspecialties();
+  sel.innerHTML = subs.map(s => `<option value="${escHtml(s)}" ${s===selected?'selected':''}>${escHtml(s)}</option>`).join('');
+}
+
+function openModal(prefill) {
+  editingId = null;
+  document.getElementById('modal-title').textContent = 'Add New Entity';
+  ['f-name','f-cat','f-pat','f-clin','f-micro','f-pos','f-neg','f-diff','f-comm'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-beh').value = '';
+  tagClear();
+  populateSubSelect('');
+  if (prefill) {
+    if(prefill.name) document.getElementById('f-name').value = prefill.name;
+  }
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function editEntity(id) {
+  const e = getAllEntities().find(x => x.id === id);
+  if (!e) return;
+  editingId = id;
+  document.getElementById('modal-title').textContent = 'Edit Entity';
+  document.getElementById('f-name').value = e.name || '';
+  document.getElementById('f-cat').value = e.category || '';
+  document.getElementById('f-pat').value = e.pattern || '';
+  document.getElementById('f-beh').value = e.behaviour || '';
+  document.getElementById('f-clin').value = (e.clinical||[]).join('\n');
+  document.getElementById('f-micro').value = (e.micro||[]).join('\n');
+  document.getElementById('f-pos').value = (e.ihcPos||[]).join('\n');
+  document.getElementById('f-neg').value = (e.ihcNeg||[]).join('\n');
+  document.getElementById('f-diff').value = (e.differentials||[]).map(d => `${d.dx} | ${d.disc}`).join('\n');
+  document.getElementById('f-comm').value = (e.comments||[]).join('\n');
+  tagLoadFromEntity(e.related||[]);
+  populateSubSelect(e.subspecialty);
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  editingId = null;
+}
+
+function saveEntity() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { toast('Entity name is required.'); return; }
+
+  const parseDiff = (raw) => raw.split('\n').filter(Boolean).map(line => {
+    const parts = line.split('|');
+    return { dx: (parts[0]||'').trim(), disc: (parts[1]||'').trim() };
+  });
+
+  const entity = {
+    id: editingId || ('custom-' + Date.now()),
+    name: name.toUpperCase(),
+    subspecialty: document.getElementById('f-sub').value,
+    category: document.getElementById('f-cat').value.trim(),
+    pattern: document.getElementById('f-pat').value.trim(),
+    behaviour: document.getElementById('f-beh').value,
+    clinical: document.getElementById('f-clin').value.split('\n').filter(Boolean),
+    micro: document.getElementById('f-micro').value.split('\n').filter(Boolean),
+    ihcPos: document.getElementById('f-pos').value.split('\n').filter(Boolean),
+    ihcNeg: document.getElementById('f-neg').value.split('\n').filter(Boolean),
+    differentials: parseDiff(document.getElementById('f-diff').value),
+    comments: document.getElementById('f-comm').value.split('\n').filter(Boolean),
+    related: tagSelected.map(t => t.id),
+  };
+
+  const customs = getCustomEntities().filter(e => e.id !== entity.id);
+  customs.push(entity);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(customs));
+
+  closeModal();
+  render();
+  toast(editingId ? 'Entity updated.' : 'Entity added. Use "Save File" to make it permanent.');
+}
+
+function deleteEntity(id) {
+  if (!confirm('Delete this entity?')) return;
+  const customs = getCustomEntities().filter(e => e.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(customs));
+  render();
+  toast('Entity deleted.');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SUBSPECIALTY
+// ═══════════════════════════════════════════════════════════════════════════
+function addSubspecialty() {
+  const input = document.getElementById('new-sub-input');
+  const val = input.value.trim();
+  if (!val) return;
+  const customs = getCustomSubs();
+  if (!customs.includes(val) && !BASE_SUBSPECIALTIES.includes(val)) {
+    customs.push(val);
+    localStorage.setItem(SUBS_KEY, JSON.stringify(customs));
+  }
+  input.value = '';
+  render();
+  toast(`Subspecialty "${val}" added.`);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// IMPORT / EXPORT
+// ═══════════════════════════════════════════════════════════════════════════
+function exportData() {
+  const data = { entities: getAllEntities(), subspecialties: getAllSubspecialties() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pathology_codex_data.json';
+  a.click();
+  toast('Exported to JSON.');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      const entities = data.entities || data;
+      const customs = getCustomEntities();
+      const existingIds = new Set([...SEED_DATA.map(x=>x.id), ...customs.map(x=>x.id)]);
+      let added = 0;
+      entities.forEach(ent => {
+        if (ent.id && !existingIds.has(ent.id)) {
+          customs.push(ent);
+          added++;
+        }
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(customs));
+      render();
+      toast(`Imported ${added} new entities.`);
+    } catch { toast('Import failed — invalid JSON.'); }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SAVE HTML (bakes all current entities into a new HTML file)
+// ═══════════════════════════════════════════════════════════════════════════
+function saveHTML() {
+  const all = getAllEntities();
+  const html = document.documentElement.outerHTML;
+  const updated = html.replace(
+    /const SEED_DATA = \[[\s\S]*?\];(\s*\/\/ ═)/,
+    'const SEED_DATA = ' + JSON.stringify(all, null, 2) + ';\n// ═'
+  );
+  const blob = new Blob([updated], {type: 'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pathology_codex.html';
+  a.click();
+  toast('HTML saved with all ' + all.length + ' entities baked in.');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════════════════════
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════════════════════════════════
+let currentTab = 'entities';
+
+function switchTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const sidebar = document.getElementById('sidebar');
+  const main = document.getElementById('main');
+  const ihcPanel = document.getElementById('ihc-panel');
+
+  if (tab === 'entities') {
+    sidebar.style.display = '';
+    main.style.display = '';
+    ihcPanel.classList.remove('active');
+    // close mobile sidebar if open
+    closeSidebar();
+  } else {
+    // IHC explorer: hide sidebar on desktop too (needs full width)
+    sidebar.style.display = 'none';
+    main.style.display = 'none';
+    ihcPanel.classList.add('active');
+    document.getElementById('ihc-search').focus();
+    buildIhcSuggestions();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MOBILE SIDEBAR
+// ═══════════════════════════════════════════════════════════════════════════
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  const isOpen = sidebar.classList.contains('open');
+  if (isOpen) { closeSidebar(); } else {
+    sidebar.classList.add('open');
+    backdrop.classList.add('open');
+  }
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-backdrop').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// IHC EXPLORER
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Parse marker name from IHC string e.g. "CD117 (cKIT) – 95%" → "CD117 (cKIT)"
+function parseMarker(str) {
+  // Split on en-dash, em-dash, or " - " separator
+  const m = str.match(/^(.+?)\s*[–—]\s*/);
+  return m ? m[1].trim() : str.trim();
+}
+
+// Parse percentage note if present e.g. "95%", "95-98%", "<2%", "diffuse"
+function parseNote(str) {
+  const after = str.replace(/^.+?[–—]\s*/, '');
+  // Extract first meaningful token
+  const pct = after.match(/[\d<>~]+[-–]?[\d]*%/);
+  if (pct) return pct[0];
+  const words = after.split(/[;,(]/)[0].trim();
+  return words.length < 30 ? words : '';
+}
+
+// Does a marker string match the search query?
+function markerMatches(str, q) {
+  const name = parseMarker(str).toLowerCase();
+  return name.includes(q) || q.includes(name.replace(/\s*\(.*?\)/g,'').trim());
+}
+
+// Get all unique marker names across all entities
+function getAllMarkers() {
+  const all = getAllEntities();
+  const markers = new Set();
+  all.forEach(e => {
+    [...(e.ihcPos||[]), ...(e.ihcNeg||[])].forEach(s => {
+      const m = parseMarker(s);
+      if (m && m !== 'N/A') markers.add(m);
+    });
+  });
+  return [...markers].sort();
+}
+
+function buildIhcSuggestions() {
+  // Show common/interesting markers as quick-picks
+  const common = ['CD117','DOG1','S100','SOX10','SMA','Desmin','CD34','ALK','TLE1','STAT6','MUC2','CDX2','CK20','SATB2'];
+  const el = document.getElementById('ihc-suggestions');
+  el.innerHTML = common.map(m =>
+    `<button class="ihc-suggest-chip" onclick="setIhcSearch('${m}')">${m}</button>`
+  ).join('');
+}
+
+function setIhcSearch(val) {
+  document.getElementById('ihc-search').value = val;
+  ihcExplore();
+}
+
+function ihcExplore() {
+  const raw = document.getElementById('ihc-search').value.trim();
+  const results = document.getElementById('ihc-results');
+  if (!raw) { results.classList.add('hidden'); results.innerHTML = ''; return; }
+  const q = raw.toLowerCase();
+  const all = getAllEntities();
+
+  // Find entities where marker is positive or negative
+  const posEntities = []; // {entity, note}
+  const negEntities = []; // {entity, note}
+
+  all.forEach(e => {
+    (e.ihcPos||[]).forEach(s => {
+      if (s === 'N/A — morphological diagnosis' || s === 'N/A') return;
+      if (markerMatches(s, q)) posEntities.push({ entity: e, note: parseNote(s), raw: s });
+    });
+    (e.ihcNeg||[]).forEach(s => {
+      if (s === 'N/A') return;
+      if (markerMatches(s, q)) negEntities.push({ entity: e, note: parseNote(s), raw: s });
+    });
+  });
+
+  if (!posEntities.length && !negEntities.length) {
+    results.classList.remove('hidden');
+    results.innerHTML = `<div class="ihc-empty">No entities found with marker matching "<strong>${escHtml(raw)}</strong>".<br>Try a broader term or check spelling.</div>`;
+    return;
+  }
+
+  // Discriminatory pairs:
+  // posEntity lists negEntity as a differential (or vice versa) AND marker is + in one, - in other
+  const pairs = [];
+  const posIds = new Set(posEntities.map(x => x.entity.id));
+  const negIds = new Set(negEntities.map(x => x.entity.id));
+
+  posEntities.forEach(({ entity: posE, note: posNote }) => {
+    (posE.differentials||[]).forEach(diff => {
+      // find the diff entity in negEntities
+      const negMatch = negEntities.find(ne =>
+        ne.entity.id !== posE.id &&
+        (ne.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) ||
+         diff.dx.toLowerCase().includes(ne.entity.name.toLowerCase().substring(0,10)))
+      );
+      if (negMatch) {
+        // avoid duplicate pairs
+        const key = [posE.id, negMatch.entity.id].sort().join('|');
+        if (!pairs.find(p => p.key === key)) {
+          pairs.push({ key, posE, negE: negMatch.entity, posNote, negNote: negMatch.note, disc: diff.disc });
+        }
+      }
+    });
+  });
+
+  // Also check negEntities' differentials pointing to posEntities
+  negEntities.forEach(({ entity: negE, note: negNote }) => {
+    (negE.differentials||[]).forEach(diff => {
+      const posMatch = posEntities.find(pe =>
+        pe.entity.id !== negE.id &&
+        (pe.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) ||
+         diff.dx.toLowerCase().includes(pe.entity.name.toLowerCase().substring(0,10)))
+      );
+      if (posMatch) {
+        const key = [negE.id, posMatch.entity.id].sort().join('|');
+        if (!pairs.find(p => p.key === key)) {
+          pairs.push({ key, posE: posMatch.entity, negE, posNote: posMatch.note, negNote, disc: diff.disc });
+        }
+      }
+    });
+  });
+
+  // Displayed marker name — use the parsed name from first positive hit, or raw search
+  const displayMarker = posEntities[0] ? parseMarker(posEntities[0].raw) : raw.toUpperCase();
+
+  const posCount = posEntities.length;
+  const negCount = negEntities.length;
+
+  results.classList.remove('hidden');
+  results.innerHTML = `
+    <div class="ihc-marker-title">
+      <h3>${escHtml(displayMarker)}</h3>
+      <p>${posCount} positive · ${negCount} negative · ${pairs.length} discriminatory pair${pairs.length !== 1 ? 's' : ''}</p>
+    </div>
+
+    ${pairs.length ? `
+    <div class="disc-block">
+      <div class="block-title">⚡ Discriminatory Pairs — where ${escHtml(displayMarker)} is decision-making</div>
+      ${pairs.map(p => `
+        <div class="disc-pair">
+          <span class="disc-entity pos" onclick="goToEntity('${p.posE.id}')" title="Jump to ${escHtml(p.posE.name)}">
+            ✚ ${escHtml(p.posE.name)}${p.posNote ? ` <small style="font-weight:400;opacity:0.8">(${escHtml(p.posNote)})</small>` : ''}
+          </span>
+          <span class="disc-arrow">⇔</span>
+          <span class="disc-entity neg" onclick="goToEntity('${p.negE.id}')" title="Jump to ${escHtml(p.negE.name)}">
+            ✖ ${escHtml(p.negE.name)}${p.negNote ? ` <small style="font-weight:400;opacity:0.8">(${escHtml(p.negNote)})</small>` : ''}
+          </span>
+          ${p.disc ? `<span class="disc-marker-label">vs: ${escHtml(p.disc.substring(0,60))}${p.disc.length>60?'…':''}</span>` : ''}
+        </div>`).join('')}
+    </div>` : ''}
+
+    <div class="ihc-results-grid">
+      <div class="ihc-result-block pos-block">
+        <div class="block-title">✚ Positive in (${posCount})</div>
+        ${posEntities.length ? posEntities.map(({entity:e, note}) => `
+          <div class="ihc-entity-row" onclick="goToEntity('${e.id}')">
+            <span class="ihc-entity-name">${escHtml(e.name)}</span>
+            ${note ? `<span class="ihc-entity-pct">${escHtml(note)}</span>` : ''}
+          </div>`).join('') : '<div class="ihc-empty" style="padding:16px">None in database</div>'}
+      </div>
+      <div class="ihc-result-block neg-block">
+        <div class="block-title">✖ Negative in (${negCount})</div>
+        ${negEntities.length ? negEntities.map(({entity:e, note}) => `
+          <div class="ihc-entity-row" onclick="goToEntity('${e.id}')">
+            <span class="ihc-entity-name">${escHtml(e.name)}</span>
+            ${note ? `<span class="ihc-entity-neg-pct">${escHtml(note)}</span>` : ''}
+          </div>`).join('') : '<div class="ihc-empty" style="padding:16px">None in database</div>'}
+      </div>
+    </div>`;
+}
+
+// Jump to entity card from IHC explorer (switches tab first)
+function goToEntity(id) {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  switchTab('entities', tabBtns[0]);
+  setTimeout(() => jumpTo(id), 100);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════
+render();
+</script>
+</body>
+</html>
