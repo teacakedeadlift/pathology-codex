@@ -1595,6 +1595,16 @@ const SEED_DATA = [
 // ═══════════════════════════════════════════════════════════════════════════
 const STORAGE_KEY = 'pathcodex_entities_v1';
 const SUBS_KEY = 'pathcodex_subspecialties_v1';
+const DELETED_KEY = 'pathcodex_deleted_v1';
+
+function getDeletedIds() {
+  try { return new Set(JSON.parse(localStorage.getItem(DELETED_KEY) || '[]')); } catch { return new Set(); }
+}
+function addDeletedId(id) {
+  const ids = getDeletedIds();
+  ids.add(id);
+  localStorage.setItem(DELETED_KEY, JSON.stringify([...ids]));
+}
 
 const BASE_SUBSPECIALTIES = [
   "LGI","UGI","LGI / UGI","Hepatobiliary","Haempath","Medical Renal",
@@ -1615,7 +1625,8 @@ function getCustomSubs() {
 function getAllEntities() {
   const custom = getCustomEntities();
   const customIds = new Set(custom.map(e => e.id));
-  return [...SEED_DATA.filter(e => !customIds.has(e.id)), ...custom];
+  const deleted = getDeletedIds();
+  return [...SEED_DATA.filter(e => !customIds.has(e.id) && !deleted.has(e.id)), ...custom.filter(e => !deleted.has(e.id))];
 }
 function getAllSubspecialties() {
   const all = [...new Set([...BASE_SUBSPECIALTIES, ...getAllEntities().map(e => e.subspecialty), ...getCustomSubs()])];
@@ -1755,7 +1766,7 @@ function render() {
         <div class="card-preview">${hl((e.clinical||[])[0]||'')}</div>
         <div class="card-actions" onclick="event.stopPropagation()">
           <button class="card-action-btn" onclick="editEntity('${e.id}')" title="Edit">✎</button>
-          ${isCustom ? `<button class="card-action-btn" onclick="deleteEntity('${e.id}')" title="Delete">✕</button>` : ''}
+          <button class="card-action-btn" onclick="deleteEntity('${e.id}')" title="Delete">✕</button>
         </div>
       </div>
       <div class="card-body">
@@ -2090,8 +2101,11 @@ function saveEntity() {
 
 function deleteEntity(id) {
   if (!confirm('Delete this entity?')) return;
+  // Remove from custom list if present
   const customs = getCustomEntities().filter(e => e.id !== id);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(customs));
+  // Also add to deleted set (covers seed entities)
+  addDeletedId(id);
   render();
   toast('Entity deleted.');
 }
@@ -2165,9 +2179,9 @@ function saveHTML() {
   const blob = new Blob([updated], {type: 'text/html'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'pathology_codex.html';
+  a.download = 'index.html';
   a.click();
-  toast('HTML saved with all ' + all.length + ' entities baked in.');
+  toast('Saved ' + all.length + ' entities. Upload index.html to GitHub to sync.');
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
