@@ -1161,6 +1161,7 @@ const SEED_DATA = [
     name: "GASTROINTESTINAL STROMAL TUMOUR (GIST)",
     subspecialty: "LGI / UGI",
     category: "Mesenchymal",
+    pattern: "Spindle cell",
     behaviour: "Variable",
     clinical: [
       "Derived from interstitial cells of Cajal (pacemaker cells of GI tract).",
@@ -1199,6 +1200,7 @@ const SEED_DATA = [
     name: "GI SCHWANNOMA",
     subspecialty: "LGI / UGI",
     category: "Mesenchymal",
+    pattern: "Spindle cell",
     behaviour: "Benign",
     clinical: [
       "Benign peripheral nerve sheath tumour of Schwannian differentiation.",
@@ -1232,6 +1234,7 @@ const SEED_DATA = [
     name: "LEIOMYOMA (GI)",
     subspecialty: "LGI / UGI",
     category: "Mesenchymal",
+    pattern: "Spindle cell",
     behaviour: "Benign",
     clinical: [
       "Most common mesenchymal tumour of oesophagus (muscularis propria) and colorectum (muscularis mucosae).",
@@ -1264,6 +1267,7 @@ const SEED_DATA = [
     name: "LEIOMYOSARCOMA (GI)",
     subspecialty: "LGI / UGI",
     category: "Mesenchymal",
+    pattern: "Spindle cell",
     behaviour: "Malignant",
     clinical: [
       "Rare in GI tract; most retroperitoneal/somatic soft tissue.",
@@ -1296,6 +1300,7 @@ const SEED_DATA = [
     name: "INFLAMMATORY FIBROID POLYP (IFP)",
     subspecialty: "LGI / UGI",
     category: "Mesenchymal",
+    pattern: "Myxoid",
     behaviour: "Benign",
     clinical: [
       "Benign intramural/submucosal lesion; not a true inflammatory process.",
@@ -1328,6 +1333,7 @@ const SEED_DATA = [
     name: "DESMOID TUMOUR / INTRA-ABDOMINAL FIBROMATOSIS",
     subspecialty: "LGI",
     category: "Mesenchymal",
+    pattern: "Fibrous/collagenous",
     behaviour: "Intermediate",
     clinical: [
       "Locally aggressive myofibroblastic neoplasm; no metastatic potential.",
@@ -1362,6 +1368,7 @@ const SEED_DATA = [
     name: "INFLAMMATORY MYOFIBROBLASTIC TUMOUR (IMT)",
     subspecialty: "LGI / UGI",
     category: "Mesenchymal",
+    pattern: "Myxoid",
     behaviour: "Intermediate",
     clinical: [
       "Intermediate malignant potential: ~25% local recurrence; rare distant mets (~5%).",
@@ -1396,6 +1403,7 @@ const SEED_DATA = [
     name: "GLOMUS TUMOUR (GI)",
     subspecialty: "UGI",
     category: "Mesenchymal",
+    pattern: "Perivascular",
     behaviour: "Benign",
     clinical: [
       "Perivascular smooth muscle neoplasm differentiating toward glomus cells.",
@@ -1413,7 +1421,7 @@ const SEED_DATA = [
     ihcNeg: ["CD117 – negative", "DOG1 – negative", "S100 – negative", "Synaptophysin/Chromogranin – negative", "Desmin – negative"],
     differentials: [
       { dx: "GIST (epithelioid)", disc: "CD117+, DOG1+; KIT/PDGFRA mutation; Collagen IV not pericellular" },
-      { dx: "Well-differentiated NET", disc: "Synaptophysin+, Chromogranin+; salt-and-pepper nuclei; no SMA" },
+      { dx: "Well-differentiated NET G1/G2", disc: "Synaptophysin+, Chromogranin+; salt-and-pepper nuclei; no SMA; no pericellular ColIV" },
       { dx: "Paraganglioma", disc: "S100+ sustentacular cells; Synaptophysin+; Zellballen pattern; no SMA" }
     ],
     comments: [
@@ -1428,6 +1436,7 @@ const SEED_DATA = [
     name: "PLEXIFORM FIBROMYXOMA",
     subspecialty: "UGI",
     category: "Mesenchymal",
+    pattern: "Myxoid",
     behaviour: "Benign",
     clinical: [
       "Previously 'plexiform angiomyxoid myofibroblastic tumour (PAMT)'.",
@@ -1460,6 +1469,7 @@ const SEED_DATA = [
     name: "SYNOVIAL SARCOMA (GI)",
     subspecialty: "LGI / UGI",
     category: "Mesenchymal",
+    pattern: "Biphasic",
     behaviour: "Malignant",
     clinical: [
       "Rare in GI tract; defined by SS18-SSX translocation regardless of site.",
@@ -1494,6 +1504,7 @@ const SEED_DATA = [
     name: "LOW-GRADE APPENDICEAL MUCINOUS NEOPLASM (LAMN)",
     subspecialty: "LGI",
     category: "Appendiceal",
+    pattern: "Mucinous",
     behaviour: "Variable",
     clinical: [
       "Often incidental; can present as 'mucocele' on imaging.",
@@ -1510,7 +1521,7 @@ const SEED_DATA = [
     ihcNeg: ["N/A"],
     differentials: [
       { dx: "HAMN", disc: "Complex micropapillary/cribriform architecture; high-grade cytological atypia; same pushing invasion" },
-      { dx: "Mucinous Adenocarcinoma", disc: "Infiltrative invasion; desmoplasia; signet ring cells; complex growth; lymph node risk" },
+      { dx: "Mucinous Adenocarcinoma (appendiceal)", disc: "Infiltrative invasion; desmoplasia; signet ring cells; complex growth; lymph node risk" },
       { dx: "Retention cyst / simple mucocele", disc: "Lined by flat non-neoplastic epithelium; no atypia; benign" }
     ],
     comments: [
@@ -1526,6 +1537,7 @@ const SEED_DATA = [
     name: "HIGH-GRADE APPENDICEAL MUCINOUS NEOPLASM (HAMN)",
     subspecialty: "LGI",
     category: "Appendiceal",
+    pattern: "Mucinous",
     behaviour: "Variable",
     clinical: [
       "Rare; defined by high-grade cytological atypia OR complex architecture with pushing borders.",
@@ -1542,7 +1554,7 @@ const SEED_DATA = [
     ihcNeg: ["N/A"],
     differentials: [
       { dx: "LAMN", disc: "Low-grade cytology; simpler architecture; same staging framework" },
-      { dx: "Mucinous Adenocarcinoma", disc: "Infiltrative invasion; desmoplasia; signet ring cells; lymph node/systemic mets" },
+      { dx: "Mucinous Adenocarcinoma (appendiceal)", disc: "Infiltrative invasion; desmoplasia; signet ring cells; lymph node/systemic mets" },
       { dx: "Conventional Adenocarcinoma", disc: "Colonic-type, non-mucinous, different molecular biology" }
     ],
     comments: [
@@ -1558,6 +1570,7 @@ const SEED_DATA = [
     name: "GOBLET CELL ADENOCARCINOMA (GCA)",
     subspecialty: "LGI",
     category: "Appendiceal",
+    pattern: "Amphicrine",
     behaviour: "Malignant",
     clinical: [
       "Previously 'goblet cell carcinoid' or 'adenocarcinoma ex goblet cell carcinoid' (WHO 2022).",
@@ -1574,9 +1587,9 @@ const SEED_DATA = [
     ihcPos: ["Synaptophysin – focal positive", "MUC2 – positive", "CDX2 – positive", "CK20 – positive", "Chromogranin – variable/weak"],
     ihcNeg: ["Strong diffuse Chromogranin/Synaptophysin (unlike conventional NET)", "S100 – negative"],
     differentials: [
-      { dx: "Metastatic mucinous/signet ring adenocarcinoma", disc: "Clinical context; CK7/CK20 panel; SATB2 for colorectal; no LG GCA pattern" },
-      { dx: "Well-differentiated NET", disc: "No goblet/mucinous component; Chromogranin++; no adenocarcinoma architecture" },
-      { dx: "MiNEN", disc: "Two distinct components each >30%; distinct from GCA which is admixed" }
+      { dx: "Metastatic Mucinous/Signet Ring Adenocarcinoma", disc: "No LG GCA architectural component; CK7/CK20 panel; clinical context; SATB2 for colorectal primary" },
+      { dx: "Well-differentiated NET G1/G2", disc: "No goblet/mucinous component; Chromogranin diffuse strong; organoid architecture; no adenocarcinoma component" },
+      { dx: "MiNEN", disc: "Two distinct components each >30%; clearly demarcated; distinct from admixed GCA" }
     ],
     comments: [
       "Grading (Tang): Grade 1 = >75% LG; Grade 2 = 50-75% LG; Grade 3 = <50% LG.",
@@ -1586,6 +1599,234 @@ const SEED_DATA = [
       "Somatostatin analogues not effective (unlike conventional NET).",
       "Fluoropyrimidine-based chemotherapy for metastatic disease.",
       "Molecular: KRAS; TP53 in HG; different from conventional NET (no MEN1/DAXX/ATRX)."
+    ]
+  },
+ 
+  // ═══════════════════ NEUROENDOCRINE ENTITIES ═══════════════════
+ 
+  {
+    id: "net-g1g2-001",
+    name: "WELL-DIFFERENTIATED NET G1/G2 (GI)",
+    subspecialty: "LGI / UGI",
+    category: "Neuroendocrine",
+    pattern: "Neuroendocrine",
+    behaviour: "Variable",
+    clinical: [
+      "WHO 2022: G1 Ki67 <3%, mitoses <2/2mm²; G2 Ki67 3-20%, mitoses 2-20/2mm².",
+      "Site-specific biology: ileal (midgut) — serotonin-producing; carcinoid syndrome only with liver mets. Rectal — L-cell (glucagon/PYY); usually small, low risk. Gastric Type 1 — ECL cell hyperplasia, chronic atrophic gastritis/autoimmune; Type 2 — ZES/MEN1; Type 3 — sporadic, aggressive. Appendiceal — most common appendiceal neoplasm; tip; overwhelmingly G1.",
+      "Appendiceal NET <2cm: appendicectomy curative. >2cm: right hemicolectomy.",
+      "Carcinoid syndrome: flushing, diarrhoea, bronchospasm — only with hepatic/systemic mets (serotonin bypasses portal metabolism).",
+      "Trigger: incidental polyp; Octreoscan/68Ga-DOTATATE avid lesion; elevated CgA/5-HIAA."
+    ],
+    micro: [
+      "Organoid/insular/trabecular/acinar architecture; uniform round-to-oval nuclei; finely stippled 'salt-and-pepper' chromatin; inconspicuous nucleoli; amphophilic cytoplasm.",
+      "Mitoses rare (G1); moderate (G2); no/minimal necrosis. Rosette formation in some sites.",
+      "Ki67 MIB-1 index mandatory — count 500-2000 cells in hotspot; grade determines prognosis and treatment."
+    ],
+    ihcPos: ["Synaptophysin – diffuse strong", "Chromogranin A – diffuse (site-dependent; may be weaker in rectal L-cell NETs)", "INSM1 – diffuse nuclear (most sensitive pan-NE marker)", "CD56 – variable", "CDX2 – midgut NETs", "TTF1 – rectal NETs (~70%)", "Somatostatin receptor 2 (SSTR2) – most GI NETs"],
+    ihcNeg: ["p53 – wild-type pattern (not mutant)", "Rb – retained", "CK7 – usually negative in midgut NETs", "Ki67 <20% (G1 <3%, G2 3-20%)"],
+    differentials: [
+      { dx: "Well-differentiated NET G3", disc: "Ki67 >20%; morphologically WD (organoid retained); RB/TP53 intact; same IHC" },
+      { dx: "Poorly differentiated NEC (Small Cell)", disc: "Ki67 typically >80%; nuclear moulding; crush artefact; Azzopardi effect; p53 mutant; Rb lost" },
+      { dx: "Glomus Tumour (GI)", disc: "SMA+, Collagen IV pericellular; Synaptophysin/CgA−; no salt-and-pepper chromatin" },
+      { dx: "Goblet Cell Adenocarcinoma", disc: "Goblet/mucinous component; amphicrine; CgA weak/variable; appendix only" }
+    ],
+    comments: [
+      "Staging: TNM8 site-specific staging applies (different for stomach/duodenum/jejunoileum/appendix/colorectum).",
+      "Somatostatin analogues (octreotide LAR, lanreotide): antisecretory + antiproliferative for SSTR2+ G1/G2.",
+      "PRRT (177Lu-DOTATATE): SSTR2+ progressive G1/G2 (NETTER-1 trial); landmark therapy.",
+      "Everolimus (mTOR inhibitor): non-pancreatic GI NETs G1/G2 (RADIANT-4).",
+      "Surgical resection primary for localised; liver debulking/ablation/TACE for hepatic mets.",
+      "MEN1 association: duodenal gastrinomas, pancreatic NETs, parathyroid, pituitary. Test all duodenal NETs for germline MEN1.",
+      "DAXX/ATRX mutations: alternative lengthening of telomeres (ALT) — worse prognosis even in G1/G2 (mainly pancreatic).",
+      "Chromogranin A: best serum marker but elevated in PPI use, renal failure, atrophic gastritis — interpret with caution.",
+      "5-HIAA: urinary 24hr; midgut serotonin-producing NETs; avoid serotonin-rich foods 48h before test."
+    ]
+  },
+  {
+    id: "net-g3-001",
+    name: "WELL-DIFFERENTIATED NET G3 (GI)",
+    subspecialty: "LGI / UGI",
+    category: "Neuroendocrine",
+    pattern: "Neuroendocrine",
+    behaviour: "Malignant",
+    clinical: [
+      "WHO 2019/2022: Ki67 >20% BUT morphologically well-differentiated (organoid architecture retained). NOT the same as NEC.",
+      "Critical distinction from NEC: different molecular landscape, different prognosis, different treatment.",
+      "Most described in pancreas; GI NET G3 less common but recognised.",
+      "Present with metastatic disease; aggressive course but better prognosis than NEC.",
+      "Trigger: high Ki67 on biopsy of morphologically well-differentiated NET — requires full assessment before NEC treatment."
+    ],
+    micro: [
+      "Organoid/trabecular/insular architecture retained (same as G1/G2); uniform nuclei; salt-and-pepper chromatin.",
+      "Ki67 >20% (often 20-50%; rarely >80%); increased mitoses.",
+      "No nuclear moulding, no crush artefact, no Azzopardi effect — these features favour NEC."
+    ],
+    ihcPos: ["Synaptophysin – diffuse", "Chromogranin A – diffuse (retained, unlike NEC where may be weak)", "INSM1 – diffuse", "SSTR2 – often retained (unlike NEC)", "Rb – retained", "p53 – wild-type pattern"],
+    ihcNeg: ["p53 – NOT mutant pattern (key distinction from NEC)", "Rb – NOT lost (key distinction from NEC)", "Ki67 cutoff distinguishes from G2 (>20%) but no upper limit in WD NET G3"],
+    differentials: [
+      { dx: "Poorly differentiated NEC (Large Cell)", disc: "p53 mutant; Rb lost; no organoid architecture; necrosis; Ki67 typically >80%; SSTR2 negative/weak" },
+      { dx: "Well-differentiated NET G2", disc: "Ki67 3-20%; same morphology; grade distinction only — biopsy sampling can undergrade" },
+      { dx: "Metastatic well-differentiated NET from pancreas", disc: "PDX1+, ISL1+; clinical/radiological correlation; pancreatic primaries more often DAXX/ATRX mutant" }
+    ],
+    comments: [
+      "Molecular: MEN1, DAXX, ATRX mutations — same as G1/G2, distinct from NEC (TP53, RB1).",
+      "SSTR2 often retained → 68Ga-DOTATATE PET avid; PRRT potentially applicable.",
+      "Do NOT treat as NEC (platinum/etoposide) without molecular confirmation — worse outcomes.",
+      "Ki67 heterogeneity: biopsy may undergrade; resection Ki67 is more reliable.",
+      "Prognosis better than NEC even with same Ki67 >20%; 5-year OS ~40-50% vs <15% for NEC.",
+      "ENETS/WHO recommend molecular profiling (MEN1, DAXX, ATRX, TP53, RB1) for all G3 NEN to classify correctly.",
+      "ALT (alternative lengthening of telomeres): DAXX/ATRX loss → ALT+ by FISH — poor prognosis marker."
+    ]
+  },
+  {
+    id: "nec-sc-001",
+    name: "POORLY DIFFERENTIATED NEC — SMALL CELL TYPE (GI)",
+    subspecialty: "LGI / UGI",
+    category: "Neuroendocrine",
+    pattern: "Neuroendocrine",
+    behaviour: "Malignant",
+    clinical: [
+      "Aggressive, high-grade malignancy. Ki67 >20% (typically >80%).",
+      "Oesophagus and colorectum most common GI sites; any GI site possible.",
+      "Adults; older age group. No sex predilection.",
+      "Often presents with advanced/metastatic disease; rapid progression.",
+      "De novo or arising in adenoma/adenocarcinoma (mixed lesions).",
+      "Trigger: rapidly progressive GI malignancy; FDG-avid on PET (unlike WD NET)."
+    ],
+    micro: [
+      "Small cells with scant cytoplasm; high N:C ratio; nuclear moulding — cells mould to each other.",
+      "Crush artefact on biopsy — characteristic (fragile cells); Azzopardi effect (DNA encrustation of vessel walls).",
+      "Geographic necrosis; extremely high mitotic rate; apoptotic bodies. No organoid architecture."
+    ],
+    ihcPos: ["Synaptophysin – diffuse (most reliable in SC-NEC)", "CD56 – diffuse", "INSM1 – diffuse nuclear", "TTF1 – ~50% of GI SC-NEC (do not interpret as lung primary without clinical context)", "CK – dot-like/paranuclear pattern", "p53 – mutant pattern (strong diffuse or complete loss)", "Ki67 – typically >80%"],
+    ihcNeg: ["Chromogranin A – weak/negative (less reliable than in WD NET)", "Rb – lost (complete absence)", "SSTR2 – negative or weak", "CK7/CK20 – variable; not site-specific"],
+    differentials: [
+      { dx: "Well-differentiated NET G3", disc: "Organoid architecture retained; p53 wild-type; Rb retained; SSTR2+; CgA diffuse; Ki67 usually 20-50%" },
+      { dx: "Poorly differentiated NEC Large Cell", disc: "Larger cells; more cytoplasm; prominent nucleoli; vesicular nuclei; same molecular profile" },
+      { dx: "Lymphoma (small cell/mantle cell)", disc: "LCA+, PAX5+, CD20+; Synaptophysin/CgA−; no crush artefact pattern" },
+      { dx: "Merkel Cell Carcinoma (metastatic)", disc: "CK20 paranuclear dot+; TTF1−; Merkel cell polyomavirus IHC (CM2B4)" }
+    ],
+    comments: [
+      "Molecular: TP53 (>90%), RB1 loss — shared with pulmonary SCLC. MEN1/DAXX/ATRX wild-type (distinguishes from WD NET).",
+      "Treatment: platinum/etoposide (cisplatin or carboplatin + etoposide) — same as pulmonary SCLC.",
+      "SSTR2 negative → PRRT not applicable; 68Ga-DOTATATE usually negative.",
+      "FDG-PET positive (high metabolic activity) — use for staging, not DOTATATE.",
+      "Prognosis dismal: median OS ~12 months; 5-year OS <5%.",
+      "Second-line: FOLFIRI or temozolomide-based; no established standard.",
+      "Immunotherapy (PD-L1/TMB): limited data; TMB usually low in GI NEC.",
+      "If morphology WD but Ki67 >20%: always check p53/Rb IHC before committing to NEC treatment — reclassify as NET G3 if intact."
+    ]
+  },
+  {
+    id: "nec-lc-001",
+    name: "POORLY DIFFERENTIATED NEC — LARGE CELL TYPE (GI)",
+    subspecialty: "LGI / UGI",
+    category: "Neuroendocrine",
+    pattern: "Neuroendocrine",
+    behaviour: "Malignant",
+    clinical: [
+      "High-grade poorly differentiated NEC; Ki67 >20% (typically >60-80%).",
+      "Less common than SC-NEC in GI tract; oesophagus, stomach, colorectum.",
+      "Adults; aggressive presentation, often metastatic at diagnosis.",
+      "Clinically and molecularly indistinguishable from SC-NEC — treatment identical.",
+      "Trigger: large cell malignancy with NE markers; high Ki67; aggressive course."
+    ],
+    micro: [
+      "Large cells with moderate cytoplasm; prominent nucleoli; vesicular chromatin — distinct from small cell.",
+      "Organoid/nested/sheet-like growth; no salt-and-pepper chromatin; no moulding.",
+      "Geographic necrosis; high mitotic rate; atypical mitoses; apoptosis."
+    ],
+    ihcPos: ["Synaptophysin – diffuse", "Chromogranin A – variable (more often positive than in SC-NEC)", "INSM1 – diffuse nuclear", "CD56 – variable", "CK – diffuse (more diffuse than SC-NEC)", "p53 – mutant pattern", "Ki67 – typically >60%"],
+    ihcNeg: ["Rb – lost", "SSTR2 – negative/weak", "TTF1 – less common than SC-NEC"],
+    differentials: [
+      { dx: "Poorly differentiated NEC Small Cell", disc: "Smaller cells; nuclear moulding; crush artefact; Azzopardi; TTF1 more common; same molecular/treatment" },
+      { dx: "Well-differentiated NET G3", disc: "Organoid architecture; p53 wild-type; Rb retained; SSTR2+; CgA diffuse; better prognosis" },
+      { dx: "Undifferentiated carcinoma / MANEC", disc: "CK diffuse; NE markers absent or focal; no neuroendocrine architecture" },
+      { dx: "Metastatic large cell NEC from lung", disc: "TTF1+ favours lung; clinical/radiological correlation; molecular overlap" }
+    ],
+    comments: [
+      "Molecular profile identical to SC-NEC: TP53, RB1 loss; MEN1/DAXX/ATRX wild-type.",
+      "Treatment: same as SC-NEC — platinum/etoposide doublet.",
+      "Prognosis equally poor to SC-NEC; subtype distinction has no current treatment implications.",
+      "WHO 2022 retains SC vs LC subtype distinction for morphological classification but emphasises molecular identity.",
+      "FDG-PET positive; DOTATATE negative. Use FDG-PET for staging.",
+      "MANEC (Mixed Adenoneuroendocrine Carcinoma) — older term; replaced by MiNEN (WHO 2022).",
+      "If any morphologically WD component present: classify as MiNEN, not pure NEC."
+    ]
+  },
+  {
+    id: "minen-001",
+    name: "MIXED NEUROENDOCRINE–NON-NEUROENDOCRINE NEOPLASM (MiNEN)",
+    subspecialty: "LGI / UGI",
+    category: "Neuroendocrine",
+    pattern: "Mixed",
+    behaviour: "Malignant",
+    clinical: [
+      "WHO 2022: each component (NE and non-NE) must comprise ≥30% of tumour volume — the defining threshold.",
+      "Most common combination: colorectal-type adenocarcinoma + SC-NEC or LC-NEC.",
+      "Also: gastric, oesophageal, pancreatic, biliary — any GI site.",
+      "Replaces MANEC (Mixed Adenoneuroendocrine Carcinoma) — broader term; NE component can be WD NET or PD NEC.",
+      "Clinical behaviour driven by highest-grade component — usually the NEC.",
+      "Trigger: GI malignancy with morphologically distinct NE and glandular/squamous areas."
+    ],
+    micro: [
+      "Two morphologically distinct components: NE component (organoid/solid NE architecture) AND non-NE component (glandular/mucinous/squamous/undifferentiated) — each ≥30%.",
+      "Components may be intermingled or geographically distinct; interface often abrupt.",
+      "Each component assessed separately: grade NEC component (SC vs LC); grade/stage adenocarcinoma component independently."
+    ],
+    ihcPos: ["NE component: Synaptophysin+, Chromogranin A+, INSM1+", "Non-NE component: CK7/CK20/CDX2 per site and lineage", "p53 – often mutant in NEC component", "Ki67 – high in NEC component (>20%); lower in WD NET component if present"],
+    ihcNeg: ["Rb – lost in NEC component", "SSTR2 – negative in NEC component"],
+    differentials: [
+      { dx: "Goblet Cell Adenocarcinoma", disc: "Amphicrine (admixed NE + mucinous cells in same units); appendix; each component NOT ≥30% discrete; no MiNEN threshold" },
+      { dx: "Poorly differentiated NEC with entrapped benign glands", disc: "Entrapped glands non-neoplastic; glandular component <30%; single neoplastic process" },
+      { dx: "Collision tumour", disc: "Two independent tumours at same site; distinct from true mixed neoplasm arising from common progenitor" }
+    ],
+    comments: [
+      "Common clonal origin: both components share early molecular alterations (APC, KRAS) — arising from same progenitor, not collision.",
+      "Staging: by highest pT/pN/pM across both components.",
+      "Treatment: address both components. Platinum/etoposide for NEC component; FOLFOX/FOLFIRI for adenocarcinoma component. Sequential or concurrent.",
+      "Prognosis: determined by NEC component — poor. Median OS ~12-18 months.",
+      "Biopsy undersampling risk: NE component may be missed; re-biopsy or surgical specimen may be needed.",
+      "NE component can be WD NET (rare MiNEN) — prognosis better than those with NEC component.",
+      "Report as: 'MiNEN comprising [adenocarcinoma, % grade] and [SC-NEC/LC-NEC/NET G?, %]'."
+    ]
+  },
+  {
+    id: "met-mucin-001",
+    name: "METASTATIC MUCINOUS / SIGNET RING CELL ADENOCARCINOMA",
+    subspecialty: "LGI",
+    category: "Appendiceal",
+    pattern: "Mucinous",
+    behaviour: "Malignant",
+    clinical: [
+      "Diagnostic context: appendiceal peritoneal mucinous disease (PMP) or appendiceal mass — must distinguish primary appendiceal vs metastatic mucinous adenocarcinoma from colorectum, stomach, ovary, or pancreas.",
+      "Clinical red flags for metastasis: bilateral ovarian involvement, upper GI primary, known synchronous colorectal cancer, no appendiceal mass.",
+      "Peritoneal signet ring disease: gastric (Lauren diffuse type) most common primary — CDH1 germline mutation in hereditary diffuse gastric cancer (HDGC).",
+      "Krukenberg tumour: bilateral ovarian mets, usually from gastric signet ring primary."
+    ],
+    micro: [
+      "Mucinous: pools of mucin with neoplastic epithelium; infiltrative invasion and desmoplasia distinguish from LAMN/HAMN — key discriminator.",
+      "Signet ring: single cells with intracytoplasmic mucin displacing nucleus; desmoplastic stroma; no organoid architecture.",
+      "Infiltrative invasion pattern (irregular glands, single cells, perineural/lymphovascular invasion) absent in LAMN/HAMN — use this to reclassify."
+    ],
+    ihcPos: ["CK20 + CDX2 + SATB2: colorectal primary", "CK7 + CK20 (variable) + MUC5AC: gastric or pancreatobiliary primary", "CK7 + WT1 + PAX8: ovarian primary (high-grade serous)", "CK7 + CK20 (variable) + CDX2 (variable): appendiceal primary — overlaps with colorectal"],
+    ihcNeg: ["SATB2 – negative in gastric/ovarian primaries (useful colorectal/appendiceal marker)", "WT1/PAX8 – negative in colorectal and gastric primaries"],
+    differentials: [
+      { dx: "LAMN", disc: "Pushing invasion; obliterated muscularis mucosae; low-grade cytology; no desmoplasia; no infiltrative growth" },
+      { dx: "HAMN", disc: "Pushing invasion only; high-grade cytology; no infiltrative glands or single cells" },
+      { dx: "Primary appendiceal mucinous adenocarcinoma", disc: "CK20+/CDX2+/SATB2+; appendiceal mass; infiltrative invasion; clinical context" },
+      { dx: "Goblet Cell Adenocarcinoma", disc: "Amphicrine; NE markers focal+; LG architectural component; appendix only" }
+    ],
+    comments: [
+      "CK7/CK20 panel: colorectal = CK7−/CK20+; gastric signet ring = CK7+/CK20−; ovarian mucinous = CK7+/CK20 variable; appendiceal = CK7−/CK20+/CDX2+ (overlaps colorectal).",
+      "SATB2: sensitive and specific for colorectal/appendiceal origin; negative in upper GI, ovary, lung.",
+      "WT1 + PAX8: high-grade serous ovarian carcinoma (mucinous ovarian rarely WT1+).",
+      "MUC5AC: gastric foveolar-type marker; retained in gastric and pancreatobiliary mucinous carcinomas.",
+      "CDH1: E-cadherin loss (loss of membranous staining) in signet ring cells — germline CDH1 in HDGC. Refer to genetics.",
+      "PMP grading (DPAM vs PMCA / WHO G1-G3): acellular mucin (G1, best prognosis), mucinous carcinoma peritonei (G2/G3).",
+      "Treatment for peritoneal disease: CRS + HIPEC. Systemic chemotherapy for systemic mets (FOLFOX/FOLFIRI ± targeted therapy per molecular profile).",
+      "KRAS/BRAF/NRAS/MSI testing on primary for systemic therapy selection."
     ]
   }
 ];
