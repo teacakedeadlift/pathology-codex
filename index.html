@@ -908,6 +908,61 @@
   }
   .ihc-marker-title p { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
+
+  /* ── Cytology ─────────────────────────────────────────── */
+  .badge-spec { background: #e0f2fe; color: #0369a1; }
+  .badge-rep  { background: #fdf4ff; color: #7e22ce; }
+  .pitfalls-block {
+    background: #fff7ed; border: 1px solid #fed7aa;
+    border-radius: 7px; padding: 12px 14px; margin-bottom: 14px;
+  }
+  .pitfalls-block .section-title { color: #c2410c; }
+  .pitfalls-block ul { padding-left: 18px; }
+  .pitfalls-block li { font-size: 12.5px; color: #44403c; line-height: 1.55; margin-bottom: 3px; }
+  .histo-link-block {
+    margin-top: 12px; padding: 10px 14px;
+    background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 7px;
+  }
+  .cyto-link-block {
+    margin-top: 12px; padding: 10px 14px;
+    background: #fdf4ff; border: 1px solid #e9d5ff; border-radius: 7px;
+  }
+  .histo-link-block .section-title { color: #15803d; margin-bottom: 8px; }
+  .cyto-link-block .section-title  { color: #7e22ce; margin-bottom: 8px; }
+  .histo-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+    background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0;
+  }
+  .histo-chip:hover { background: #15803d; color: #fff; }
+  .cyto-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+    background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff;
+  }
+  .cyto-chip:hover { background: #7e22ce; color: #fff; }
+  .type-toggle { display: flex; margin-bottom: 20px; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+  .type-toggle-btn { flex: 1; padding: 10px; border: none; background: #f8fafc; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .type-toggle-btn.active { background: var(--navy); color: #fff; }
+  #cyto-sidebar {
+    width: var(--sidebar-w); background: var(--navy);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    overflow-y: auto; flex-shrink: 0; padding: 16px 0; display: none;
+  }
+  #cyto-sidebar::-webkit-scrollbar { width: 4px; }
+  #cyto-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+  #cyto-main { flex: 1; overflow-y: auto; padding: 20px; display: none; }
+  #cyto-main::-webkit-scrollbar { width: 6px; }
+  #cyto-main::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  .ihc-group-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--muted); padding: 8px 6px 2px; margin-top: 6px;
+    border-top: 1px solid #f1f5f9;
+  }
+  .ihc-group-label:first-child { border-top: none; margin-top: 0; padding-top: 2px; }
+
   /* ── Mobile hamburger ─────────────────────────────────── */
   #hamburger {
     display: none;
@@ -979,7 +1034,8 @@
 
 <!-- Tab bar -->
 <div id="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('entities', this)">📋 Entities</button>
+  <button class="tab-btn active" onclick="switchTab('entities', this)">📋 Histology</button>
+  <button class="tab-btn" onclick="switchTab('cytology', this)">🧫 Cytology</button>
   <button class="tab-btn" onclick="switchTab('ihc', this)">🔬 IHC Explorer</button>
 </div>
 <input type="file" id="import-input" accept=".json" onchange="importData(event)">
@@ -1044,6 +1100,42 @@
     </div>
   </div>
 
+
+  <!-- Cytology sidebar -->
+  <div id="cyto-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Filter</div>
+      <button class="filter-tag active" data-cyto-filter="all" onclick="setCytoFilter('all',this)">
+        All Cytology <span class="count" id="cyto-count-all">0</span>
+      </button>
+    </div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Specimen Type</div>
+      <div id="spec-filters"></div>
+    </div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Reporting System</div>
+      <div id="repsys-filters"></div>
+    </div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Behaviour</div>
+      <div id="cyto-beh-filters"></div>
+    </div>
+  </div>
+
+  <!-- Cytology main -->
+  <div id="cyto-main">
+    <div id="cyto-results-info"></div>
+    <div id="cyto-entity-list"></div>
+    <div id="cyto-empty" style="text-align:center;padding:60px 20px;color:var(--muted);display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:0.3;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p style="font-size:15px">No cytology entities yet. Add one with + Add Entity.</p>
+    </div>
+  </div>
+
   <!-- IHC Explorer panel -->
   <div id="ihc-panel">
     <div class="ihc-search-wrap">
@@ -1065,6 +1157,11 @@
       <button class="modal-close" onclick="closeModal()">×</button>
     </div>
     <div class="modal-body">
+      <div class="type-toggle">
+        <button class="type-toggle-btn active" id="type-histo-btn" onclick="setEntityType('histology')">📋 Histology</button>
+        <button class="type-toggle-btn" id="type-cyto-btn" onclick="setEntityType('cytology')">🧫 Cytology</button>
+      </div>
+      <input type="hidden" id="f-type" value="histology">
       <div class="form-row-2">
         <div class="form-row" style="margin:0">
           <label>Entity Name</label>
@@ -1093,17 +1190,70 @@
         </div>
       </div>
       <br>
-      <div class="form-row">
-        <label>Pattern <span class="hint">— histological reaction pattern for grouping (e.g. Lichenoid, Nephritic, Cholestatic, Spongiotic, Interface…)</span></label>
-        <input type="text" id="f-pat" placeholder="e.g. Lichenoid interface dermatitis">
+      <div id="histo-fields">
+        <div class="form-row">
+          <label>Pattern <span class="hint">— histological reaction pattern for grouping</span></label>
+          <input type="text" id="f-pat" placeholder="e.g. Spindle cell, Nephrotic, Lichenoid">
+        </div>
+        <div class="form-row">
+          <label>Clinical Context <span class="hint">— one point per line</span></label>
+          <textarea id="f-clin" placeholder="Age / sex predilection&#10;Site(s)&#10;Presentation / trigger phrases&#10;Syndromic associations"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Key Microscopic Features <span class="hint">— one per line (aim for 3)</span></label>
+          <textarea id="f-micro" placeholder="Low-power architecture&#10;High-power cytology&#10;Characteristic feature"></textarea>
+        </div>
       </div>
-      <div class="form-row">
-        <label>Clinical Context <span class="hint">— one point per line</span></label>
-        <textarea id="f-clin" placeholder="Age / sex predilection&#10;Site(s)&#10;Presentation / trigger phrases&#10;Syndromic associations"></textarea>
-      </div>
-      <div class="form-row">
-        <label>Key Microscopic Features <span class="hint">— one per line (aim for 3)</span></label>
-        <textarea id="f-micro" placeholder="Low-power architecture&#10;High-power cytology&#10;Characteristic feature"></textarea>
+      <div id="cyto-fields" style="display:none">
+        <div class="form-row-2">
+          <div class="form-row" style="margin:0">
+            <label>Specimen Type</label>
+            <select id="f-spec">
+              <option value="">— Select —</option>
+              <option>FNA</option><option>Effusion</option><option>Urine</option>
+              <option>CSF</option><option>Sputum</option><option>Brushings</option>
+              <option>LBC</option><option>Bile duct</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-row" style="margin:0">
+            <label>Reporting System</label>
+            <select id="f-repsys">
+              <option value="">— Select —</option>
+              <option value="RCPath Thyroid">RCPath Thyroid (Thy1–5)</option>
+              <option value="Milan (Salivary)">Milan (Salivary)</option>
+              <option value="Paris (Urine)">Paris (Urine)</option>
+              <option value="IAC Harrogate (Effusion)">IAC Harrogate (Effusion)</option>
+              <option value="Descriptive">Descriptive</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="form-row">
+          <label>Reporting Category <span class="hint">— e.g. Thy3a, Paris SHGUC, Milan 4b</span></label>
+          <input type="text" id="f-repcat" placeholder="e.g. Thy3a — Neoplasm possible, follicular">
+        </div>
+        <div class="form-row">
+          <label>Adequacy Criteria <span class="hint">— one point per line</span></label>
+          <textarea id="f-adequacy" placeholder="Minimum cellularity&#10;Technical quality criteria&#10;Reporting when inadequate"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Cytological Features <span class="hint">— one per line: arrangement, nuclear, cytoplasmic, background</span></label>
+          <textarea id="f-cytofeatures" placeholder="Cellularity and arrangement&#10;Nuclear features (size, N:C, chromatin, nucleoli)&#10;Cytoplasmic features&#10;Background (colloid, necrosis, inflammation, etc.)"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Pitfalls <span class="hint">— cytology-specific mimics and traps, one per line</span></label>
+          <textarea id="f-pitfalls" placeholder="Preparation/fixation artefacts&#10;Sampling pitfalls&#10;Morphological mimics in cytological prep"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Linked Histology Entity <span class="hint">— corresponding histology card</span></label>
+          <div class="tag-picker-wrap" id="histolink-picker-wrap" onclick="document.getElementById('histolink-input').focus()">
+            <div id="histolink-chips"></div>
+            <input type="text" id="histolink-input" class="tag-picker-input" placeholder="Search histology entities…"
+              oninput="histolinkSearch()" onkeydown="histolinkKeydown(event)" autocomplete="off">
+            <div class="tag-dropdown" id="histolink-dropdown"></div>
+          </div>
+          <input type="hidden" id="f-histolink">
+        </div>
       </div>
       <div class="form-row-2">
         <div class="form-row" style="margin:0">
@@ -1123,6 +1273,16 @@
       <div class="form-row">
         <label>Comments — Molecular / Risk / Management <span class="hint">— one point per line</span></label>
         <textarea id="f-comm" style="min-height:120px" placeholder="KIT exon 11 deletion – best imatinib response&#10;SDH-deficient: young adults, lymph node mets possible&#10;NACT: imatinib pre-op to downsize&#10;ACT: adjuvant imatinib 3 years for high-risk"></textarea>
+      </div>
+      <div class="form-row" id="cytolink-row" style="display:none">
+        <label>Linked Cytology Entity <span class="hint">— corresponding cytology card (histology tab only)</span></label>
+        <div class="tag-picker-wrap" id="cytolink-picker-wrap" onclick="document.getElementById('cytolink-input').focus()">
+          <div id="cytolink-chips"></div>
+          <input type="text" id="cytolink-input" class="tag-picker-input" placeholder="Search cytology entities…"
+            oninput="cytolinkSearch()" onkeydown="cytolinkKeydown(event)" autocomplete="off">
+          <div class="tag-dropdown" id="cytolink-dropdown"></div>
+        </div>
+        <input type="hidden" id="f-cytolink">
       </div>
       <div class="form-row">
         <label>Related Entities <span class="hint">— type to search and select; links by ID, no ambiguity</span></label>
@@ -1152,9 +1312,6 @@
 <div id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════════
-// ENTITY DATA — edit this array to add/modify entities permanently
-// ═══════════════════════════════════════════════════════════════════════════
 const SEED_DATA = [
   {
     id: "gist-001",
@@ -1601,9 +1758,9 @@ const SEED_DATA = [
       "Molecular: KRAS; TP53 in HG; different from conventional NET (no MEN1/DAXX/ATRX)."
     ]
   },
- 
+
   // ═══════════════════ NEUROENDOCRINE ENTITIES ═══════════════════
- 
+
   {
     id: "net-g1g2-001",
     name: "WELL-DIFFERENTIATED NET G1/G2 (GI)",
@@ -1831,19 +1988,19 @@ const SEED_DATA = [
   }
 ];
 
+
 // ═══════════════════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════════════════
-const STORAGE_KEY = 'pathcodex_entities_v1';
-const SUBS_KEY = 'pathcodex_subspecialties_v1';
-const DELETED_KEY = 'pathcodex_deleted_v1';
+const STORAGE_KEY  = 'pathcodex_entities_v1';
+const SUBS_KEY     = 'pathcodex_subspecialties_v1';
+const DELETED_KEY  = 'pathcodex_deleted_v1';
 
 function getDeletedIds() {
   try { return new Set(JSON.parse(localStorage.getItem(DELETED_KEY) || '[]')); } catch { return new Set(); }
 }
 function addDeletedId(id) {
-  const ids = getDeletedIds();
-  ids.add(id);
+  const ids = getDeletedIds(); ids.add(id);
   localStorage.setItem(DELETED_KEY, JSON.stringify([...ids]));
 }
 
@@ -1853,10 +2010,13 @@ const BASE_SUBSPECIALTIES = [
   "Head & Neck","Breast","Soft Tissue / Bone","Urological"
 ];
 
-let activeFilter = 'all';
-let searchTerm = '';
-let editingId = null;
+let activeFilter    = 'all';
+let cytoActiveFilter = 'all';
+let searchTerm      = '';
+let editingId       = null;
+let currentTab      = 'entities';
 
+// ── Entity accessors ────────────────────────────────────────────────────────
 function getCustomEntities() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
 }
@@ -1864,18 +2024,24 @@ function getCustomSubs() {
   try { return JSON.parse(localStorage.getItem(SUBS_KEY) || '[]'); } catch { return []; }
 }
 function getAllEntities() {
-  const custom = getCustomEntities();
+  const custom   = getCustomEntities();
   const customIds = new Set(custom.map(e => e.id));
-  const deleted = getDeletedIds();
-  return [...SEED_DATA.filter(e => !customIds.has(e.id) && !deleted.has(e.id)), ...custom.filter(e => !deleted.has(e.id))];
+  const deleted  = getDeletedIds();
+  const seed     = SEED_DATA.map(e => ({ type: 'histology', ...e }));
+  return [
+    ...seed.filter(e => !customIds.has(e.id) && !deleted.has(e.id)),
+    ...custom.filter(e => !deleted.has(e.id))
+  ];
 }
+function getHistoEntities() { return getAllEntities().filter(e => (e.type || 'histology') === 'histology'); }
+function getCytoEntities()  { return getAllEntities().filter(e => e.type === 'cytology'); }
 function getAllSubspecialties() {
   const all = [...new Set([...BASE_SUBSPECIALTIES, ...getAllEntities().map(e => e.subspecialty), ...getCustomSubs()])];
   return all.filter(Boolean).sort();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// RENDER
+// HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
 function hl(text) {
   if (!searchTerm) return escHtml(text);
@@ -1885,232 +2051,288 @@ function hl(text) {
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function matchesSearch(e) {
   if (!searchTerm) return true;
   const q = searchTerm.toLowerCase();
   const hay = [
-    e.name, e.subspecialty, e.category, e.pattern||'',
+    e.name, e.subspecialty, e.category||'', e.pattern||'',
+    e.specimenType||'', e.reportingSystem||'', e.reportingCategory||'',
     ...(e.clinical||[]), ...(e.micro||[]),
+    ...(e.cytologicalFeatures||[]), ...(e.adequacy||[]), ...(e.pitfalls||[]),
     ...(e.ihcPos||[]), ...(e.ihcNeg||[]),
     ...(e.differentials||[]).map(d => d.dx + ' ' + d.disc),
-    ...(e.comments||[]),
-    ...(e.related||[])
+    ...(e.comments||[])
   ].join(' ').toLowerCase();
   return hay.includes(q);
 }
 function matchesFilter(e) {
   if (activeFilter === 'all') return true;
-  const type = activeFilter.split(':')[0];
-  const val = activeFilter.split(':').slice(1).join(':');
+  const [type, ...rest] = activeFilter.split(':');
+  const val = rest.join(':');
   if (type === 'sub') return e.subspecialty === val;
   if (type === 'beh') return e.behaviour === val;
   if (type === 'cat') return e.category === val;
   if (type === 'pat') return e.pattern === val;
   return true;
 }
+function matchesCytoFilter(e) {
+  if (cytoActiveFilter === 'all') return true;
+  const [type, ...rest] = cytoActiveFilter.split(':');
+  const val = rest.join(':');
+  if (type === 'spec') return e.specimenType === val;
+  if (type === 'rep')  return e.reportingSystem === val;
+  if (type === 'beh')  return e.behaviour === val;
+  return true;
+}
 
+// ═══════════════════════════════════════════════════════════════════════════
+// RENDER — HISTOLOGY
+// ═══════════════════════════════════════════════════════════════════════════
 function render() {
-  const entities = getAllEntities().filter(e => matchesFilter(e) && matchesSearch(e));
-  const list = document.getElementById('entity-list');
+  const entities = getHistoEntities().filter(e => matchesFilter(e) && matchesSearch(e));
+  const list  = document.getElementById('entity-list');
   const empty = document.getElementById('empty');
-  const info = document.getElementById('results-info');
+  const info  = document.getElementById('results-info');
+  const allH  = getHistoEntities();
 
-  const all = getAllEntities();
-  info.textContent = entities.length === all.length
-    ? `${all.length} ${all.length === 1 ? 'entity' : 'entities'}`
-    : `${entities.length} of ${all.length} entities`;
+  info.textContent = entities.length === allH.length
+    ? `${allH.length} ${allH.length === 1 ? 'entity' : 'entities'}`
+    : `${entities.length} of ${allH.length} entities`;
 
-  if (entities.length === 0) {
-    list.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
-
-  list.innerHTML = entities.map(e => {
-    const bClass = e.behaviour === 'Benign' ? 'badge-ben' : e.behaviour === 'Malignant' ? 'badge-mal' : e.behaviour === 'Intermediate' ? 'badge-int' : 'badge-cat';
-    const isCustom = getCustomEntities().some(c => c.id === e.id);
-
-    // Related entities — resolve by ID first, then fuzzy name
-    const allE = getAllEntities();
-
-    // ── Link resolution helpers ──────────────────────────
-    function resolveLinks(names) {
-      // returns array of {label, matches:[entity,...]}
-      return names.map(n => {
-        // n may be an id (stored by tag picker) or a name string
-        const byId = allE.find(x => x.id === n);
-        if (byId) return { label: byId.name, matches: [byId] };
-        // fuzzy name match — return ALL matches
-        const q = n.toLowerCase();
-        const found = allE.filter(x =>
-          x.id !== e.id &&
-          (x.name.toLowerCase().includes(q) || q.includes(x.name.toLowerCase().substring(0, 10)))
-        );
-        return { label: n, matches: found };
-      });
-    }
-
-    const relatedNames = [...new Set([
-      ...(e.related||[]),
-      ...(e.differentials||[]).map(d => d.dx)
-    ])].filter(n => n && n.toLowerCase() !== e.name.toLowerCase());
-
-    const relatedHtml = (() => {
-      if (!relatedNames.length) return '';
-      const resolved = resolveLinks(relatedNames);
-      const chips = resolved.map(({label, matches}) => {
-        if (matches.length === 1) {
-          return `<span class="related-chip" onclick="jumpTo('${matches[0].id}')" title="${escHtml(matches[0].name)}">↗ ${escHtml(label)}</span>`;
-        } else if (matches.length > 1) {
-          const idsJson = escHtml(JSON.stringify(matches.map(m => m.id)));
-          return `<span class="related-chip" style="background:#fef9c3;color:#713f12;border-color:#fde047"
-            onclick="showDisambig(event, ${idsJson})" title="Multiple matches — click to choose">⚡ ${escHtml(label)}</span>`;
-        }
-        return `<span class="related-chip unlinked" title="Click to add this entity" onclick="openModal({name:'${escHtml(label)}'})" style="cursor:pointer">+ Add: ${escHtml(label)}</span>`;
-      }).join('');
-      return `<div class="related-block">
-        <div class="section-title">Related / See Also</div>
-        <div class="related-chips">${chips}</div>
-      </div>`;
-    })();
-
-    // Differential jump links — same multi-match logic
-    function diffJumpBtn(dx) {
-      const q = dx.toLowerCase();
-      const found = allE.filter(x =>
-        x.id !== e.id &&
-        (x.name.toLowerCase().includes(q) || q.includes(x.name.toLowerCase().substring(0, 10)))
-      );
-      if (found.length === 1) {
-        return `<span class="diff-link" onclick="event.stopPropagation();jumpTo('${found[0].id}')" title="Jump to ${escHtml(found[0].name)}">↗</span>`;
-      } else if (found.length > 1) {
-        const idsJson = escHtml(JSON.stringify(found.map(m => m.id)));
-        return `<span class="diff-link" style="color:#ca8a04" onclick="event.stopPropagation();showDisambig(event, ${idsJson})" title="Multiple matches">⚡</span>`;
-      }
-      return '';
-    }
-
-    return `<div class="entity-card" id="card-${e.id}">
-      <div class="card-header" onclick="toggleCard('${e.id}')">
-        <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="9,18 15,12 9,6"/>
-        </svg>
-        <div class="card-name">${hl(e.name)}</div>
-        <div class="card-badges">
-          <span class="badge badge-sub">${hl(e.subspecialty)}</span>
-          ${e.category ? `<span class="badge badge-cat">${hl(e.category)}</span>` : ''}
-          ${e.pattern ? `<span class="badge badge-pat">${hl(e.pattern)}</span>` : ''}
-          ${e.behaviour ? `<span class="badge ${bClass}">${e.behaviour}</span>` : ''}
-        </div>
-        <div class="card-preview">${hl((e.clinical||[])[0]||'')}</div>
-        <div class="card-actions" onclick="event.stopPropagation()">
-          <button class="card-action-btn" onclick="editEntity('${e.id}')" title="Edit">✎</button>
-          <button class="card-action-btn" onclick="deleteEntity('${e.id}')" title="Delete">✕</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="section-grid">
-          <div class="section-block">
-            <div class="section-title">Clinical Context</div>
-            <ul>${(e.clinical||[]).map(c=>`<li>${hl(c)}</li>`).join('')}</ul>
-          </div>
-          <div class="section-block">
-            <div class="section-title">Key Microscopic Features</div>
-            <ul>${(e.micro||[]).map(m=>`<li>${hl(m)}</li>`).join('')}</ul>
-          </div>
-        </div>
-        <div class="ihc-grid">
-          <div class="ihc-block ihc-pos">
-            <div class="ihc-title">✚ Positive</div>
-            ${(e.ihcPos||[]).map(p=>`<span class="ihc-marker">${hl(p)}</span>`).join('')}
-          </div>
-          <div class="ihc-block ihc-neg">
-            <div class="ihc-title">✖ Negative (key exclusions)</div>
-            ${(e.ihcNeg||[]).map(n=>`<span class="ihc-marker">${hl(n)}</span>`).join('')}
-          </div>
-        </div>
-        <div class="diffs-block">
-          <div class="section-title" style="margin-bottom:8px">Top Differentials + Discriminators</div>
-          ${(e.differentials||[]).map(d => {
-            return `<div class="diff-item">
-              <span class="diff-vs">${hl(d.dx)}${diffJumpBtn(d.dx)}</span>
-              <span class="diff-discriminator">${hl(d.disc)}</span>
-            </div>`;
-          }).join('')}
-        </div>
-        <div class="comments-block">
-          <div class="section-title">Comments — Molecular / Risk / Management</div>
-          <ul>${(e.comments||[]).map(c=>`<li>${hl(c)}</li>`).join('')}</ul>
-        </div>
-        ${relatedHtml}
-      </div>
-    </div>`;
-  }).join('');
-
+  if (entities.length === 0) { list.innerHTML = ''; empty.style.display = 'block'; }
+  else { empty.style.display = 'none'; list.innerHTML = entities.map(e => renderHistoCard(e)).join(''); }
   renderSidebar();
 }
 
+function renderHistoCard(e) {
+  const bClass = e.behaviour === 'Benign' ? 'badge-ben' : e.behaviour === 'Malignant' ? 'badge-mal' : e.behaviour === 'Intermediate' ? 'badge-int' : 'badge-cat';
+  const allE   = getAllEntities();
+
+  // Cyto link block
+  const cytoLinkHtml = (() => {
+    if (!e.cytoLink) return '';
+    const linked = allE.find(x => x.id === e.cytoLink && x.type === 'cytology');
+    if (!linked) return '';
+    return `<div class="cyto-link-block">
+      <div class="section-title">🧫 Cytology Counterpart</div>
+      <span class="cyto-chip" onclick="goToCytoEntity('${linked.id}')" title="${escHtml(linked.name)}">↗ ${escHtml(linked.name)}</span>
+    </div>`;
+  })();
+
+  // Related chips
+  function resolveLinks(names) {
+    return names.map(n => {
+      const byId = allE.find(x => x.id === n);
+      if (byId) return { label: byId.name, matches: [byId] };
+      const q = n.toLowerCase();
+      const found = allE.filter(x => x.id !== e.id && (x.name.toLowerCase().includes(q) || q.includes(x.name.toLowerCase().substring(0,10))));
+      return { label: n, matches: found };
+    });
+  }
+  const relatedNames = [...new Set([...(e.related||[]), ...(e.differentials||[]).map(d => d.dx)])].filter(n => n && n.toLowerCase() !== e.name.toLowerCase());
+  const relatedHtml = (() => {
+    if (!relatedNames.length) return '';
+    const chips = resolveLinks(relatedNames).map(({label, matches}) => {
+      if (matches.length === 1) return `<span class="related-chip" onclick="jumpTo('${matches[0].id}')" title="${escHtml(matches[0].name)}">↗ ${escHtml(label)}</span>`;
+      if (matches.length > 1) { const idsJson = escHtml(JSON.stringify(matches.map(m => m.id))); return `<span class="related-chip" style="background:#fef9c3;color:#713f12;border-color:#fde047" onclick="showDisambig(event,${idsJson})" title="Multiple matches">⚡ ${escHtml(label)}</span>`; }
+      return `<span class="related-chip unlinked" onclick="openModal({name:'${escHtml(label)}'})" style="cursor:pointer">+ Add: ${escHtml(label)}</span>`;
+    }).join('');
+    return `<div class="related-block"><div class="section-title">Related / See Also</div><div class="related-chips">${chips}</div></div>`;
+  })();
+
+  function diffJumpBtn(dx) {
+    const q = dx.toLowerCase();
+    const found = allE.filter(x => x.id !== e.id && (x.name.toLowerCase().includes(q) || q.includes(x.name.toLowerCase().substring(0,10))));
+    if (found.length === 1) return `<span class="diff-link" onclick="event.stopPropagation();jumpTo('${found[0].id}')" title="Jump to ${escHtml(found[0].name)}">↗</span>`;
+    if (found.length > 1)  { const idsJson = escHtml(JSON.stringify(found.map(m => m.id))); return `<span class="diff-link" style="color:#ca8a04" onclick="event.stopPropagation();showDisambig(event,${idsJson})" title="Multiple matches">⚡</span>`; }
+    return '';
+  }
+
+  return `<div class="entity-card" id="card-${e.id}">
+    <div class="card-header" onclick="toggleCard('${e.id}')">
+      <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg>
+      <div class="card-name">${hl(e.name)}</div>
+      <div class="card-badges">
+        <span class="badge badge-sub">${hl(e.subspecialty)}</span>
+        ${e.category ? `<span class="badge badge-cat">${hl(e.category)}</span>` : ''}
+        ${e.pattern  ? `<span class="badge badge-pat">${hl(e.pattern)}</span>`  : ''}
+        ${e.behaviour? `<span class="badge ${bClass}">${e.behaviour}</span>`     : ''}
+      </div>
+      <div class="card-preview">${hl((e.clinical||[])[0]||'')}</div>
+      <div class="card-actions" onclick="event.stopPropagation()">
+        <button class="card-action-btn" onclick="editEntity('${e.id}')" title="Edit">✎</button>
+        <button class="card-action-btn" onclick="deleteEntity('${e.id}')" title="Delete">✕</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="section-grid">
+        <div class="section-block">
+          <div class="section-title">Clinical Context</div>
+          <ul>${(e.clinical||[]).map(c=>`<li>${hl(c)}</li>`).join('')}</ul>
+        </div>
+        <div class="section-block">
+          <div class="section-title">Key Microscopic Features</div>
+          <ul>${(e.micro||[]).map(m=>`<li>${hl(m)}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="ihc-grid">
+        <div class="ihc-block ihc-pos">
+          <div class="ihc-title">✚ Positive</div>
+          ${(e.ihcPos||[]).map(p=>`<span class="ihc-marker">${hl(p)}</span>`).join('')}
+        </div>
+        <div class="ihc-block ihc-neg">
+          <div class="ihc-title">✖ Negative (key exclusions)</div>
+          ${(e.ihcNeg||[]).map(n=>`<span class="ihc-marker">${hl(n)}</span>`).join('')}
+        </div>
+      </div>
+      <div class="diffs-block">
+        <div class="section-title" style="margin-bottom:8px">Top Differentials + Discriminators</div>
+        ${(e.differentials||[]).map(d=>`<div class="diff-item"><span class="diff-vs">${hl(d.dx)}${diffJumpBtn(d.dx)}</span><span class="diff-discriminator">${hl(d.disc)}</span></div>`).join('')}
+      </div>
+      <div class="comments-block">
+        <div class="section-title">Comments — Molecular / Risk / Management</div>
+        <ul>${(e.comments||[]).map(c=>`<li>${hl(c)}</li>`).join('')}</ul>
+      </div>
+      ${cytoLinkHtml}
+      ${relatedHtml}
+    </div>
+  </div>`;
+}
+
 function renderSidebar() {
-  const all = getAllEntities();
+  const all = getHistoEntities();
   document.getElementById('count-all').textContent = all.length;
-
-  // Subspecialties
-  const subs = {};
-  all.forEach(e => { subs[e.subspecialty] = (subs[e.subspecialty]||0)+1; });
-  const subEl = document.getElementById('subspecialty-filters');
-  subEl.innerHTML = Object.entries(subs).sort((a,b)=>a[0].localeCompare(b[0])).map(([s,n]) =>
-    `<button class="filter-tag ${activeFilter===`sub:${s}`?'active':''}" data-filter="sub:${s}" onclick="setFilter('sub:${s}',this)">
-      ${escHtml(s)} <span class="count">${n}</span>
-    </button>`
-  ).join('');
-
-  // Behaviour
-  const behs = {};
-  all.forEach(e => { if(e.behaviour) behs[e.behaviour] = (behs[e.behaviour]||0)+1; });
-  const behEl = document.getElementById('behaviour-filters');
-  behEl.innerHTML = Object.entries(behs).map(([b,n]) =>
-    `<button class="filter-tag ${activeFilter===`beh:${b}`?'active':''}" data-filter="beh:${b}" onclick="setFilter('beh:${b}',this)">
-      ${escHtml(b)} <span class="count">${n}</span>
-    </button>`
-  ).join('');
-
-  // Category
-  const cats = {};
-  all.forEach(e => { if(e.category) cats[e.category] = (cats[e.category]||0)+1; });
-  const catEl = document.getElementById('category-filters');
-  catEl.innerHTML = Object.entries(cats).sort((a,b)=>a[0].localeCompare(b[0])).map(([c,n]) =>
-    `<button class="filter-tag ${activeFilter===`cat:${c}`?'active':''}" data-filter="cat:${c}" onclick="setFilter('cat:${c}',this)">
-      ${escHtml(c)} <span class="count">${n}</span>
-    </button>`
-  ).join('');
-
-  // Pattern
-  const pats = {};
-  all.forEach(e => { if(e.pattern) pats[e.pattern] = (pats[e.pattern]||0)+1; });
-  const patEl = document.getElementById('pattern-filters');
-  patEl.innerHTML = Object.entries(pats).sort((a,b)=>a[0].localeCompare(b[0])).map(([p,n]) =>
-    `<button class="filter-tag ${activeFilter===`pat:${p}`?'active':''}" data-filter="pat:${p}" onclick="setFilter('pat:${p}',this)">
-      ${escHtml(p)} <span class="count">${n}</span>
-    </button>`
-  ).join('') || '<span style="font-size:11px;color:rgba(255,255,255,0.3);padding:4px">None yet — add a Pattern when creating entities.</span>';
+  const subs = {}, behs = {}, cats = {}, pats = {};
+  all.forEach(e => {
+    subs[e.subspecialty] = (subs[e.subspecialty]||0)+1;
+    if (e.behaviour) behs[e.behaviour] = (behs[e.behaviour]||0)+1;
+    if (e.category)  cats[e.category]  = (cats[e.category]||0)+1;
+    if (e.pattern)   pats[e.pattern]   = (pats[e.pattern]||0)+1;
+  });
+  const mk = (prefix, val, n) => `<button class="filter-tag ${activeFilter===`${prefix}:${val}`?'active':''}" data-filter="${prefix}:${val}" onclick="setFilter('${prefix}:${val}',this)">${escHtml(val)} <span class="count">${n}</span></button>`;
+  document.getElementById('subspecialty-filters').innerHTML = Object.entries(subs).sort((a,b)=>a[0].localeCompare(b[0])).map(([s,n])=>mk('sub',s,n)).join('');
+  document.getElementById('behaviour-filters').innerHTML    = Object.entries(behs).map(([b,n])=>mk('beh',b,n)).join('');
+  document.getElementById('category-filters').innerHTML     = Object.entries(cats).sort((a,b)=>a[0].localeCompare(b[0])).map(([c,n])=>mk('cat',c,n)).join('');
+  document.getElementById('pattern-filters').innerHTML      = Object.entries(pats).sort((a,b)=>a[0].localeCompare(b[0])).map(([p,n])=>mk('pat',p,n)).join('') || '<span style="font-size:11px;color:rgba(255,255,255,0.3);padding:4px">None yet.</span>';
 }
 
-function toggleCard(id) {
-  document.getElementById('card-'+id).classList.toggle('open');
+// ═══════════════════════════════════════════════════════════════════════════
+// RENDER — CYTOLOGY
+// ═══════════════════════════════════════════════════════════════════════════
+function renderCytology() {
+  const entities = getCytoEntities().filter(e => matchesCytoFilter(e) && matchesSearch(e));
+  const list     = document.getElementById('cyto-entity-list');
+  const empty    = document.getElementById('cyto-empty');
+  const info     = document.getElementById('cyto-results-info');
+  const allC     = getCytoEntities();
+
+  info.textContent = entities.length === allC.length
+    ? `${allC.length} ${allC.length === 1 ? 'entity' : 'entities'}`
+    : `${entities.length} of ${allC.length} entities`;
+
+  if (entities.length === 0) { list.innerHTML = ''; empty.style.display = 'block'; }
+  else { empty.style.display = 'none'; list.innerHTML = entities.map(e => renderCytoCard(e)).join(''); }
+  renderCytoSidebar();
 }
+
+function renderCytoCard(e) {
+  const bClass = e.behaviour === 'Benign' ? 'badge-ben' : e.behaviour === 'Malignant' ? 'badge-mal' : e.behaviour === 'Intermediate' ? 'badge-int' : 'badge-cat';
+  const allE   = getAllEntities();
+
+  // Histo link
+  const histoLinkHtml = (() => {
+    if (!e.histoLink) return '';
+    const linked = allE.find(x => x.id === e.histoLink);
+    if (!linked) return '';
+    return `<div class="histo-link-block">
+      <div class="section-title">🔬 Histology Counterpart</div>
+      <span class="histo-chip" onclick="goToHistoEntity('${linked.id}')" title="${escHtml(linked.name)}">↗ ${escHtml(linked.name)}</span>
+    </div>`;
+  })();
+
+  return `<div class="entity-card" id="card-${e.id}">
+    <div class="card-header" onclick="toggleCard('${e.id}')">
+      <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg>
+      <div class="card-name">${hl(e.name)}</div>
+      <div class="card-badges">
+        <span class="badge badge-sub">${hl(e.subspecialty)}</span>
+        ${e.specimenType     ? `<span class="badge badge-spec">${hl(e.specimenType)}</span>`     : ''}
+        ${e.reportingCategory? `<span class="badge badge-rep">${hl(e.reportingCategory)}</span>` : ''}
+        ${e.behaviour        ? `<span class="badge ${bClass}">${e.behaviour}</span>`              : ''}
+      </div>
+      <div class="card-preview">${hl((e.cytologicalFeatures||[])[0]||'')}</div>
+      <div class="card-actions" onclick="event.stopPropagation()">
+        <button class="card-action-btn" onclick="editEntity('${e.id}')" title="Edit">✎</button>
+        <button class="card-action-btn" onclick="deleteEntity('${e.id}')" title="Delete">✕</button>
+      </div>
+    </div>
+    <div class="card-body">
+      ${(e.adequacy||[]).length ? `<div class="section-block" style="margin-bottom:14px"><div class="section-title">Adequacy Criteria</div><ul>${(e.adequacy||[]).map(a=>`<li>${hl(a)}</li>`).join('')}</ul></div>` : ''}
+      ${e.reportingSystem ? `<div class="section-block" style="margin-bottom:14px"><div class="section-title">Reporting System</div><p style="font-size:13px;font-weight:600;color:var(--navy2)">${escHtml(e.reportingSystem)}${e.reportingCategory ? ` — <span style="color:var(--accent)">${escHtml(e.reportingCategory)}</span>` : ''}</p></div>` : ''}
+      <div class="section-grid full">
+        <div class="section-block">
+          <div class="section-title">Cytological Features</div>
+          <ul>${(e.cytologicalFeatures||[]).map(f=>`<li>${hl(f)}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="ihc-grid">
+        <div class="ihc-block ihc-pos">
+          <div class="ihc-title">✚ Positive</div>
+          ${(e.ihcPos||[]).map(p=>`<span class="ihc-marker">${hl(p)}</span>`).join('')}
+        </div>
+        <div class="ihc-block ihc-neg">
+          <div class="ihc-title">✖ Negative (key exclusions)</div>
+          ${(e.ihcNeg||[]).map(n=>`<span class="ihc-marker">${hl(n)}</span>`).join('')}
+        </div>
+      </div>
+      <div class="diffs-block">
+        <div class="section-title" style="margin-bottom:8px">Top Differentials + Discriminators</div>
+        ${(e.differentials||[]).map(d=>`<div class="diff-item"><span class="diff-vs">${hl(d.dx)}</span><span class="diff-discriminator">${hl(d.disc)}</span></div>`).join('')}
+      </div>
+      ${(e.pitfalls||[]).length ? `<div class="pitfalls-block"><div class="section-title">⚠ Pitfalls</div><ul>${(e.pitfalls||[]).map(p=>`<li>${hl(p)}</li>`).join('')}</ul></div>` : ''}
+      <div class="comments-block">
+        <div class="section-title">Comments — Molecular / Risk / Management</div>
+        <ul>${(e.comments||[]).map(c=>`<li>${hl(c)}</li>`).join('')}</ul>
+      </div>
+      ${histoLinkHtml}
+    </div>
+  </div>`;
+}
+
+function renderCytoSidebar() {
+  const all  = getCytoEntities();
+  document.getElementById('cyto-count-all').textContent = all.length;
+  const specs = {}, reps = {}, behs = {};
+  all.forEach(e => {
+    if (e.specimenType)    specs[e.specimenType]    = (specs[e.specimenType]||0)+1;
+    if (e.reportingSystem) reps[e.reportingSystem]  = (reps[e.reportingSystem]||0)+1;
+    if (e.behaviour)       behs[e.behaviour]        = (behs[e.behaviour]||0)+1;
+  });
+  const mk = (prefix, val, n) => `<button class="filter-tag ${cytoActiveFilter===`${prefix}:${val}`?'active':''}" onclick="setCytoFilter('${prefix}:${val}',this)">${escHtml(val)} <span class="count">${n}</span></button>`;
+  document.getElementById('spec-filters').innerHTML    = Object.entries(specs).sort((a,b)=>a[0].localeCompare(b[0])).map(([s,n])=>mk('spec',s,n)).join('') || '<span style="font-size:11px;color:rgba(255,255,255,0.3);padding:4px">None yet.</span>';
+  document.getElementById('repsys-filters').innerHTML  = Object.entries(reps).sort((a,b)=>a[0].localeCompare(b[0])).map(([r,n])=>mk('rep',r,n)).join('')  || '<span style="font-size:11px;color:rgba(255,255,255,0.3);padding:4px">None yet.</span>';
+  document.getElementById('cyto-beh-filters').innerHTML = Object.entries(behs).map(([b,n])=>mk('beh',b,n)).join('') || '<span style="font-size:11px;color:rgba(255,255,255,0.3);padding:4px">None yet.</span>';
+}
+
+function toggleCard(id) { document.getElementById('card-'+id).classList.toggle('open'); }
 
 function setFilter(val, el) {
   activeFilter = val;
-  document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
   if (el) el.classList.add('active');
   render();
+}
+function setCytoFilter(val, el) {
+  cytoActiveFilter = val;
+  document.querySelectorAll('[data-cyto-filter]').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderCytology();
 }
 
 function handleSearch() {
   searchTerm = document.getElementById('search').value.trim();
-  render();
+  if (currentTab === 'entities') render();
+  else if (currentTab === 'cytology') renderCytology();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -2119,151 +2341,205 @@ function handleSearch() {
 function showDisambig(event, ids) {
   event.stopPropagation();
   const popup = document.getElementById('disambig');
-  const allE = getAllEntities();
+  const allE  = getAllEntities();
   const matches = ids.map(id => allE.find(e => e.id === id)).filter(Boolean);
   if (!matches.length) return;
   if (matches.length === 1) { jumpTo(matches[0].id); return; }
-
   document.getElementById('disambig-options').innerHTML = matches.map(m =>
     `<div class="disambig-option" onclick="closeDisambig();jumpTo('${m.id}')">
       <span class="disambig-option-name">${escHtml(m.name)}</span>
       <span class="disambig-option-sub">${escHtml(m.subspecialty||'')} ${m.category ? '· '+escHtml(m.category) : ''}</span>
     </div>`
   ).join('');
-
-  // Position near click
   const x = Math.min(event.clientX, window.innerWidth - 400);
   const y = Math.min(event.clientY + 8, window.innerHeight - 300);
-  popup.style.left = x + 'px';
-  popup.style.top = y + 'px';
+  popup.style.left = x+'px'; popup.style.top = y+'px';
   popup.classList.add('open');
-
-  // Close on outside click
   setTimeout(() => document.addEventListener('click', closeDisambigOnOutside, {once:true}), 50);
 }
 function closeDisambig() { document.getElementById('disambig').classList.remove('open'); }
-function closeDisambigOnOutside(e) {
-  if (!document.getElementById('disambig').contains(e.target)) closeDisambig();
-}
+function closeDisambigOnOutside(e) { if (!document.getElementById('disambig').contains(e.target)) closeDisambig(); }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// TAG PICKER (Related Entities in form)
+// TAG PICKER — Related Entities
 // ═══════════════════════════════════════════════════════════════════════════
-let tagSelected = []; // array of {id, name}
-
+let tagSelected = [];
 function tagRender() {
-  const chips = document.getElementById('tag-chips');
-  chips.innerHTML = tagSelected.map((t,i) =>
+  document.getElementById('tag-chips').innerHTML = tagSelected.map((t,i) =>
     `<span class="tag-chip">${escHtml(t.name)}<button class="tag-chip-x" onclick="tagRemove(${i})" type="button">×</button></span>`
   ).join('');
-  // store as JSON in hidden field
   document.getElementById('f-related').value = JSON.stringify(tagSelected.map(t => t.id));
 }
-
-function tagRemove(i) {
-  tagSelected.splice(i, 1);
-  tagRender();
-}
-
+function tagRemove(i) { tagSelected.splice(i,1); tagRender(); }
 function tagSearch() {
   const q = document.getElementById('tag-input').value.trim().toLowerCase();
   const dd = document.getElementById('tag-dropdown');
   if (!q) { dd.classList.remove('open'); return; }
   const existing = new Set(tagSelected.map(t => t.id));
-  const results = getAllEntities()
-    .filter(e => !existing.has(e.id) && e.name.toLowerCase().includes(q))
-    .slice(0, 10);
+  const results  = getAllEntities().filter(e => !existing.has(e.id) && e.name.toLowerCase().includes(q)).slice(0,10);
   if (!results.length) { dd.classList.remove('open'); return; }
-  dd.innerHTML = results.map(e =>
-    `<div class="tag-dropdown-item" onclick="tagSelect('${e.id}','${escHtml(e.name).replace(/'/g,"\\'")}')">
-      <span class="tag-dropdown-item-name">${escHtml(e.name)}</span>
-      <span class="tag-dropdown-item-sub">${escHtml(e.subspecialty||'')}</span>
-    </div>`
-  ).join('');
+  dd.innerHTML = results.map(e => `<div class="tag-dropdown-item" onclick="tagSelect('${e.id}','${escHtml(e.name).replace(/'/g,"\\'")}')"><span class="tag-dropdown-item-name">${escHtml(e.name)}</span><span class="tag-dropdown-item-sub">${escHtml(e.subspecialty||'')} ${e.type==='cytology'?'🧫':''}</span></div>`).join('');
   dd.classList.add('open');
 }
-
 function tagSelect(id, name) {
-  if (!tagSelected.find(t => t.id === id)) {
-    tagSelected.push({id, name});
-    tagRender();
-  }
+  if (!tagSelected.find(t => t.id === id)) { tagSelected.push({id, name}); tagRender(); }
   document.getElementById('tag-input').value = '';
   document.getElementById('tag-dropdown').classList.remove('open');
   document.getElementById('tag-input').focus();
 }
-
 function tagKeydown(e) {
-  if (e.key === 'Escape') {
-    document.getElementById('tag-dropdown').classList.remove('open');
-  } else if (e.key === 'Backspace' && !document.getElementById('tag-input').value && tagSelected.length) {
-    tagSelected.pop();
-    tagRender();
-  }
+  if (e.key === 'Escape') document.getElementById('tag-dropdown').classList.remove('open');
+  else if (e.key === 'Backspace' && !document.getElementById('tag-input').value && tagSelected.length) { tagSelected.pop(); tagRender(); }
 }
-
-function tagClear() {
-  tagSelected = [];
-  tagRender();
-  document.getElementById('tag-input').value = '';
-  document.getElementById('tag-dropdown').classList.remove('open');
-}
-
+function tagClear() { tagSelected = []; tagRender(); document.getElementById('tag-input').value = ''; document.getElementById('tag-dropdown').classList.remove('open'); }
 function tagLoadFromEntity(related) {
-  // related may be old string[] of names, new string[] of IDs, or JSON string of IDs
   tagSelected = [];
   if (!related || !related.length) { tagRender(); return; }
   let items = related;
-  // handle JSON-encoded array stored in hidden field
-  if (typeof related === 'string') {
-    try { items = JSON.parse(related); } catch { items = [related]; }
-  }
+  if (typeof related === 'string') { try { items = JSON.parse(related); } catch { items = [related]; } }
   const allE = getAllEntities();
   items.forEach(item => {
-    // try as ID first
     const byId = allE.find(e => e.id === item);
     if (byId) { tagSelected.push({id: byId.id, name: byId.name}); return; }
-    // fallback: name-based lookup (old format)
     const byName = allE.find(e => e.name.toLowerCase().includes(item.toLowerCase()));
     if (byName) { tagSelected.push({id: byName.id, name: byName.name}); return; }
-    // unresolved — store as name with temp id
     tagSelected.push({id: 'unresolved:'+item, name: item});
   });
   tagRender();
 }
-
-// Close tag dropdown on outside click
 document.addEventListener('click', e => {
   const wrap = document.getElementById('tag-picker-wrap');
-  if (wrap && !wrap.contains(e.target)) {
-    document.getElementById('tag-dropdown').classList.remove('open');
-  }
+  if (wrap && !wrap.contains(e.target)) document.getElementById('tag-dropdown').classList.remove('open');
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAG PICKER — Histo Link (in cytology modal)
+// ═══════════════════════════════════════════════════════════════════════════
+let histolinkSelected = null;
+function histolinkRender() {
+  document.getElementById('histolink-chips').innerHTML = histolinkSelected
+    ? `<span class="tag-chip">${escHtml(histolinkSelected.name)}<button class="tag-chip-x" onclick="histolinkClear()" type="button">×</button></span>`
+    : '';
+  document.getElementById('f-histolink').value = histolinkSelected ? histolinkSelected.id : '';
+}
+function histolinkSearch() {
+  const q  = document.getElementById('histolink-input').value.trim().toLowerCase();
+  const dd = document.getElementById('histolink-dropdown');
+  if (!q) { dd.classList.remove('open'); return; }
+  const results = getHistoEntities().filter(e => e.name.toLowerCase().includes(q)).slice(0,10);
+  if (!results.length) { dd.classList.remove('open'); return; }
+  dd.innerHTML = results.map(e => `<div class="tag-dropdown-item" onclick="histolinkSelect('${e.id}','${escHtml(e.name).replace(/'/g,"\\'")}')"><span class="tag-dropdown-item-name">${escHtml(e.name)}</span><span class="tag-dropdown-item-sub">${escHtml(e.subspecialty||'')}</span></div>`).join('');
+  dd.classList.add('open');
+}
+function histolinkSelect(id, name) {
+  histolinkSelected = {id, name};
+  histolinkRender();
+  document.getElementById('histolink-input').value = '';
+  document.getElementById('histolink-dropdown').classList.remove('open');
+}
+function histolinkKeydown(e) {
+  if (e.key === 'Escape') document.getElementById('histolink-dropdown').classList.remove('open');
+  else if (e.key === 'Backspace' && !document.getElementById('histolink-input').value && histolinkSelected) { histolinkSelected = null; histolinkRender(); }
+}
+function histolinkClear() { histolinkSelected = null; histolinkRender(); }
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('histolink-picker-wrap');
+  if (wrap && !wrap.contains(e.target)) document.getElementById('histolink-dropdown').classList.remove('open');
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TAG PICKER — Cyto Link (in histology modal)
+// ═══════════════════════════════════════════════════════════════════════════
+let cytolinkSelected = null;
+function cytolinkRender() {
+  document.getElementById('cytolink-chips').innerHTML = cytolinkSelected
+    ? `<span class="tag-chip">${escHtml(cytolinkSelected.name)}<button class="tag-chip-x" onclick="cytolinkClear()" type="button">×</button></span>`
+    : '';
+  document.getElementById('f-cytolink').value = cytolinkSelected ? cytolinkSelected.id : '';
+}
+function cytolinkSearch() {
+  const q  = document.getElementById('cytolink-input').value.trim().toLowerCase();
+  const dd = document.getElementById('cytolink-dropdown');
+  if (!q) { dd.classList.remove('open'); return; }
+  const results = getCytoEntities().filter(e => e.name.toLowerCase().includes(q)).slice(0,10);
+  if (!results.length) { dd.classList.remove('open'); return; }
+  dd.innerHTML = results.map(e => `<div class="tag-dropdown-item" onclick="cytolinkSelect('${e.id}','${escHtml(e.name).replace(/'/g,"\\'")}')"><span class="tag-dropdown-item-name">${escHtml(e.name)}</span><span class="tag-dropdown-item-sub">${escHtml(e.subspecialty||'')}</span></div>`).join('');
+  dd.classList.add('open');
+}
+function cytolinkSelect(id, name) {
+  cytolinkSelected = {id, name};
+  cytolinkRender();
+  document.getElementById('cytolink-input').value = '';
+  document.getElementById('cytolink-dropdown').classList.remove('open');
+}
+function cytolinkKeydown(e) {
+  if (e.key === 'Escape') document.getElementById('cytolink-dropdown').classList.remove('open');
+  else if (e.key === 'Backspace' && !document.getElementById('cytolink-input').value && cytolinkSelected) { cytolinkSelected = null; cytolinkRender(); }
+}
+function cytolinkClear() { cytolinkSelected = null; cytolinkRender(); }
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('cytolink-picker-wrap');
+  if (wrap && !wrap.contains(e.target)) document.getElementById('cytolink-dropdown').classList.remove('open');
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
 // MODAL
 // ═══════════════════════════════════════════════════════════════════════════
+function setEntityType(type) {
+  document.getElementById('f-type').value = type;
+  document.getElementById('type-histo-btn').classList.toggle('active', type === 'histology');
+  document.getElementById('type-cyto-btn').classList.toggle('active', type === 'cytology');
+  document.getElementById('histo-fields').style.display  = type === 'histology' ? '' : 'none';
+  document.getElementById('cyto-fields').style.display   = type === 'cytology'  ? '' : 'none';
+  document.getElementById('cytolink-row').style.display  = type === 'histology' ? '' : 'none';
+}
+
 function jumpTo(id) {
-  // clear filters/search so card is visible
-  activeFilter = 'all';
-  searchTerm = '';
+  activeFilter = 'all'; searchTerm = '';
   document.getElementById('search').value = '';
-  document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
   document.querySelector('[data-filter="all"]').classList.add('active');
-  render();
+  // Switch to histology tab
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  switchTab('entities', tabBtns[0]);
   setTimeout(() => {
-    const card = document.getElementById('card-' + id);
+    const card = document.getElementById('card-'+id);
     if (card) {
       card.classList.add('open');
-      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      card.scrollIntoView({behavior:'smooth', block:'start'});
       card.style.outline = '2px solid var(--accent)';
       setTimeout(() => card.style.outline = '', 2000);
     }
   }, 80);
 }
 
+function goToHistoEntity(id) {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  switchTab('entities', tabBtns[0]);
+  setTimeout(() => jumpTo(id), 100);
+}
+
+function goToCytoEntity(id) {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  switchTab('cytology', tabBtns[1]);
+  setTimeout(() => {
+    cytoActiveFilter = 'all'; searchTerm = '';
+    document.getElementById('search').value = '';
+    renderCytology();
+    setTimeout(() => {
+      const card = document.getElementById('card-'+id);
+      if (card) {
+        card.classList.add('open');
+        card.scrollIntoView({behavior:'smooth', block:'start'});
+        card.style.outline = '2px solid #7e22ce';
+        setTimeout(() => card.style.outline = '', 2000);
+      }
+    }, 80);
+  }, 100);
+}
+
 function populateSubSelect(selected) {
-  const sel = document.getElementById('f-sub');
+  const sel  = document.getElementById('f-sub');
   const subs = getAllSubspecialties();
   sel.innerHTML = subs.map(s => `<option value="${escHtml(s)}" ${s===selected?'selected':''}>${escHtml(s)}</option>`).join('');
 }
@@ -2271,13 +2547,17 @@ function populateSubSelect(selected) {
 function openModal(prefill) {
   editingId = null;
   document.getElementById('modal-title').textContent = 'Add New Entity';
-  ['f-name','f-cat','f-pat','f-clin','f-micro','f-pos','f-neg','f-diff','f-comm'].forEach(id => document.getElementById(id).value = '');
+  ['f-name','f-cat','f-pat','f-clin','f-micro','f-pos','f-neg','f-diff','f-comm',
+   'f-spec','f-repsys','f-repcat','f-adequacy','f-cytofeatures','f-pitfalls'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
   document.getElementById('f-beh').value = '';
-  tagClear();
+  tagClear(); histolinkClear(); cytolinkClear();
+  // Default type: if on cytology tab, open as cytology
+  const defaultType = currentTab === 'cytology' ? 'cytology' : 'histology';
+  setEntityType(defaultType);
   populateSubSelect('');
-  if (prefill) {
-    if(prefill.name) document.getElementById('f-name').value = prefill.name;
-  }
+  if (prefill) { if(prefill.name) document.getElementById('f-name').value = prefill.name; }
   document.getElementById('modal-overlay').classList.add('open');
 }
 
@@ -2286,68 +2566,103 @@ function editEntity(id) {
   if (!e) return;
   editingId = id;
   document.getElementById('modal-title').textContent = 'Edit Entity';
+  const type = e.type || 'histology';
+  setEntityType(type);
   document.getElementById('f-name').value = e.name || '';
-  document.getElementById('f-cat').value = e.category || '';
-  document.getElementById('f-pat').value = e.pattern || '';
-  document.getElementById('f-beh').value = e.behaviour || '';
-  document.getElementById('f-clin').value = (e.clinical||[]).join('\n');
-  document.getElementById('f-micro').value = (e.micro||[]).join('\n');
-  document.getElementById('f-pos').value = (e.ihcPos||[]).join('\n');
-  document.getElementById('f-neg').value = (e.ihcNeg||[]).join('\n');
-  document.getElementById('f-diff').value = (e.differentials||[]).map(d => `${d.dx} | ${d.disc}`).join('\n');
+  document.getElementById('f-beh').value  = e.behaviour || '';
+  populateSubSelect(e.subspecialty);
+  document.getElementById('f-cat').value  = e.category || '';
+
+  if (type === 'histology') {
+    document.getElementById('f-pat').value  = e.pattern || '';
+    document.getElementById('f-clin').value = (e.clinical||[]).join('\n');
+    document.getElementById('f-micro').value= (e.micro||[]).join('\n');
+    // cytolink
+    if (e.cytoLink) {
+      const linked = getCytoEntities().find(x => x.id === e.cytoLink);
+      if (linked) { cytolinkSelected = {id: linked.id, name: linked.name}; cytolinkRender(); }
+    }
+  } else {
+    document.getElementById('f-spec').value       = e.specimenType || '';
+    document.getElementById('f-repsys').value     = e.reportingSystem || '';
+    document.getElementById('f-repcat').value     = e.reportingCategory || '';
+    document.getElementById('f-adequacy').value   = (e.adequacy||[]).join('\n');
+    document.getElementById('f-cytofeatures').value = (e.cytologicalFeatures||[]).join('\n');
+    document.getElementById('f-pitfalls').value   = (e.pitfalls||[]).join('\n');
+    // histolink
+    if (e.histoLink) {
+      const linked = getHistoEntities().find(x => x.id === e.histoLink);
+      if (linked) { histolinkSelected = {id: linked.id, name: linked.name}; histolinkRender(); }
+    }
+  }
+
+  document.getElementById('f-pos').value  = (e.ihcPos||[]).join('\n');
+  document.getElementById('f-neg').value  = (e.ihcNeg||[]).join('\n');
+  document.getElementById('f-diff').value = (e.differentials||[]).map(d=>`${d.dx} | ${d.disc}`).join('\n');
   document.getElementById('f-comm').value = (e.comments||[]).join('\n');
   tagLoadFromEntity(e.related||[]);
-  populateSubSelect(e.subspecialty);
   document.getElementById('modal-overlay').classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  editingId = null;
-}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); editingId = null; }
 
 function saveEntity() {
   const name = document.getElementById('f-name').value.trim();
   if (!name) { toast('Entity name is required.'); return; }
+  const type = document.getElementById('f-type').value || 'histology';
 
-  const parseDiff = (raw) => raw.split('\n').filter(Boolean).map(line => {
-    const parts = line.split('|');
-    return { dx: (parts[0]||'').trim(), disc: (parts[1]||'').trim() };
+  const parseDiff = raw => raw.split('\n').filter(Boolean).map(line => {
+    const parts = line.split('|'); return { dx: (parts[0]||'').trim(), disc: (parts[1]||'').trim() };
   });
 
-  const entity = {
-    id: editingId || ('custom-' + Date.now()),
-    name: name.toUpperCase(),
+  const base = {
+    id:          editingId || ('custom-' + Date.now()),
+    type,
+    name:        name.toUpperCase(),
     subspecialty: document.getElementById('f-sub').value,
-    category: document.getElementById('f-cat').value.trim(),
-    pattern: document.getElementById('f-pat').value.trim(),
-    behaviour: document.getElementById('f-beh').value,
-    clinical: document.getElementById('f-clin').value.split('\n').filter(Boolean),
-    micro: document.getElementById('f-micro').value.split('\n').filter(Boolean),
-    ihcPos: document.getElementById('f-pos').value.split('\n').filter(Boolean),
-    ihcNeg: document.getElementById('f-neg').value.split('\n').filter(Boolean),
+    behaviour:   document.getElementById('f-beh').value,
+    ihcPos:      document.getElementById('f-pos').value.split('\n').filter(Boolean),
+    ihcNeg:      document.getElementById('f-neg').value.split('\n').filter(Boolean),
     differentials: parseDiff(document.getElementById('f-diff').value),
-    comments: document.getElementById('f-comm').value.split('\n').filter(Boolean),
-    related: tagSelected.map(t => t.id),
+    comments:    document.getElementById('f-comm').value.split('\n').filter(Boolean),
+    related:     tagSelected.map(t => t.id),
   };
+
+  let entity;
+  if (type === 'histology') {
+    entity = { ...base,
+      category:  document.getElementById('f-cat').value.trim(),
+      pattern:   document.getElementById('f-pat').value.trim(),
+      clinical:  document.getElementById('f-clin').value.split('\n').filter(Boolean),
+      micro:     document.getElementById('f-micro').value.split('\n').filter(Boolean),
+      cytoLink:  cytolinkSelected ? cytolinkSelected.id : null,
+    };
+  } else {
+    entity = { ...base,
+      specimenType:       document.getElementById('f-spec').value,
+      reportingSystem:    document.getElementById('f-repsys').value,
+      reportingCategory:  document.getElementById('f-repcat').value.trim(),
+      adequacy:           document.getElementById('f-adequacy').value.split('\n').filter(Boolean),
+      cytologicalFeatures: document.getElementById('f-cytofeatures').value.split('\n').filter(Boolean),
+      pitfalls:           document.getElementById('f-pitfalls').value.split('\n').filter(Boolean),
+      histoLink:          histolinkSelected ? histolinkSelected.id : null,
+    };
+  }
 
   const customs = getCustomEntities().filter(e => e.id !== entity.id);
   customs.push(entity);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(customs));
-
   closeModal();
-  render();
+  if (type === 'cytology') renderCytology(); else render();
   toast(editingId ? 'Entity updated.' : 'Entity added. Use "Save File" to make it permanent.');
 }
 
 function deleteEntity(id) {
   if (!confirm('Delete this entity?')) return;
-  // Remove from custom list if present
   const customs = getCustomEntities().filter(e => e.id !== id);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(customs));
-  // Also add to deleted set (covers seed entities)
   addDeletedId(id);
-  render();
+  render(); renderCytology();
   toast('Entity deleted.');
 }
 
@@ -2359,69 +2674,48 @@ function addSubspecialty() {
   const val = input.value.trim();
   if (!val) return;
   const customs = getCustomSubs();
-  if (!customs.includes(val) && !BASE_SUBSPECIALTIES.includes(val)) {
-    customs.push(val);
-    localStorage.setItem(SUBS_KEY, JSON.stringify(customs));
-  }
+  if (!customs.includes(val) && !BASE_SUBSPECIALTIES.includes(val)) { customs.push(val); localStorage.setItem(SUBS_KEY, JSON.stringify(customs)); }
   input.value = '';
   render();
   toast(`Subspecialty "${val}" added.`);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// IMPORT / EXPORT
+// IMPORT / EXPORT / SAVE HTML
 // ═══════════════════════════════════════════════════════════════════════════
 function exportData() {
   const data = { entities: getAllEntities(), subspecialties: getAllSubspecialties() };
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'pathology_codex_data.json';
-  a.click();
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'pathology_codex_data.json'; a.click();
   toast('Exported to JSON.');
 }
-
 function importData(event) {
-  const file = event.target.files[0];
-  if (!file) return;
+  const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
-  reader.onload = (e) => {
+  reader.onload = e => {
     try {
       const data = JSON.parse(e.target.result);
       const entities = data.entities || data;
-      const customs = getCustomEntities();
+      const customs  = getCustomEntities();
       const existingIds = new Set([...SEED_DATA.map(x=>x.id), ...customs.map(x=>x.id)]);
       let added = 0;
-      entities.forEach(ent => {
-        if (ent.id && !existingIds.has(ent.id)) {
-          customs.push(ent);
-          added++;
-        }
-      });
+      entities.forEach(ent => { if (ent.id && !existingIds.has(ent.id)) { customs.push(ent); added++; } });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(customs));
-      render();
+      render(); renderCytology();
       toast(`Imported ${added} new entities.`);
     } catch { toast('Import failed — invalid JSON.'); }
   };
-  reader.readAsText(file);
-  event.target.value = '';
+  reader.readAsText(file); event.target.value = '';
 }
-
-// ═══════════════════════════════════════════════════════════════════════════
-// SAVE HTML (bakes all current entities into a new HTML file)
-// ═══════════════════════════════════════════════════════════════════════════
 function saveHTML() {
-  const all = getAllEntities();
+  const all  = getAllEntities();
   const html = document.documentElement.outerHTML;
   const updated = html.replace(
     /const SEED_DATA = \[[\s\S]*?\];(\s*\/\/ ═)/,
     'const SEED_DATA = ' + JSON.stringify(all, null, 2) + ';\n// ═'
   );
-  const blob = new Blob([updated], {type: 'text/html'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'index.html';
-  a.click();
+  const blob = new Blob([updated], {type:'text/html'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click();
   toast('Saved ' + all.length + ' entities. Upload index.html to GitHub to sync.');
 }
 
@@ -2431,237 +2725,176 @@ function saveHTML() {
 let toastTimer;
 function toast(msg) {
   const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // TAB SWITCHING
 // ═══════════════════════════════════════════════════════════════════════════
-let currentTab = 'entities';
-
 function switchTab(tab, btn) {
   currentTab = tab;
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
 
-  const sidebar = document.getElementById('sidebar');
-  const main = document.getElementById('main');
-  const ihcPanel = document.getElementById('ihc-panel');
+  const sidebar    = document.getElementById('sidebar');
+  const main       = document.getElementById('main');
+  const cytoSidebar= document.getElementById('cyto-sidebar');
+  const cytoMain   = document.getElementById('cyto-main');
+  const ihcPanel   = document.getElementById('ihc-panel');
 
-  if (tab === 'entities') {
-    sidebar.style.display = '';
-    main.style.display = '';
-    ihcPanel.classList.remove('active');
-    // close mobile sidebar if open
-    closeSidebar();
-  } else {
-    // IHC explorer: hide sidebar on desktop too (needs full width)
-    sidebar.style.display = 'none';
-    main.style.display = 'none';
-    ihcPanel.classList.add('active');
-    document.getElementById('ihc-search').focus();
-    buildIhcSuggestions();
-  }
+  sidebar.style.display     = tab === 'entities'  ? '' : 'none';
+  main.style.display        = tab === 'entities'  ? '' : 'none';
+  cytoSidebar.style.display = tab === 'cytology'  ? '' : 'none';
+  cytoMain.style.display    = tab === 'cytology'  ? '' : 'none';
+  ihcPanel.classList.toggle('active', tab === 'ihc');
+
+  if (tab === 'entities')  render();
+  if (tab === 'cytology')  renderCytology();
+  if (tab === 'ihc')       { document.getElementById('ihc-search').focus(); buildIhcSuggestions(); }
+  closeSidebar();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // MOBILE SIDEBAR
 // ═══════════════════════════════════════════════════════════════════════════
 function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const backdrop = document.getElementById('sidebar-backdrop');
-  const isOpen = sidebar.classList.contains('open');
-  if (isOpen) { closeSidebar(); } else {
-    sidebar.classList.add('open');
-    backdrop.classList.add('open');
-  }
+  const sidebar   = document.getElementById('sidebar');
+  const backdrop  = document.getElementById('sidebar-backdrop');
+  const cytoSide  = document.getElementById('cyto-sidebar');
+  const activeSide = currentTab === 'cytology' ? cytoSide : sidebar;
+  const isOpen    = activeSide.classList.contains('open');
+  if (isOpen) closeSidebar();
+  else { activeSide.classList.add('open'); backdrop.classList.add('open'); }
 }
 function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('cyto-sidebar').classList.remove('open');
   document.getElementById('sidebar-backdrop').classList.remove('open');
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // IHC EXPLORER
 // ═══════════════════════════════════════════════════════════════════════════
-
-// Parse marker name from IHC string e.g. "CD117 (cKIT) – 95%" → "CD117 (cKIT)"
-function parseMarker(str) {
-  // Split on en-dash, em-dash, or " - " separator
-  const m = str.match(/^(.+?)\s*[–—]\s*/);
-  return m ? m[1].trim() : str.trim();
-}
-
-// Parse percentage note if present e.g. "95%", "95-98%", "<2%", "diffuse"
+function parseMarker(str) { const m = str.match(/^(.+?)\s*[–—]\s*/); return m ? m[1].trim() : str.trim(); }
 function parseNote(str) {
   const after = str.replace(/^.+?[–—]\s*/, '');
-  // Extract first meaningful token
   const pct = after.match(/[\d<>~]+[-–]?[\d]*%/);
   if (pct) return pct[0];
   const words = after.split(/[;,(]/)[0].trim();
   return words.length < 30 ? words : '';
 }
-
-// Does a marker string match the search query?
 function markerMatches(str, q) {
   const name = parseMarker(str).toLowerCase();
   return name.includes(q) || q.includes(name.replace(/\s*\(.*?\)/g,'').trim());
 }
-
-// Get all unique marker names across all entities
 function getAllMarkers() {
-  const all = getAllEntities();
   const markers = new Set();
-  all.forEach(e => {
-    [...(e.ihcPos||[]), ...(e.ihcNeg||[])].forEach(s => {
-      const m = parseMarker(s);
-      if (m && m !== 'N/A') markers.add(m);
-    });
-  });
+  getAllEntities().forEach(e => { [...(e.ihcPos||[]),...(e.ihcNeg||[])].forEach(s => { const m = parseMarker(s); if (m && m !== 'N/A') markers.add(m); }); });
   return [...markers].sort();
 }
-
 function buildIhcSuggestions() {
-  // Show common/interesting markers as quick-picks
-  const common = ['CD117','DOG1','S100','SOX10','SMA','Desmin','CD34','ALK','TLE1','STAT6','MUC2','CDX2','CK20','SATB2'];
-  const el = document.getElementById('ihc-suggestions');
-  el.innerHTML = common.map(m =>
+  const common = ['CD117','DOG1','S100','SOX10','SMA','Desmin','CD34','ALK','TLE1','STAT6','MUC2','CDX2','CK20','SATB2','Synaptophysin','Chromogranin','INSM1'];
+  document.getElementById('ihc-suggestions').innerHTML = common.map(m =>
     `<button class="ihc-suggest-chip" onclick="setIhcSearch('${m}')">${m}</button>`
   ).join('');
 }
-
-function setIhcSearch(val) {
-  document.getElementById('ihc-search').value = val;
-  ihcExplore();
-}
+function setIhcSearch(val) { document.getElementById('ihc-search').value = val; ihcExplore(); }
 
 function ihcExplore() {
-  const raw = document.getElementById('ihc-search').value.trim();
+  const raw     = document.getElementById('ihc-search').value.trim();
   const results = document.getElementById('ihc-results');
   if (!raw) { results.classList.add('hidden'); results.innerHTML = ''; return; }
-  const q = raw.toLowerCase();
+  const q   = raw.toLowerCase();
   const all = getAllEntities();
 
-  // Find entities where marker is positive or negative
-  const posEntities = []; // {entity, note}
-  const negEntities = []; // {entity, note}
-
+  const posH = [], negH = [], posC = [], negC = [];
   all.forEach(e => {
+    const isCyto = e.type === 'cytology';
     (e.ihcPos||[]).forEach(s => {
       if (s === 'N/A — morphological diagnosis' || s === 'N/A') return;
-      if (markerMatches(s, q)) posEntities.push({ entity: e, note: parseNote(s), raw: s });
+      if (markerMatches(s, q)) (isCyto ? posC : posH).push({ entity: e, note: parseNote(s), raw: s });
     });
     (e.ihcNeg||[]).forEach(s => {
       if (s === 'N/A') return;
-      if (markerMatches(s, q)) negEntities.push({ entity: e, note: parseNote(s), raw: s });
+      if (markerMatches(s, q)) (isCyto ? negC : negH).push({ entity: e, note: parseNote(s), raw: s });
     });
   });
 
-  if (!posEntities.length && !negEntities.length) {
-    results.classList.remove('hidden');
-    results.innerHTML = `<div class="ihc-empty">No entities found with marker matching "<strong>${escHtml(raw)}</strong>".<br>Try a broader term or check spelling.</div>`;
-    return;
-  }
+  const allPos = [...posH, ...posC];
+  const allNeg = [...negH, ...negC];
 
-  // Discriminatory pairs:
-  // posEntity lists negEntity as a differential (or vice versa) AND marker is + in one, - in other
+  // Discriminatory pairs
   const pairs = [];
-  const posIds = new Set(posEntities.map(x => x.entity.id));
-  const negIds = new Set(negEntities.map(x => x.entity.id));
-
-  posEntities.forEach(({ entity: posE, note: posNote }) => {
+  const posIds = new Set(allPos.map(x => x.entity.id));
+  const negIds = new Set(allNeg.map(x => x.entity.id));
+  allPos.forEach(({ entity: posE, note: posNote }) => {
     (posE.differentials||[]).forEach(diff => {
-      // find the diff entity in negEntities
-      const negMatch = negEntities.find(ne =>
-        ne.entity.id !== posE.id &&
-        (ne.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) ||
-         diff.dx.toLowerCase().includes(ne.entity.name.toLowerCase().substring(0,10)))
-      );
+      const negMatch = allNeg.find(ne => ne.entity.id !== posE.id && (ne.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) || diff.dx.toLowerCase().includes(ne.entity.name.toLowerCase().substring(0,10))));
       if (negMatch) {
-        // avoid duplicate pairs
         const key = [posE.id, negMatch.entity.id].sort().join('|');
-        if (!pairs.find(p => p.key === key)) {
-          pairs.push({ key, posE, negE: negMatch.entity, posNote, negNote: negMatch.note, disc: diff.disc });
-        }
+        if (!pairs.find(p => p.key === key)) pairs.push({ key, posE, negE: negMatch.entity, posNote, negNote: negMatch.note, disc: diff.disc });
       }
     });
   });
-
-  // Also check negEntities' differentials pointing to posEntities
-  negEntities.forEach(({ entity: negE, note: negNote }) => {
+  allNeg.forEach(({ entity: negE, note: negNote }) => {
     (negE.differentials||[]).forEach(diff => {
-      const posMatch = posEntities.find(pe =>
-        pe.entity.id !== negE.id &&
-        (pe.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) ||
-         diff.dx.toLowerCase().includes(pe.entity.name.toLowerCase().substring(0,10)))
-      );
+      const posMatch = allPos.find(pe => pe.entity.id !== negE.id && (pe.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) || diff.dx.toLowerCase().includes(pe.entity.name.toLowerCase().substring(0,10))));
       if (posMatch) {
         const key = [negE.id, posMatch.entity.id].sort().join('|');
-        if (!pairs.find(p => p.key === key)) {
-          pairs.push({ key, posE: posMatch.entity, negE, posNote: posMatch.note, negNote, disc: diff.disc });
-        }
+        if (!pairs.find(p => p.key === key)) pairs.push({ key, posE: posMatch.entity, negE, posNote: posMatch.note, negNote, disc: diff.disc });
       }
     });
   });
 
-  // Displayed marker name — use the parsed name from first positive hit, or raw search
-  const displayMarker = posEntities[0] ? parseMarker(posEntities[0].raw) : raw.toUpperCase();
+  const displayMarker = allPos[0] ? parseMarker(allPos[0].raw) : raw.toUpperCase();
 
-  const posCount = posEntities.length;
-  const negCount = negEntities.length;
+  function entityRow(x, clickFn) {
+    return `<div class="ihc-entity-row" onclick="${clickFn}('${x.entity.id}')">
+      <span class="ihc-entity-name">${escHtml(x.entity.name)}${x.entity.type==='cytology'?' <span style="font-size:9px;color:var(--muted)">[CYTO]</span>':''}</span>
+      ${x.note ? `<span class="ihc-entity-pct">${escHtml(x.note)}</span>` : ''}
+    </div>`;
+  }
+  function entityRowNeg(x, clickFn) {
+    return `<div class="ihc-entity-row" onclick="${clickFn}('${x.entity.id}')">
+      <span class="ihc-entity-name">${escHtml(x.entity.name)}${x.entity.type==='cytology'?' <span style="font-size:9px;color:var(--muted)">[CYTO]</span>':''}</span>
+      ${x.note ? `<span class="ihc-entity-neg-pct">${escHtml(x.note)}</span>` : ''}
+    </div>`;
+  }
+  function clickFnForEntity(e) { return e.type === 'cytology' ? 'goToCytoEntity' : 'goToHistoEntity'; }
+
+  const posHtml = [
+    posH.length ? `<div class="ihc-group-label">Histology (${posH.length})</div>${posH.map(x=>entityRow(x,clickFnForEntity(x.entity))).join('')}` : '',
+    posC.length ? `<div class="ihc-group-label">Cytology (${posC.length})</div>${posC.map(x=>entityRow(x,clickFnForEntity(x.entity))).join('')}` : ''
+  ].filter(Boolean).join('') || '<div class="ihc-empty" style="padding:16px">None in database</div>';
+
+  const negHtml = [
+    negH.length ? `<div class="ihc-group-label">Histology (${negH.length})</div>${negH.map(x=>entityRowNeg(x,clickFnForEntity(x.entity))).join('')}` : '',
+    negC.length ? `<div class="ihc-group-label">Cytology (${negC.length})</div>${negC.map(x=>entityRowNeg(x,clickFnForEntity(x.entity))).join('')}` : ''
+  ].filter(Boolean).join('') || '<div class="ihc-empty" style="padding:16px">None in database</div>';
 
   results.classList.remove('hidden');
   results.innerHTML = `
     <div class="ihc-marker-title">
       <h3>${escHtml(displayMarker)}</h3>
-      <p>${posCount} positive · ${negCount} negative · ${pairs.length} discriminatory pair${pairs.length !== 1 ? 's' : ''}</p>
+      <p>${allPos.length} positive · ${allNeg.length} negative · ${pairs.length} discriminatory pair${pairs.length!==1?'s':''}</p>
     </div>
-
-    ${pairs.length ? `
-    <div class="disc-block">
+    ${pairs.length ? `<div class="disc-block">
       <div class="block-title">⚡ Discriminatory Pairs — where ${escHtml(displayMarker)} is decision-making</div>
-      ${pairs.map(p => `
-        <div class="disc-pair">
-          <span class="disc-entity pos" onclick="goToEntity('${p.posE.id}')" title="Jump to ${escHtml(p.posE.name)}">
-            ✚ ${escHtml(p.posE.name)}${p.posNote ? ` <small style="font-weight:400;opacity:0.8">(${escHtml(p.posNote)})</small>` : ''}
-          </span>
-          <span class="disc-arrow">⇔</span>
-          <span class="disc-entity neg" onclick="goToEntity('${p.negE.id}')" title="Jump to ${escHtml(p.negE.name)}">
-            ✖ ${escHtml(p.negE.name)}${p.negNote ? ` <small style="font-weight:400;opacity:0.8">(${escHtml(p.negNote)})</small>` : ''}
-          </span>
-          ${p.disc ? `<span class="disc-marker-label">vs: ${escHtml(p.disc.substring(0,60))}${p.disc.length>60?'…':''}</span>` : ''}
-        </div>`).join('')}
+      ${pairs.map(p=>`<div class="disc-pair">
+        <span class="disc-entity pos" onclick="goToHistoEntity('${p.posE.id}')" title="${escHtml(p.posE.name)}">✚ ${escHtml(p.posE.name)}${p.posNote?` <small style="font-weight:400;opacity:0.8">(${escHtml(p.posNote)})</small>`:''}</span>
+        <span class="disc-arrow">⇔</span>
+        <span class="disc-entity neg" onclick="goToHistoEntity('${p.negE.id}')" title="${escHtml(p.negE.name)}">✖ ${escHtml(p.negE.name)}${p.negNote?` <small style="font-weight:400;opacity:0.8">(${escHtml(p.negNote)})</small>`:''}</span>
+        ${p.disc?`<span class="disc-marker-label">vs: ${escHtml(p.disc.substring(0,60))}${p.disc.length>60?'…':''}</span>`:''}
+      </div>`).join('')}
     </div>` : ''}
-
     <div class="ihc-results-grid">
-      <div class="ihc-result-block pos-block">
-        <div class="block-title">✚ Positive in (${posCount})</div>
-        ${posEntities.length ? posEntities.map(({entity:e, note}) => `
-          <div class="ihc-entity-row" onclick="goToEntity('${e.id}')">
-            <span class="ihc-entity-name">${escHtml(e.name)}</span>
-            ${note ? `<span class="ihc-entity-pct">${escHtml(note)}</span>` : ''}
-          </div>`).join('') : '<div class="ihc-empty" style="padding:16px">None in database</div>'}
-      </div>
-      <div class="ihc-result-block neg-block">
-        <div class="block-title">✖ Negative in (${negCount})</div>
-        ${negEntities.length ? negEntities.map(({entity:e, note}) => `
-          <div class="ihc-entity-row" onclick="goToEntity('${e.id}')">
-            <span class="ihc-entity-name">${escHtml(e.name)}</span>
-            ${note ? `<span class="ihc-entity-neg-pct">${escHtml(note)}</span>` : ''}
-          </div>`).join('') : '<div class="ihc-empty" style="padding:16px">None in database</div>'}
-      </div>
+      <div class="ihc-result-block pos-block"><div class="block-title">✚ Positive in (${allPos.length})</div>${posHtml}</div>
+      <div class="ihc-result-block neg-block"><div class="block-title">✖ Negative in (${allNeg.length})</div>${negHtml}</div>
     </div>`;
 }
 
-// Jump to entity card from IHC explorer (switches tab first)
-function goToEntity(id) {
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  switchTab('entities', tabBtns[0]);
-  setTimeout(() => jumpTo(id), 100);
-}
+function goToEntity(id) { goToHistoEntity(id); }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // INIT
