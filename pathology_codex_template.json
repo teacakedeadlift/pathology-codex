@@ -1,0 +1,161 @@
+{
+  "_instructions": {
+    "how_to_use": "Fill in one or more entities in the 'entities' array below. Delete this _instructions block before sending back. Each field is explained in _field_guide. Include both histology and cytology entities in the same array — the 'type' field distinguishes them.",
+    "field_guide": {
+      "SHARED FIELDS (all entities)": {
+        "type": "REQUIRED. 'histology' or 'cytology'.",
+        "id": "Unique identifier — lowercase, no spaces, format 'entityname-001'. E.g. 'fsgs-001', 'thy-ptc-cyto-001'.",
+        "name": "Full entity name in CAPITALS. E.g. 'FOCAL SEGMENTAL GLOMERULOSCLEROSIS (FSGS)'.",
+        "subspecialty": "Choose one: LGI | UGI | LGI / UGI | Hepatobiliary | Haempath | Medical Renal | Gynaecological | Thoracic | Neuropath | Skin / Dermatopath | Head & Neck | Breast | Soft Tissue / Bone | Urological",
+        "behaviour": "Choose one: Benign | Intermediate | Malignant | Variable",
+        "ihcPos": "Array of strings. Format: 'MARKER - sensitivity% or descriptor'. E.g. 'CD117 - 95%', 'SOX10 - diffuse'. Use ['N/A - morphological diagnosis'] if IHC not applicable.",
+        "ihcNeg": "Array of strings. Key exclusions only. Same format.",
+        "differentials": "Array of objects. Each has 'dx' (differential name) and 'disc' (what discriminates). Aim for 3.",
+        "comments": "Array of strings. Molecular alterations, grading, staging pearls, management, prognosis, syndromic associations. One point per entry.",
+        "related": "Array of entity IDs already in the codex. Leave as [] if none."
+      },
+      "HISTOLOGY-ONLY FIELDS (type: histology)": {
+        "category": "Broad morphological/lineage group. E.g. 'Glomerular', 'Mesenchymal', 'Epithelial', 'Neuroendocrine'.",
+        "pattern": "Medical Renal: Nephritic | Nephrotic | RPGN | Thrombotic microangiopathy | Tubular | Tubulointerstitial | Vascular | Sclerosing. Medical Liver: Hepatitic | Cholestatic | Steatotic | Fibrotic/cirrhotic | Granulomatous | Vascular | Massive necrosis. Inflammatory Skin: Lichenoid | Spongiotic | Interface | Psoriasiform | Bullous | Granulomatous | Vasculitic | Neutrophilic | Perivascular. Solid tumours: Spindle cell | Epithelioid | Myxoid | Fibrous/collagenous | Glandular/mucinous | Mucinous | Neuroendocrine | Round cell | Biphasic | Perivascular | Amphicrine | Mixed.",
+        "clinical": "Array of strings. Age/sex predilection, site, associations, serology/labs, classic trigger phrases.",
+        "micro": "Array of strings. Aim for 3. Low-power architecture first, then high-power cytology, then characteristic/discriminating feature.",
+        "cytoLink": "ID of corresponding cytology entity in the codex. Use null if none."
+      },
+      "CYTOLOGY-ONLY FIELDS (type: cytology)": {
+        "specimenType": "Choose one: FNA | Effusion | Urine | CSF | Sputum | Brushings | LBC | Bile duct | Other",
+        "reportingSystem": "Choose one: RCPath Thyroid (Thy1-5) | Milan (Salivary) | Paris (Urine) | IAC Harrogate (Effusion) | Descriptive",
+        "reportingCategory": "The specific category assigned. E.g. 'Thy3a', 'Thy4', 'Milan 4b', 'Paris SHGUC', 'IAC Suspicious'.",
+        "adequacy": "Array of strings. Minimum cellularity criteria, technical requirements, what to report when inadequate.",
+        "cytologicalFeatures": "Array of strings. Aim for 4: cellularity/arrangement, nuclear features (size, N:C, chromatin, nucleoli), cytoplasmic features, background.",
+        "pitfalls": "Array of strings. Preparation/fixation artefacts, sampling pitfalls, morphological mimics specific to cytological preparations.",
+        "histoLink": "ID of corresponding histology entity in the codex. Use null if none."
+      }
+    }
+  },
+  "entities": [
+    {
+      "_comment": "EXAMPLE HISTOLOGY ENTITY - delete before returning",
+      "type": "histology",
+      "id": "fsgs-001",
+      "name": "FOCAL SEGMENTAL GLOMERULOSCLEROSIS (FSGS)",
+      "subspecialty": "Medical Renal",
+      "category": "Glomerular",
+      "pattern": "Nephrotic",
+      "behaviour": "Variable",
+      "clinical": [
+        "Most common cause of nephrotic syndrome in adults (particularly Black patients).",
+        "Primary: podocyte injury via circulating permeability factor. Secondary: hyperfiltration (obesity, solitary kidney), drug-induced (heroin, pamidronate), viral (HIV), genetic (NPHS2, ACTN4).",
+        "Primary presents with full nephrotic syndrome; secondary often sub-nephrotic proteinuria + CKD.",
+        "Trigger: nephrotic syndrome + segmental sclerosis on biopsy - classify Columbia variant before treatment."
+      ],
+      "micro": [
+        "Focal (some glomeruli) and segmental (part of tuft) sclerosis with hyalinosis; obliteration of capillary lumina; foam cells; adhesions to Bowman's capsule.",
+        "Columbia classification: NOS | Perihilar (secondary/adaptive) | Cellular (endocapillary hypercellularity) | Tip (urinary pole - best prognosis) | Collapsing (global collapse + podocyte hyperplasia - worst; HIV/viral).",
+        "EM: foot process effacement (diffuse = primary; focal = secondary). IF: non-specific IgM/C3 in sclerotic segments only - pauci-immune."
+      ],
+      "ihcPos": ["N/A - morphological/EM/IF diagnosis"],
+      "ihcNeg": ["N/A"],
+      "differentials": [
+        { "dx": "Minimal Change Disease", "disc": "No segmental sclerosis on LM; diffuse FPE on EM; steroid-responsive" },
+        { "dx": "Secondary FSGS (adaptive)", "disc": "Perihilar variant; focal FPE on EM; sub-nephrotic; identifiable underlying cause" },
+        { "dx": "IgA Nephropathy with secondary FSGS", "disc": "Mesangial IgA on IF; mesangial hypercellularity; haematuria predominant" }
+      ],
+      "comments": [
+        "Columbia classification mandatory - variant determines prognosis and treatment.",
+        "Collapsing FSGS: HIV (HIVAN); COVID-19; pamidronate. APOL1 G1/G2 risk alleles in Black patients (7-10x increased risk). Worst prognosis.",
+        "Genetic FSGS: NPHS2 (podocin, AR) - childhood/young adult, steroid-resistant.",
+        "Treatment: high-dose steroids (primary); CNI for steroid-resistant; rituximab second-line. Treat underlying cause (secondary).",
+        "Post-transplant recurrence: primary FSGS ~30-40%; plasmapheresis + rituximab."
+      ],
+      "cytoLink": null,
+      "related": []
+    },
+    {
+      "_comment": "EXAMPLE CYTOLOGY ENTITY - delete before returning",
+      "type": "cytology",
+      "id": "thy-ptc-cyto-001",
+      "name": "PAPILLARY THYROID CARCINOMA - FNA (Thy4/Thy5)",
+      "subspecialty": "Head & Neck",
+      "specimenType": "FNA",
+      "reportingSystem": "RCPath Thyroid (Thy1-5)",
+      "reportingCategory": "Thy4 - Suspicious / Thy5 - Malignant",
+      "behaviour": "Malignant",
+      "adequacy": [
+        "Minimum 6 groups of >=10 well-preserved follicular cells on at least 2 slides (RCPath standard).",
+        "Cystic lesions: adequacy assessed on cellular component, not fluid. Report Thy1c if cystic and acellular."
+      ],
+      "cytologicalFeatures": [
+        "Papillary fronds with fibrovascular cores; monolayer sheets with crowding and nuclear overlap - low-power architecture.",
+        "Nuclear enlargement; irregular membranes (grooves, pseudoinclusions); fine powdery chromatin; ground-glass nuclei - nuclear features.",
+        "Pale/abundant cytoplasm; occasional squamoid metaplasia.",
+        "Background: dense 'bubblegum' colloid; psammoma bodies; multinucleated giant cells."
+      ],
+      "ihcPos": ["TTF1 - positive", "Thyroglobulin - positive", "CK19 - diffuse strong (cell block)", "BRAF V600E IHC (VE1) - ~80% classical PTC"],
+      "ihcNeg": ["Calcitonin - negative (excludes MTC)", "Synaptophysin/Chromogranin - negative"],
+      "differentials": [
+        { "dx": "Follicular Neoplasm (Thy3f)", "disc": "Microfollicular pattern; no PTC nuclear features; no papillae; needs histological excision" },
+        { "dx": "Medullary Thyroid Carcinoma", "disc": "Calcitonin+, CEA+, Synaptophysin+; plasmacytoid/spindle cells; amyloid; no PTC nuclei" },
+        { "dx": "Graves Disease / hyperplastic nodule", "disc": "Flame cells; watery colloid; no nuclear grooves/inclusions; no papillary architecture" }
+      ],
+      "pitfalls": [
+        "Nuclear pseudoinclusions less reliable in FNA than histology (cytoplasmic invagination artefact) - nuclear grooves more useful.",
+        "Cystic PTC: heavily cystic aspirates show only macrophages - sample solid areas; Thy1c if acellular.",
+        "BRAF V600E IHC on cell block: highly specific but negative in wild-type and non-classical variants."
+      ],
+      "comments": [
+        "Thy4 = suspicious (~60-75% malignancy risk); Thy5 = malignant (>95%).",
+        "BRAF V600E: ~80% classical PTC; associated with extrathyroidal extension, LN mets, radioiodine resistance.",
+        "Classical PTC: excellent prognosis (10-year OS >95%). Tall cell/hobnail/diffuse sclerosing variants - worse.",
+        "Management: hemithyroidectomy (low-risk); total thyroidectomy + RAI (high-risk/metastatic)."
+      ],
+      "histoLink": null,
+      "related": []
+    },
+    {
+      "_comment": "BLANK HISTOLOGY TEMPLATE - delete _comment line before returning",
+      "type": "histology",
+      "id": "",
+      "name": "",
+      "subspecialty": "",
+      "category": "",
+      "pattern": "",
+      "behaviour": "",
+      "clinical": ["", "", ""],
+      "micro": ["", "", ""],
+      "ihcPos": [""],
+      "ihcNeg": [""],
+      "differentials": [
+        { "dx": "", "disc": "" },
+        { "dx": "", "disc": "" },
+        { "dx": "", "disc": "" }
+      ],
+      "comments": ["", "", ""],
+      "cytoLink": null,
+      "related": []
+    },
+    {
+      "_comment": "BLANK CYTOLOGY TEMPLATE - delete _comment line before returning",
+      "type": "cytology",
+      "id": "",
+      "name": "",
+      "subspecialty": "",
+      "specimenType": "",
+      "reportingSystem": "",
+      "reportingCategory": "",
+      "behaviour": "",
+      "adequacy": ["", ""],
+      "cytologicalFeatures": ["", "", "", ""],
+      "ihcPos": [""],
+      "ihcNeg": [""],
+      "differentials": [
+        { "dx": "", "disc": "" },
+        { "dx": "", "disc": "" },
+        { "dx": "", "disc": "" }
+      ],
+      "pitfalls": ["", ""],
+      "comments": ["", "", ""],
+      "histoLink": null,
+      "related": []
+    }
+  ]
+}
