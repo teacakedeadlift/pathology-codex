@@ -1985,7 +1985,937 @@ const SEED_DATA = [
       "Treatment for peritoneal disease: CRS + HIPEC. Systemic chemotherapy for systemic mets (FOLFOX/FOLFIRI ± targeted therapy per molecular profile).",
       "KRAS/BRAF/NRAS/MSI testing on primary for systemic therapy selection."
     ]
+  },
+  // ═══════════════════════════════════════════════════════ MEDICAL LIVER ═══
+
+  {
+    id: "aih-001",
+    name: "AUTOIMMUNE HEPATITIS (AIH)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Hepatitic",
+    behaviour: "Variable",
+    clinical: [
+      "Immune-mediated hepatocellular injury; female predominance (70-80%); bimodal: adolescent/young adult and postmenopausal.",
+      "Type 1 (adults): ANA+, ASMA+. Type 2 (children/young adults): anti-LKM1+, anti-LC1+. Type 3 (overlap): anti-SLA+.",
+      "Presentation: acute hepatitis (40%); insidious chronic liver disease; acute-on-chronic (flare); rarely fulminant hepatic failure.",
+      "Associations: thyroid disease, coeliac, IBD, other autoimmune conditions.",
+      "Trigger: elevated transaminases + high IgG + compatible serology; overlap with PBC (Paris criteria) or PSC (AIH-PSC overlap).",
+      "Simplified IAIHG score (≥6 = probable; ≥7 = definite): serology + IgG + histology + viral exclusion."
+    ],
+    micro: [
+      "Interface hepatitis — lymphoplasmacytic infiltrate spilling from portal tracts into periportal parenchyma (piecemeal necrosis): cardinal feature.",
+      "Dense portal and lobular plasma cell infiltrate (conspicuous plasma cells — hallmark); rosette formation (hepatocytes arranged around dilated canaliculus); emperipolesis (lymphocyte within hepatocyte cytoplasm).",
+      "Lobular hepatitis with confluent/bridging necrosis in active disease; submassive necrosis in acute/fulminant; variable fibrosis (F0–F4 Metavir); bile duct injury rare (<portal inflammation — distinguishes from PBC/PSC)."
+    ],
+    ihcPos: ["IgG plasma cells – increased (>30 IgG+ plasma cells/HPF supports diagnosis on IHC)", "CD3/CD8 – T-cell rich infiltrate", "CK7 – intact bile ducts (helps exclude PBC duct loss)"],
+    ihcNeg: ["CK7 ductular reaction — absent or minimal (distinguishes from biliary disease)", "HBsAg – negative", "CMV/EBV IHC – negative (exclude viral)"],
+    differentials: [
+      { dx: "Drug-induced Liver Injury (DILI)", disc: "Drug history essential; DILI can be histologically identical; eosinophils more prominent; no seropositivity; resolves on withdrawal" },
+      { dx: "Primary Biliary Cholangitis (PBC)", disc: "Florid duct lesion; granulomatous bile duct injury; AMA+; plasma cells less conspicuous; ductopenia" },
+      { dx: "Viral Hepatitis (HCV/HBV)", disc: "Viral serology/PCR+; HCV: lymphoid follicles, steatosis, less plasma cells; HBV: ground-glass hepatocytes, sanded nuclei" }
+    ],
+    comments: [
+      "Treatment: prednisolone + azathioprine (standard); budesonide (mild/moderate, non-cirrhotic).",
+      "Remission: transaminases + IgG normalisation + histological remission (interface hepatitis resolved). Histological remission lags clinical by 3-6 months.",
+      "Relapse on withdrawal common (≥80%) — most require long-term maintenance azathioprine.",
+      "Cirrhosis at presentation: ~30%; HCC risk lower than viral hepatitis but present — surveillance if cirrhotic.",
+      "Acute severe AIH: IV methylprednisolone; if no response by Day 7 → ciclosporin or transplant listing.",
+      "AIH-PBC overlap (Paris criteria): AIH features + AMA+ or florid duct lesion — treat both (UDCA + immunosuppression).",
+      "AIH-PSC overlap: young patients; IBD association; MRCP/ERCP essential; poor prognosis; transplant often needed.",
+      "Plasma cell-poor AIH: seen in older patients and acute presentations — do not exclude AIH on plasma cell absence alone."
+    ]
+  },
+  {
+    id: "dili-001",
+    name: "DRUG-INDUCED LIVER INJURY (DILI)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Hepatitic",
+    behaviour: "Variable",
+    clinical: [
+      "Most common cause of acute liver failure in the Western world. Diagnosis of exclusion.",
+      "Intrinsic (predictable, dose-dependent): paracetamol — zone 3 necrosis; centrilobular.",
+      "Idiosyncratic (unpredictable, immune-mediated): antibiotics (amoxicillin-clavulanate most common), NSAIDs, statins, antiepileptics, herbal/supplement (increasingly important).",
+      "Latency: typically 5-90 days for idiosyncratic; <24h for paracetamol overdose.",
+      "Pattern: hepatocellular (R ratio ≥5), cholestatic (R ratio ≤2), or mixed (R ratio 2-5). R ratio = ALT/ULN ÷ ALP/ULN.",
+      "Trigger: new drug/supplement within 6 months + compatible pattern + exclusion of other causes."
+    ],
+    micro: [
+      "No single pathognomonic pattern — DILI mimics virtually any hepatic disease. Key patterns: hepatocellular necrosis (zone 3 centrilobular — paracetamol, halothane); cholestatic (bland canalicular cholestasis — steroids, OCP; or duct injury — flucloxacillin); mixed hepatitic-cholestatic; steatohepatitis (amiodarone — phospholipidosis; methotrexate); granulomatous (allopurinol, sulphonamides); vascular (sinusoidal obstruction — azathioprine, oxaliplatin).",
+      "Eosinophils in portal/lobular infiltrate — supportive of drug reaction but not specific; not present in all DILI.",
+      "Centrilobular (zone 3) injury pattern with confluent necrosis is classic for toxic/paracetamol; immune-mediated DILI resembles AIH with interface hepatitis and plasma cells."
+    ],
+    ihcPos: ["CK7 – ductular reaction in severe injury", "CD3/CD8 – lobular T-cell infiltrate in immune-mediated DILI", "Periodic acid–Schiff diastase (PASD) – negative (exclude alpha-1AT inclusions)"],
+    ihcNeg: ["HBsAg – negative", "CMV/EBV – negative", "Alpha-1AT globules – negative (if positive, reconsider diagnosis)"],
+    differentials: [
+      { dx: "Autoimmune Hepatitis", disc: "AIH: high IgG, seropositive (ANA/ASMA/LKM1), improves on immunosuppression; DILI: drug history, eosinophils, resolves on withdrawal; histologically may be identical" },
+      { dx: "Viral Hepatitis (acute)", disc: "Viral serology/PCR; lobular disarray; acidophil bodies; lymphoid follicles (HCV)" },
+      { dx: "Ischaemic Hepatitis", disc: "Zone 3 necrosis similar to paracetamol; clinical shock/right heart failure history; rapid AST rise (>10x); rapid recovery" }
+    ],
+    comments: [
+      "RUCAM (Roussel Uclaf Causality Assessment Method) score: standardised causality assessment — 'highly probable' ≥9; 'probable' 6-8.",
+      "Paracetamol: N-acetylcysteine — beneficial up to 24h; zone 3 necrosis; if King's criteria met → urgent transplant listing.",
+      "Flucloxacillin: cholestatic DILI; bile duct injury; prolonged course (months); HLA-B*57:01 association.",
+      "Amoxicillin-clavulanate: most common idiosyncratic DILI in UK; cholestatic or mixed; HLA-DRB1*15:01.",
+      "Methotrexate: cumulative dose-dependent fibrosis/steatohepatitis — liver biopsy indicated if cumulative dose >1.5g or risk factors.",
+      "Checkpoint inhibitor hepatitis (immune-related adverse event): granulomatous or lobular; treat with steroids ± mycophenolate.",
+      "Herbal/supplement DILI: increasingly prevalent; always ask specifically — patients do not volunteer this information.",
+      "Drug rechallenge: formal rechallenge not recommended; accidental rechallenge (Hy's Law — hepatocellular injury + jaundice) has 10% mortality."
+    ]
+  },
+  {
+    id: "pbc-001",
+    name: "PRIMARY BILIARY CHOLANGITIS (PBC)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Cholestatic",
+    behaviour: "Variable",
+    clinical: [
+      "Immune-mediated destruction of small intrahepatic bile ducts (<100μm). Female predominance (90%); peak 5th-6th decade.",
+      "AMA (anti-mitochondrial antibody, anti-PDC-E2) positive in >95% — highly specific; ANA (anti-SP100, anti-gp210) in AMA-negative PBC.",
+      "Presentation: pruritus, fatigue, incidental elevated ALP; frank cholestatic jaundice in advanced disease.",
+      "Associations: Sjögren's (sicca symptoms very common), thyroid disease, CREST, coeliac disease.",
+      "Trigger: middle-aged woman + isolated ALP elevation + AMA positive = PBC until proven otherwise.",
+      "Biopsy required only if AMA-negative or atypical features."
+    ],
+    micro: [
+      "Florid duct lesion (pathognomonic when present): dense granulomatous inflammation around interlobular bile ducts; lymphocytic/granulomatous cholangitis; epithelioid granulomas cuffing damaged duct — eosinophilic, irregular ductal epithelium.",
+      "Four histological stages (Ludwig): Stage 1 — portal (florid duct lesion); Stage 2 — periportal (interface hepatitis, ductular reaction); Stage 3 — septal fibrosis; Stage 4 — cirrhosis (biliary-pattern: jigsaw puzzle parenchyma, cholate stasis, Mallory-Denk bodies periportal).",
+      "Ductopenia (bile duct loss in >50% portal tracts) — progressive feature; Copper deposition (orcein/rhodanine) in periportal hepatocytes — biliary copper accumulation; cholestasis."
+    ],
+    ihcPos: ["CK7 – ductular reaction (periportal); residual ducts highlighted", "Copper (rhodanine/orcein) – periportal hepatocytes in advanced disease", "CD3/CD8 – T-cell infiltrate in florid duct lesion"],
+    ihcNeg: ["AMA – serum (not IHC); >95% sensitive", "IgG plasma cells – not prominent (unlike AIH — helps distinguish)"],
+    differentials: [
+      { dx: "Primary Sclerosing Cholangitis (PSC)", disc: "PSC: large duct involvement, fibro-obliterative lesion ('onion-skin'), IBD association, MRCP diagnostic; PBC: small ducts, AMA+, florid duct lesion, female" },
+      { dx: "Autoimmune Hepatitis (AIH)", disc: "AIH: interface hepatitis, dense plasma cells, high IgG, ANA/ASMA+; AIH-PBC overlap: both features (Paris criteria)" },
+      { dx: "Drug-induced Cholestasis", disc: "Drug history; no AMA; may be histologically similar; reversible on withdrawal" }
+    ],
+    comments: [
+      "UDCA (13-15mg/kg/day) — first-line; improves liver biochemistry and transplant-free survival. ALP/bilirubin response at 12 months predicts prognosis.",
+      "Second-line: obeticholic acid (FXR agonist) for inadequate UDCA response; bezafibrate (off-label, BEZURSO trial); seladelpar/elafibranor (newer).",
+      "Risk stratification: GLOBE score, UK-PBC score — predict transplant-free survival.",
+      "Cirrhosis: HCC surveillance (lower risk than viral cirrhosis but still indicated); variceal screening.",
+      "Pruritus: cholestyramine → rifampicin → naltrexone/naloxone → sertraline; bezafibrate also antipruritic.",
+      "AMA-negative PBC: diagnose on clinical + ALP + anti-SP100/anti-gp210 + compatible histology.",
+      "Liver transplant: excellent outcomes; recurrence in graft ~20% at 10 years.",
+      "Fat-soluble vitamin deficiency (ADEK) in advanced disease — supplement."
+    ]
+  },
+  {
+    id: "psc-001",
+    name: "PRIMARY SCLEROSING CHOLANGITIS (PSC)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Cholestatic",
+    behaviour: "Variable",
+    clinical: [
+      "Fibro-inflammatory stricturing of intra- and extrahepatic bile ducts. Male predominance (60-70%); peak 3rd-5th decade.",
+      "IBD association: ~70% have IBD (predominantly UC, often right-sided pan-colitis, rectal sparing); IBD may be subclinical — screen all PSC patients with colonoscopy.",
+      "Presentation: elevated ALP ± GGT; pruritus; fatigue; recurrent cholangitis; dominant stricture.",
+      "AMA negative; ANCA positive in ~60% (atypical p-ANCA); no specific diagnostic antibody.",
+      "MRCP: multifocal strictures and dilatations — beaded appearance — diagnostic. ERCP if intervention needed.",
+      "Trigger: young man + IBD (UC) + elevated ALP + negative AMA."
+    ],
+    micro: [
+      "Fibro-obliterative ('onion-skin') periductal fibrosis around interlobular ducts — pathognomonic when present but seen in <30% of biopsies; often only concentric oedematous fibrosis.",
+      "Ludwig staging same as PBC (portal → periportal → septal → cirrhosis); biliary-pattern cirrhosis; ductopenia; cholestasis; ductular reaction.",
+      "Small duct PSC (5%): PSC features on biopsy with normal MRCP — better prognosis; higher AIH overlap rate; may be separate entity or early/isolated small duct disease."
+    ],
+    ihcPos: ["CK7 – ductular reaction; highlights remaining ducts", "Copper (rhodanine) – periportal in advanced disease", "p62/ubiquitin – Mallory-Denk bodies in cholate stasis (advanced)"],
+    ihcNeg: ["AMA – negative (key distinction from PBC)", "IgG4 plasma cells – <10/HPF (>10/HPF and serum IgG4 elevated → consider IgG4-SC)"],
+    differentials: [
+      { dx: "IgG4-Related Sclerosing Cholangitis (IgG4-SC)", disc: "IgG4-SC: elevated serum IgG4 (>2x ULN); >10 IgG4+ plasma cells/HPF; other IgG4 organ involvement; responds dramatically to steroids — must exclude before PSC diagnosis" },
+      { dx: "Primary Biliary Cholangitis (PBC)", disc: "PBC: AMA+, female, small ducts only, florid duct lesion, no IBD; PSC: AMA-, male, large + small ducts, IBD, MRCP abnormal" },
+      { dx: "Secondary Sclerosing Cholangitis", disc: "Prior biliary surgery/trauma, ischaemic cholangiopathy (ICU/shock), recurrent pyogenic cholangitis, bile duct stones — clinical context essential" }
+    ],
+    comments: [
+      "No proven medical therapy. UDCA at high dose (28-30mg/kg) — no survival benefit; may increase colorectal cancer risk (controversial). UDCA not routinely recommended.",
+      "Dominant stricture: endoscopic dilation ± short-term stent; brush cytology/FISH for CCA surveillance.",
+      "Cholangiocarcinoma (CCA): lifetime risk 10-20%; 30-40% of CCA diagnosed within 1 year of PSC diagnosis (prevalent disease). Annual MRCP + serum CA19-9.",
+      "Colorectal cancer: PSC-IBD has markedly elevated CRC risk (4-10x vs IBD alone) — annual colonoscopy from diagnosis.",
+      "Gallbladder: gallbladder polyps in PSC → cholecystectomy regardless of size (malignant risk).",
+      "Liver transplant: only curative option. 5-year survival >80%; recurrence in graft ~25% at 10 years; IBD may worsen post-transplant.",
+      "IgG4-SC exclusion mandatory before PSC diagnosis — steroid-responsive vs progressive fibrosing disease.",
+      "Small duct PSC: no MRCP changes; diagnose on biopsy; better prognosis; watch for progression to large duct PSC."
+    ]
+  },
+  {
+    id: "masld-001",
+    name: "MASLD / MASH (METABOLIC DYSFUNCTION-ASSOCIATED STEATOTIC LIVER DISEASE)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Steatotic",
+    behaviour: "Variable",
+    clinical: [
+      "WHO 2023 / Delphi consensus nomenclature: MASLD replaces NAFLD; MASH replaces NASH. Requires ≥1 cardiometabolic risk factor (obesity, T2DM, hypertension, dyslipidaemia, metabolic syndrome).",
+      "Most common chronic liver disease globally; prevalence ~25% worldwide. Spectrum: steatosis (MASLD) → steatohepatitis (MASH) → fibrosis → cirrhosis → HCC.",
+      "Cirrhosis and HCC can occur without preceding steatohepatitis (burnt-out NASH — steatosis may be absent in cirrhotic stage).",
+      "HCC in MASLD: rising incidence; can occur in non-cirrhotic liver (unique vs viral hepatitis) — surveillance challenging.",
+      "Trigger: incidental elevated ALT/steatosis on imaging in a metabolic syndrome patient; biopsy when diagnosis uncertain or to stage fibrosis."
+    ],
+    micro: [
+      "Steatosis: macrovesicular >5% hepatocytes (zone 3 / centrilobular predominant in early MASLD); grade 1 (<33%), grade 2 (33-66%), grade 3 (>66%).",
+      "MASH: steatosis + lobular inflammation (mixed, neutrophils + mononuclear) + hepatocellular ballooning (enlarged pale hepatocytes, rarefied cytoplasm, loss of cytoplasmic keratin) — ballooning essential for MASH diagnosis.",
+      "Fibrosis: zone 3 perisinusoidal/pericellular ('chicken wire') fibrosis — early and characteristic of MASLD/MASH; portal fibrosis later; bridging; cirrhosis. Mallory-Denk bodies in ballooned hepatocytes. NAS score: steatosis (0-3) + lobular inflammation (0-3) + ballooning (0-2); ≥5 = MASH likely."
+    ],
+    ihcPos: ["CK8/18 – Mallory-Denk bodies (ubiquitinated keratin aggregates)", "p62 – Mallory-Denk bodies", "Ubiquitin – Mallory-Denk bodies"],
+    ihcNeg: ["CK7 – periportal ductular reaction absent/minimal in early MASLD (prominent ductular reaction suggests advanced fibrosis or alternative diagnosis)", "PAS-D – negative (excludes alpha-1AT, glycogen storage)"],
+    differentials: [
+      { dx: "Alcoholic Liver Disease (ALD)", disc: "Histologically identical to MASH; ALD: history of alcohol excess, Mallory-Denk bodies more prominent/central, AST:ALT >2:1, macrocytosis, CDT; MASLD: metabolic risk factors, AST:ALT <1; clinical distinction — not histological" },
+      { dx: "Drug-induced Steatohepatitis", disc: "Amiodarone (phospholipidosis, lamellar lysosomal inclusions), methotrexate (portal fibrosis, mild steatosis), tamoxifen — drug history key" },
+      { dx: "Wilson's Disease", disc: "Younger patient; neuropsychiatric features; Kayser-Fleischer rings; low caeruloplasmin; elevated urinary copper; copper on biopsy" }
+    ],
+    comments: [
+      "Fibrosis stage (F0-F4 Metavir or Brunt) is the strongest predictor of liver-related mortality — not NAS score.",
+      "Non-invasive fibrosis assessment: FIB-4 index (age × AST / [platelets × √ALT]) — low risk <1.30, high risk >2.67. Vibration-controlled transient elastography (Fibroscan). ELF score.",
+      "Treatment: weight loss (≥10% sustained = MASH resolution + fibrosis improvement). Exercise independent of weight loss improves histology.",
+      "Pharmacological: resmetirom (thyroid receptor-β agonist, 2024 FDA approval — first approved MASH treatment); semaglutide (GLP-1 RA — ESSENCE trial); obeticholic acid (awaited final FDA decision).",
+      "Metabolic comorbidities: cardiovascular disease is the leading cause of death in MASLD — manage CV risk aggressively.",
+      "MASLD + significant alcohol (MetALD): new category for those consuming >140g/week (F) or >210g/week (M) — distinct from ALD.",
+      "Cirrhosis surveillance: 6-monthly USS ± AFP for HCC. HCC can arise in non-cirrhotic MASLD — surveillance thresholds debated.",
+      "Burnt-out NASH: cirrhosis with absent/minimal steatosis — do not exclude MASLD origin; cryptogenic cirrhosis in metabolic patients is likely MASLD."
+    ]
+  },
+  {
+    id: "ald-001",
+    name: "ALCOHOLIC LIVER DISEASE / ALCOHOL-ASSOCIATED HEPATITIS (ALD/AAH)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Hepatitic",
+    behaviour: "Variable",
+    clinical: [
+      "Spectrum: alcoholic fatty liver (steatosis, reversible) → alcohol-associated hepatitis (AAH) → cirrhosis → HCC.",
+      "AAH: acute-on-chronic presentation; heavy prolonged alcohol use (typically >80g/day for years); jaundice + coagulopathy + encephalopathy; high short-term mortality.",
+      "Discriminant function (Maddrey): 4.6 × (PT - control) + bilirubin (μmol/L ÷ 17). Score ≥32 = severe; indicates steroid benefit.",
+      "MELD score: >20 = severe AAH; >25 = very high 90-day mortality.",
+      "ABIC score and Glasgow Alcoholic Hepatitis Score (GAHS) also used.",
+      "Trigger: jaundiced patient with heavy alcohol history + AST:ALT >2:1 + bilirubin elevation — biopsy if diagnosis uncertain or before steroid therapy."
+    ],
+    micro: [
+      "Steatohepatitis pattern: macrovesicular steatosis; hepatocyte ballooning; Mallory-Denk bodies (prominent, zone 3 centrilobular); lobular inflammation (neutrophilic infiltrate — satellite necrosis: neutrophils clustering around ballooned hepatocytes with MDBs); cholestasis (canalicular + hepatocellular).",
+      "Sclerosing hyaline necrosis: pericentral fibrosis obliterating central veins — associated with portal hypertension disproportionate to fibrosis stage; characteristic of ALD.",
+      "Fibrosis: zone 3 perisinusoidal ('chicken wire'); portal → bridging → biliary-pattern cirrhosis (Laennec cirrhosis — thin fibrous septa, small regular nodules)."
+    ],
+    ihcPos: ["p62/ubiquitin/CK8/18 – Mallory-Denk bodies (prominent, zone 3)", "Fibronectin – perisinusoidal (early fibrosis)"],
+    ihcNeg: ["HBsAg – negative", "AMA – negative"],
+    differentials: [
+      { dx: "MASLD/MASH", disc: "Histologically identical; ALD: history of significant alcohol, AST:ALT >2:1, more prominent MDBs centrally, neutrophilic satellite necrosis; MASLD: metabolic risk factors, AST:ALT <1; clinical distinction — not histological" },
+      { dx: "Acute Viral Hepatitis", disc: "Viral serology/PCR; lobular disarray; acidophil bodies; portal inflammation; no steatosis/MDBs predominance" },
+      { dx: "Ischaemic Hepatitis", disc: "Zone 3 necrosis; clinical haemodynamic compromise; rapid AST rise and fall; no steatosis or MDBs" }
+    ],
+    comments: [
+      "Severe AAH (Maddrey ≥32 or MELD >20): prednisolone 40mg/day for 28 days. Lille score at Day 7: ≥0.45 = non-responder → stop steroids (no benefit, increased infection risk).",
+      "Lille model: most validated response predictor. Lille <0.16 = complete response (good prognosis); 0.16-0.45 = partial; ≥0.45 = no response.",
+      "Infection: exclude before steroids; prophylactic antibiotics if severe/SBP risk; monitor closely during treatment.",
+      "N-acetylcysteine: adjunct to steroids in severe AAH (ATTIRE trial — improved 28-day but not 90-day survival).",
+      "Abstinence: fundamental; 6 months abstinence required before transplant assessment (UK standard).",
+      "Early liver transplant (ELT): selected severe steroid non-responders with first presentation, good psychosocial support — increasingly offered in specialist centres (controversial).",
+      "HCC: cirrhotic ALD has similar HCC risk to HCV cirrhosis — 6-monthly surveillance.",
+      "Wernicke's encephalopathy: give IV thiamine (Pabrinex) before any glucose in ALL ALD patients — never omit."
+    ]
+  },
+  {
+    id: "haemo-001",
+    name: "HEREDITARY HAEMOCHROMATOSIS (HH)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Fibrotic/cirrhotic",
+    behaviour: "Variable",
+    clinical: [
+      "Autosomal recessive iron overload. HFE gene mutations: C282Y homozygous (85-90% of classical HH in Northern European); H63D compound heterozygote (milder); C282Y/H63D compound heterozygote.",
+      "Phenotypic expression variable — C282Y homozygosity necessary but not sufficient; cofactors (alcohol, steatosis, male sex) influence expression.",
+      "Presentation: fatigue, arthralgia (2nd/3rd MCP joints — chondrocalcinosis), bronzed skin, diabetes (bronze diabetes), hypogonadism, cardiomyopathy, elevated ferritin + transferrin saturation.",
+      "Elevated transferrin saturation (>45%) + ferritin (>300 μg/L men, >200 μg/L women) → HFE genotyping.",
+      "Trigger: incidental elevated ferritin/transferrin saturation; family history screening; arthralgia + DM in appropriate demographic."
+    ],
+    micro: [
+      "Iron deposition predominantly in periportal hepatocytes (zone 1) — acinar gradient, worst periportally: Perls' Prussian blue stain grades 1-4 (Deugnier or Scheuer grading); early involvement of hepatocytes only (not Kupffer cells) — distinguishes from secondary siderosis.",
+      "Bile duct epithelial iron deposition — specific to HH (not seen in secondary iron overload).",
+      "Progressive fibrosis: periportal (zone 1) → bridging → macronodular cirrhosis; iron deposition eventually in Kupffer cells + portal macrophages in advanced disease."
+    ],
+    ihcPos: ["Perls' Prussian blue – hepatocytic (periportal > centrilobular) + bile duct epithelial iron; grade 3-4 = significant overload"],
+    ihcNeg: ["Kupffer cell iron predominance – absent in early HH (Kupffer cell predominance = secondary siderosis, e.g. haemolytic anaemia, transfusion)"],
+    differentials: [
+      { dx: "Secondary Siderosis (transfusional/haemolytic)", disc: "Kupffer cell and macrophage iron predominance; no bile duct iron; no periportal gradient; clinical context (transfusions, haemolysis)" },
+      { dx: "MASLD-associated hyperferritinaemia", disc: "Elevated ferritin (acute phase reactant); normal/mildly elevated transferrin saturation; hepatocytic steatosis predominant; no periportal iron gradient; HFE wild-type" },
+      { dx: "Juvenile Haemochromatosis (HJV/HAMP)", disc: "Age <30; severe cardiac and endocrine involvement; HJV or HAMP mutations; rapidly progressive" }
+    ],
+    comments: [
+      "Phlebotomy: 400-500mL weekly until ferritin <50 μg/L; then maintenance (every 3-4 months). Iron depletion reverses fibrosis in pre-cirrhotic disease.",
+      "Cirrhosis: does not fully reverse with phlebotomy. HCC risk markedly elevated (20-200x normal) in cirrhotic HH — 6-monthly surveillance essential.",
+      "HCC in HH: can occur in non-cirrhotic liver (unlike most other causes) — surveillance even pre-cirrhosis if heavy iron loading (stage 3-4).",
+      "Arthropathy: does not improve with phlebotomy — often the most disabling complication; chondrocalcinosis at 2nd/3rd MCP joints.",
+      "Cardiac: cardiomyopathy partially reversible with iron depletion; MRI T2* for cardiac iron quantification.",
+      "Family screening: first-degree relatives — HFE genotyping + fasting transferrin saturation + ferritin.",
+      "C282Y heterozygotes: rarely develop clinical disease without cofactors — reassure but advise avoiding excess alcohol.",
+      "Iron chelation (desferrioxamine/deferasirox): reserved for those unable to tolerate phlebotomy (e.g. severe anaemia, heart failure)."
+    ]
+  },
+  {
+    id: "wilson-001",
+    name: "WILSON'S DISEASE",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Hepatitic",
+    behaviour: "Variable",
+    clinical: [
+      "Autosomal recessive copper transport defect. ATP7B mutation — impaired biliary copper excretion → copper accumulation in liver, brain, cornea, kidneys.",
+      "Presentation age typically 5-35 years; almost never presents after 40 (rare exceptions).",
+      "Hepatic: acute hepatitis, chronic active hepatitis, cirrhosis, acute liver failure (with Coombs-negative haemolytic anaemia — classical presentation).",
+      "Neuropsychiatric: dysarthria, tremor, dystonia, psychiatric symptoms — often before hepatic diagnosis.",
+      "Kayser-Fleischer rings (slit-lamp): copper in Descemet's membrane — present in >95% with neurological involvement; only 50% with isolated hepatic disease.",
+      "Trigger: young patient + liver disease + neuropsychiatric features; acute liver failure + haemolytic anaemia; low caeruloplasmin."
+    ],
+    micro: [
+      "Variable and non-specific histology: steatosis (macrovesicular ± microvesicular); glycogenated nuclei (nuclear vacuolation — characteristic but non-specific); hepatocyte ballooning; interface hepatitis; lobular inflammation.",
+      "Copper stains (rhodanine, orcein): periportal copper deposition in established disease — may be negative in early or acute Wilson's (copper uniformly distributed before zonation, not stainable); absent in acute liver failure (copper released rapidly).",
+      "Acute liver failure pattern: massive hepatocyte necrosis; rosette formation; paucity of copper on staining (copper already released); Mallory-Denk bodies; ductular reaction."
+    ],
+    ihcPos: ["Rhodanine/orcein – periportal copper (established disease; absent in acute ALF)", "CK7 – ductular reaction in advanced/acute disease", "PAS-D – glycogenated nuclei highlighted"],
+    ihcNeg: ["HBsAg – negative", "Copper stains may be NEGATIVE in acute Wilson's — do not exclude on negative copper stain alone"],
+    differentials: [
+      { dx: "Autoimmune Hepatitis", disc: "AIH: ANA/ASMA+, high IgG, plasma cell-rich interface hepatitis; Wilson's: young patient, low caeruloplasmin, copper stains, ATP7B mutation; can coexist — always check copper in young AIH" },
+      { dx: "MASLD/MASH", disc: "MASLD: metabolic risk factors, older; Wilson's: young patient, glycogenated nuclei, steatosis + neuropsychiatric features, low caeruloplasmin" },
+      { dx: "Alpha-1 Antitrypsin Deficiency", disc: "A1AT: PAS-D+ portal zone inclusions; Pi phenotype/genotyping; pulmonary emphysema; no copper excess" }
+    ],
+    comments: [
+      "Diagnosis: Leipzig score ≥4 = Wilson's confirmed. Components: KF rings, neurological symptoms, Coombs-negative haemolytic anaemia, low serum caeruloplasmin (<0.1g/L), elevated urinary copper (>100μg/24h), liver copper >250μg/g dry weight, ATP7B mutation.",
+      "Caeruloplasmin: low in Wilson's but also low in protein-losing states, severe liver disease, malnutrition — not specific.",
+      "Urinary copper: >100μg/24h diagnostic; >500μg/24h in presence of KF rings = sufficient for diagnosis without biopsy.",
+      "Liver copper quantification (dry weight): >250μg/g dry weight = diagnostic. Gold standard but requires biopsy.",
+      "Treatment: D-penicillamine (copper chelation, first-line but poorly tolerated — neurological worsening at initiation); trientine (better tolerated, preferred); zinc (blocks intestinal copper absorption — maintenance/asymptomatic/pregnancy).",
+      "Acute liver failure: D-penicillamine contraindicated (worsens haemolysis); urgent liver transplant assessment; plasma exchange as bridge.",
+      "Liver transplant: corrects metabolic defect; neurological symptoms may not resolve post-transplant.",
+      "Pregnancy: continue treatment (zinc preferred); teratogenicity risk with D-penicillamine at high dose — reduce dose."
+    ]
+  },
+  {
+    id: "a1at-001",
+    name: "ALPHA-1 ANTITRYPSIN DEFICIENCY (A1AT)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Hepatitic",
+    behaviour: "Variable",
+    clinical: [
+      "Autosomal co-dominant. SERPINA1 gene. Pi (protease inhibitor) system: PiMM = normal; PiZZ = most severe (A1AT ~15% normal); PiSZ = intermediate.",
+      "PiZZ: liver disease (misfolded Z-A1AT polymerises and accumulates in hepatocyte ER — gain-of-function hepatotoxicity) AND pulmonary emphysema (loss-of-function — uninhibited neutrophil elastase).",
+      "Hepatic presentations: neonatal cholestasis (most common neonatal liver disease cause); childhood hepatitis; adult cirrhosis and HCC (often without childhood history).",
+      "Pulmonary: panacinar emphysema (lower lobe predominant), onset 30s-40s, accelerated by smoking.",
+      "Trigger: unexplained cirrhosis/HCC especially in younger adults; panacinar emphysema; neonatal cholestasis; positive family history."
+    ],
+    micro: [
+      "PAS-D (diastase-resistant) positive globules in periportal hepatocytes (zone 1) — intracytoplasmic, round to oval, pink/magenta: pathognomonic. Number and size increase with age.",
+      "PAS-positive globules present from birth but may be small/few in neonates — increase with age. Globules = retained misfolded Z-A1AT protein in ER.",
+      "Variable background: steatosis; lobular hepatitis; interface hepatitis; fibrosis; cirrhosis; HCC arising in cirrhosis (rarely non-cirrhotic)."
+    ],
+    ihcPos: ["PAS-D – diastase-resistant globules in periportal hepatocytes — diagnostic", "A1AT IHC – confirms globules are A1AT protein (useful in early/subtle cases)"],
+    ihcNeg: ["Rhodanine/copper – negative (excludes Wilson's)", "Ferritin/Perls' – negative (excludes haemochromatosis)"],
+    differentials: [
+      { dx: "Wilson's Disease", disc: "Wilson's: glycogenated nuclei, copper stains positive (rhodanine), low caeruloplasmin, young patient; A1AT: PAS-D+ globules, Pi phenotype" },
+      { dx: "Other causes of neonatal cholestasis", disc: "Biliary atresia (absent/atretic ducts on cholangiogram; no PAS-D globules); Alagille (syndromic features, JAG1/NOTCH2 mutation, ductopenia)" },
+      { dx: "Fibrinogen storage disease", disc: "PAS-D+ inclusions (fibrinogen) in hepatocytes — rare; immunostaining for fibrinogen distinguishes" }
+    ],
+    comments: [
+      "Pi phenotyping (isoelectric focusing) or genotyping: PiZZ confirms diagnosis. Serum A1AT level alone insufficient (acute phase reactant — may be normal in inflammation).",
+      "No specific hepatic therapy. Supportive management; treat complications of cirrhosis.",
+      "Lung disease: A1AT augmentation therapy (weekly IV pooled human A1AT) — slows emphysema progression; no hepatic benefit.",
+      "Liver transplant: corrects Pi phenotype (donor liver produces normal PiMM protein); curative for hepatic disease.",
+      "HCC: cirrhotic A1AT has elevated HCC risk — 6-monthly surveillance. HCC can arise in non-cirrhotic A1AT (rare).",
+      "Smoking cessation: dramatically reduces and accelerates lung disease — counsel all PiZZ patients strongly.",
+      "Family screening: Pi phenotyping of first-degree relatives. Genetic counselling.",
+      "Novel therapies: fazirsiran (RNA interference, reduces hepatic Z-A1AT production) — in trials."
+    ]
+  },
+  {
+    id: "budd-chiari-001",
+    name: "BUDD-CHIARI SYNDROME (BCS)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Vascular",
+    behaviour: "Variable",
+    clinical: [
+      "Hepatic venous outflow obstruction at any level: hepatic veins, IVC, or right atrium. Sinusoidal congestion → ischaemic necrosis → fibrosis.",
+      "Primary BCS: thrombosis due to underlying thrombophilia — JAK2 V617F mutation (myeloproliferative neoplasm, most common; ~50% of BCS); factor V Leiden; prothrombin G20210A; antiphospholipid syndrome; paroxysmal nocturnal haemoglobinuria (PNH); protein C/S/antithrombin deficiency.",
+      "Secondary BCS: extrinsic compression (HCC, renal cell carcinoma), membranous obstruction of IVC (Asia/Africa).",
+      "Presentation: acute (abdominal pain, ascites, hepatomegaly, ALF); subacute/chronic (progressive ascites, portal hypertension, cirrhosis). Caudate lobe hypertrophy (separate venous drainage to IVC) — characteristic imaging finding.",
+      "Trigger: young patient + ascites + hepatomegaly + caudate hypertrophy on imaging — screen for thrombophilia (JAK2 first)."
+    ],
+    micro: [
+      "Zone 3 (centrilobular) sinusoidal congestion and haemorrhagic necrosis — hepatocytes drop out; dilated congested sinusoids; red cell extravasation.",
+      "Centrilobular fibrosis (reverse fibrosis pattern — zone 3 first, periportal last); 'reversed lobular architecture' — fibrosis radiates from central vein outward.",
+      "Caudate lobe: relatively spared (separate venous drainage). Compensatory regenerative nodules (large regenerative nodules, LRN) — may mimic HCC on imaging."
+    ],
+    ihcPos: ["CD34 – sinusoidal capillarisation in congested areas", "Trichrome/Sirius red – zone 3 fibrosis (reversed pattern)"],
+    ihcNeg: ["Arterial markers (CD34 diffuse) – absent in LRN (vs HCC which shows diffuse CD34 arterialisation)", "GPC3/HSP70/GS – LRN typically GS+ diffuse (map-like) but GPC3−/HSP70− (distinguishes from HCC)"],
+    differentials: [
+      { dx: "Sinusoidal Obstruction Syndrome (SOS/VOD)", disc: "SOS: sinusoidal/venular obstruction post-BMT or oxaliplatin; no large vein thrombosis; same zone 3 pattern; clinical context (BMT, chemotherapy)" },
+      { dx: "Right Heart Failure / Cardiac Hepatopathy", disc: "Zone 3 congestion identical; elevated JVP, peripheral oedema, echocardiographic findings; no venous thrombosis; nutmeg liver" },
+      { dx: "Hepatic Veno-occlusive Disease (SOS)", disc: "Terminal hepatic venule obliteration; post-BMT; sinusoidal fibrin thrombi; no large vein thrombosis" }
+    ],
+    comments: [
+      "Anticoagulation: lifelong in all BCS regardless of underlying cause (risk of extension/rethrombosis).",
+      "Treat underlying cause: JAK2+ → haematology referral (MPN treatment may be needed); PNH → eculizumab; APS → anticoagulation.",
+      "TIPS (transjugular intrahepatic portosystemic shunt): portal hypertension complications, ascites, or if anticoagulation insufficient — decompresses portal system.",
+      "Liver transplant: for acute liver failure or failed decompression; recurrence risk if underlying thrombophilia not treated.",
+      "Large regenerative nodules (LRN): benign; may be multiple; mimic HCC — discriminate with biopsy (GPC3−) and AFP (normal in LRN).",
+      "HCC risk: elevated in BCS-related cirrhosis — surveillance.",
+      "JAK2 V617F testing: positive in ~50% BCS — may be the presenting feature of MPN before haematological changes are apparent. Full bone marrow biopsy if JAK2+.",
+      "IVC obstruction: consider IR decompression (angioplasty/stent) if membranous or short segment."
+    ]
+  },
+  {
+    id: "sos-001",
+    name: "SINUSOIDAL OBSTRUCTION SYNDROME (SOS / HEPATIC VOD)",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Vascular",
+    behaviour: "Variable",
+    clinical: [
+      "Endothelial injury to hepatic sinusoids and terminal hepatic venules → obstruction → centrilobular ischaemic necrosis.",
+      "Post-BMT/HSCT: conditioning regimens (busulfan + cyclophosphamide, total body irradiation) — classic cause; onset within 21 days of transplant.",
+      "Chemotherapy-associated: oxaliplatin (colorectal liver metastases) — sinusoidal injury, blue liver; gemcitabine; actinomycin D.",
+      "Other: pyrrolizidine alkaloids (herbal teas — Jamaica bush tea, comfrey); azathioprine (renal transplant, IBD).",
+      "Diagnostic criteria (EBMT 2016): bilirubin + ≥2 of: painful hepatomegaly, ascites, weight gain >5%; or imaging/biopsy evidence.",
+      "Trigger: weight gain + hepatomegaly + jaundice within 21 days post-BMT conditioning."
+    ],
+    micro: [
+      "Terminal hepatic venule (central vein) obliteration: subendothelial oedema → loose connective tissue in venular wall → concentric fibrosis → obliteration; red cell extravasation into space of Disse.",
+      "Zone 3 sinusoidal congestion, haemorrhagic necrosis — identical to BCS but at sinusoidal/venular level; no large vein thrombosis.",
+      "Sinusoidal fibrin thrombi (periodic acid-Schiff or PTAH stain); sinusoidal dilatation; hepatocyte dropout zone 3; perisinusoidal fibrosis."
+    ],
+    ihcPos: ["PTAH/Phosphotungstic acid haematoxylin – fibrin thrombi in sinusoids", "Trichrome – centrilobular/zone 3 fibrosis; venular obliteration"],
+    ihcNeg: ["No large hepatic vein/IVC thrombosis (distinguishes from BCS on imaging + histology)"],
+    differentials: [
+      { dx: "Budd-Chiari Syndrome", disc: "BCS: large hepatic vein/IVC thrombosis on Doppler/MRI; thrombophilia (JAK2); no post-BMT context; caudate hypertrophy" },
+      { dx: "Cardiac Hepatopathy / Right Heart Failure", disc: "Elevated JVP; echocardiographic findings; bilateral lower limb oedema; no post-BMT or drug exposure" },
+      { dx: "Chemotherapy-induced steatohepatitis", disc: "Irinotecan → steatosis/MASH pattern; oxaliplatin → SOS/sinusoidal injury; pattern depends on agent — clinical context" }
+    ],
+    comments: [
+      "Severity grading (EBMT): mild (reversible, supportive); moderate (organ dysfunction); severe (multiorgan failure — high mortality).",
+      "Prevention (post-BMT): defibrotide prophylaxis in high-risk patients — reduces incidence and severity.",
+      "Treatment: defibrotide (fibrinolytic/antithrombotic endothelial protectant) — standard for moderate-severe post-BMT SOS; improves survival.",
+      "Supportive: sodium restriction, diuretics for ascites; manage renal failure; avoid hepatotoxins.",
+      "Oxaliplatin-associated SOS: histologically present in ~50% undergoing hepatic resection; increases peri-operative haemorrhage risk; preoperative bevacizumab reduces incidence (EORTC 40983 subset).",
+      "Azathioprine-associated SOS: IBD/transplant patients; rare; usually chronic/nodular regenerative hyperplasia pattern.",
+      "TIPS: may be used for refractory portal hypertension/ascites in SOS; risk of worsening hepatic failure.",
+      "Pyrrolizidine alkaloids: developing world; herbal tea/bush tea; chronic exposure → nodular regenerative hyperplasia → portal hypertension."
+    ]
+  },
+  {
+    id: "gran-hepatitis-001",
+    name: "HEPATIC GRANULOMAS — DIFFERENTIAL FRAMEWORK",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Granulomatous",
+    behaviour: "Variable",
+    clinical: [
+      "Granulomas in liver: clusters of epithelioid histiocytes ± Langhans giant cells. Found in 2-10% of liver biopsies. Require systematic workup — rarely diagnosed on histology alone.",
+      "Common causes: sarcoidosis (most common in developed world — non-caseating; bilateral hilar lymphadenopathy; ACE elevated); PBC (florid duct lesion); infection (TB — caseating/fibrin-ring; Brucella; Q fever — fibrin-ring granulomas); drug reaction; lymphoma (Hodgkin's — sinusoidal infiltration).",
+      "Fibrin-ring granuloma (doughnut granuloma): central lipid vacuole surrounded by fibrin ring + epithelioid histiocytes — associated with Q fever (Coxiella burnetii), EBV, CMV, toxoplasmosis, leishmaniasis, allopurinol, DILI.",
+      "Trigger: incidental granulomas on biopsy → systematic workup: CXR/CT chest, ACE, serum calcium, Mantoux/IGRA, blood cultures, serology (Q fever, Brucella, EBV, CMV), drug history."
+    ],
+    micro: [
+      "Sarcoidosis: non-caseating epithelioid granulomas; tight, well-formed; Langhans giant cells; Schaumann bodies (concentric calcified inclusions) or asteroid bodies within giant cells; portal and parenchymal; no necrosis; reticulin collapse.",
+      "TB: caseating granulomas (central eosinophilic necrosis); Ziehl-Neelsen (ZN) stain for AFB (sensitivity <50% in hepatic TB); culture gold standard; often miliary distribution.",
+      "PBC: florid duct lesion — granuloma specifically cuffing damaged interlobular bile duct (granulomatous cholangitis); portal location; AMA+; bile duct injury.",
+      "Fibrin-ring: central clear lipid vacuole + fibrin ring (Masson trichrome) + surrounding epithelioid cells — morphologically distinctive; strongly associated with Q fever."
+    ],
+    ihcPos: ["CD68 – epithelioid histiocytes and Langhans giant cells", "ZN – AFB if TB suspected", "PAS/GMS – fungal organisms if suspected", "CMV IHC, EBV ISH (EBER) – viral causes"],
+    ihcNeg: ["Caseation absent – favours sarcoidosis, PBC, drug, Q fever over TB/fungal", "CK7 bile duct involvement – if present, consider PBC florid duct lesion"],
+    differentials: [
+      { dx: "Sarcoidosis vs TB", disc: "Sarcoidosis: non-caseating, tight granulomas, bilateral hilar LAD, elevated ACE, IGRA negative; TB: caseating, ZN+/culture+, clinical risk factors, IGRA positive" },
+      { dx: "PBC granulomatous cholangitis vs sarcoidosis", disc: "PBC: granuloma specifically around damaged bile duct; AMA+; ductopenia; isolated ALP elevation; sarcoidosis: not duct-centred; ACE elevated; systemic features" },
+      { dx: "Drug reaction vs sarcoidosis", disc: "Drug reaction: eosinophils; drug history; resolves on withdrawal; less well-formed granulomas; fibrin-ring pattern" }
+    ],
+    comments: [
+      "Workup for hepatic granulomas: CXR + CT chest (sarcoid/TB), ACE + calcium (sarcoid), IGRA/Mantoux (TB), blood cultures ×3 (brucella, TB), Q fever serology (phase I/II IgG/IgM), Brucella serology, HIV, EBV/CMV serology, drug history review, bone marrow biopsy if haematological cause suspected.",
+      "ZN stain sensitivity for hepatic TB <50% — negative ZN does not exclude. Culture of liver biopsy tissue improves sensitivity.",
+      "Sarcoidosis: most cases do not require treatment. Prednisolone if symptomatic, rising bilirubin, portal hypertension, or significant hepatic dysfunction.",
+      "Q fever hepatitis: doxycycline (acute); hydroxychloroquine + doxycycline (chronic/endocarditis).",
+      "Granulomatous hepatitis: diagnosis of exclusion — all identifiable causes excluded + steroid trial if symptomatic.",
+      "Hodgkin's lymphoma: sinusoidal infiltration by Reed-Sternberg cells ± non-caseating granulomas — always consider lymphoma; CD30/CD15 IHC on biopsy.",
+      "HIV: consider MAC (Mycobacterium avium complex) — CD4 <50; poorly formed granulomas, ZN strongly positive; treat with azithromycin + ethambutol.",
+      "Fungal: histoplasma (GMS+, small intracellular yeasts), cryptococcus (India ink, mucin capsule), coccidioides (large spherules) — in immunocompromised or endemic regions."
+    ]
+  },
+  {
+    id: "alf-001",
+    name: "ACUTE LIVER FAILURE — MORPHOLOGICAL PATTERNS",
+    subspecialty: "Hepatobiliary",
+    category: "Medical Liver",
+    pattern: "Massive necrosis",
+    behaviour: "Malignant",
+    clinical: [
+      "Acute liver failure (ALF): coagulopathy (INR ≥1.5) + encephalopathy within 26 weeks of liver disease onset in a patient without pre-existing cirrhosis.",
+      "Hyperacute (<7 days): paracetamol overdose (most common UK cause), ischaemia — jaundice + encephalopathy rapidly; zone 3 necrosis.",
+      "Acute (7-28 days): hepatitis A/B, Wilson's acute presentation, Budd-Chiari.",
+      "Subacute (4-26 weeks): drug-induced, seronegative (cryptogenic — poor prognosis), Wilson's.",
+      "Biopsy in ALF: transjugular route (coagulopathy); establishes diagnosis; determines potential for regeneration (>30% viable hepatocytes) vs futility.",
+      "King's College Criteria: indicates need for transplant listing (paracetamol and non-paracetamol criteria)."
+    ],
+    micro: [
+      "Massive hepatic necrosis: pan-acinar necrosis with hepatocyte dropout; collapsed reticulin framework (silver stain shows compressed fibres without hepatocytes); sinusoidal congestion; inflammatory infiltrate variable.",
+      "Zone 3 necrosis: paracetamol (centrilobular, sharp demarcation, minimal inflammation); ischaemia (zone 3, haemorrhagic); Budd-Chiari (zone 3, congestion).",
+      "Submassive necrosis with regeneration: islands of surviving hepatocytes (often periportal zone 1); ductular reaction (oval cell/hepatic progenitor cell activation — CK7+); ballooning + cholestasis in survivors; degree of necrosis + regenerative capacity = prognostic assessment."
+    ],
+    ihcPos: ["CK7 – ductular reaction / oval cells (regenerative potential indicator)", "Ki67 – hepatocyte proliferation (>5% = regenerative activity — prognostically favourable)", "Reticulin (silver stain) – collapsed framework without hepatocytes in necrotic areas"],
+    ihcNeg: ["HBsAg/HBcAg – negative (exclude HBV)", "HSV IHC – negative (exclude herpes hepatitis — Cowdry A inclusions; HSV can cause ALF)"],
+    differentials: [
+      { dx: "Ischaemic Hepatitis (Shock Liver)", disc: "Zone 3 haemorrhagic necrosis; clinical haemodynamic compromise (shock, RHF, arrhythmia); rapid AST rise (>10x) and rapid recovery if cause treated; no encephalopathy unless concurrent" },
+      { dx: "Wilson's Disease ALF", disc: "Young patient; Coombs-negative haemolytic anaemia; low ALP (paradoxically); elevated urinary copper; copper stains often negative (copper released); urgent transplant" },
+      { dx: "Herpes Hepatitis (HSV/VZV)", disc: "Immunocompromised or pregnancy; Cowdry A intranuclear inclusions; HSV/VZV IHC+; geographic necrosis; no bile duct involvement; treat with IV aciclovir" }
+    ],
+    comments: [
+      "Paracetamol ALF: N-acetylcysteine (NAC) — give to ALL paracetamol overdoses regardless of timing; beneficial even in established ALF.",
+      "King's College Criteria (paracetamol): pH <7.30 after resuscitation OR all 3 of: PT >100s + creatinine >300μmol/L + grade III-IV encephalopathy → urgent transplant listing.",
+      "King's College Criteria (non-paracetamol): PT >100s OR ≥3 of: age <10/>40, aetiology (drug/seronegative/Wilson's), duration >7 days, bilirubin >300μmol/L, PT >50s.",
+      "MELD score: used alongside KCC for transplant prioritisation.",
+      "Seronegative (indeterminate) ALF: poor prognosis; early transplant listing; consider autoimmune (check IgG, ANA, ASMA even in ALF), Wilson's, occult HBV.",
+      "Biopsy in ALF: proportion of viable hepatocytes predicts regenerative potential; massive necrosis with <30% viable parenchyma = poor spontaneous recovery.",
+      "Wilson's disease ALF: D-penicillamine contraindicated; plasma exchange as bridge; urgent transplant.",
+      "Herpes hepatitis ALF: treat empirically with IV aciclovir in immunocompromised patient + ALF without clear cause — potentially fatal if missed."
+    ]
+  },
+  // ═══════════════════════════════════════════════════════════
+  // CYTOLOGY — THYROID FNA (RCPath Thy1–5)
+  // ═══════════════════════════════════════════════════════════
+
+  {
+    id: "thy-colloid-001",
+    name: "BENIGN COLLOID NODULE / COLLOID GOITRE (Thy2)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy2 — Non-neoplastic",
+    behaviour: "Benign",
+    adequacy: [
+      "RCPath minimum: 6 groups of ≥10 well-preserved follicular cells on ≥2 slides. Colloid-only aspirates from macrofollicular/colloid nodules: report as Thy2 even if scant follicular cells — colloid is informative.",
+      "Cystic lesions with only macrophages and colloid: Thy1c (non-diagnostic cystic) if no follicular cells. If clinical/US features consistent with benign cyst, correlate."
+    ],
+    cytologicalFeatures: [
+      "Abundant colloid — watery/thin (diluted in liquid prep) or thick 'cracked mud/crazy paving' pattern on air-dried smears; may form dense pink sheets.",
+      "Follicular cells: flat honeycomb sheets; uniform small nuclei; regular nuclear spacing; inconspicuous nucleoli; no nuclear enlargement, grooves, or pseudoinclusions.",
+      "Macrofollicular architecture (large follicles with central colloid) at low power. Bare nuclei in background (stripped follicular cells).",
+      "Background: colloid dominant; occasional macrophages (if cystic degeneration); no necrosis; no inflammation unless co-existent thyroiditis."
+    ],
+    ihcPos: ["N/A — morphological diagnosis"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "Follicular Neoplasm (Thy3f)", disc: "Microfollicular/trabecular architecture; scant colloid; cellular aspirate; follicular cells with mild nuclear enlargement — cannot exclude on cytology alone; needs histology" },
+      { dx: "Hashimoto's Thyroiditis (Thy2)", disc: "Lymphocytic infiltrate; Hürthle cell change; lymphoid aggregates; no dominant colloid; plasma cells; clinical context (hypothyroidism, elevated TPO antibodies)" },
+      { dx: "Papillary Thyroid Carcinoma (Thy4/5)", disc: "PTC nuclear features (grooves, pseudoinclusions, powdery chromatin, nuclear overlap); papillary fronds; dense colloid ('bubblegum')" }
+    ],
+    pitfalls: [
+      "Liquid-based cytology (LBC): colloid appears pale/watery — less dramatic than smear; do not underestimate colloid content.",
+      "Cystic degeneration: haemosiderin-laden macrophages dominate; follicular cells scarce → Thy1c if <6 groups. Re-aspirate solid component.",
+      "Hürthle cell change in benign nodule: abundant granular cytoplasm, prominent nucleoli — do not over-call as Hürthle cell neoplasm unless dominant cell population in a cellular aspirate."
+    ],
+    comments: [
+      "Thy2 = ~60-70% of all thyroid FNAs. Risk of malignancy: ~0-3%.",
+      "Management: clinical/US follow-up. Repeat FNA if nodule grows or US features change (TIRADS 4-5).",
+      "Thy2 does NOT exclude malignancy — sampling error is the main limitation. Correlate with US (TIRADS category).",
+      "Macrofollicular pattern on US (spongiform nodule) + Thy2 = very low malignancy risk (<1%) — conservative management appropriate.",
+      "Colloid 'cracked mud' pattern on Diff-Quik/Giemsa: highly characteristic; less apparent on Papanicolaou stain."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-hashimoto-001",
+    name: "HASHIMOTO'S THYROIDITIS (Thy2)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy2 — Non-neoplastic",
+    behaviour: "Benign",
+    adequacy: [
+      "Adequacy assessment modified: lymphocyte-rich aspirates from Hashimoto's may lack follicular cells — report as Thy2 if features are diagnostic of lymphocytic thyroiditis.",
+      "If dominant nodule in Hashimoto's background: standard adequacy criteria apply — exclude neoplasm within nodule."
+    ],
+    cytologicalFeatures: [
+      "Hürthle (oxyphilic/oncocytic) cell change — follicular cells with abundant granular eosinophilic cytoplasm, large nuclei, prominent nucleoli; arranged in sheets or clusters. Hallmark of Hashimoto's.",
+      "Lymphocytic infiltrate — mixed T and B lymphocytes permeating follicular cell groups; lymphoid tangles; tingible body macrophages. Plasma cells present.",
+      "Colloid scanty or absent; lymphoid aggregates with germinal centre formation in severe disease.",
+      "Background: abundant lymphocytes; occasional lymphoid follicle fragments; granular/inflammatory debris."
+    ],
+    ihcPos: ["N/A — morphological + clinical diagnosis (TPO antibodies, TSH)"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "Hürthle Cell Neoplasm (Thy3f/Thy4)", disc: "Pure Hürthle cell population without lymphocytes; cellular; microfollicular/trabecular; no lymphocytic background — if dominant Hürthle cell nodule in Hashimoto's, Thy3f appropriate" },
+      { dx: "Lymphoma (primary thyroid)", disc: "Monomorphic lymphoid population; large atypical lymphocytes (DLBCL) or small cleaved cells (MALToma); loss of follicular cell component; flow cytometry on aspirate" },
+      { dx: "Subacute (De Quervain's) Thyroiditis", disc: "Granulomatous inflammation; multinucleated giant cells; no Hürthle cell change; painful tender thyroid; elevated ESR; viral prodrome" }
+    ],
+    pitfalls: [
+      "Hürthle cell atypia in Hashimoto's: nuclear enlargement and prominent nucleoli are reactive — do not over-call as malignancy. Lymphocytic background is reassuring.",
+      "PTC arising in Hashimoto's: Hashimoto's is a risk factor for PTC. Assess nuclear features carefully in any dominant nodule — PTC nuclear changes may be focal.",
+      "Primary thyroid lymphoma: always suspect in elderly woman with rapid thyroid enlargement on background of Hashimoto's — flow cytometry on FNA material is essential.",
+      "LBC: lymphocytes dispersed; may appear less dramatic — Hürthle cells still recognisable."
+    ],
+    comments: [
+      "Hashimoto's thyroiditis = most common cause of hypothyroidism in iodine-sufficient populations. TPO antibodies elevated in >90%.",
+      "Risk of malignancy in Thy2 Hashimoto's: ~0-3% (same as other Thy2). However PTC and primary thyroid lymphoma risk modestly increased.",
+      "Primary thyroid lymphoma: predominantly MALT lymphoma (low-grade) or DLBCL (high-grade). Virtually always on background of Hashimoto's. Flow cytometry + clonality studies essential.",
+      "Management: thyroid function tests; levothyroxine if hypothyroid. FNA of dominant nodule to exclude neoplasm.",
+      "Riedel's thyroiditis (fibrous thyroiditis): distinct — dense fibrosis invading adjacent structures; IgG4-related in some cases; rare cause of thyroid enlargement."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-subacute-001",
+    name: "SUBACUTE GRANULOMATOUS THYROIDITIS (DE QUERVAIN'S) (Thy2)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy2 — Non-neoplastic",
+    behaviour: "Benign",
+    adequacy: [
+      "Often paucicellular — inflammatory background may predominate. Report as Thy2 if granulomatous features present even with limited follicular cells."
+    ],
+    cytologicalFeatures: [
+      "Granulomatous inflammation: epithelioid histiocytes in loose clusters; multinucleated giant cells (Langhans and foreign-body type) — key feature.",
+      "Degenerating/disrupted follicular cells; colloid fragments engulfed by giant cells; follicular cells may show reactive atypia.",
+      "Inflammatory background: mixed acute and chronic inflammation; neutrophils, lymphocytes, histiocytes; necrotic debris.",
+      "Background: granular/necrotic debris; no lymphoid follicles (distinguishes from Hashimoto's)."
+    ],
+    ihcPos: ["N/A — morphological + clinical diagnosis"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "Hashimoto's Thyroiditis", disc: "Lymphocytic infiltrate; Hürthle cell change; lymphoid follicles; no giant cells; no granulomas; chronic course; elevated TPO antibodies" },
+      { dx: "Palpation Thyroiditis", disc: "Focal giant cells after vigorous palpation; no clinical thyroiditis; incidental finding" },
+      { dx: "Tuberculous Thyroiditis", disc: "Caseating granulomas (rare); ZN stain positive; systemic TB features; immunocompromised patient" }
+    ],
+    pitfalls: [
+      "Reactive atypia in inflamed follicular cells may mimic PTC — clinical context (painful thyroid, elevated ESR, viral prodrome) essential.",
+      "Paucicellular aspirates: granulomatous thyroiditis can yield sparse material — do not report as Thy1 if granulomatous features present."
+    ],
+    comments: [
+      "Clinical diagnosis: painful tender thyroid + elevated ESR + raised CRP + transient hyperthyroidism (early) → hypothyroidism → recovery.",
+      "Viral aetiology presumed (post-viral); often follows URTI.",
+      "Treatment: NSAIDs; corticosteroids for severe cases. Self-limiting — most recover full thyroid function.",
+      "Permanent hypothyroidism in ~5-10%.",
+      "FNA rarely needed — clinical diagnosis usually sufficient. Biopsy if diagnostic uncertainty."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-thy3a-001",
+    name: "ATYPIA OF UNDETERMINED SIGNIFICANCE (Thy3a)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy3a — Neoplasm possible, atypia",
+    behaviour: "Variable",
+    adequacy: [
+      "Thy3a implies the specimen IS adequate — atypia has been identified. If truly inadequate, report as Thy1.",
+      "Thy3a is a category of diagnostic uncertainty, not inadequacy."
+    ],
+    cytologicalFeatures: [
+      "Mild nuclear atypia not meeting threshold for Thy3f or Thy4: nuclear enlargement, mild anisonucleosis, occasional nuclear grooves — focal and not convincing for PTC.",
+      "Architectural atypia without nuclear atypia: focal microfollicular pattern insufficient for Thy3f; crowding/overlapping without PTC features.",
+      "Hürthle cell change: focal or limited Hürthle cells insufficient for Hürthle cell neoplasm (Thy3f) — not dominant population.",
+      "Obscuring factors: blood/clot, poor fixation, air-drying artefact, scant cellularity causing interpretive difficulty — when these prevent definitive benign or neoplastic classification."
+    ],
+    ihcPos: ["N/A — morphological category; cell block IHC (HBME-1, CK19, Galectin-3) may assist in selected cases but not routinely recommended"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "Thy2 (Benign)", disc: "No atypia; adequate colloid; regular honeycomb sheets; repeat FNA if persistent concern" },
+      { dx: "Thy3f (Follicular Neoplasm)", disc: "Dominant microfollicular/trabecular architecture; scant colloid; cellular; consistent atypia throughout — Thy3f when architecture and cellularity clearly neoplastic" },
+      { dx: "Thy4 (Suspicious)", disc: "More convincing but incomplete PTC nuclear features; Thy4 when nuclear changes focal but unequivocal" }
+    ],
+    pitfalls: [
+      "Thy3a is a category of last resort — should represent <7% of all thyroid FNAs. Overuse indicates diagnostic imprecision.",
+      "Cystic lesion with atypical cells lining cyst wall: may represent cystic PTC — Thy3a minimum; Thy4 if nuclear features convincing. US correlation essential.",
+      "Repeat FNA resolves Thy3a in ~50% of cases — recommend 3-6 month interval."
+    ],
+    comments: [
+      "Risk of malignancy: ~10-30% (RCPath/BTA data). Bethesda AUS/FLUS equivalent.",
+      "Management: repeat FNA at 3–6 months (preferred) OR molecular testing (ThyroSeq, Afirma) if available OR diagnostic hemithyroidectomy based on US/clinical risk.",
+      "Molecular testing: Afirma GSC (gene expression classifier) — high NPV; used to avoid surgery in low-risk Thy3a. ThyroSeq v3 — mutation/fusion panel; positive result guides surgical extent.",
+      "Persistent Thy3a on repeat FNA: hemithyroidectomy generally recommended.",
+      "UK practice: molecular testing less established than USA — clinical MDT decision predominates."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-thy3f-001",
+    name: "FOLLICULAR NEOPLASM (Thy3f)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy3f — Neoplasm possible, follicular",
+    behaviour: "Variable",
+    adequacy: [
+      "Standard RCPath adequacy criteria apply. Thy3f requires a cellular aspirate with consistent microfollicular/trabecular architecture — not a diagnosis made on a scant specimen."
+    ],
+    cytologicalFeatures: [
+      "Cellular aspirate — high cellularity relative to colloid (cellularity-to-colloid ratio inverted compared to benign nodule).",
+      "Microfollicular/trabecular architecture: small follicles (<15 cells); follicular cells arranged in ring-like structures around small lumen; trabecular cords. Scant or absent colloid.",
+      "Follicular cells: mild nuclear enlargement; round-to-oval nuclei; fine chromatin; inconspicuous nucleoli. NO convincing PTC nuclear features (no grooves, pseudoinclusions, powdery chromatin).",
+      "Background: scant colloid; bare nuclei; no lymphocytes; no giant cells."
+    ],
+    ihcPos: ["N/A — cytology cannot distinguish follicular adenoma from follicular carcinoma (capsular/vascular invasion requires histology)", "HBME-1, CK19, Galectin-3: positive panel increases probability of malignancy on cell block but not diagnostic"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "Benign Colloid Nodule (Thy2)", disc: "Macrofollicular architecture; abundant colloid; low cellularity; regular honeycomb sheets; Thy2 when colloid dominant and architecture macrofollicular" },
+      { dx: "Papillary Thyroid Carcinoma — follicular variant (Thy4)", disc: "PTC nuclear features present (grooves, pseudoinclusions, chromatin changes) even in follicular architecture → Thy4/Thy5; BRAF V600E if present" },
+      { dx: "Hürthle Cell Neoplasm (Thy3f)", disc: "Dominant Hürthle cell population; same Thy3f category but distinct entity; oncocytic cytoplasm; prominent nucleoli" }
+    ],
+    pitfalls: [
+      "Critical limitation: cytology CANNOT distinguish follicular adenoma (benign) from follicular carcinoma (malignant) — both show identical cytological features. Capsular and vascular invasion can only be assessed on histological sections of the entire nodule.",
+      "NIFTP (Non-Invasive Follicular Thyroid neoplasm with Papillary-like nuclear features): RAS-mutant; borderline entity; previously classified as encapsulated follicular variant PTC; cytology may show intermediate features (Thy3a/Thy3f/Thy4 — variable).",
+      "Multinodular goitre with adenomatoid nodules: can appear microfollicular on aspiration — clinical/US context essential.",
+      "Parathyroid adenoma on FNA: microfollicular pattern mimicking thyroid; PTH washout from needle confirms parathyroid origin."
+    ],
+    comments: [
+      "Risk of malignancy: ~25-40% for Thy3f. Equivalent to Bethesda IV (follicular neoplasm/suspicious for FN).",
+      "Management: diagnostic hemithyroidectomy (standard UK practice). Completion thyroidectomy if malignancy confirmed on histology.",
+      "Molecular testing: RAS mutation (NRAS/HRAS/KRAS) — most common in follicular neoplasm; does not distinguish adenoma from carcinoma. PPARG rearrangement — specific for follicular carcinoma.",
+      "Hürthle cell (oncocytic) neoplasm: now classified separately in WHO 2022 — distinct molecular profile (mitochondrial DNA mutations, chromosome 22 loss); higher malignancy rate; less radioiodine avid.",
+      "Minimally invasive follicular carcinoma: excellent prognosis after complete excision. Widely invasive follicular carcinoma: aggressive; haematogenous spread (lung, bone)."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-ptc-001",
+    name: "PAPILLARY THYROID CARCINOMA — FNA (Thy5 / Thy4)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy5 — Malignant (or Thy4 — Suspicious if nuclear features incomplete)",
+    behaviour: "Malignant",
+    adequacy: [
+      "Standard RCPath adequacy criteria. PTC aspirates are often cellular — adequacy rarely an issue.",
+      "Cystic PTC: cystic fluid may be paucicellular — sample solid mural component. Thy1c if only macrophages obtained."
+    ],
+    cytologicalFeatures: [
+      "Architecture: papillary fronds with fibrovascular cores; flat monolayer sheets with nuclear crowding and overlap; syncytial fragments. Papillary architecture best appreciated on smears.",
+      "Nuclear features (most important): nuclear enlargement with irregular nuclear membranes; nuclear grooves (longitudinal infoldings — best on Papanicolaou); intranuclear pseudoinclusions (cytoplasmic invaginations — round, sharp-bordered, eosinophilic); fine powdery/ground-glass chromatin ('Orphan Annie eyes' — better on histology); nuclear overlap and crowding.",
+      "Cytoplasmic features: pale/dense cytoplasm; squamoid metaplasia in some variants; multinucleated giant cells.",
+      "Background: dense 'bubblegum' colloid (thick, stringy — differs from watery colloid of benign nodule); psammoma bodies (concentric calcifications — pathognomonic when present); foamy/haemosiderin macrophages in cystic cases."
+    ],
+    ihcPos: ["TTF1 – positive", "Thyroglobulin – positive", "CK19 – diffuse strong (cell block)", "HBME-1 – positive (cell block)", "BRAF V600E IHC (VE1) – ~80% classical PTC (cell block)", "Galectin-3 – positive"],
+    ihcNeg: ["Calcitonin – negative (excludes MTC)", "Synaptophysin / Chromogranin – negative"],
+    differentials: [
+      { dx: "Follicular Neoplasm (Thy3f)", disc: "No PTC nuclear features; microfollicular not papillary architecture; scant colloid; nuclear grooves/pseudoinclusions absent" },
+      { dx: "Medullary Thyroid Carcinoma", disc: "Calcitonin+; plasmacytoid/spindle cells; amyloid in background (Congo red); salt-and-pepper chromatin; no papillary architecture; no PTC nuclei" },
+      { dx: "Hashimoto's with reactive atypia", disc: "Lymphocytic background; Hürthle cell change; reactive nuclear grooves (less convincing); TPO antibodies elevated; no papillary architecture; no psammoma bodies" }
+    ],
+    pitfalls: [
+      "Nuclear pseudoinclusions less reliable in FNA than histology — cytoplasmic invagination artefact during preparation. Nuclear grooves are more diagnostically useful in cytological material.",
+      "Cystic PTC: paucicellular cyst fluid with macrophages only — report Thy1c, re-aspirate solid component. Cystic change does not exclude PTC.",
+      "Tall cell variant: cells ≥3× as tall as wide; intense eosinophilic cytoplasm; more aggressive — may be Thy4 if nuclear features incomplete.",
+      "Follicular variant PTC: no papillary architecture; diagnosis rests entirely on nuclear features — Thy3f/Thy4 on cytology; NIFTP overlaps significantly.",
+      "Graves' disease: 'Orphan Annie eyes' can be seen in non-neoplastic thyrocytes in Graves' — correlate clinically; nuclear grooves and pseudoinclusions should be absent or minimal."
+    ],
+    comments: [
+      "Most common thyroid malignancy (~85%). Excellent prognosis: 10-year OS >95% for classical PTC.",
+      "BRAF V600E (~80% classical PTC): associated with extrathyroidal extension, LN metastasis, radioiodine resistance, recurrence. Test on cell block or molecular.",
+      "RET/PTC rearrangements: radiation-associated; younger patients; papillary architecture predominant.",
+      "Thy4 vs Thy5: Thy5 = unequivocal malignancy; Thy4 = suspicious but incomplete features (e.g. focal/subtle nuclear changes, paucicellular). ROM: Thy4 ~60-75%; Thy5 >95%.",
+      "Aggressive variants (tall cell, hobnail, diffuse sclerosing, columnar cell): poorer prognosis — note on report if suspected.",
+      "Management: hemithyroidectomy (low-risk, <4cm, no LN mets) or total thyroidectomy (high-risk, >4cm, bilateral, LN mets) ± RAI ± TSH suppression.",
+      "Active surveillance: selected papillary microcarcinoma (<1cm, no high-risk features) — increasingly adopted."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-mtc-001",
+    name: "MEDULLARY THYROID CARCINOMA — FNA (Thy5)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy5 — Malignant",
+    behaviour: "Malignant",
+    adequacy: [
+      "Standard RCPath criteria. MTC aspirates are usually cellular. If calcitonin measurement from needle washout is available — highly diagnostic (elevated calcitonin in FNA washout fluid)."
+    ],
+    cytologicalFeatures: [
+      "Cellular aspirate; discohesive single cells and loose clusters — not cohesive sheets. Highly variable morphology: plasmacytoid (most common); spindle cell; epithelioid; small cell; giant cell; mixed.",
+      "Nuclear features: eccentric nuclei ('plasmacytoid'); binucleation and multinucleation common; salt-and-pepper neuroendocrine chromatin; intranuclear pseudoinclusions may occur. Nucleoli variable.",
+      "Cytoplasm: abundant granular cytoplasm; red neurosecretory granules on Diff-Quik/Giemsa. Cytoplasmic processes in spindle cell variant.",
+      "Background: amyloid — grey-green amorphous material on Papanicolaou; red/orange on Diff-Quik; positive Congo red (apple-green birefringence). Amyloid present in ~50-80% of cases."
+    ],
+    ihcPos: ["Calcitonin – diffuse strong (most specific marker)", "CEA – positive (serum and IHC)", "Synaptophysin – diffuse", "Chromogranin A – positive", "INSM1 – diffuse nuclear", "TTF1 – positive (~70%)"],
+    ihcNeg: ["Thyroglobulin – negative (key exclusion — distinguishes from follicular-derived tumours)", "PAX8 – variable/focal (usually negative in MTC, positive in follicular-derived)"],
+    differentials: [
+      { dx: "Papillary Thyroid Carcinoma", disc: "Thyroglobulin+; no calcitonin; no amyloid; PTC nuclear features; papillary/follicular architecture" },
+      { dx: "Hürthle Cell Neoplasm / Oncocytic tumour", disc: "Thyroglobulin+; Calcitonin−; abundant mitochondria-rich cytoplasm; no amyloid; no neuroendocrine markers" },
+      { dx: "Metastatic Neuroendocrine Tumour", disc: "Clinical history of primary NET; TTF1 may be positive (lung); Thyroglobulin−; Calcitonin−; site-specific markers" }
+    ],
+    pitfalls: [
+      "MTC is highly variable morphologically — spindle cell variant mimics sarcoma; small cell variant mimics lymphoma; plasmacytoid mimics plasmacytoma. Calcitonin IHC on cell block is essential.",
+      "Amyloid may be absent (~20-50%) — do not exclude MTC on absence of amyloid alone.",
+      "Congo red staining on cell block: apple-green birefringence under polarised light confirms amyloid.",
+      "Serum calcitonin: if MTC suspected clinically, measure preoperatively — extremely elevated in MTC; also measure CEA. Calcitonin washout from FNA needle highly sensitive.",
+      "Sporadic vs hereditary: 25% of MTC is hereditary (MEN2A, MEN2B, FMTC) — RET mutation testing mandatory in ALL MTC."
+    ],
+    comments: [
+      "Arises from parafollicular C cells; accounts for ~5% of thyroid malignancies.",
+      "RET proto-oncogene mutations: somatic (sporadic, ~50%) or germline (hereditary — MEN2A/MEN2B/FMTC). Screen ALL MTC patients for germline RET — if positive, family screening and prophylactic thyroidectomy in carriers.",
+      "MEN2A (RET codon 634): MTC + phaeochromocytoma + primary hyperparathyroidism. MEN2B (RET codon 918): MTC + phaeochromocytoma + marfanoid habitus + mucosal neuromas — most aggressive.",
+      "Serum markers: calcitonin (staging, surveillance) + CEA (elevated CEA with normal calcitonin = dedifferentiation — worse prognosis).",
+      "Surgery: total thyroidectomy + central neck dissection (all cases) ± lateral neck dissection (if LN positive). Prophylactic thyroidectomy in RET carriers by age/mutation risk category (ATA guidelines).",
+      "Systemic therapy: vandetanib (RET/VEGFR inhibitor) or cabozantinib for progressive metastatic MTC. Selpercatinib/pralsetinib for RET-mutant (highly selective RET inhibitors).",
+      "Prognosis: 10-year OS ~70-80% overall; worse with distant metastases (bone, lung, liver)."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-anaplastic-001",
+    name: "ANAPLASTIC (UNDIFFERENTIATED) THYROID CARCINOMA — FNA (Thy5)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy5 — Malignant",
+    behaviour: "Malignant",
+    adequacy: [
+      "Necrotic aspirates from anaplastic carcinoma may be paucicellular — sample viable peripheral tumour. Core needle biopsy preferable for histological diagnosis and molecular profiling."
+    ],
+    cytologicalFeatures: [
+      "Highly cellular; markedly pleomorphic — three main patterns: spindle cell (sarcomatoid); giant cell (pleomorphic multinucleated giant cells — osteoclastic or pleomorphic type); epithelioid (squamoid/carcinomatous). Mixed patterns common.",
+      "Extreme nuclear pleomorphism: bizarre nuclei; irregular chromatin; prominent nucleoli; atypical mitoses; tumour giant cells.",
+      "Necrosis — often extensive; inflammatory background (neutrophils); haemorrhage.",
+      "No colloid; no follicular architecture; no amyloid."
+    ],
+    ihcPos: ["CK – focal/variable (often retained, confirms epithelial origin despite undifferentiated morphology)", "PAX8 – positive (~80% — confirms thyroid origin, most useful marker)", "p53 – mutant pattern (strong diffuse or complete null)", "Ki67 – very high (>50-80%)"],
+    ihcNeg: ["Thyroglobulin – negative or focal only (lost with dedifferentiation)", "TTF1 – negative (lost with dedifferentiation)", "Calcitonin – negative", "SOX10 – negative (excludes spindle cell melanoma)"],
+    differentials: [
+      { dx: "High-grade sarcoma (primary or metastatic)", disc: "CK−, PAX8−; sarcoma-specific markers (SMA, Desmin, S100); clinical context; no thyroid origin" },
+      { dx: "Poorly differentiated thyroid carcinoma (PDTC)", disc: "Insular/trabecular/solid architecture; convoluted nuclei; mitoses >3/2mm²; necrosis; but less pleomorphic than ATC; PAX8+; TTF1 variable; Thyroglobulin focally positive" },
+      { dx: "Metastatic carcinoma to thyroid", disc: "Clinical history; site-specific IHC (TTF1 for lung adenocarcinoma, CDX2 for colorectal, PAP/PSA for prostate); PAX8 negative in most metastases" }
+    ],
+    pitfalls: [
+      "ATC is a morphological and clinical emergency — rapid clinical progression (weeks). Immediate MDT referral on cytology report.",
+      "Squamoid/epithelioid variant: may mimic squamous cell carcinoma metastasis — PAX8 positivity confirms thyroid origin.",
+      "Core needle biopsy preferred over FNA: provides better material for BRAF/RAS/TERT testing which guides targeted therapy eligibility.",
+      "CK negativity does not exclude ATC — IHC panel including PAX8 essential."
+    ],
+    comments: [
+      "Rarest thyroid malignancy (<2%) but most aggressive — median survival 3-5 months; 1-year OS ~20%.",
+      "All ATC = pT4 by definition (WHO/AJCC) regardless of size — always Stage IVA-C.",
+      "Molecular: BRAF V600E (~40%); RAS mutations (~20%); TERT promoter mutations (>70%); TP53 (>70%); often arises from dedifferentiation of pre-existing PTC or PDTC.",
+      "BRAF V600E-positive ATC: dabrafenib + trametinib (BRAF+MEK inhibition) — dramatic responses reported; FDA-approved. Test BRAF in ALL ATC.",
+      "Surgery: rarely curative; R0 resection if possible without major morbidity. Palliative debulking + EBRT + systemic therapy.",
+      "Immunotherapy: pembrolizumab ± targeted therapy under investigation.",
+      "MDT with high-volume centre essential. Palliation/hospice discussion early given prognosis."
+    ],
+    histoLink: null,
+    related: []
+  },
+  {
+    id: "thy-mtc-cyto-002",
+    name: "POORLY DIFFERENTIATED THYROID CARCINOMA — FNA (Thy4/Thy5)",
+    subspecialty: "Head & Neck",
+    category: "Thyroid",
+    type: "cytology",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
+    reportingCategory: "Thy4 — Suspicious / Thy5 — Malignant",
+    behaviour: "Malignant",
+    adequacy: [
+      "Standard RCPath criteria. Cellular aspirate usually obtained — necrosis may limit interpretable material."
+    ],
+    cytologicalFeatures: [
+      "Cellular aspirate; insular, trabecular, or solid growth pattern — small to medium follicular cells without colloid formation.",
+      "Convoluted (raisinoid) nuclei — nuclear membrane irregularity without full PTC nuclear features; small nucleoli; fine chromatin. Less pleomorphic than ATC.",
+      "Mitoses present; necrosis (single cell or geographic); no well-formed follicles.",
+      "Scant/absent colloid; no amyloid; no psammoma bodies."
+    ],
+    ihcPos: ["TTF1 – positive (retained, unlike ATC)", "PAX8 – positive", "Thyroglobulin – variable/focal (reduced)", "Ki67 – elevated (>10-20%)", "p53 – mutant pattern in some"],
+    ihcNeg: ["Calcitonin – negative", "Full PTC nuclear features absent on cytology"],
+    differentials: [
+      { dx: "Well-differentiated NET G3 (metastatic)", disc: "Synaptophysin+, Chromogranin+; TTF1+ (lung primary); Thyroglobulin−; clinical context; organoid architecture" },
+      { dx: "Anaplastic Thyroid Carcinoma", disc: "More extreme pleomorphism; bizarre giant cells; TTF1 lost; Thyroglobulin lost; clinically more rapid" },
+      { dx: "Medullary Thyroid Carcinoma", disc: "Calcitonin+; amyloid; plasmacytoid morphology; Thyroglobulin−" }
+    ],
+    pitfalls: [
+      "PDTC is a diagnosis of exclusion on cytology — Turin criteria require histological assessment (mitotic count, necrosis, convoluted nuclei). Cytology may only suggest 'high-grade follicular-derived carcinoma'.",
+      "Insular pattern can be focal in otherwise well-differentiated PTC — overall grade depends on dominant pattern on resection."
+    ],
+    comments: [
+      "WHO 2022 Turin criteria (histological): solid/trabecular/insular architecture + mitoses ≥3/2mm² and/or necrosis and/or convoluted nuclei — all three convoluted nuclei or two of necrosis/mitoses.",
+      "Intermediate prognosis between well-differentiated PTC/FTC and ATC. 5-year OS ~50-60%.",
+      "TERT promoter mutations + RAS/BRAF: TERT + driver mutation = higher risk of dedifferentiation and mortality.",
+      "Surgery: total thyroidectomy + central neck dissection. RAI less effective than well-differentiated tumours but attempt if Tg-producing.",
+      "Lenvatinib/sorafenib: radioiodine-refractory PDTC — same systemic therapy as differentiated thyroid carcinoma."
+    ],
+    histoLink: null,
+    related: []
+  },
+  // ═══════════════════════════════════════════════════════════
+  // CYTOLOGY — THYROID FNA (RCPath Thy1–5)
+  // ═══════════════════════════════════════════════════════════,
+  {
+    id: "thy-categories-001",
+    type: "cytology",
+    name: "THYROID FNA — RCPath THY CATEGORY OVERVIEW",
+    subspecialty: "Head & Neck",
+    specimenType: "FNA",
+    reportingSystem: "RCPath Thyroid (Thy1-5)",
+    reportingCategory: "Thy1–Thy5 framework",
+    behaviour: "Variable",
+    adequacy: [
+      "Adequate (Thy2–5): ≥6 groups of ≥10 well-preserved follicular cells from ≥2 slides.",
+      "Thy1: non-diagnostic — insufficient cells, poor preparation, or obscured by blood/cyst fluid.",
+      "Thy1c: cystic lesion — non-diagnostic; acellular or only macrophages; sample solid component."
+    ],
+    cytologicalFeatures: [
+      "Thy1 / Thy1c: non-diagnostic. Thy1c = cystic, acellular. Repeat FNA with USS guidance; sample solid areas.",
+      "Thy2: benign/non-neoplastic. Colloid goitre, Hashimoto's, De Quervain's, simple cyst. Risk of malignancy <3%.",
+      "Thy3a: atypia of undetermined significance (AUS). Architectural or nuclear atypia insufficient for Thy3f/Thy4. ROM ~10-30%. Repeat FNA or molecular testing. Includes: nuclear atypia in Hashimoto's; scant follicular cells; Hürthle cell change.",
+      "Thy3f: follicular neoplasm. Cellular smear; microfollicular pattern; scant colloid; may be FA or FTC — cannot distinguish on cytology. ROM ~25-40%. Hemithyroidectomy standard.",
+      "Thy4: suspicious of malignancy. Features suggest but insufficient for definitive malignancy. ROM ~60-75%. Usually PTC features short of Thy5; MTC possible.",
+      "Thy5: malignant. Definitive malignant diagnosis. ROM >95%. PTC most common; MTC; ATC; lymphoma; metastasis."
+    ],
+    ihcPos: ["N/A — category framework card"],
+    ihcNeg: ["N/A"],
+    differentials: [
+      { dx: "Thy3a vs Thy3f", disc: "Thy3a = atypia (nuclear/architectural) not qualifying as follicular neoplasm; Thy3f = cellular, microfollicular, scant colloid — distinct management pathways" },
+      { dx: "Thy4 vs Thy5", disc: "Thy4 = suspicious but not definitive; Thy5 = diagnostic confidence for malignancy. Clinical impact: both usually proceed to surgery but Thy5 may direct more radical initial surgery" },
+      { dx: "Thy2 vs Thy3a", disc: "Thy2 = clearly benign; Thy3a = atypical features creating genuine diagnostic uncertainty. Key: Thy3a triggers active management (repeat/molecular); Thy2 does not" }
+    ],
+    pitfalls: [
+      "Hashimoto's thyroiditis: lymphocytic background + Hürthle cell change can mimic Thy3a or even Thy4 — clinical context (TPO antibodies, USS) essential.",
+      "Cystic PTC: heavily cystic aspirate may yield only macrophages (Thy1c) — USS-guided repeat targeting solid mural nodule.",
+      "Follicular variant PTC (FVPTC): nuclear features may be subtle on cytology; may be reported as Thy3f; NIFTP (non-invasive follicular thyroid neoplasm with papillary-like nuclei) now recognised as low-risk — molecular testing increasingly used.",
+      "Hürthle cell (oncocytic) neoplasm: cellular aspirate with Hürthle cells ± microfollicular pattern — reported as Thy3f; Hürthle cell carcinoma cannot be excluded on cytology alone."
+    ],
+    comments: [
+      "Risk of malignancy (ROM) by category: Thy1 ~5-10% (if excised); Thy1c ~5%; Thy2 <3%; Thy3a ~10-30%; Thy3f ~25-40%; Thy4 ~60-75%; Thy5 >95%.",
+      "Molecular testing: ThyroSeq v3, Afirma GSC — increasing use for Thy3a/Thy3f to refine ROM and guide surgery vs surveillance.",
+      "BRAF V600E: ~80% classical PTC. If detected in Thy3a/Thy3f → effectively reclassifies to Thy5 clinically.",
+      "RET/PTC rearrangements: radiation-associated PTC; younger patients. RAS mutations: follicular-patterned lesions (FA, FVPTC, FTC).",
+      "NIFTP: encapsulated FVPTC with no invasion — indolent; reclassified as non-malignant (2016). Impacts ROM calculations for Thy3f/Thy4 categories.",
+      "Repeat FNA guidance: Thy1 → repeat at 3 months. Thy1c → USS-guided repeat targeting solid component. Thy3a → repeat at 3 months or molecular testing.",
+      "MDT discussion for all Thy3 and above. Thy5 ATC: urgent MDT — prognosis dismal, BRAF/RAS testing for targeted therapy (dabrafenib + trametinib if BRAF V600E+)."
+    ],
+    histoLink: null,
+    related: ["thy-colloid-001","thy-hashimoto-001","thy-subacute-001","thy-thy3a-001","thy-thy3f-001","thy-ptc-001","thy-mtc-001","thy-anaplastic-001","thy-mtc-cyto-002"]
   }
+
 ];
 
 
@@ -2745,8 +3675,8 @@ function switchTab(tab, btn) {
 
   sidebar.style.display     = tab === 'entities'  ? '' : 'none';
   main.style.display        = tab === 'entities'  ? '' : 'none';
-  cytoSidebar.style.display = tab === 'cytology'  ? '' : 'none';
-  cytoMain.style.display    = tab === 'cytology'  ? '' : 'none';
+  cytoSidebar.style.display = tab === 'cytology'  ? 'flex' : 'none';
+  cytoMain.style.display    = tab === 'cytology'  ? 'block' : 'none';
   ihcPanel.classList.toggle('active', tab === 'ihc');
 
   if (tab === 'entities')  render();
