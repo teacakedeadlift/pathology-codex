@@ -358,7 +358,8 @@
   .diffs-block { margin-bottom: 14px; }
   .diff-item {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 4px;
     padding: 8px 12px;
     background: #f8fafc;
     border: 1px solid #e8edf5;
@@ -370,8 +371,6 @@
     font-weight: 700;
     color: var(--navy2);
     font-family: 'Palatino Linotype', Palatino, Georgia, serif;
-    white-space: nowrap;
-    min-width: 120px;
   }
   .diff-discriminator { color: var(--muted); }
 
@@ -996,6 +995,16 @@
       padding-top: 60px;
     }
     #sidebar.open { transform: translateX(0); }
+    #cyto-sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 300;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      width: 260px;
+      padding-top: 60px;
+    }
+    #cyto-sidebar.open { transform: translateX(0); }
     #layout { flex-direction: column; }
     #main { padding: 12px; }
     #ihc-panel { padding: 16px; }
@@ -1219,7 +1228,7 @@
             <label>Reporting System</label>
             <select id="f-repsys">
               <option value="">— Select —</option>
-              <option value="RCPath Thyroid">RCPath Thyroid (Thy1–5)</option>
+              <option value="RCPath Thyroid (Thy1–5)">RCPath Thyroid (Thy1–5)</option>
               <option value="Milan (Salivary)">Milan (Salivary)</option>
               <option value="Paris (Urine)">Paris (Urine)</option>
               <option value="IAC Harrogate (Effusion)">IAC Harrogate (Effusion)</option>
@@ -1330,7 +1339,7 @@ const SEED_DATA = [
     ],
     micro: [
       "Spindle cells in short fascicles/storiform pattern; perinuclear vacuolation (cytoplasmic vacuoles flanking nucleus) — characteristic.",
-      "Skenoid fibres (extracellular collagen globules) — especially small intestinal GISTs; nuclear palisading may mimic schwannoma.",
+      "Skeinoid fibres (extracellular collagen globules) — especially small intestinal GISTs; nuclear palisading may mimic schwannoma.",
       "Epithelioid variant: round/polygonal cells, clear or eosinophilic cytoplasm; multinodular growth in SDH-deficient; multinucleate giant cells."
     ],
     ihcPos: ["CD117 (cKIT) – 95%", "DOG-1 – 95-98% (most sensitive; retained post-imatinib)", "CD34 – 60-70%", "SMA – 30% focal", "PKC-theta – diffuse cytoplasmic"],
@@ -1894,8 +1903,8 @@ const SEED_DATA = [
       "Organoid/nested/sheet-like growth; no salt-and-pepper chromatin; no moulding.",
       "Geographic necrosis; high mitotic rate; atypical mitoses; apoptosis."
     ],
-    ihcPos: ["Synaptophysin – diffuse", "Chromogranin A – variable (more often positive than in SC-NEC)", "INSM1 – diffuse nuclear", "CD56 – variable", "CK – diffuse (more diffuse than SC-NEC)", "p53 – mutant pattern", "Ki67 – typically >60%"],
-    ihcNeg: ["Rb – lost", "SSTR2 – negative/weak", "TTF1 – less common than SC-NEC"],
+    ihcPos: ["Synaptophysin – diffuse", "Chromogranin A – variable (more often positive than in SC-NEC)", "INSM1 – diffuse nuclear", "CD56 – variable", "CK – diffuse (more diffuse than SC-NEC)", "p53 – mutant pattern", "Ki67 – typically >60%", "TTF1 – variable (~30%, less common than SC-NEC)"],
+    ihcNeg: ["Rb – lost", "SSTR2 – negative/weak"],
     differentials: [
       { dx: "Poorly differentiated NEC Small Cell", disc: "Smaller cells; nuclear moulding; crush artefact; Azzopardi; TTF1 more common; same molecular/treatment" },
       { dx: "Well-differentiated NET G3", disc: "Organoid architecture; p53 wild-type; Rb retained; SSTR2+; CgA diffuse; better prognosis" },
@@ -1996,34 +2005,28 @@ const SEED_DATA = [
     pattern: "Hepatitic",
     behaviour: "Variable",
     clinical: [
-      "Immune-mediated hepatocellular injury; female predominance (70-80%); bimodal: adolescent/young adult and postmenopausal.",
-      "Type 1 (adults): ANA+, ASMA+. Type 2 (children/young adults): anti-LKM1+, anti-LC1+. Type 3 (overlap): anti-SLA+.",
-      "Presentation: acute hepatitis (40%); insidious chronic liver disease; acute-on-chronic (flare); rarely fulminant hepatic failure.",
-      "Associations: thyroid disease, coeliac, IBD, other autoimmune conditions.",
-      "Trigger: elevated transaminases + high IgG + compatible serology; overlap with PBC (Paris criteria) or PSC (AIH-PSC overlap).",
-      "Simplified IAIHG score (≥6 = probable; ≥7 = definite): serology + IgG + histology + viral exclusion."
+      "Immune-mediated hepatitis; F>M (3:1); bimodal onset (adolescent/young adult + perimenopausal).",
+      "Type 1 (ANA, ASMA); Type 2 (anti-LKM1, anti-LC1 — children); anti-SLA most specific.",
+      "Trigger: elevated transaminases + raised IgG + positive serology — simplified IAIHG score ≥7 = definite AIH."
     ],
     micro: [
-      "Interface hepatitis — lymphoplasmacytic infiltrate spilling from portal tracts into periportal parenchyma (piecemeal necrosis): cardinal feature.",
-      "Dense portal and lobular plasma cell infiltrate (conspicuous plasma cells — hallmark); rosette formation (hepatocytes arranged around dilated canaliculus); emperipolesis (lymphocyte within hepatocyte cytoplasm).",
-      "Lobular hepatitis with confluent/bridging necrosis in active disease; submassive necrosis in acute/fulminant; variable fibrosis (F0–F4 Metavir); bile duct injury rare (<portal inflammation — distinguishes from PBC/PSC)."
+      "Interface hepatitis — lymphoplasmacytic infiltrate spilling periportally into parenchyma: cardinal feature.",
+      "Conspicuous plasma cells; rosette formation; emperipolesis (lymphocyte within hepatocyte cytoplasm).",
+      "Bile duct injury absent or minimal — if prominent, reconsider PBC/PSC overlap."
     ],
-    ihcPos: ["IgG plasma cells – increased (>30 IgG+ plasma cells/HPF supports diagnosis on IHC)", "CD3/CD8 – T-cell rich infiltrate", "CK7 – intact bile ducts (helps exclude PBC duct loss)"],
-    ihcNeg: ["CK7 ductular reaction — absent or minimal (distinguishes from biliary disease)", "HBsAg – negative", "CMV/EBV IHC – negative (exclude viral)"],
+    ihcPos: ["IgG plasma cells – >30/HPF supports diagnosis", "CK7 – intact bile ducts"],
+    ihcNeg: ["CK7 ductular reaction – absent (biliary disease pattern absent)", "HBsAg – negative"],
     differentials: [
-      { dx: "Drug-induced Liver Injury (DILI)", disc: "Drug history essential; DILI can be histologically identical; eosinophils more prominent; no seropositivity; resolves on withdrawal" },
-      { dx: "Primary Biliary Cholangitis (PBC)", disc: "Florid duct lesion; granulomatous bile duct injury; AMA+; plasma cells less conspicuous; ductopenia" },
-      { dx: "Viral Hepatitis (HCV/HBV)", disc: "Viral serology/PCR+; HCV: lymphoid follicles, steatosis, less plasma cells; HBV: ground-glass hepatocytes, sanded nuclei" }
+      { dx: "Drug-induced Liver Injury", disc: "Drug history; eosinophils; no seropositivity; resolves on withdrawal; histologically identical" },
+      { dx: "Primary Biliary Cholangitis", disc: "AMA+; florid duct lesion; granulomatous bile duct destruction; ductopenia" },
+      { dx: "Viral Hepatitis (HCV)", disc: "PCR+; lymphoid follicles; steatosis; less plasma cells" }
     ],
     comments: [
-      "Treatment: prednisolone + azathioprine (standard); budesonide (mild/moderate, non-cirrhotic).",
-      "Remission: transaminases + IgG normalisation + histological remission (interface hepatitis resolved). Histological remission lags clinical by 3-6 months.",
-      "Relapse on withdrawal common (≥80%) — most require long-term maintenance azathioprine.",
-      "Cirrhosis at presentation: ~30%; HCC risk lower than viral hepatitis but present — surveillance if cirrhotic.",
-      "Acute severe AIH: IV methylprednisolone; if no response by Day 7 → ciclosporin or transplant listing.",
-      "AIH-PBC overlap (Paris criteria): AIH features + AMA+ or florid duct lesion — treat both (UDCA + immunosuppression).",
-      "AIH-PSC overlap: young patients; IBD association; MRCP/ERCP essential; poor prognosis; transplant often needed.",
-      "Plasma cell-poor AIH: seen in older patients and acute presentations — do not exclude AIH on plasma cell absence alone."
+      "Treatment: prednisolone + azathioprine; budesonide for mild/moderate non-cirrhotic disease.",
+      "Remission target: transaminases + IgG normalisation. Histological remission lags 3–6 months.",
+      "Relapse on withdrawal >80% — most require lifelong azathioprine maintenance.",
+      "Acute severe AIH: IV methylprednisolone; no Day 7 response → ciclosporin or transplant listing.",
+      "AIH-PBC overlap (Paris criteria): UDCA + immunosuppression. AIH-PSC overlap: MRCP mandatory."
     ]
   },
   {
@@ -2034,34 +2037,28 @@ const SEED_DATA = [
     pattern: "Hepatitic",
     behaviour: "Variable",
     clinical: [
-      "Most common cause of acute liver failure in the Western world. Diagnosis of exclusion.",
-      "Intrinsic (predictable, dose-dependent): paracetamol — zone 3 necrosis; centrilobular.",
-      "Idiosyncratic (unpredictable, immune-mediated): antibiotics (amoxicillin-clavulanate most common), NSAIDs, statins, antiepileptics, herbal/supplement (increasingly important).",
-      "Latency: typically 5-90 days for idiosyncratic; <24h for paracetamol overdose.",
-      "Pattern: hepatocellular (R ratio ≥5), cholestatic (R ratio ≤2), or mixed (R ratio 2-5). R ratio = ALT/ULN ÷ ALP/ULN.",
-      "Trigger: new drug/supplement within 6 months + compatible pattern + exclusion of other causes."
+      "Most common cause of acute liver failure in Western countries. Idiosyncratic (unpredictable, immune/metabolic) >> intrinsic (paracetamol — dose-dependent).",
+      "Common culprits: amoxicillin-clavulanate (cholestatic), flucloxacillin (cholestatic/VBDS), isoniazid, nitrofurantoin, immune checkpoint inhibitors.",
+      "Trigger: any hepatitis — always take full drug/supplement/herbal history. R-ratio = (ALT/ULN)÷(ALP/ULN): >5 hepatocellular; <2 cholestatic; 2–5 mixed."
     ],
     micro: [
-      "No single pathognomonic pattern — DILI mimics virtually any hepatic disease. Key patterns: hepatocellular necrosis (zone 3 centrilobular — paracetamol, halothane); cholestatic (bland canalicular cholestasis — steroids, OCP; or duct injury — flucloxacillin); mixed hepatitic-cholestatic; steatohepatitis (amiodarone — phospholipidosis; methotrexate); granulomatous (allopurinol, sulphonamides); vascular (sinusoidal obstruction — azathioprine, oxaliplatin).",
-      "Eosinophils in portal/lobular infiltrate — supportive of drug reaction but not specific; not present in all DILI.",
-      "Centrilobular (zone 3) injury pattern with confluent necrosis is classic for toxic/paracetamol; immune-mediated DILI resembles AIH with interface hepatitis and plasma cells."
+      "No single diagnostic pattern — DILI mimics any liver injury. Zone 3 necrosis (paracetamol); cholestasis ± bile duct loss (flucloxacillin, amoxicillin-clavulanate); steatohepatitis (amiodarone); granulomas (allopurinol, carbamazepine).",
+      "Clues: eosinophilic infiltrate (immune DILI); microvesicular steatosis (mitochondrial toxicity — valproate); phospholipidosis/foamy macrophages (amiodarone).",
+      "VBDS (vanishing bile duct syndrome): ductopenia >50% portal tracts; flucloxacillin, carbamazepine — may be irreversible."
     ],
-    ihcPos: ["CK7 – ductular reaction in severe injury", "CD3/CD8 – lobular T-cell infiltrate in immune-mediated DILI", "Periodic acid–Schiff diastase (PASD) – negative (exclude alpha-1AT inclusions)"],
-    ihcNeg: ["HBsAg – negative", "CMV/EBV – negative", "Alpha-1AT globules – negative (if positive, reconsider diagnosis)"],
+    ihcPos: ["CK7 – ductular reaction; bile duct loss assessment"],
+    ihcNeg: ["N/A — exclude other causes by serology/PCR"],
     differentials: [
-      { dx: "Autoimmune Hepatitis", disc: "AIH: high IgG, seropositive (ANA/ASMA/LKM1), improves on immunosuppression; DILI: drug history, eosinophils, resolves on withdrawal; histologically may be identical" },
-      { dx: "Viral Hepatitis (acute)", disc: "Viral serology/PCR; lobular disarray; acidophil bodies; lymphoid follicles (HCV)" },
-      { dx: "Ischaemic Hepatitis", disc: "Zone 3 necrosis similar to paracetamol; clinical shock/right heart failure history; rapid AST rise (>10x); rapid recovery" }
+      { dx: "Autoimmune Hepatitis", disc: "Plasma cells; rosettes; elevated IgG; autoantibodies; responds to immunosuppression" },
+      { dx: "Primary Biliary Cholangitis", disc: "AMA+; florid duct lesion; chronic cholestatic; no drug history" },
+      { dx: "Viral Hepatitis", disc: "Serology/PCR+; no drug history" }
     ],
     comments: [
-      "RUCAM (Roussel Uclaf Causality Assessment Method) score: standardised causality assessment — 'highly probable' ≥9; 'probable' 6-8.",
-      "Paracetamol: N-acetylcysteine — beneficial up to 24h; zone 3 necrosis; if King's criteria met → urgent transplant listing.",
-      "Flucloxacillin: cholestatic DILI; bile duct injury; prolonged course (months); HLA-B*57:01 association.",
-      "Amoxicillin-clavulanate: most common idiosyncratic DILI in UK; cholestatic or mixed; HLA-DRB1*15:01.",
-      "Methotrexate: cumulative dose-dependent fibrosis/steatohepatitis — liver biopsy indicated if cumulative dose >1.5g or risk factors.",
-      "Checkpoint inhibitor hepatitis (immune-related adverse event): granulomatous or lobular; treat with steroids ± mycophenolate.",
-      "Herbal/supplement DILI: increasingly prevalent; always ask specifically — patients do not volunteer this information.",
-      "Drug rechallenge: formal rechallenge not recommended; accidental rechallenge (Hy's Law — hepatocellular injury + jaundice) has 10% mortality."
+      "Causality: RUCAM score (temporal relationship, dechallenge/rechallenge, risk factors, alternative causes).",
+      "Paracetamol: zone 3 necrosis; N-acetylcysteine even in late presentation. Kings College Criteria for transplant listing.",
+      "ICI hepatitis (anti-PD1/CTLA-4): hepatocellular or mixed; CD8-rich lobular infiltrate; treat with steroids ± mycophenolate.",
+      "Flucloxacillin: HLA-B*57:01 associated; VBDS may persist — UDCA palliative.",
+      "Histology cannot diagnose DILI — excludes mimics. Clinical context mandatory."
     ]
   },
   {
@@ -2072,34 +2069,28 @@ const SEED_DATA = [
     pattern: "Cholestatic",
     behaviour: "Variable",
     clinical: [
-      "Immune-mediated destruction of small intrahepatic bile ducts (<100μm). Female predominance (90%); peak 5th-6th decade.",
-      "AMA (anti-mitochondrial antibody, anti-PDC-E2) positive in >95% — highly specific; ANA (anti-SP100, anti-gp210) in AMA-negative PBC.",
-      "Presentation: pruritus, fatigue, incidental elevated ALP; frank cholestatic jaundice in advanced disease.",
-      "Associations: Sjögren's (sicca symptoms very common), thyroid disease, CREST, coeliac disease.",
-      "Trigger: middle-aged woman + isolated ALP elevation + AMA positive = PBC until proven otherwise.",
-      "Biopsy required only if AMA-negative or atypical features."
+      "Autoimmune destruction of small interlobular bile ducts (<100µm); medium/large ducts spared. F:M 9:1; peak 40–60 years.",
+      "Often asymptomatic (raised ALP); symptomatic: fatigue, pruritus, sicca. Associations: Sjögren, CREST, Hashimoto's.",
+      "Trigger: middle-aged woman + raised ALP + AMA+ (≥1:40) — diagnosis established without biopsy."
     ],
     micro: [
-      "Florid duct lesion (pathognomonic when present): dense granulomatous inflammation around interlobular bile ducts; lymphocytic/granulomatous cholangitis; epithelioid granulomas cuffing damaged duct — eosinophilic, irregular ductal epithelium.",
-      "Four histological stages (Ludwig): Stage 1 — portal (florid duct lesion); Stage 2 — periportal (interface hepatitis, ductular reaction); Stage 3 — septal fibrosis; Stage 4 — cirrhosis (biliary-pattern: jigsaw puzzle parenchyma, cholate stasis, Mallory-Denk bodies periportal).",
-      "Ductopenia (bile duct loss in >50% portal tracts) — progressive feature; Copper deposition (orcein/rhodanine) in periportal hepatocytes — biliary copper accumulation; cholestasis."
+      "Florid duct lesion: granulomatous/lymphocytic destruction of interlobular bile ducts — pathognomonic but only Stage 1–2.",
+      "Staging (Ludwig): 1 portal inflammation; 2 interface hepatitis/ductular reaction; 3 bridging fibrosis; 4 biliary cirrhosis.",
+      "CK7+ intermediate hepatocytes (hepatocyte metaplasia) and periportal copper accumulation in advanced disease."
     ],
-    ihcPos: ["CK7 – ductular reaction (periportal); residual ducts highlighted", "Copper (rhodanine/orcein) – periportal hepatocytes in advanced disease", "CD3/CD8 – T-cell infiltrate in florid duct lesion"],
-    ihcNeg: ["AMA – serum (not IHC); >95% sensitive", "IgG plasma cells – not prominent (unlike AIH — helps distinguish)"],
+    ihcPos: ["CK7 – ductular reaction; intermediate hepatocytes", "Orcein/rhodanine – periportal copper (advanced)"],
+    ihcNeg: ["IgG4 – negative (<10 IgG4+ cells/HPF — excludes IgG4-SC)"],
     differentials: [
-      { dx: "Primary Sclerosing Cholangitis (PSC)", disc: "PSC: large duct involvement, fibro-obliterative lesion ('onion-skin'), IBD association, MRCP diagnostic; PBC: small ducts, AMA+, florid duct lesion, female" },
-      { dx: "Autoimmune Hepatitis (AIH)", disc: "AIH: interface hepatitis, dense plasma cells, high IgG, ANA/ASMA+; AIH-PBC overlap: both features (Paris criteria)" },
-      { dx: "Drug-induced Cholestasis", disc: "Drug history; no AMA; may be histologically similar; reversible on withdrawal" }
+      { dx: "Primary Sclerosing Cholangitis", disc: "Medium/large duct involvement; MRCP strictures; IBD association; AMA negative; male predominance" },
+      { dx: "AIH-PBC Overlap", disc: "AMA+ AND interface hepatitis + elevated IgG (Paris criteria) — treat with UDCA + immunosuppression" },
+      { dx: "Drug-induced cholestasis", disc: "Drug history; no AMA; acute onset; resolves on withdrawal" }
     ],
     comments: [
-      "UDCA (13-15mg/kg/day) — first-line; improves liver biochemistry and transplant-free survival. ALP/bilirubin response at 12 months predicts prognosis.",
-      "Second-line: obeticholic acid (FXR agonist) for inadequate UDCA response; bezafibrate (off-label, BEZURSO trial); seladelpar/elafibranor (newer).",
-      "Risk stratification: GLOBE score, UK-PBC score — predict transplant-free survival.",
-      "Cirrhosis: HCC surveillance (lower risk than viral cirrhosis but still indicated); variceal screening.",
-      "Pruritus: cholestyramine → rifampicin → naltrexone/naloxone → sertraline; bezafibrate also antipruritic.",
-      "AMA-negative PBC: diagnose on clinical + ALP + anti-SP100/anti-gp210 + compatible histology.",
-      "Liver transplant: excellent outcomes; recurrence in graft ~20% at 10 years.",
-      "Fat-soluble vitamin deficiency (ADEK) in advanced disease — supplement."
+      "UDCA 13–15mg/kg/day first-line — improves LFTs, delays progression.",
+      "Inadequate response (Paris II at 1 year: ALP >1.5× ULN): add obeticholic acid or bezafibrate.",
+      "AMA-negative PBC (~5%): anti-sp100 (nuclear dots) or anti-gp210 (nuclear rim) — same treatment.",
+      "Complications: osteoporosis, fat-soluble vitamin deficiency, portal hypertension.",
+      "HCC surveillance (6-monthly USS) once cirrhotic. Transplant for decompensation/intractable pruritus."
     ]
   },
   {
@@ -2110,71 +2101,60 @@ const SEED_DATA = [
     pattern: "Cholestatic",
     behaviour: "Variable",
     clinical: [
-      "Fibro-inflammatory stricturing of intra- and extrahepatic bile ducts. Male predominance (60-70%); peak 3rd-5th decade.",
-      "IBD association: ~70% have IBD (predominantly UC, often right-sided pan-colitis, rectal sparing); IBD may be subclinical — screen all PSC patients with colonoscopy.",
-      "Presentation: elevated ALP ± GGT; pruritus; fatigue; recurrent cholangitis; dominant stricture.",
-      "AMA negative; ANCA positive in ~60% (atypical p-ANCA); no specific diagnostic antibody.",
-      "MRCP: multifocal strictures and dilatations — beaded appearance — diagnostic. ERCP if intervention needed.",
-      "Trigger: young man + IBD (UC) + elevated ALP + negative AMA."
+      "Fibro-inflammatory destruction of intra- and extrahepatic ducts; M:F 2:1; peak 30–50 years; 70–80% associated with UC.",
+      "Raised ALP ± GGT; episodic cholangitis; MRCP: multifocal strictures and dilatations ('beading') — diagnostic.",
+      "Trigger: male + IBD + raised ALP. Lifetime cholangiocarcinoma risk ~10–20% — surveillance mandatory."
     ],
     micro: [
-      "Fibro-obliterative ('onion-skin') periductal fibrosis around interlobular ducts — pathognomonic when present but seen in <30% of biopsies; often only concentric oedematous fibrosis.",
-      "Ludwig staging same as PBC (portal → periportal → septal → cirrhosis); biliary-pattern cirrhosis; ductopenia; cholestasis; ductular reaction.",
-      "Small duct PSC (5%): PSC features on biopsy with normal MRCP — better prognosis; higher AIH overlap rate; may be separate entity or early/isolated small duct disease."
+      "Periductal 'onion-skin' fibrosis around medium ducts → obliterative fibrous scar ('tombstone' duct) — pathognomonic but present in minority of biopsies.",
+      "Portal oedema/inflammation; progressive ductopenia; ductular reaction. Biliary cirrhosis in end-stage.",
+      "Small-duct PSC: cholangiographic features absent; histology shows PSC pattern — better prognosis, lower CCA risk."
     ],
-    ihcPos: ["CK7 – ductular reaction; highlights remaining ducts", "Copper (rhodanine) – periportal in advanced disease", "p62/ubiquitin – Mallory-Denk bodies in cholate stasis (advanced)"],
-    ihcNeg: ["AMA – negative (key distinction from PBC)", "IgG4 plasma cells – <10/HPF (>10/HPF and serum IgG4 elevated → consider IgG4-SC)"],
+    ihcPos: ["CK7 – ductular reaction", "IgG4 – MUST perform to exclude IgG4-SC (>10 IgG4+/HPF = IgG4-SC)"],
+    ihcNeg: ["AMA – negative", "IgG4 – negative in true PSC"],
     differentials: [
-      { dx: "IgG4-Related Sclerosing Cholangitis (IgG4-SC)", disc: "IgG4-SC: elevated serum IgG4 (>2x ULN); >10 IgG4+ plasma cells/HPF; other IgG4 organ involvement; responds dramatically to steroids — must exclude before PSC diagnosis" },
-      { dx: "Primary Biliary Cholangitis (PBC)", disc: "PBC: AMA+, female, small ducts only, florid duct lesion, no IBD; PSC: AMA-, male, large + small ducts, IBD, MRCP abnormal" },
-      { dx: "Secondary Sclerosing Cholangitis", disc: "Prior biliary surgery/trauma, ischaemic cholangiopathy (ICU/shock), recurrent pyogenic cholangitis, bile duct stones — clinical context essential" }
+      { dx: "IgG4-Related Sclerosing Cholangitis", disc: "IgG4 serum >2×ULN; >10 IgG4+/HPF; storiform fibrosis; obliterative phlebitis; dramatic steroid response; no IBD" },
+      { dx: "Primary Biliary Cholangitis", disc: "AMA+; small ducts only; women; florid duct lesion; no MRCP strictures" },
+      { dx: "Cholangiocarcinoma", disc: "Dominant stricture; rising CA19-9; brush cytology/FISH; exclude in any PSC patient deteriorating" }
     ],
     comments: [
-      "No proven medical therapy. UDCA at high dose (28-30mg/kg) — no survival benefit; may increase colorectal cancer risk (controversial). UDCA not routinely recommended.",
-      "Dominant stricture: endoscopic dilation ± short-term stent; brush cytology/FISH for CCA surveillance.",
-      "Cholangiocarcinoma (CCA): lifetime risk 10-20%; 30-40% of CCA diagnosed within 1 year of PSC diagnosis (prevalent disease). Annual MRCP + serum CA19-9.",
-      "Colorectal cancer: PSC-IBD has markedly elevated CRC risk (4-10x vs IBD alone) — annual colonoscopy from diagnosis.",
-      "Gallbladder: gallbladder polyps in PSC → cholecystectomy regardless of size (malignant risk).",
-      "Liver transplant: only curative option. 5-year survival >80%; recurrence in graft ~25% at 10 years; IBD may worsen post-transplant.",
-      "IgG4-SC exclusion mandatory before PSC diagnosis — steroid-responsive vs progressive fibrosing disease.",
-      "Small duct PSC: no MRCP changes; diagnose on biopsy; better prognosis; watch for progression to large duct PSC."
+      "No proven medical therapy — UDCA not recommended at high dose (harm signal in RCTs).",
+      "Dominant stricture: ERCP + dilation ± stenting; brush cytology + FISH for CCA.",
+      "CCA surveillance: 6-monthly MRI/MRCP + CA19-9.",
+      "PSC-IBD: annual colonoscopy from IBD diagnosis (highest colorectal cancer risk of any IBD subgroup).",
+      "Transplant only cure; 5-year OS ~85%; recurrence ~25%."
     ]
   },
   {
     id: "masld-001",
-    name: "MASLD / MASH (METABOLIC DYSFUNCTION-ASSOCIATED STEATOTIC LIVER DISEASE)",
+    name: "MASLD / MASH",
     subspecialty: "Hepatobiliary",
     category: "Medical Liver",
     pattern: "Steatotic",
     behaviour: "Variable",
     clinical: [
-      "WHO 2023 / Delphi consensus nomenclature: MASLD replaces NAFLD; MASH replaces NASH. Requires ≥1 cardiometabolic risk factor (obesity, T2DM, hypertension, dyslipidaemia, metabolic syndrome).",
-      "Most common chronic liver disease globally; prevalence ~25% worldwide. Spectrum: steatosis (MASLD) → steatohepatitis (MASH) → fibrosis → cirrhosis → HCC.",
-      "Cirrhosis and HCC can occur without preceding steatohepatitis (burnt-out NASH — steatosis may be absent in cirrhotic stage).",
-      "HCC in MASLD: rising incidence; can occur in non-cirrhotic liver (unique vs viral hepatitis) — surveillance challenging.",
-      "Trigger: incidental elevated ALT/steatosis on imaging in a metabolic syndrome patient; biopsy when diagnosis uncertain or to stage fibrosis."
+      "MASLD (2023) replaces NAFLD: steatosis + ≥1 cardiometabolic risk factor. MASH (progressive form) ~20% of MASLD. Most common liver disease globally.",
+      "Presentation: incidental steatosis/raised ALT; advanced disease → cirrhosis, portal hypertension, HCC (can arise without cirrhosis).",
+      "Trigger: metabolic syndrome + steatosis on imaging — exclude alcohol (MetALD: 14–35 units/week), drugs, viral."
     ],
     micro: [
-      "Steatosis: macrovesicular >5% hepatocytes (zone 3 / centrilobular predominant in early MASLD); grade 1 (<33%), grade 2 (33-66%), grade 3 (>66%).",
-      "MASH: steatosis + lobular inflammation (mixed, neutrophils + mononuclear) + hepatocellular ballooning (enlarged pale hepatocytes, rarefied cytoplasm, loss of cytoplasmic keratin) — ballooning essential for MASH diagnosis.",
-      "Fibrosis: zone 3 perisinusoidal/pericellular ('chicken wire') fibrosis — early and characteristic of MASLD/MASH; portal fibrosis later; bridging; cirrhosis. Mallory-Denk bodies in ballooned hepatocytes. NAS score: steatosis (0-3) + lobular inflammation (0-3) + ballooning (0-2); ≥5 = MASH likely."
+      "MASLD: macrovesicular steatosis ≥5% hepatocytes, zone 3 predominant.",
+      "MASH triad: steatosis + lobular inflammation (mixed, including neutrophils) + hepatocyte ballooning (wispy pale cytoplasm; Mallory-Denk bodies in severe). Zone 3.",
+      "Perisinusoidal 'chicken-wire' fibrosis (zone 3) — characteristic fibrosis pattern. Stage F0–F4; F3/F4 drives mortality."
     ],
-    ihcPos: ["CK8/18 – Mallory-Denk bodies (ubiquitinated keratin aggregates)", "p62 – Mallory-Denk bodies", "Ubiquitin – Mallory-Denk bodies"],
-    ihcNeg: ["CK7 – periportal ductular reaction absent/minimal in early MASLD (prominent ductular reaction suggests advanced fibrosis or alternative diagnosis)", "PAS-D – negative (excludes alpha-1AT, glycogen storage)"],
+    ihcPos: ["N/A — morphological diagnosis"],
+    ihcNeg: ["N/A — exclude viral/autoimmune by serology"],
     differentials: [
-      { dx: "Alcoholic Liver Disease (ALD)", disc: "Histologically identical to MASH; ALD: history of alcohol excess, Mallory-Denk bodies more prominent/central, AST:ALT >2:1, macrocytosis, CDT; MASLD: metabolic risk factors, AST:ALT <1; clinical distinction — not histological" },
-      { dx: "Drug-induced Steatohepatitis", disc: "Amiodarone (phospholipidosis, lamellar lysosomal inclusions), methotrexate (portal fibrosis, mild steatosis), tamoxifen — drug history key" },
-      { dx: "Wilson's Disease", disc: "Younger patient; neuropsychiatric features; Kayser-Fleischer rings; low caeruloplasmin; elevated urinary copper; copper on biopsy" }
+      { dx: "Alcoholic Liver Disease", disc: "Histologically identical — AST:ALT >2:1 favours ALD; alcohol history (AUDIT) is key discriminator" },
+      { dx: "Drug-induced steatohepatitis", disc: "Amiodarone (phospholipidosis); tamoxifen; methotrexate — drug history" },
+      { dx: "Wilson's Disease", disc: "Young patient; glycogenated nuclei; low caeruloplasmin; ATP7B mutation" }
     ],
     comments: [
-      "Fibrosis stage (F0-F4 Metavir or Brunt) is the strongest predictor of liver-related mortality — not NAS score.",
-      "Non-invasive fibrosis assessment: FIB-4 index (age × AST / [platelets × √ALT]) — low risk <1.30, high risk >2.67. Vibration-controlled transient elastography (Fibroscan). ELF score.",
-      "Treatment: weight loss (≥10% sustained = MASH resolution + fibrosis improvement). Exercise independent of weight loss improves histology.",
-      "Pharmacological: resmetirom (thyroid receptor-β agonist, 2024 FDA approval — first approved MASH treatment); semaglutide (GLP-1 RA — ESSENCE trial); obeticholic acid (awaited final FDA decision).",
-      "Metabolic comorbidities: cardiovascular disease is the leading cause of death in MASLD — manage CV risk aggressively.",
-      "MASLD + significant alcohol (MetALD): new category for those consuming >140g/week (F) or >210g/week (M) — distinct from ALD.",
-      "Cirrhosis surveillance: 6-monthly USS ± AFP for HCC. HCC can arise in non-cirrhotic MASLD — surveillance thresholds debated.",
-      "Burnt-out NASH: cirrhosis with absent/minimal steatosis — do not exclude MASLD origin; cryptogenic cirrhosis in metabolic patients is likely MASLD."
+      "Non-invasive staging: FIB-4 <1.3 = low fibrosis risk; >2.67 = high. FibroScan/MRE for indeterminate.",
+      "Treatment: 7–10% weight loss → histological improvement. Resmetirom (THR-β agonist) — first approved MASH treatment (2024). GLP-1 agonists (semaglutide) positive Phase 3 data.",
+      "Fibrosis stage determines prognosis — not NAS/activity score.",
+      "HCC surveillance (6-monthly USS) from F3; HCC can occur without cirrhosis in MASH.",
+      "MASH cirrhosis now 2nd commonest transplant indication in USA."
     ]
   },
   {
@@ -2185,34 +2165,28 @@ const SEED_DATA = [
     pattern: "Hepatitic",
     behaviour: "Variable",
     clinical: [
-      "Spectrum: alcoholic fatty liver (steatosis, reversible) → alcohol-associated hepatitis (AAH) → cirrhosis → HCC.",
-      "AAH: acute-on-chronic presentation; heavy prolonged alcohol use (typically >80g/day for years); jaundice + coagulopathy + encephalopathy; high short-term mortality.",
-      "Discriminant function (Maddrey): 4.6 × (PT - control) + bilirubin (μmol/L ÷ 17). Score ≥32 = severe; indicates steroid benefit.",
-      "MELD score: >20 = severe AAH; >25 = very high 90-day mortality.",
-      "ABIC score and Glasgow Alcoholic Hepatitis Score (GAHS) also used.",
-      "Trigger: jaundiced patient with heavy alcohol history + AST:ALT >2:1 + bilirubin elevation — biopsy if diagnosis uncertain or before steroid therapy."
+      "Spectrum: steatosis → steatohepatitis → cirrhosis. Alcohol-associated hepatitis (AAH): acute onset, heavy use (>80g/day); jaundice, tender hepatomegaly, leukocytosis.",
+      "Maddrey Discriminant Function (MDF): 4.6×(PT prolongation) + bilirubin(µmol/L÷17.1). MDF ≥32 = severe — consider corticosteroids.",
+      "Trigger: heavy alcohol + acute jaundice + elevated WBC — calculate MDF immediately."
     ],
     micro: [
-      "Steatohepatitis pattern: macrovesicular steatosis; hepatocyte ballooning; Mallory-Denk bodies (prominent, zone 3 centrilobular); lobular inflammation (neutrophilic infiltrate — satellite necrosis: neutrophils clustering around ballooned hepatocytes with MDBs); cholestasis (canalicular + hepatocellular).",
-      "Sclerosing hyaline necrosis: pericentral fibrosis obliterating central veins — associated with portal hypertension disproportionate to fibrosis stage; characteristic of ALD.",
-      "Fibrosis: zone 3 perisinusoidal ('chicken wire'); portal → bridging → biliary-pattern cirrhosis (Laennec cirrhosis — thin fibrous septa, small regular nodules)."
+      "Steatohepatitis: macrovesicular steatosis + lobular inflammation + ballooning + Mallory-Denk bodies. Zone 3. Histologically identical to MASH.",
+      "Severe AAH: confluent/bridging necrosis; neutrophilic infiltrate; bilirubinostasis; satellite necrosis (neutrophils around necrotic hepatocytes).",
+      "Perisinusoidal 'chicken-wire' fibrosis zone 3 first; biliary cirrhosis in end-stage."
     ],
-    ihcPos: ["p62/ubiquitin/CK8/18 – Mallory-Denk bodies (prominent, zone 3)", "Fibronectin – perisinusoidal (early fibrosis)"],
-    ihcNeg: ["HBsAg – negative", "AMA – negative"],
+    ihcPos: ["N/A — morphological + clinical diagnosis"],
+    ihcNeg: ["N/A"],
     differentials: [
-      { dx: "MASLD/MASH", disc: "Histologically identical; ALD: history of significant alcohol, AST:ALT >2:1, more prominent MDBs centrally, neutrophilic satellite necrosis; MASLD: metabolic risk factors, AST:ALT <1; clinical distinction — not histological" },
-      { dx: "Acute Viral Hepatitis", disc: "Viral serology/PCR; lobular disarray; acidophil bodies; portal inflammation; no steatosis/MDBs predominance" },
-      { dx: "Ischaemic Hepatitis", disc: "Zone 3 necrosis; clinical haemodynamic compromise; rapid AST rise and fall; no steatosis or MDBs" }
+      { dx: "MASH", disc: "Histologically identical — AST:ALT >2:1 and alcohol history (AUDIT) favour ALD; metabolic syndrome favours MASH" },
+      { dx: "Autoimmune Hepatitis", disc: "Plasma cells; elevated IgG; autoantibodies — careful distinction required as steroids used in both" },
+      { dx: "Ischaemic Hepatitis", disc: "Zone 3 necrosis; transaminases >1000 IU/L; hypotensive episode; rapid recovery" }
     ],
     comments: [
-      "Severe AAH (Maddrey ≥32 or MELD >20): prednisolone 40mg/day for 28 days. Lille score at Day 7: ≥0.45 = non-responder → stop steroids (no benefit, increased infection risk).",
-      "Lille model: most validated response predictor. Lille <0.16 = complete response (good prognosis); 0.16-0.45 = partial; ≥0.45 = no response.",
-      "Infection: exclude before steroids; prophylactic antibiotics if severe/SBP risk; monitor closely during treatment.",
-      "N-acetylcysteine: adjunct to steroids in severe AAH (ATTIRE trial — improved 28-day but not 90-day survival).",
-      "Abstinence: fundamental; 6 months abstinence required before transplant assessment (UK standard).",
-      "Early liver transplant (ELT): selected severe steroid non-responders with first presentation, good psychosocial support — increasingly offered in specialist centres (controversial).",
-      "HCC: cirrhotic ALD has similar HCC risk to HCV cirrhosis — 6-monthly surveillance.",
-      "Wernicke's encephalopathy: give IV thiamine (Pabrinex) before any glucose in ALL ALD patients — never omit."
+      "Lille score Day 7: ≥0.45 = steroid non-responder → stop (infection risk). <0.45 = responder → complete 28 days.",
+      "Corticosteroids (prednisolone 40mg): MDF ≥32 or encephalopathy. Contraindicated: active infection, GI bleed.",
+      "AST:ALT >2:1: mitochondrial AST release + pyridoxine depletion reducing ALT synthesis.",
+      "Abstinence: most important long-term intervention. IV thiamine (Pabrinex) before any glucose.",
+      "Early transplant for severe AAH non-responsive to medical therapy — evidence base growing."
     ]
   },
   {
@@ -2220,36 +2194,31 @@ const SEED_DATA = [
     name: "HEREDITARY HAEMOCHROMATOSIS (HH)",
     subspecialty: "Hepatobiliary",
     category: "Medical Liver",
-    pattern: "Fibrotic/cirrhotic",
+    pattern: "Hepatitic",
     behaviour: "Variable",
     clinical: [
-      "Autosomal recessive iron overload. HFE gene mutations: C282Y homozygous (85-90% of classical HH in Northern European); H63D compound heterozygote (milder); C282Y/H63D compound heterozygote.",
-      "Phenotypic expression variable — C282Y homozygosity necessary but not sufficient; cofactors (alcohol, steatosis, male sex) influence expression.",
-      "Presentation: fatigue, arthralgia (2nd/3rd MCP joints — chondrocalcinosis), bronzed skin, diabetes (bronze diabetes), hypogonadism, cardiomyopathy, elevated ferritin + transferrin saturation.",
-      "Elevated transferrin saturation (>45%) + ferritin (>300 μg/L men, >200 μg/L women) → HFE genotyping.",
-      "Trigger: incidental elevated ferritin/transferrin saturation; family history screening; arthralgia + DM in appropriate demographic."
+      "AR iron overload; HFE C282Y homozygote (~85%); incomplete penetrance (~28% of male homozygotes develop disease). Northern European.",
+      "Classic triad: cirrhosis + diabetes + skin bronzing. Arthropathy (2nd/3rd MCP — characteristic); hypogonadism; cardiomyopathy.",
+      "Trigger: transferrin saturation >45% (fasting) + elevated ferritin — HFE genotyping. Screen first-degree relatives."
     ],
     micro: [
-      "Iron deposition predominantly in periportal hepatocytes (zone 1) — acinar gradient, worst periportally: Perls' Prussian blue stain grades 1-4 (Deugnier or Scheuer grading); early involvement of hepatocytes only (not Kupffer cells) — distinguishes from secondary siderosis.",
-      "Bile duct epithelial iron deposition — specific to HH (not seen in secondary iron overload).",
-      "Progressive fibrosis: periportal (zone 1) → bridging → macronodular cirrhosis; iron deposition eventually in Kupffer cells + portal macrophages in advanced disease."
+      "Perls' Prussian blue stain: periportal (zone 1) hepatocyte siderosis early — progressive panacinar involvement.",
+      "HH spares Kupffer cells until late — Kupffer cell iron predominant = secondary/transfusional overload.",
+      "Portal fibrosis → bridging → cirrhosis. HCC risk 200× in cirrhotic HH."
     ],
-    ihcPos: ["Perls' Prussian blue – hepatocytic (periportal > centrilobular) + bile duct epithelial iron; grade 3-4 = significant overload"],
-    ihcNeg: ["Kupffer cell iron predominance – absent in early HH (Kupffer cell predominance = secondary siderosis, e.g. haemolytic anaemia, transfusion)"],
+    ihcPos: ["Perls' Prussian blue – grade and distribution essential"],
+    ihcNeg: ["N/A"],
     differentials: [
-      { dx: "Secondary Siderosis (transfusional/haemolytic)", disc: "Kupffer cell and macrophage iron predominance; no bile duct iron; no periportal gradient; clinical context (transfusions, haemolysis)" },
-      { dx: "MASLD-associated hyperferritinaemia", disc: "Elevated ferritin (acute phase reactant); normal/mildly elevated transferrin saturation; hepatocytic steatosis predominant; no periportal iron gradient; HFE wild-type" },
-      { dx: "Juvenile Haemochromatosis (HJV/HAMP)", disc: "Age <30; severe cardiac and endocrine involvement; HJV or HAMP mutations; rapidly progressive" }
+      { dx: "Secondary haemosiderosis", disc: "Kupffer cell predominant (reticuloendothelial pattern); transfusion/haemolysis history; HFE wild-type" },
+      { dx: "Dysmetabolic iron overload (DIOS)", disc: "Metabolic syndrome; mixed hepatocyte/Kupffer cell iron; ferritin elevated out of proportion to transferrin saturation" },
+      { dx: "Juvenile haemochromatosis (HJV/HAMP)", disc: "Age <30; severe overload; cardiac/endocrine predominant; HFE negative" }
     ],
     comments: [
-      "Phlebotomy: 400-500mL weekly until ferritin <50 μg/L; then maintenance (every 3-4 months). Iron depletion reverses fibrosis in pre-cirrhotic disease.",
-      "Cirrhosis: does not fully reverse with phlebotomy. HCC risk markedly elevated (20-200x normal) in cirrhotic HH — 6-monthly surveillance essential.",
-      "HCC in HH: can occur in non-cirrhotic liver (unlike most other causes) — surveillance even pre-cirrhosis if heavy iron loading (stage 3-4).",
-      "Arthropathy: does not improve with phlebotomy — often the most disabling complication; chondrocalcinosis at 2nd/3rd MCP joints.",
-      "Cardiac: cardiomyopathy partially reversible with iron depletion; MRI T2* for cardiac iron quantification.",
-      "Family screening: first-degree relatives — HFE genotyping + fasting transferrin saturation + ferritin.",
-      "C282Y heterozygotes: rarely develop clinical disease without cofactors — reassure but advise avoiding excess alcohol.",
-      "Iron chelation (desferrioxamine/deferasirox): reserved for those unable to tolerate phlebotomy (e.g. severe anaemia, heart failure)."
+      "HFE genotyping: C282Y homozygote = HH. C282Y/H63D = mild phenotype. Non-HFE: HFE2, HAMP, TFR2, SLC40A1.",
+      "Venesection: weekly 450ml until ferritin <50µg/L; then maintenance. Prevents progression if pre-cirrhotic.",
+      "MRI T2*: non-invasive hepatic iron quantification — increasingly replaces biopsy for staging.",
+      "HCC surveillance: 6-monthly USS ± AFP in cirrhotic HH — risk persists post-venesection.",
+      "Exam trap: Kupffer cell sparing in early HH distinguishes from secondary overload."
     ]
   },
   {
@@ -2260,71 +2229,60 @@ const SEED_DATA = [
     pattern: "Hepatitic",
     behaviour: "Variable",
     clinical: [
-      "Autosomal recessive copper transport defect. ATP7B mutation — impaired biliary copper excretion → copper accumulation in liver, brain, cornea, kidneys.",
-      "Presentation age typically 5-35 years; almost never presents after 40 (rare exceptions).",
-      "Hepatic: acute hepatitis, chronic active hepatitis, cirrhosis, acute liver failure (with Coombs-negative haemolytic anaemia — classical presentation).",
-      "Neuropsychiatric: dysarthria, tremor, dystonia, psychiatric symptoms — often before hepatic diagnosis.",
-      "Kayser-Fleischer rings (slit-lamp): copper in Descemet's membrane — present in >95% with neurological involvement; only 50% with isolated hepatic disease.",
-      "Trigger: young patient + liver disease + neuropsychiatric features; acute liver failure + haemolytic anaemia; low caeruloplasmin."
+      "AR copper accumulation; ATP7B mutation (13q); defective biliary copper excretion. Presents age 5–35.",
+      "Hepatic: acute hepatitis; ALF (Coombs-negative haemolytic anaemia + liver failure = Wilson's until proven otherwise); cirrhosis. Neuropsychiatric: dysarthria, tremor, dystonia, psychiatric symptoms.",
+      "Trigger: young patient + liver disease + neuropsychiatric + KF rings on slit lamp + low caeruloplasmin."
     ],
     micro: [
-      "Variable and non-specific histology: steatosis (macrovesicular ± microvesicular); glycogenated nuclei (nuclear vacuolation — characteristic but non-specific); hepatocyte ballooning; interface hepatitis; lobular inflammation.",
-      "Copper stains (rhodanine, orcein): periportal copper deposition in established disease — may be negative in early or acute Wilson's (copper uniformly distributed before zonation, not stainable); absent in acute liver failure (copper released rapidly).",
-      "Acute liver failure pattern: massive hepatocyte necrosis; rosette formation; paucity of copper on staining (copper already released); Mallory-Denk bodies; ductular reaction."
+      "No pathognomonic feature. Early: macrovesicular steatosis; glycogenated nuclei; focal necrosis — mimics MASLD.",
+      "Rhodanine (copper) or orcein (copper-associated protein) staining: periportal distribution in established disease. May be absent in acute presentation.",
+      "Advanced: chronic hepatitis pattern; interface hepatitis; Mallory-Denk bodies; bridging fibrosis → cirrhosis."
     ],
-    ihcPos: ["Rhodanine/orcein – periportal copper (established disease; absent in acute ALF)", "CK7 – ductular reaction in advanced/acute disease", "PAS-D – glycogenated nuclei highlighted"],
-    ihcNeg: ["HBsAg – negative", "Copper stains may be NEGATIVE in acute Wilson's — do not exclude on negative copper stain alone"],
+    ihcPos: ["Rhodanine – copper (periportal)", "Orcein – copper-associated protein (more sensitive than rhodanine early)"],
+    ihcNeg: ["N/A — diagnosis requires clinical + biochemical + histological correlation"],
     differentials: [
-      { dx: "Autoimmune Hepatitis", disc: "AIH: ANA/ASMA+, high IgG, plasma cell-rich interface hepatitis; Wilson's: young patient, low caeruloplasmin, copper stains, ATP7B mutation; can coexist — always check copper in young AIH" },
-      { dx: "MASLD/MASH", disc: "MASLD: metabolic risk factors, older; Wilson's: young patient, glycogenated nuclei, steatosis + neuropsychiatric features, low caeruloplasmin" },
-      { dx: "Alpha-1 Antitrypsin Deficiency", disc: "A1AT: PAS-D+ portal zone inclusions; Pi phenotype/genotyping; pulmonary emphysema; no copper excess" }
+      { dx: "Autoimmune Hepatitis", disc: "Positive autoantibodies; elevated IgG; plasma cells; normal copper studies; responds to immunosuppression" },
+      { dx: "MASLD", disc: "Metabolic risk factors; older age; normal caeruloplasmin; normal copper" },
+      { dx: "Acute viral hepatitis", disc: "Serology/PCR+; no copper accumulation; no KF rings" }
     ],
     comments: [
-      "Diagnosis: Leipzig score ≥4 = Wilson's confirmed. Components: KF rings, neurological symptoms, Coombs-negative haemolytic anaemia, low serum caeruloplasmin (<0.1g/L), elevated urinary copper (>100μg/24h), liver copper >250μg/g dry weight, ATP7B mutation.",
-      "Caeruloplasmin: low in Wilson's but also low in protein-losing states, severe liver disease, malnutrition — not specific.",
-      "Urinary copper: >100μg/24h diagnostic; >500μg/24h in presence of KF rings = sufficient for diagnosis without biopsy.",
-      "Liver copper quantification (dry weight): >250μg/g dry weight = diagnostic. Gold standard but requires biopsy.",
-      "Treatment: D-penicillamine (copper chelation, first-line but poorly tolerated — neurological worsening at initiation); trientine (better tolerated, preferred); zinc (blocks intestinal copper absorption — maintenance/asymptomatic/pregnancy).",
-      "Acute liver failure: D-penicillamine contraindicated (worsens haemolysis); urgent liver transplant assessment; plasma exchange as bridge.",
-      "Liver transplant: corrects metabolic defect; neurological symptoms may not resolve post-transplant.",
-      "Pregnancy: continue treatment (zinc preferred); teratogenicity risk with D-penicillamine at high dose — reduce dose."
+      "Leipzig score ≥4 = diagnosis established: KF rings (2pt) + neurological symptoms (2pt) + Coombs-negative haemolysis (1pt) + low caeruloplasmin <0.1g/L (2pt) + liver copper >250µg/g (2pt) + mutation (4pt).",
+      "Caeruloplasmin: acute phase reactant — may be normal in acute Wilson's/pregnancy. 24hr urinary copper >100µg confirms diagnosis.",
+      "Treatment: D-penicillamine (chelation); trientine (better tolerated, preferred for neurological presentation); zinc (maintenance).",
+      "Acute Wilson's + ALF: urgent transplant — medical treatment insufficient. New Wilson's Index ≥11 = list for OLT.",
+      "Exam trap: copper stains may be negative in acute presentation — clinical picture drives diagnosis."
     ]
   },
   {
     id: "a1at-001",
-    name: "ALPHA-1 ANTITRYPSIN DEFICIENCY (A1AT)",
+    name: "ALPHA-1 ANTITRYPSIN DEFICIENCY (A1ATD)",
     subspecialty: "Hepatobiliary",
     category: "Medical Liver",
     pattern: "Hepatitic",
     behaviour: "Variable",
     clinical: [
-      "Autosomal co-dominant. SERPINA1 gene. Pi (protease inhibitor) system: PiMM = normal; PiZZ = most severe (A1AT ~15% normal); PiSZ = intermediate.",
-      "PiZZ: liver disease (misfolded Z-A1AT polymerises and accumulates in hepatocyte ER — gain-of-function hepatotoxicity) AND pulmonary emphysema (loss-of-function — uninhibited neutrophil elastase).",
-      "Hepatic presentations: neonatal cholestasis (most common neonatal liver disease cause); childhood hepatitis; adult cirrhosis and HCC (often without childhood history).",
-      "Pulmonary: panacinar emphysema (lower lobe predominant), onset 30s-40s, accelerated by smoking.",
-      "Trigger: unexplained cirrhosis/HCC especially in younger adults; panacinar emphysema; neonatal cholestasis; positive family history."
+      "AR/codominant; SERPINA1 gene; misfolded Z-protein retained in hepatocyte ER → proteotoxic injury. PiZZ most severe.",
+      "Hepatic: neonatal cholestasis (most common genetic cause); chronic hepatitis; cirrhosis; HCC. Pulmonary: panacinar emphysema (lower lobes) — smoking accelerates dramatically.",
+      "Trigger: unexplained cirrhosis + emphysema; neonatal cholestasis; raised GGT in child — PAS-D globules on biopsy."
     ],
     micro: [
-      "PAS-D (diastase-resistant) positive globules in periportal hepatocytes (zone 1) — intracytoplasmic, round to oval, pink/magenta: pathognomonic. Number and size increase with age.",
-      "PAS-positive globules present from birth but may be small/few in neonates — increase with age. Globules = retained misfolded Z-A1AT protein in ER.",
-      "Variable background: steatosis; lobular hepatitis; interface hepatitis; fibrosis; cirrhosis; HCC arising in cirrhosis (rarely non-cirrhotic)."
+      "PAS-positive, diastase-resistant (PAS-D) periportal globules — hallmark. Round eosinophilic intracytoplasmic inclusions (dilated ER containing misfolded Z-protein).",
+      "Variable background: neonatal hepatitis; steatosis; chronic hepatitis; bridging fibrosis → cirrhosis.",
+      "Globule number correlates poorly with liver disease severity — proteotoxic injury drives hepatitis."
     ],
-    ihcPos: ["PAS-D – diastase-resistant globules in periportal hepatocytes — diagnostic", "A1AT IHC – confirms globules are A1AT protein (useful in early/subtle cases)"],
-    ihcNeg: ["Rhodanine/copper – negative (excludes Wilson's)", "Ferritin/Perls' – negative (excludes haemochromatosis)"],
+    ihcPos: ["PAS-D – periportal diastase-resistant globules (essential stain)", "A1AT IHC – confirms A1AT in globules (useful in PiMZ where globules subtle)"],
+    ihcNeg: ["N/A"],
     differentials: [
-      { dx: "Wilson's Disease", disc: "Wilson's: glycogenated nuclei, copper stains positive (rhodanine), low caeruloplasmin, young patient; A1AT: PAS-D+ globules, Pi phenotype" },
-      { dx: "Other causes of neonatal cholestasis", disc: "Biliary atresia (absent/atretic ducts on cholangiogram; no PAS-D globules); Alagille (syndromic features, JAG1/NOTCH2 mutation, ductopenia)" },
-      { dx: "Fibrinogen storage disease", disc: "PAS-D+ inclusions (fibrinogen) in hepatocytes — rare; immunostaining for fibrinogen distinguishes" }
+      { dx: "Biliary atresia", disc: "GGT markedly elevated; bile duct proliferation; no PAS-D globules; absent extrahepatic ducts on cholangiogram" },
+      { dx: "Other neonatal cholestasis (CMV, Alagille)", disc: "Serology/PCR; JAG1 mutation; paucity of bile ducts; facial/cardiac features in Alagille" },
+      { dx: "MASLD", disc: "No PAS-D globules; metabolic risk factors; normal A1AT genotype" }
     ],
     comments: [
-      "Pi phenotyping (isoelectric focusing) or genotyping: PiZZ confirms diagnosis. Serum A1AT level alone insufficient (acute phase reactant — may be normal in inflammation).",
-      "No specific hepatic therapy. Supportive management; treat complications of cirrhosis.",
-      "Lung disease: A1AT augmentation therapy (weekly IV pooled human A1AT) — slows emphysema progression; no hepatic benefit.",
-      "Liver transplant: corrects Pi phenotype (donor liver produces normal PiMM protein); curative for hepatic disease.",
-      "HCC: cirrhotic A1AT has elevated HCC risk — 6-monthly surveillance. HCC can arise in non-cirrhotic A1AT (rare).",
-      "Smoking cessation: dramatically reduces and accelerates lung disease — counsel all PiZZ patients strongly.",
-      "Family screening: Pi phenotyping of first-degree relatives. Genetic counselling.",
-      "Novel therapies: fazirsiran (RNA interference, reduces hepatic Z-A1AT production) — in trials."
+      "Diagnosis: serum A1AT level + Pi phenotype (isoelectric focusing) or SERPINA1 genotyping. PiZZ = diagnostic.",
+      "No specific liver treatment — avoid hepatotoxins; HAV/HBV vaccination; manage metabolic cofactors.",
+      "Transplant cures liver disease (donor phenotype replaces PiZZ) and normalises serum A1AT.",
+      "PiMZ: ~3–4× increased cirrhosis risk — important cofactor with ALD/MASLD/viral hepatitis.",
+      "Fazirsiran (RNAi targeting Z-A1AT production) — Phase 3 trials ongoing."
     ]
   },
   {
@@ -2335,33 +2293,28 @@ const SEED_DATA = [
     pattern: "Vascular",
     behaviour: "Variable",
     clinical: [
-      "Hepatic venous outflow obstruction at any level: hepatic veins, IVC, or right atrium. Sinusoidal congestion → ischaemic necrosis → fibrosis.",
-      "Primary BCS: thrombosis due to underlying thrombophilia — JAK2 V617F mutation (myeloproliferative neoplasm, most common; ~50% of BCS); factor V Leiden; prothrombin G20210A; antiphospholipid syndrome; paroxysmal nocturnal haemoglobinuria (PNH); protein C/S/antithrombin deficiency.",
-      "Secondary BCS: extrinsic compression (HCC, renal cell carcinoma), membranous obstruction of IVC (Asia/Africa).",
-      "Presentation: acute (abdominal pain, ascites, hepatomegaly, ALF); subacute/chronic (progressive ascites, portal hypertension, cirrhosis). Caudate lobe hypertrophy (separate venous drainage to IVC) — characteristic imaging finding.",
-      "Trigger: young patient + ascites + hepatomegaly + caudate hypertrophy on imaging — screen for thrombophilia (JAK2 first)."
+      "Hepatic venous outflow obstruction (hepatic veins/IVC). Primary (~75%): thrombosis due to prothrombotic state. Secondary: tumour compression/invasion.",
+      "Causes: JAK2 V617F/MPN (most common, ~40–50%); antiphospholipid syndrome; PNH; factor V Leiden; OCP.",
+      "Trigger: abdominal pain + hepatomegaly + ascites + caudate lobe hypertrophy on imaging — JAK2 + PNH screen mandatory."
     ],
     micro: [
-      "Zone 3 (centrilobular) sinusoidal congestion and haemorrhagic necrosis — hepatocytes drop out; dilated congested sinusoids; red cell extravasation.",
-      "Centrilobular fibrosis (reverse fibrosis pattern — zone 3 first, periportal last); 'reversed lobular architecture' — fibrosis radiates from central vein outward.",
-      "Caudate lobe: relatively spared (separate venous drainage). Compensatory regenerative nodules (large regenerative nodules, LRN) — may mimic HCC on imaging."
+      "Zone 3 sinusoidal congestion and haemorrhagic necrosis — 'reversed lobular pattern' (zone 3 most affected).",
+      "Progressive centrilobular fibrosis radiating outward; eventual cardiac-pattern cirrhosis.",
+      "Caudate lobe relatively spared (drains directly to IVC) — biopsy site selection critical."
     ],
-    ihcPos: ["CD34 – sinusoidal capillarisation in congested areas", "Trichrome/Sirius red – zone 3 fibrosis (reversed pattern)"],
-    ihcNeg: ["Arterial markers (CD34 diffuse) – absent in LRN (vs HCC which shows diffuse CD34 arterialisation)", "GPC3/HSP70/GS – LRN typically GS+ diffuse (map-like) but GPC3−/HSP70− (distinguishes from HCC)"],
+    ihcPos: ["Reticulin – collapse and condensation in necrotic zones"],
+    ihcNeg: ["N/A — Doppler USS + venography diagnostic"],
     differentials: [
-      { dx: "Sinusoidal Obstruction Syndrome (SOS/VOD)", disc: "SOS: sinusoidal/venular obstruction post-BMT or oxaliplatin; no large vein thrombosis; same zone 3 pattern; clinical context (BMT, chemotherapy)" },
-      { dx: "Right Heart Failure / Cardiac Hepatopathy", disc: "Zone 3 congestion identical; elevated JVP, peripheral oedema, echocardiographic findings; no venous thrombosis; nutmeg liver" },
-      { dx: "Hepatic Veno-occlusive Disease (SOS)", disc: "Terminal hepatic venule obliteration; post-BMT; sinusoidal fibrin thrombi; no large vein thrombosis" }
+      { dx: "Sinusoidal Obstruction Syndrome", disc: "Hepatic veins patent on Doppler; post-HSCT/oxaliplatin; sinusoidal fibrin; no thrombophilia" },
+      { dx: "Congestive hepatopathy (cardiac)", disc: "Right heart failure; dilated hepatic veins; JVP elevated; no hepatic vein thrombosis" },
+      { dx: "Ischaemic hepatitis", disc: "Zone 3 necrosis; AST/ALT >1000 IU/L; hypotensive episode; rapid resolution" }
     ],
     comments: [
-      "Anticoagulation: lifelong in all BCS regardless of underlying cause (risk of extension/rethrombosis).",
-      "Treat underlying cause: JAK2+ → haematology referral (MPN treatment may be needed); PNH → eculizumab; APS → anticoagulation.",
-      "TIPS (transjugular intrahepatic portosystemic shunt): portal hypertension complications, ascites, or if anticoagulation insufficient — decompresses portal system.",
-      "Liver transplant: for acute liver failure or failed decompression; recurrence risk if underlying thrombophilia not treated.",
-      "Large regenerative nodules (LRN): benign; may be multiple; mimic HCC — discriminate with biopsy (GPC3−) and AFP (normal in LRN).",
-      "HCC risk: elevated in BCS-related cirrhosis — surveillance.",
-      "JAK2 V617F testing: positive in ~50% BCS — may be the presenting feature of MPN before haematological changes are apparent. Full bone marrow biopsy if JAK2+.",
-      "IVC obstruction: consider IR decompression (angioplasty/stent) if membranous or short segment."
+      "Investigation: Doppler USS first (hepatic vein reversal/absence); CT/MRI (nutmeg liver, caudate hypertrophy).",
+      "Treatment step-up: anticoagulation → TIPS → liver transplantation.",
+      "JAK2 V617F positive → bone marrow biopsy. PNH screen (flow cytometry) in all primary BCS.",
+      "Post-transplant anticoagulation lifelong — underlying thrombophilia persists.",
+      "Rotterdam BCS score predicts 5-year mortality without transplant."
     ]
   },
   {
@@ -2372,71 +2325,59 @@ const SEED_DATA = [
     pattern: "Vascular",
     behaviour: "Variable",
     clinical: [
-      "Endothelial injury to hepatic sinusoids and terminal hepatic venules → obstruction → centrilobular ischaemic necrosis.",
-      "Post-BMT/HSCT: conditioning regimens (busulfan + cyclophosphamide, total body irradiation) — classic cause; onset within 21 days of transplant.",
-      "Chemotherapy-associated: oxaliplatin (colorectal liver metastases) — sinusoidal injury, blue liver; gemcitabine; actinomycin D.",
-      "Other: pyrrolizidine alkaloids (herbal teas — Jamaica bush tea, comfrey); azathioprine (renal transplant, IBD).",
-      "Diagnostic criteria (EBMT 2016): bilirubin + ≥2 of: painful hepatomegaly, ascites, weight gain >5%; or imaging/biopsy evidence.",
-      "Trigger: weight gain + hepatomegaly + jaundice within 21 days post-BMT conditioning."
+      "Sinusoidal endothelial cell injury → fibrin in sinusoids → outflow obstruction. Hepatic veins patent (distinguishes from BCS).",
+      "Post-HSCT (busulfan/cyclophosphamide conditioning); oxaliplatin (colorectal liver metastasis setting); pyrrolizidine alkaloids (herbal).",
+      "Trigger: post-HSCT + weight gain + RUQ pain + hepatomegaly + jaundice within 21 days — Baltimore criteria."
     ],
     micro: [
-      "Terminal hepatic venule (central vein) obliteration: subendothelial oedema → loose connective tissue in venular wall → concentric fibrosis → obliteration; red cell extravasation into space of Disse.",
-      "Zone 3 sinusoidal congestion, haemorrhagic necrosis — identical to BCS but at sinusoidal/venular level; no large vein thrombosis.",
-      "Sinusoidal fibrin thrombi (periodic acid-Schiff or PTAH stain); sinusoidal dilatation; hepatocyte dropout zone 3; perisinusoidal fibrosis."
+      "Sinusoidal fibrin deposition (zone 3); sinusoidal endothelial cell detachment; zone 3 hepatocyte necrosis.",
+      "Central vein (terminal hepatic venule) thickening/obliteration — may not be visible early; sinusoidal changes are more reliable.",
+      "Reticulin collapse zone 3; centrilobular fibrosis in established disease."
     ],
-    ihcPos: ["PTAH/Phosphotungstic acid haematoxylin – fibrin thrombi in sinusoids", "Trichrome – centrilobular/zone 3 fibrosis; venular obliteration"],
-    ihcNeg: ["No large hepatic vein/IVC thrombosis (distinguishes from BCS on imaging + histology)"],
+    ihcPos: ["Fibrin/PTAH stain – sinusoidal fibrin deposition"],
+    ihcNeg: ["N/A — hepatic veins patent on Doppler (key BCS distinction)"],
     differentials: [
-      { dx: "Budd-Chiari Syndrome", disc: "BCS: large hepatic vein/IVC thrombosis on Doppler/MRI; thrombophilia (JAK2); no post-BMT context; caudate hypertrophy" },
-      { dx: "Cardiac Hepatopathy / Right Heart Failure", disc: "Elevated JVP; echocardiographic findings; bilateral lower limb oedema; no post-BMT or drug exposure" },
-      { dx: "Chemotherapy-induced steatohepatitis", disc: "Irinotecan → steatosis/MASH pattern; oxaliplatin → SOS/sinusoidal injury; pattern depends on agent — clinical context" }
+      { dx: "Budd-Chiari Syndrome", disc: "Hepatic vein/IVC thrombosis on Doppler; caudate hypertrophy; underlying thrombophilia; not post-HSCT" },
+      { dx: "Hepatic GVHD", disc: "Bile duct damage/destruction; lobular hepatitis; cutaneous/GI GVHD; later onset than SOS" },
+      { dx: "Drug-induced liver injury", disc: "Drug history; no sinusoidal fibrin pattern; not post-HSCT context" }
     ],
     comments: [
-      "Severity grading (EBMT): mild (reversible, supportive); moderate (organ dysfunction); severe (multiorgan failure — high mortality).",
-      "Prevention (post-BMT): defibrotide prophylaxis in high-risk patients — reduces incidence and severity.",
-      "Treatment: defibrotide (fibrinolytic/antithrombotic endothelial protectant) — standard for moderate-severe post-BMT SOS; improves survival.",
-      "Supportive: sodium restriction, diuretics for ascites; manage renal failure; avoid hepatotoxins.",
-      "Oxaliplatin-associated SOS: histologically present in ~50% undergoing hepatic resection; increases peri-operative haemorrhage risk; preoperative bevacizumab reduces incidence (EORTC 40983 subset).",
-      "Azathioprine-associated SOS: IBD/transplant patients; rare; usually chronic/nodular regenerative hyperplasia pattern.",
-      "TIPS: may be used for refractory portal hypertension/ascites in SOS; risk of worsening hepatic failure.",
-      "Pyrrolizidine alkaloids: developing world; herbal tea/bush tea; chronic exposure → nodular regenerative hyperplasia → portal hypertension."
+      "Baltimore criteria: bilirubin >34µmol/L + ≥2 of hepatomegaly/ascites/weight gain >5% — within 21 days post-HSCT.",
+      "Treatment: defibrotide — approved for severe SOS (endothelial protective/pro-fibrinolytic); prophylaxis for high-risk patients.",
+      "Oxaliplatin SOS: sinusoidal dilatation + NRH on biopsy — increases surgical risk at hepatic resection.",
+      "Severe SOS + multi-organ failure: mortality >80% without defibrotide — early treatment critical."
     ]
   },
   {
     id: "gran-hepatitis-001",
-    name: "HEPATIC GRANULOMAS — DIFFERENTIAL FRAMEWORK",
+    name: "HEPATIC GRANULOMA — DIFFERENTIAL FRAMEWORK",
     subspecialty: "Hepatobiliary",
     category: "Medical Liver",
     pattern: "Granulomatous",
     behaviour: "Variable",
     clinical: [
-      "Granulomas in liver: clusters of epithelioid histiocytes ± Langhans giant cells. Found in 2-10% of liver biopsies. Require systematic workup — rarely diagnosed on histology alone.",
-      "Common causes: sarcoidosis (most common in developed world — non-caseating; bilateral hilar lymphadenopathy; ACE elevated); PBC (florid duct lesion); infection (TB — caseating/fibrin-ring; Brucella; Q fever — fibrin-ring granulomas); drug reaction; lymphoma (Hodgkin's — sinusoidal infiltration).",
-      "Fibrin-ring granuloma (doughnut granuloma): central lipid vacuole surrounded by fibrin ring + epithelioid histiocytes — associated with Q fever (Coxiella burnetii), EBV, CMV, toxoplasmosis, leishmaniasis, allopurinol, DILI.",
-      "Trigger: incidental granulomas on biopsy → systematic workup: CXR/CT chest, ACE, serum calcium, Mantoux/IGRA, blood cultures, serology (Q fever, Brucella, EBV, CMV), drug history."
+      "Found in ~2–10% of liver biopsies. Requires clinicopathological correlation — never a standalone diagnosis.",
+      "Common causes: sarcoidosis (most common UK), PBC (florid duct lesion), TB (caseating), drug (allopurinol, carbamazepine), Q fever (fibrin ring), EBV/CMV, fungal (immunocompromised).",
+      "Trigger: granulomas on biopsy → Mantoux/IGRA, CXR, serum ACE, AMA, drug history, HIV, LDH."
     ],
     micro: [
-      "Sarcoidosis: non-caseating epithelioid granulomas; tight, well-formed; Langhans giant cells; Schaumann bodies (concentric calcified inclusions) or asteroid bodies within giant cells; portal and parenchymal; no necrosis; reticulin collapse.",
-      "TB: caseating granulomas (central eosinophilic necrosis); Ziehl-Neelsen (ZN) stain for AFB (sensitivity <50% in hepatic TB); culture gold standard; often miliary distribution.",
-      "PBC: florid duct lesion — granuloma specifically cuffing damaged interlobular bile duct (granulomatous cholangitis); portal location; AMA+; bile duct injury.",
-      "Fibrin-ring: central clear lipid vacuole + fibrin ring (Masson trichrome) + surrounding epithelioid cells — morphologically distinctive; strongly associated with Q fever."
+      "Non-caseating compact granulomas ± Langhans giant cells: sarcoidosis, PBC (adjacent to damaged bile duct), drug, berylliosis.",
+      "Caseating necrosis: TB — ZN stain (30–40% sensitivity); PCR more sensitive. Culture essential from fresh tissue.",
+      "Fibrin ring granuloma (doughnut — central lipid vacuole + fibrin ring): Q fever (pathognomonic); also EBV, CMV, drug."
     ],
-    ihcPos: ["CD68 – epithelioid histiocytes and Langhans giant cells", "ZN – AFB if TB suspected", "PAS/GMS – fungal organisms if suspected", "CMV IHC, EBV ISH (EBER) – viral causes"],
-    ihcNeg: ["Caseation absent – favours sarcoidosis, PBC, drug, Q fever over TB/fungal", "CK7 bile duct involvement – if present, consider PBC florid duct lesion"],
+    ihcPos: ["CD68 – epithelioid macrophages/histiocytes", "IgG4 – if IgG4-related disease suspected"],
+    ihcNeg: ["N/A — special stains mandatory: ZN + PAS-D + Grocott + Gram on all hepatic granulomas"],
     differentials: [
-      { dx: "Sarcoidosis vs TB", disc: "Sarcoidosis: non-caseating, tight granulomas, bilateral hilar LAD, elevated ACE, IGRA negative; TB: caseating, ZN+/culture+, clinical risk factors, IGRA positive" },
-      { dx: "PBC granulomatous cholangitis vs sarcoidosis", disc: "PBC: granuloma specifically around damaged bile duct; AMA+; ductopenia; isolated ALP elevation; sarcoidosis: not duct-centred; ACE elevated; systemic features" },
-      { dx: "Drug reaction vs sarcoidosis", disc: "Drug reaction: eosinophils; drug history; resolves on withdrawal; less well-formed granulomas; fibrin-ring pattern" }
+      { dx: "Sarcoidosis", disc: "Non-caseating; portal + parenchymal; bilateral hilar lymphadenopathy; ACE elevated; diagnosis of exclusion" },
+      { dx: "Tuberculosis", disc: "Caseating; ZN+ (30–40%); PCR more sensitive; IGRA+; fever/night sweats/weight loss" },
+      { dx: "Q Fever (Coxiella burnetii)", disc: "Fibrin ring granuloma (pathognomonic); fever + thrombocytopenia; serology (Phase I/II IgG)" }
     ],
     comments: [
-      "Workup for hepatic granulomas: CXR + CT chest (sarcoid/TB), ACE + calcium (sarcoid), IGRA/Mantoux (TB), blood cultures ×3 (brucella, TB), Q fever serology (phase I/II IgG/IgM), Brucella serology, HIV, EBV/CMV serology, drug history review, bone marrow biopsy if haematological cause suspected.",
-      "ZN stain sensitivity for hepatic TB <50% — negative ZN does not exclude. Culture of liver biopsy tissue improves sensitivity.",
-      "Sarcoidosis: most cases do not require treatment. Prednisolone if symptomatic, rising bilirubin, portal hypertension, or significant hepatic dysfunction.",
-      "Q fever hepatitis: doxycycline (acute); hydroxychloroquine + doxycycline (chronic/endocarditis).",
-      "Granulomatous hepatitis: diagnosis of exclusion — all identifiable causes excluded + steroid trial if symptomatic.",
-      "Hodgkin's lymphoma: sinusoidal infiltration by Reed-Sternberg cells ± non-caseating granulomas — always consider lymphoma; CD30/CD15 IHC on biopsy.",
-      "HIV: consider MAC (Mycobacterium avium complex) — CD4 <50; poorly formed granulomas, ZN strongly positive; treat with azithromycin + ethambutol.",
-      "Fungal: histoplasma (GMS+, small intracellular yeasts), cryptococcus (India ink, mucin capsule), coccidioides (large spherules) — in immunocompromised or endemic regions."
+      "Stain protocol: ZN + PAS-D + Grocott + Gram minimum on all hepatic granulomas.",
+      "Sarcoidosis: portal hypertension can occur without cirrhosis — treat with steroids if symptomatic.",
+      "Drug granulomas: eosinophilic infiltrate common; resolve on withdrawal.",
+      "Idiopathic: ~10–30% remain unexplained after full workup — follow-up required.",
+      "Lymphoma: elevated LDH + B symptoms → consider even with granulomas (flow cytometry + clonality)."
     ]
   },
   {
@@ -2445,36 +2386,30 @@ const SEED_DATA = [
     subspecialty: "Hepatobiliary",
     category: "Medical Liver",
     pattern: "Massive necrosis",
-    behaviour: "Malignant",
+    behaviour: "Variable",
     clinical: [
-      "Acute liver failure (ALF): coagulopathy (INR ≥1.5) + encephalopathy within 26 weeks of liver disease onset in a patient without pre-existing cirrhosis.",
-      "Hyperacute (<7 days): paracetamol overdose (most common UK cause), ischaemia — jaundice + encephalopathy rapidly; zone 3 necrosis.",
-      "Acute (7-28 days): hepatitis A/B, Wilson's acute presentation, Budd-Chiari.",
-      "Subacute (4-26 weeks): drug-induced, seronegative (cryptogenic — poor prognosis), Wilson's.",
-      "Biopsy in ALF: transjugular route (coagulopathy); establishes diagnosis; determines potential for regeneration (>30% viable hepatocytes) vs futility.",
-      "King's College Criteria: indicates need for transplant listing (paracetamol and non-paracetamol criteria)."
+      "ALF: coagulopathy (INR ≥1.5) + encephalopathy without pre-existing liver disease, <26 weeks. Hyperacute (<7 days, paracetamol/ischaemia) — best spontaneous recovery. Subacute (>21 days, seronegative/drug) — worst.",
+      "UK causes: paracetamol (~50%), seronegative (~15%), DILI (~10%), viral (HAV, HEV, HBV reactivation), Wilson's, BCS.",
+      "Trigger: encephalopathy + coagulopathy + jaundice in previously well patient — apply Kings College Criteria urgently."
     ],
     micro: [
-      "Massive hepatic necrosis: pan-acinar necrosis with hepatocyte dropout; collapsed reticulin framework (silver stain shows compressed fibres without hepatocytes); sinusoidal congestion; inflammatory infiltrate variable.",
-      "Zone 3 necrosis: paracetamol (centrilobular, sharp demarcation, minimal inflammation); ischaemia (zone 3, haemorrhagic); Budd-Chiari (zone 3, congestion).",
-      "Submassive necrosis with regeneration: islands of surviving hepatocytes (often periportal zone 1); ductular reaction (oval cell/hepatic progenitor cell activation — CK7+); ballooning + cholestasis in survivors; degree of necrosis + regenerative capacity = prognostic assessment."
+      "Massive necrosis: >70–80% hepatocyte loss; panacinar necrosis; reticulin framework collapse; residual regenerating hepatocytes at portal tracts.",
+      "Zone 3 necrosis (paracetamol/ischaemia); panacinar (viral/seronegative/AIH); submassive (<70%) better prognosis for regeneration.",
+      "Cause-specific: sparse inflammation (paracetamol); lymphoplasmacytic infiltrate (AIH/viral); eosinophils/granulomas (DILI); periportal copper + Mallory bodies (Wilson's)."
     ],
-    ihcPos: ["CK7 – ductular reaction / oval cells (regenerative potential indicator)", "Ki67 – hepatocyte proliferation (>5% = regenerative activity — prognostically favourable)", "Reticulin (silver stain) – collapsed framework without hepatocytes in necrotic areas"],
-    ihcNeg: ["HBsAg/HBcAg – negative (exclude HBV)", "HSV IHC – negative (exclude herpes hepatitis — Cowdry A inclusions; HSV can cause ALF)"],
+    ihcPos: ["Reticulin – extent of necrosis/collapse", "Ki67 – hepatocyte regeneration index", "Orcein/rhodanine – Wilson's copper", "HBsAg/HBcAg – occult HBV"],
+    ihcNeg: ["N/A — aetiology-directed panel"],
     differentials: [
-      { dx: "Ischaemic Hepatitis (Shock Liver)", disc: "Zone 3 haemorrhagic necrosis; clinical haemodynamic compromise (shock, RHF, arrhythmia); rapid AST rise (>10x) and rapid recovery if cause treated; no encephalopathy unless concurrent" },
-      { dx: "Wilson's Disease ALF", disc: "Young patient; Coombs-negative haemolytic anaemia; low ALP (paradoxically); elevated urinary copper; copper stains often negative (copper released); urgent transplant" },
-      { dx: "Herpes Hepatitis (HSV/VZV)", disc: "Immunocompromised or pregnancy; Cowdry A intranuclear inclusions; HSV/VZV IHC+; geographic necrosis; no bile duct involvement; treat with IV aciclovir" }
+      { dx: "Acute-on-chronic liver failure (ACLF)", disc: "Pre-existing cirrhosis; precipitant (infection/bleed/alcohol); background fibrosis on biopsy" },
+      { dx: "Ischaemic hepatitis", disc: "Zone 3 necrosis; AST/ALT >1000 acutely; hypotensive episode; rapid recovery" },
+      { dx: "Infiltrative malignancy (lymphoma/HCC)", disc: "Hepatomegaly; elevated LDH; imaging abnormality; biopsy shows malignant infiltrate" }
     ],
     comments: [
-      "Paracetamol ALF: N-acetylcysteine (NAC) — give to ALL paracetamol overdoses regardless of timing; beneficial even in established ALF.",
-      "King's College Criteria (paracetamol): pH <7.30 after resuscitation OR all 3 of: PT >100s + creatinine >300μmol/L + grade III-IV encephalopathy → urgent transplant listing.",
-      "King's College Criteria (non-paracetamol): PT >100s OR ≥3 of: age <10/>40, aetiology (drug/seronegative/Wilson's), duration >7 days, bilirubin >300μmol/L, PT >50s.",
-      "MELD score: used alongside KCC for transplant prioritisation.",
-      "Seronegative (indeterminate) ALF: poor prognosis; early transplant listing; consider autoimmune (check IgG, ANA, ASMA even in ALF), Wilson's, occult HBV.",
-      "Biopsy in ALF: proportion of viable hepatocytes predicts regenerative potential; massive necrosis with <30% viable parenchyma = poor spontaneous recovery.",
-      "Wilson's disease ALF: D-penicillamine contraindicated; plasma exchange as bridge; urgent transplant.",
-      "Herpes hepatitis ALF: treat empirically with IV aciclovir in immunocompromised patient + ALF without clear cause — potentially fatal if missed."
+      "Kings College Criteria — paracetamol: pH <7.30 OR all three of INR >6.5 + creatinine >300 + grade III–IV encephalopathy.",
+      "Non-paracetamol KCC: INR >6.5 OR any 3 of: age <10/>40, seronegative/DILI aetiology, jaundice→encephalopathy >7 days, INR >3.5, bilirubin >300.",
+      "Paracetamol: N-acetylcysteine even late. Wilson's ALF: New Wilson's Index ≥11 → urgent transplant listing.",
+      "Seronegative ALF: worst natural history — screen thoroughly (HEV, HSV, EBV, CMV, autoimmune, Wilson's, drug).",
+      "Complications: cerebral oedema (mannitol/hypothermia); HRS; coagulopathy; hypoglycaemia."
     ]
   },
   // ═══════════════════════════════════════════════════════════
@@ -2856,7 +2791,7 @@ const SEED_DATA = [
       "Insular pattern can be focal in otherwise well-differentiated PTC — overall grade depends on dominant pattern on resection."
     ],
     comments: [
-      "WHO 2022 Turin criteria (histological): solid/trabecular/insular architecture + mitoses ≥3/2mm² and/or necrosis and/or convoluted nuclei — all three convoluted nuclei or two of necrosis/mitoses.",
+      "WHO 2022 Turin criteria (histological): solid/trabecular/insular architecture PLUS ≥1 of: necrosis, convoluted (raisinoid) nuclei, or mitoses ≥3/2mm².",
       "Intermediate prognosis between well-differentiated PTC/FTC and ATC. 5-year OS ~50-60%.",
       "TERT promoter mutations + RAS/BRAF: TERT + driver mutation = higher risk of dedifferentiation and mortality.",
       "Surgery: total thyroidectomy + central neck dissection. RAI less effective than well-differentiated tumours but attempt if Tg-producing.",
@@ -2874,7 +2809,7 @@ const SEED_DATA = [
     name: "THYROID FNA — RCPath THY CATEGORY OVERVIEW",
     subspecialty: "Head & Neck",
     specimenType: "FNA",
-    reportingSystem: "RCPath Thyroid (Thy1-5)",
+    reportingSystem: "RCPath Thyroid (Thy1–5)",
     reportingCategory: "Thy1–Thy5 framework",
     behaviour: "Variable",
     adequacy: [
@@ -3675,7 +3610,7 @@ function switchTab(tab, btn) {
 
   sidebar.style.display     = tab === 'entities'  ? '' : 'none';
   main.style.display        = tab === 'entities'  ? '' : 'none';
-  cytoSidebar.style.display = tab === 'cytology'  ? 'flex' : 'none';
+  cytoSidebar.style.display = tab === 'cytology'  ? 'block' : 'none';
   cytoMain.style.display    = tab === 'cytology'  ? 'block' : 'none';
   ihcPanel.classList.toggle('active', tab === 'ihc');
 
@@ -3812,9 +3747,9 @@ function ihcExplore() {
     ${pairs.length ? `<div class="disc-block">
       <div class="block-title">⚡ Discriminatory Pairs — where ${escHtml(displayMarker)} is decision-making</div>
       ${pairs.map(p=>`<div class="disc-pair">
-        <span class="disc-entity pos" onclick="goToHistoEntity('${p.posE.id}')" title="${escHtml(p.posE.name)}">✚ ${escHtml(p.posE.name)}${p.posNote?` <small style="font-weight:400;opacity:0.8">(${escHtml(p.posNote)})</small>`:''}</span>
+        <span class="disc-entity pos" onclick="${p.posE.type==='cytology'?'goToCytoEntity':'goToHistoEntity'}('${p.posE.id}')" title="${escHtml(p.posE.name)}">✚ ${escHtml(p.posE.name)}${p.posNote?` <small style="font-weight:400;opacity:0.8">(${escHtml(p.posNote)})</small>`:''}</span>
         <span class="disc-arrow">⇔</span>
-        <span class="disc-entity neg" onclick="goToHistoEntity('${p.negE.id}')" title="${escHtml(p.negE.name)}">✖ ${escHtml(p.negE.name)}${p.negNote?` <small style="font-weight:400;opacity:0.8">(${escHtml(p.negNote)})</small>`:''}</span>
+        <span class="disc-entity neg" onclick="${p.negE.type==='cytology'?'goToCytoEntity':'goToHistoEntity'}('${p.negE.id}')" title="${escHtml(p.negE.name)}">✖ ${escHtml(p.negE.name)}${p.negNote?` <small style="font-weight:400;opacity:0.8">(${escHtml(p.negNote)})</small>`:''}</span>
         ${p.disc?`<span class="disc-marker-label">vs: ${escHtml(p.disc.substring(0,60))}${p.disc.length>60?'…':''}</span>`:''}
       </div>`).join('')}
     </div>` : ''}
@@ -3830,6 +3765,7 @@ function goToEntity(id) { goToHistoEntity(id); }
 // INIT
 // ═══════════════════════════════════════════════════════════════════════════
 render();
+renderCytology();
 </script>
 </body>
 </html>
