@@ -6278,6 +6278,66 @@ const SEED_DATA = [
       "lung-tc-001",
       "lung-ac-001"
     ]
+  },
+  {
+    "id": "mpnst-001",
+    "type": "histology",
+    "name": "MALIGNANT PERIPHERAL NERVE SHEATH TUMOUR (MPNST)",
+    "subspecialty": "Soft Tissue / Bone",
+    "category": "Mesenchymal",
+    "pattern": "Spindle cell",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Arises from peripheral nerve, nerve sheath, or in background of neurofibroma. ~50% NF1-associated; ~10% radiation-induced; ~40% sporadic.",
+      "NF1-associated: lifetime risk ~10%; younger patients; deeper location; worse prognosis than sporadic. Trigger: rapidly enlarging mass in known NF1 patient — assume MPNST until proven otherwise.",
+      "Sporadic: adults 20–50 years; large proximal nerve (sciatic, brachial plexus, sacral plexus) or paraspinal. Pain/neurological deficit suggests nerve origin."
+    ],
+    "micro": [
+      "Fascicles of spindle cells with hyperchromatic wavy/buckled nuclei; alternating hypercellular and hypocellular zones ('marbled' pattern); geographic necrosis; perivascular hypercellularity — characteristic.",
+      "Nuclear palisading may mimic schwannoma but Verocay bodies absent; no Antoni A/B. Mitoses brisk (typically >4/10HPF). Heterologous differentiation in ~15%: rhabdomyoblasts (Triton tumour), osteosarcoma, angiosarcoma.",
+      "Low-grade MPNST: infiltrative spindle cell neoplasm with increased cellularity and mild atypia arising within neurofibroma — subtle diagnosis; S100 focal/lost, H3K27me3 loss confirms."
+    ],
+    "ihcPos": [
+      "SOX10 – positive (~50–70%; more sensitive than S100 in high-grade)",
+      "S100 – focal/weak (~50%; diffuse strong in schwannoma — focal/lost in MPNST)",
+      "H3K27me3 – LOSS (trimethylation loss by IHC) — most useful marker; ~50–70% sensitivity, ~95% specificity for MPNST vs benign PNST",
+      "p53 – mutant pattern in many",
+      "Ki67 – high (>10–20% in high-grade)"
+    ],
+    "ihcNeg": [
+      "H3K27me3 – retained in schwannoma, neurofibroma, synovial sarcoma (key exclusions)",
+      "TLE1 – negative or weak (synovial sarcoma TLE1 diffuse strong)",
+      "STAT6 – negative (excludes SFT)",
+      "Desmin/MyoD1 – negative unless heterologous rhabdomyoblastic (Triton tumour)"
+    ],
+    "differentials": [
+      {
+        "dx": "Synovial Sarcoma (monophasic)",
+        "disc": "TLE1 diffuse strong; SS18-SSX fusion (FISH/RNA-seq); H3K27me3 retained; no nerve association; hemangiopericytoma vasculature"
+      },
+      {
+        "dx": "Cellular Schwannoma",
+        "disc": "S100/SOX10 diffuse strong; H3K27me3 retained; Antoni A without Verocay bodies; encapsulated; no necrosis; NF2 mutation"
+      },
+      {
+        "dx": "Leiomyosarcoma",
+        "disc": "SMA+, h-caldesmon+, Desmin+; S100/SOX10 negative; H3K27me3 retained; no nerve association; intersecting fascicles"
+      }
+    ],
+    "comments": [
+      "H3K27me3 loss (PRC2 complex inactivation via EED or SUZ12 mutation): present in ~70% NF1-associated MPNST, ~50% sporadic, ~90% radiation-induced. Absent in benign PNSTs — most useful single IHC marker.",
+      "CDKN2A/p16 loss (FISH or IHC): common in MPNST; supports malignancy in borderline cases. Combined H3K27me3 loss + CDKN2A loss highly specific.",
+      "Triton tumour (MPNST + rhabdomyoblastic differentiation): MyoD1+, Desmin+ in heterologous component; NF1 association strong; worse prognosis.",
+      "Grading: FNCLCC — Grade 2 or 3 in most cases. Low-grade MPNST (Grade 1) rare — arising within neurofibroma, H3K27me3 loss confirms.",
+      "Prognosis: 5-year OS ~35–50% overall; NF1-associated worse than sporadic (~20–30% vs ~50%). Size >5cm, NF1, positive margins = adverse factors.",
+      "Surgery: wide local excision primary. Adjuvant radiotherapy for positive/close margins. Chemotherapy (doxorubicin/ifosfamide) for metastatic — modest response.",
+      "Exam trap: focal S100 positivity does NOT exclude MPNST — diffuse strong S100 favours schwannoma. H3K27me3 loss is the discriminating marker."
+    ],
+    "cytoLink": null,
+    "related": [
+      "synovial-001",
+      "schwannoma-001"
+    ]
   }
 ];
 // ═══════════════════════════════════════════════════════════════════════════
