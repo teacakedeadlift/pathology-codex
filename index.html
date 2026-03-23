@@ -1230,9 +1230,13 @@
   .exam-freq-badge:hover { background: #f59e0b; color: #fff; }
 
   @media (max-width: 768px) {
-    .exam-table th:nth-child(5), .exam-table td:nth-child(5) { display: none; }
+    .exam-table th:nth-child(3), .exam-table td:nth-child(3) { display: none; }
+    .exam-table th:nth-child(4), .exam-table td:nth-child(4) { display: none; }
+    .exam-table th:nth-child(6), .exam-table td:nth-child(6) { display: none; }
     .exam-controls { flex-direction: column; align-items: flex-start; }
     .exam-search { max-width: 100%; width: 100%; }
+    .exam-dx-chip { font-size: 11px; padding: 4px 8px; }
+    .exam-sitting { font-size: 10.5px; }
   }
   /* ── Mobile hamburger ─────────────────────────────────── */
   #hamburger {
@@ -11917,6 +11921,482 @@ const SEED_DATA = [
     ],
     "cytoLink": null,
     "related": []
+  },
+  {
+    "id": "bcc-001",
+    "type": "histology",
+    "name": "BASAL CELL CARCINOMA (BCC)",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Epithelial",
+    "pattern": "Basaloid",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Most common malignancy worldwide. UV-driven; sun-exposed skin; head and neck >80%. Locally destructive; metastasis exceptionally rare (<0.1%).",
+      "Risk factors: fair skin, chronic UV, immunosuppression, Gorlin syndrome (PTCH1 germline — multiple BCCs in young, jaw keratocysts, medulloblastoma, calcified falx).",
+      "Subtypes (prognostically relevant): nodular (most common, ~60%); superficial (~25%); infiltrative/morphoeic (~10%, high recurrence); basosquamous (aggressive, metastatic potential)."
+    ],
+    "micro": [
+      "Basaloid lobules/nests/trabeculae arising from epidermis; peripheral nuclear palisading; retraction artefact (clefting between tumour and stroma) — characteristic.",
+      "Nodular: large well-circumscribed lobules, mucin-rich stroma. Superficial: buds from underside of epidermis, multifocal. Infiltrative/morphoeic: thin cords and strands in dense sclerotic stroma, no palisading — subtle, difficult margins.",
+      "Basosquamous (metatypical): mixed BCC and SCC features; keratinisation within basaloid nests; no peripheral palisading in squamoid areas — behaves aggressively, must be identified."
+    ],
+    "ihcPos": [
+      "BerEP4 – diffuse (most useful BCC marker; negative in SCC)",
+      "BCL2 – diffuse in BCC (patchy in SCC)",
+      "CK14 – positive",
+      "p63 – positive"
+    ],
+    "ihcNeg": [
+      "EMA – negative (positive in SCC)",
+      "CK20 – negative in BCC (positive in Merkel cell carcinoma)",
+      "High molecular weight CK (34βE12) – negative/weak in BCC (strong in SCC)",
+      "Androgen receptor – negative in most BCC (positive in trichoepithelioma)"
+    ],
+    "differentials": [
+      {
+        "dx": "Trichoepithelioma",
+        "disc": "BerEP4 negative/focal; CK20+ Merkel cells at periphery; papillary mesenchymal bodies; fibrotic stroma without clefting; AR positive"
+      },
+      {
+        "dx": "Basosquamous carcinoma vs SCC",
+        "disc": "Basosquamous: BerEP4+ in basaloid areas; transition zones; both keratinisation and basaloid palisading. SCC: EMA+, BerEP4−"
+      },
+      {
+        "dx": "Merkel cell carcinoma",
+        "disc": "CK20 paranuclear dot+; neuroendocrine markers (Synaptophysin, CgA, INSM1); BerEP4 negative; MCPyV in ~80%"
+      }
+    ],
+    "comments": [
+      "Gorlin syndrome (PTCH1): autosomal dominant; PTCH1 loss-of-function → constitutive Hedgehog pathway activation. Multiple BCCs (often >5 by age 30), jaw keratocysts (odontogenic), medulloblastoma (desmoplastic), calcified falx, rib anomalies.",
+      "Hedgehog pathway inhibitors: vismodegib/sonidegib for locally advanced/metastatic BCC. SMO mutation = resistance mechanism.",
+      "Reporting: subtype is mandatory — infiltrative/morphoeic changes management (wider margins, Mohs). Basosquamous must be identified and communicated to MDT.",
+      "Excision margins: nodular/superficial = 4mm peripheral margin. Morphoeic/infiltrative = Mohs micrographic surgery or wider margins (≥5mm).",
+      "Exam trap: fibrotic stroma + thin cords without palisading = morphoeic BCC — easily missed at low power; sclerotic dermis mimics scar."
+    ],
+    "cytoLink": null,
+    "related": [
+      "cscc-001",
+      "melanoma-001",
+      "skin-patterns-001"
+    ]
+  },
+  {
+    "id": "spitz-001",
+    "type": "histology",
+    "name": "SPITZ NAEVUS AND ATYPICAL SPITZ TUMOUR",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Melanocytic",
+    "pattern": "Spindle/epithelioid",
+    "behaviour": "Variable",
+    "clinical": [
+      "Spitz naevus: benign melanocytic proliferation; children/young adults (peak <20 years). Dome-shaped pink/red papule; face and extremities. Classical Spitz naevus in children is benign.",
+      "Atypical Spitz tumour (AST): morphologically between Spitz naevus and spitzoid melanoma; uncertain biological potential. Adults >puberty, larger (>1cm), asymmetry. Sentinel LN positivity ~30% but does NOT predict outcome like in conventional melanoma.",
+      "Spitzoid melanoma: true melanoma with spitzoid morphology; aggressive. Adults; large; ulcerated; deep. Must distinguish from AST — molecular testing increasingly essential."
+    ],
+    "micro": [
+      "Classic Spitz: symmetrical, well-circumscribed, wedge-shaped junctional/compound proliferation of large epithelioid and/or spindled melanocytes; nests 'rain down' from epidermis.",
+      "Kamino bodies: dull pink eosinophilic globules at DEJ — characteristic of Spitz naevus (PAS+). Maturation with depth (nests become smaller, cells become smaller). No deep mitoses. Clefting around junctional nests.",
+      "Atypical features (AST/spitzoid melanoma): asymmetry, poor circumscription, ulceration, deep mitoses (>2/mm²), lack of maturation, pagetoid spread beyond lesion, deep extension into subcutis, high Ki67 in deep component, sheet-like growth."
+    ],
+    "ihcPos": [
+      "S100 – diffuse (all melanocytic)",
+      "SOX10 – diffuse",
+      "Melan-A – diffuse (stronger in Spitz than melanoma)",
+      "HMB45 – gradient: strong superficial, lost deep (maturation) in benign Spitz; diffuse/lost maturation in melanoma",
+      "ALK – positive in ~30% Spitz naevi (ALK fusions); not diagnostic of malignancy"
+    ],
+    "ihcNeg": [
+      "p16 (CDKN2A) – retained in Spitz naevus; LOST in spitzoid melanoma (homozygous 9p21 deletion — most useful discriminator)",
+      "PRAME – negative in Spitz naevus; positive/diffuse in spitzoid melanoma (~75%)",
+      "Ki67 – low (<2%) in deep component of benign Spitz; high in deep component = worrying"
+    ],
+    "differentials": [
+      {
+        "dx": "Spitzoid melanoma",
+        "disc": "Asymmetry; ulceration; deep mitoses; no maturation; p16 loss (FISH 9p21 homozygous deletion); PRAME diffuse+; TERT promoter mutation"
+      },
+      {
+        "dx": "Conventional melanoma",
+        "disc": "Pagetoid spread; consumption of epidermis; regression; sheet-like growth; BRAF V600E (rarely in Spitz); atypical mitoses"
+      },
+      {
+        "dx": "Dysplastic naevus",
+        "disc": "Smaller melanocytes; lentiginous junctional growth; bridging of rete ridges; lamellar/concentric eosinophilic fibroplasia; no Kamino bodies; no spindle/epithelioid cells"
+      }
+    ],
+    "comments": [
+      "FISH panel (Gerami): 6p25 gain, 6q23 loss, 11q13 gain, 8q24 gain, 9p21 homozygous loss. 9p21 homozygous deletion (CDKN2A) = most specific for spitzoid melanoma vs Spitz naevus.",
+      "Kinase fusions define Spitz tumours: HRAS (11p15) in classic Spitz; ALK, ROS1, NTRK1/2/3, RET, MET, BRAF non-V600E fusions. These fusions are NOT seen in conventional melanoma.",
+      "PRAME IHC: diffuse nuclear positivity in melanoma; negative in benign naevi. Increasingly used as first-line discriminator. Not 100% specific — interpret in context.",
+      "AST management: complete excision with margins; SLNB is controversial (positive SLN does NOT upstage to melanoma in spitzoid lesions — different biology). MDT discussion mandatory.",
+      "Exam trap: Spitz naevus in a child = benign; Spitz-like lesion in an adult (>40 years) = treat with suspicion; molecular workup essential. Never diagnose 'Spitz naevus' in adults without excluding spitzoid melanoma."
+    ],
+    "cytoLink": null,
+    "related": [
+      "melanoma-001",
+      "skin-patterns-001"
+    ]
+  },
+  {
+    "id": "bp-001",
+    "type": "histology",
+    "name": "BULLOUS PEMPHIGOID (BP)",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Inflammatory",
+    "pattern": "Subepidermal blistering",
+    "behaviour": "Variable",
+    "clinical": [
+      "Most common autoimmune blistering disease. Elderly (>70 years); tense blisters on erythematous/urticarial base; flexural and trunk distribution; pruritus often severe; Nikolsky sign NEGATIVE (unlike pemphigus).",
+      "Drug-associated: DPP-4 inhibitors (gliptins), PD-1/PD-L1 checkpoint inhibitors, diuretics. Drug history essential.",
+      "Mucosal involvement in ~10–30% (unlike pemphigus vulgaris where mucosal is predominant). Mortality ~25% at 1 year in elderly — systemic steroids carry significant morbidity."
+    ],
+    "micro": [
+      "Subepidermal blister with intact roof (epidermis); eosinophil-rich infiltrate in blister cavity and upper dermis — hallmark. Perivascular eosinophils in pre-bullous (urticarial) phase.",
+      "Dermal papillary oedema; eosinophilic spongiosis in early/pre-bullous lesions (eosinophils infiltrating epidermis — mimics drug reaction/eczema).",
+      "PAS stain: BM at FLOOR of blister (epidermis is the roof) — confirms subepidermal split. Contrast pemphigus where BM is at the base (intraepidermal split)."
+    ],
+    "ihcPos": [
+      "DIF (perilesional skin): linear IgG + C3 at BMZ (basement membrane zone) — diagnostic pattern",
+      "Salt-split skin: IgG on EPIDERMAL (roof) side — distinguishes from EBA (dermal/floor side)",
+      "BP180 (NC16A domain) ELISA – positive (titre correlates with disease activity)",
+      "BP230 ELISA – positive (~60%)"
+    ],
+    "ihcNeg": [
+      "DIF: IgA linear at BMZ – absent (present in linear IgA disease)",
+      "DIF: intercellular IgG – absent (present in pemphigus)",
+      "Salt-split skin: IgG on dermal (floor) side – absent in BP (present in EBA, anti-laminin-332 pemphigoid)"
+    ],
+    "differentials": [
+      {
+        "dx": "Pemphigus vulgaris",
+        "disc": "Intraepidermal (suprabasal) blister; acantholysis; DIF intercellular IgG ('chicken wire'); Dsg3 ± Dsg1 antibodies; Nikolsky positive"
+      },
+      {
+        "dx": "Epidermolysis bullosa acquisita (EBA)",
+        "disc": "Subepidermal blister; DIF linear IgG BMZ (same as BP); salt-split: dermal (floor) side — key distinction; collagen VII target; scarring/milia"
+      },
+      {
+        "dx": "Dermatitis herpetiformis (DH)",
+        "disc": "Granular IgA deposits at dermal papillae on DIF (NOT linear); neutrophilic microabscesses at dermal papillae; coeliac association; anti-tTG antibodies"
+      },
+      {
+        "dx": "Linear IgA disease",
+        "disc": "Linear IgA (not IgG) at BMZ on DIF; heterogeneous blister contents; drug-associated (vancomycin); crown of jewels pattern"
+      }
+    ],
+    "comments": [
+      "DIF is MANDATORY for all blistering diseases — snap-freeze perilesional skin in Michel's medium (NOT formalin). Take perilesional skin (not within blister) for DIF.",
+      "Pre-bullous BP: urticarial plaques/eczematous changes WITHOUT blisters — eosinophilic spongiosis on biopsy; DIF still positive. Easily misdiagnosed as eczema/drug reaction.",
+      "Salt-split skin technique: distinguishes BP (epidermal side = BP180/230 targets at hemidesmosomes) from EBA (dermal side = collagen VII at anchoring fibrils).",
+      "Treatment: potent topical steroids (clobetasol — superior to systemic steroids in RCTs); doxycycline; systemic prednisolone for severe/refractory; rituximab emerging.",
+      "Checkpoint inhibitor-associated BP: PD-1/PD-L1 therapy; may persist after drug cessation; manage with topical ± systemic steroids; does not always require stopping immunotherapy.",
+      "Exam trap: eosinophilic spongiosis without blister formation = pre-bullous BP until proven otherwise. Always request DIF. Do not report as 'eczema' without DIF if clinical suspicion of blistering disease."
+    ],
+    "cytoLink": null,
+    "related": [
+      "skin-patterns-001",
+      "lichen-planus-001"
+    ]
+  },
+  {
+    "id": "dysplastic-naevus-001",
+    "type": "histology",
+    "name": "DYSPLASTIC NAEVUS (CLARK NAEVUS)",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Melanocytic",
+    "pattern": "Junctional/compound",
+    "behaviour": "Benign",
+    "clinical": [
+      "Common acquired melanocytic naevus with architectural disorder and cytological atypia. 'Bridge' lesion between common naevi and melanoma — debated entity but high-yield for exam.",
+      "Dysplastic naevus syndrome (DNS/FAMMM): multiple (>50) dysplastic naevi + family history melanoma + CDKN2A germline mutation. Lifetime melanoma risk ~80%. Annual dermatological surveillance.",
+      "Clinically: >5mm; irregular border; variegated colour (tan/brown/pink); 'fried egg' appearance (central papular, peripheral macular). Trunk/proximal extremities."
+    ],
+    "micro": [
+      "Architectural disorder: lentiginous melanocytic hyperplasia with bridging of rete ridges (nests span between rete); irregular spacing; junctional shouldering (junctional component extends beyond dermal component).",
+      "Cytological atypia: enlarged nuclei; dusty melanin; prominent nucleoli; nuclear pleomorphism (mild/moderate/severe — grade of atypia must be reported).",
+      "Stromal response: lamellar (concentric eosinophilic) fibroplasia around rete ridges — characteristic; papillary dermal fibrosis. Melanin incontinence. Host response lymphocytic."
+    ],
+    "ihcPos": [
+      "S100 – diffuse",
+      "SOX10 – diffuse",
+      "Melan-A – diffuse (highlights junctional nests for architecture assessment)",
+      "HMB45 – gradient: lost with maturation into dermis (same as benign naevi)"
+    ],
+    "ihcNeg": [
+      "PRAME – negative (positive in melanoma)",
+      "Ki67 – low (<5%); high Ki67 in dermal component = concern for melanoma",
+      "p16 – retained (lost in melanoma)"
+    ],
+    "differentials": [
+      {
+        "dx": "Melanoma in situ",
+        "disc": "Contiguous single-cell pagetoid spread; loss of nesting pattern; PRAME diffuse+; confluent growth; no maturation; consumption of epidermis"
+      },
+      {
+        "dx": "Common compound naevus",
+        "disc": "Symmetrical; no junctional shouldering; uniform nests; no bridging; no lamellar fibroplasia; no cytological atypia"
+      },
+      {
+        "dx": "Spitz naevus",
+        "disc": "Large epithelioid/spindle melanocytes; Kamino bodies; symmetrical wedge; no bridging of rete; no lamellar fibroplasia"
+      }
+    ],
+    "comments": [
+      "Grading of cytological atypia: mild / moderate / severe — must be reported. Severe atypia approaches melanoma in situ and requires narrower re-excision margins and MDT discussion.",
+      "Margin status must be reported — if severe atypia extends to margin, re-excise. Mild/moderate at margin: clinical follow-up acceptable.",
+      "Melan-A/MART-1 staining: essential for assessing junctional component — highlights single melanocytes and nesting pattern. Can overcall by staining background dendritic melanocytes — interpret with H&E.",
+      "CDKN2A (9p21): germline mutation in FAMMM. Same locus lost (homozygous deletion) in progression to melanoma. CDKN2A/p16 IHC retained in dysplastic naevus; lost in melanoma.",
+      "Exam trap: lamellar fibroplasia + bridging rete + shoulder phenomenon = dysplastic naevus. Do NOT diagnose melanoma in situ without pagetoid spread and loss of orderly nesting."
+    ],
+    "cytoLink": null,
+    "related": [
+      "melanoma-001",
+      "spitz-001",
+      "skin-patterns-001"
+    ]
+  },
+  {
+    "id": "melanoma-staging-001",
+    "type": "histology",
+    "name": "MELANOMA — STAGING, BRESLOW, AND MELANOMA IN SITU",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Melanocytic",
+    "pattern": "Variable",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Melanoma in situ (MIS): confined to epidermis; no dermal invasion. Most common subtype: lentigo maligna (chronically sun-damaged skin, face/neck, elderly). SSM-in-situ (younger, trunk/limbs).",
+      "Invasive melanoma: Breslow thickness (mm from granular layer to deepest tumour cell) is the single most important prognostic factor. AJCC 8th edition T-staging: T1a ≤0.8mm no ulceration; T1b ≤0.8mm with ulceration OR 0.8–1.0mm; T2 1.01–2.0mm; T3 2.01–4.0mm; T4 >4.0mm.",
+      "SLNB threshold: offered for T1b and above (Breslow >0.8mm or ulcerated). SLN positivity most powerful predictor of survival after Breslow thickness."
+    ],
+    "micro": [
+      "MIS/lentigo maligna: atypical melanocytes along DEJ in single-cell and nested pattern; confluence of melanocytes along basal layer; pagetoid upward migration; atypical melanocytes extending down adnexal structures (hair follicle involvement — important for margin assessment).",
+      "Invasive: asymmetry; pagetoid spread; sheet-like growth; no maturation; deep mitoses; ulceration (full-thickness epidermal loss with fibrin); regression (fibrosis replacing tumour; grey-blue melanophages; inflammatory infiltrate).",
+      "Report MUST include: Breslow thickness (0.1mm increments); ulceration (Y/N); mitotic rate (per mm²); Clark level (if T1); microsatellitosis; LVSI; neurotropism; regression; TILs (brisk/non-brisk/absent); predominant cell type; margins (peripheral and deep)."
+    ],
+    "ihcPos": [
+      "S100 – diffuse (most sensitive; ~95%)",
+      "SOX10 – diffuse nuclear (highly sensitive and specific)",
+      "Melan-A/MART-1 – positive (caution: overcalls dendritic melanocytes in sun-damaged skin)",
+      "HMB45 – positive but lost in deep component of benign naevi; retained in deep component of melanoma = loss of maturation",
+      "PRAME – diffuse nuclear in melanoma (~75%); negative in naevi (increasingly used as first-line)"
+    ],
+    "ihcNeg": [
+      "p16 – lost in melanoma (retained in naevi — key discriminator for ambiguous lesions)",
+      "BAP1 – lost in BAP1-inactivated melanocytic tumours (epithelioid, BAPI-inactivated naevus → uveal melanoma predisposition)",
+      "CK – negative (excludes carcinoma)"
+    ],
+    "differentials": [
+      {
+        "dx": "Severely dysplastic naevus",
+        "disc": "Retains nesting; no contiguous pagetoid spread; lamellar fibroplasia; PRAME negative; p16 retained; maturation present"
+      },
+      {
+        "dx": "Desmoplastic melanoma",
+        "disc": "Spindle cell; S100+ diffuse; SOX10+; Melan-A/HMB45 often NEGATIVE; paucicellular collagenous dermis; neurotropism; high local recurrence; low SLN positivity"
+      },
+      {
+        "dx": "Lentigo maligna vs solar lentigo with melanocyte hyperplasia",
+        "disc": "LM: nuclear atypia, nesting, confluence, adnexal extension, PRAME+. Solar lentigo: no atypia, scattered basal melanocytes, no nesting, PRAME−"
+      }
+    ],
+    "comments": [
+      "BRAF V600E: ~50% of cutaneous melanoma (younger patients, intermittent sun exposure). Targeted therapy: dabrafenib + trametinib (BRAF + MEK inhibition). Predictive testing mandatory for Stage III/IV.",
+      "NRAS mutation: ~20%; MEK inhibitor alone (binimetinib). KIT mutation: ~15% acral/mucosal; imatinib/dasatinib.",
+      "Immunotherapy: pembrolizumab/nivolumab (anti-PD-1) ± ipilimumab (anti-CTLA-4) — adjuvant for Stage III; first-line Stage IV. PD-L1 IHC not required for treatment eligibility (unlike NSCLC).",
+      "Desmoplastic melanoma: pure desmoplastic has low SLN positivity (~5%) despite often thick Breslow; radiation-sensitive. Mixed desmoplastic behaves like conventional melanoma — distinguish on biopsy.",
+      "Regression pitfall: if extensive regression present, true Breslow may be underestimated — report regression extent and discuss SLNB with clinician even if measured Breslow is thin.",
+      "Excision margins (BAD/RCPath): MIS = 5mm clinical; T1 (<1mm) = 1cm; T1.01–2mm = 1–2cm; T2.01–4mm = 2cm; T4 (>4mm) = 2cm. Wider margins do not improve survival beyond these.",
+      "Exam trap: Melan-A overcalls in sun-damaged skin — always interpret alongside H&E. SOX10 does not overcall dendritic cells and is preferred for MIS/LM margin assessment."
+    ],
+    "cytoLink": null,
+    "related": [
+      "melanoma-001",
+      "dysplastic-naevus-001",
+      "spitz-001",
+      "skin-patterns-001"
+    ]
+  },
+  {
+    "id": "scc-bowens-001",
+    "type": "histology",
+    "name": "CUTANEOUS SCC AND BOWEN'S DISEASE (SCC IN SITU)",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Epithelial",
+    "pattern": "Squamous",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Bowen's disease (SCC in situ): full-thickness epidermal dysplasia confined to epidermis. Sun-exposed and non-sun-exposed sites. Arsenic exposure: multiple Bowen's on non-sun-exposed skin (exam classic). Pinkish scaly plaque.",
+      "Invasive cSCC: second most common skin malignancy. UV (cumulative); immunosuppression (SOTRs — 65-250× increased risk); chronic wounds/scars (Marjolin ulcer). Head and neck, dorsum of hands.",
+      "High-risk features (RCPath): depth >4mm or beyond subcutaneous fat; poor differentiation; perineural invasion (PNI); LVSI; immunosuppression. High-risk cSCC has ~5% metastatic rate (regional LN)."
+    ],
+    "micro": [
+      "Bowen's: full-thickness dysmaturation of epidermis; windblown appearance (disordered keratinocytes); atypical mitoses; intact basement membrane; no dermal invasion. May extend down follicular epithelium (important for margin assessment — similar issue to lentigo maligna).",
+      "Invasive SCC: nests and sheets of squamous cells invading dermis; intercellular bridges (desmosomes); keratin pearls (well-differentiated); nuclear pleomorphism; mitoses. Grade: well → moderately → poorly differentiated.",
+      "Variants: keratoacanthoma-type (crateriform with keratinous plug, rapid growth, potential regression — controversial if variant or distinct entity); spindle cell/sarcomatoid (aggressive, loss of CK expression); desmoplastic (sclerotic stroma, PNI common); adenosquamous (glandular + squamous); verrucous (low-grade, broad pushing base, no conventional invasion)."
+    ],
+    "ihcPos": [
+      "p40 – diffuse (most specific squamous marker)",
+      "p63 – diffuse",
+      "CK5/6 – positive",
+      "EMA – positive (distinguishes from BCC which is EMA−)",
+      "34βE12 (high MW CK) – positive"
+    ],
+    "ihcNeg": [
+      "BerEP4 – negative (positive in BCC — most useful discriminator in poorly differentiated cases)",
+      "S100/SOX10 – negative (excludes melanoma)",
+      "CD34 – negative (excludes DFSP, AFX)",
+      "CK7 – negative (if positive, consider metastatic SCC from internal site or mucoepidermoid)"
+    ],
+    "differentials": [
+      {
+        "dx": "Basal cell carcinoma",
+        "disc": "BerEP4+; BCL2 diffuse; EMA−; peripheral palisading; retraction artefact; no keratinisation (except basosquamous)"
+      },
+      {
+        "dx": "Keratoacanthoma (KA)",
+        "disc": "Crateriform symmetrical architecture; central keratin plug; overhanging lip of epidermis; ground-glass cytoplasm; minimal atypia; rapid growth history — many consider KA a well-differentiated SCC variant"
+      },
+      {
+        "dx": "Atypical fibroxanthoma (AFX) / Pleomorphic dermal sarcoma (PDS)",
+        "disc": "AFX: CK−, S100−, CD10+; diagnosis of exclusion (extensive IHC panel). PDS: same phenotype as AFX but subcutaneous invasion, necrosis, LVSI, PNI"
+      },
+      {
+        "dx": "Merkel cell carcinoma",
+        "disc": "CK20 paranuclear dot+; neuroendocrine markers; BerEP4−; p40−; small blue cell tumour; MCPyV"
+      }
+    ],
+    "comments": [
+      "PNI: must be actively sought and reported — presence upgrades to high-risk cSCC; consider adjuvant radiotherapy. Large calibre nerve PNI (≥0.1mm) particularly adverse.",
+      "Immunosuppressed patients (SOTRs): SCC is the most common malignancy post-transplant; more aggressive behaviour; consider reducing immunosuppression; increased surveillance.",
+      "Keratoacanthoma controversy: RCPath recommends reporting KA as 'well-differentiated SCC, keratoacanthoma type' — manages the lesion appropriately regardless of biological debate.",
+      "Marjolin ulcer: SCC arising in chronic wound/scar/burn; aggressive; may not have typical UV mutational signature; often diagnosed late.",
+      "Staging: AJCC 8th (head and neck cSCC has own staging). High-risk features: >4mm depth, PNI, poor differentiation, invasion beyond subcutis. BWH (Brigham and Women's) alternative staging increasingly adopted.",
+      "Exam trap: spindle cell SCC can be CK-negative on small panels — use p40 (most specific), broad CK panel, and exclude melanoma/sarcoma before diagnosing sarcomatoid SCC."
+    ],
+    "cytoLink": null,
+    "related": [
+      "cscc-001",
+      "bcc-001",
+      "melanoma-001",
+      "skin-patterns-001"
+    ]
+  },
+  {
+    "id": "pemphigus-vulgaris-001",
+    "type": "histology",
+    "name": "PEMPHIGUS VULGARIS (PV)",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Inflammatory",
+    "pattern": "Intraepidermal blistering",
+    "behaviour": "Variable",
+    "clinical": [
+      "Autoimmune intraepidermal blistering disease targeting desmoglein 3 (mucosal dominant) ± desmoglein 1 (mucocutaneous). Flaccid blisters that rupture easily; positive Nikolsky sign. Painful erosions.",
+      "Mucosal involvement predominant (>80%): oral erosions often first presentation; can affect pharynx, larynx, oesophagus, conjunctivae. Mucosal-dominant PV: anti-Dsg3 only. Mucocutaneous: anti-Dsg3 + anti-Dsg1.",
+      "Peak 40–60 years; Ashkenazi Jewish predisposition; HLA-DR4/DR14. Untreated mortality ~75% (was near-universally fatal pre-steroids). Paraneoplastic pemphigus (PNP): associated with lymphoma/Castleman; lichenoid interface + acantholysis."
+    ],
+    "micro": [
+      "Suprabasal acantholysis: loss of intercellular adhesion above basal layer → intraepidermal cleft. Basal keratinocytes remain attached to BM like 'tombstones' (row of tombstones).",
+      "Acantholytic (Tzanck) cells in blister cavity: round, detached keratinocytes with condensed cytoplasm and large hyperchromatic nuclei. Eosinophils in blister fluid.",
+      "PAS stain: BM at BASE of blister (not floor, as in BP) — epidermis splits above BM. Early lesion: eosinophilic spongiosis → progresses to frank acantholysis."
+    ],
+    "ihcPos": [
+      "DIF (perilesional skin): intercellular IgG + C3 in 'chicken wire' or 'fishnet' pattern — DIAGNOSTIC. Full-thickness epidermis.",
+      "Anti-Dsg3 ELISA – positive (mucosal dominant PV)",
+      "Anti-Dsg1 ELISA – positive (mucocutaneous PV; also positive in pemphigus foliaceus as sole target)"
+    ],
+    "ihcNeg": [
+      "DIF: linear BMZ pattern – absent (present in BP/linear IgA)",
+      "DIF: IgA intercellular – absent in PV (present in IgA pemphigus)",
+      "BP180/BP230 ELISA – negative"
+    ],
+    "differentials": [
+      {
+        "dx": "Pemphigus foliaceus (PF)",
+        "disc": "Subcorneal/granular layer acantholysis (NOT suprabasal); anti-Dsg1 only (no Dsg3); superficial crusted erosions; no mucosal involvement; DIF same pattern but more superficial"
+      },
+      {
+        "dx": "Bullous pemphigoid",
+        "disc": "Subepidermal blister; eosinophil-rich; linear IgG at BMZ (not intercellular); Nikolsky negative; tense blisters; elderly"
+      },
+      {
+        "dx": "Hailey-Hailey disease (familial benign pemphigus)",
+        "disc": "Acantholysis throughout entire epidermis ('dilapidated brick wall'); autosomal dominant ATP2C1 mutation; DIF NEGATIVE; flexural; no circulating antibodies"
+      },
+      {
+        "dx": "Paraneoplastic pemphigus (PNP)",
+        "disc": "Combined interface dermatitis (lichenoid) + acantholysis; DIF: intercellular + BMZ pattern; multiple antibodies (Dsg3, envoplakin, periplakin, desmoplakin); associated neoplasm (NHL, CLL, Castleman)"
+      }
+    ],
+    "comments": [
+      "Desmoglein compensation theory: Dsg1 expressed throughout epidermis but predominant superficially; Dsg3 predominant basally and in mucosa. Anti-Dsg3 alone → mucosal only (skin compensated by Dsg1). Anti-Dsg3 + Dsg1 → mucocutaneous.",
+      "Treatment: rituximab now first-line (RITUX 3 trial); systemic corticosteroids ± azathioprine/mycophenolate. Dsg3 titre correlates with disease activity — monitor for treatment response.",
+      "Paraneoplastic pemphigus: suspect if lichenoid + acantholytic features on biopsy; respiratory involvement (bronchiolitis obliterans) is distinctive and often fatal. Screen for underlying neoplasm.",
+      "DIF mandatory: perilesional skin in Michel's medium. Negative DIF essentially excludes pemphigus. Serum indirect IF also useful (monkey oesophagus substrate for PV; guinea pig lip for PF).",
+      "Exam trap: eosinophilic spongiosis in early PV mimics drug reaction/eczema/pre-bullous BP — DIF distinguishes. Always request DIF if acantholysis suspected clinically."
+    ],
+    "cytoLink": null,
+    "related": [
+      "bp-001",
+      "skin-patterns-001",
+      "lichen-planus-001"
+    ]
+  },
+  {
+    "id": "dh-001",
+    "type": "histology",
+    "name": "DERMATITIS HERPETIFORMIS (DH)",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Inflammatory",
+    "pattern": "Subepidermal blistering",
+    "behaviour": "Variable",
+    "clinical": [
+      "Cutaneous manifestation of coeliac disease (gluten-sensitive enteropathy). IgA autoimmunity against epidermal transglutaminase (eTG). All DH patients have coeliac on duodenal biopsy (may be subclinical).",
+      "Intensely pruritic grouped vesicles on extensor surfaces: elbows, knees, buttocks, scalp, upper back. Symmetrical. Often excoriated (intact vesicles rare clinically — scratched off). M>F; 20–40 years; HLA-DQ2/DQ8.",
+      "Associated with increased lymphoma risk (enteropathy-associated T-cell lymphoma, EATL) — same as coeliac. Gluten-free diet (GFD) is primary treatment; dapsone for rapid symptom control."
+    ],
+    "micro": [
+      "Neutrophilic microabscesses at tips of dermal papillae (papillary tip neutrophils) — highly characteristic. Eosinophils also present. Papillary oedema; early subepidermal vesicle formation.",
+      "Established blister: subepidermal cleft at dermal papillary tips; multiloculated (papillary microabscesses coalesce). Sparse lymphocytic perivascular infiltrate.",
+      "Biopsy site: perilesional skin for DIF; lesional skin for H&E. In excoriated lesions, papillary neutrophils may be the only clue — vesicle destroyed by scratching."
+    ],
+    "ihcPos": [
+      "DIF (perilesional skin): GRANULAR IgA deposits at dermal papillae — PATHOGNOMONIC. This is the defining diagnostic feature.",
+      "Anti-tTG IgA (serum) – positive (~95%); coeliac marker",
+      "Anti-eTG IgA (serum) – most specific for DH (>90%)",
+      "Anti-endomysial IgA – positive"
+    ],
+    "ihcNeg": [
+      "DIF: linear IgA at BMZ – absent (present in linear IgA disease — key distinction)",
+      "DIF: intercellular IgG – absent (present in pemphigus)",
+      "DIF: linear IgG at BMZ – absent (present in BP)"
+    ],
+    "differentials": [
+      {
+        "dx": "Linear IgA disease (LAD)",
+        "disc": "LINEAR IgA at BMZ on DIF (NOT granular at papillae); drug-associated (vancomycin classic); 'crown of jewels' clinical pattern; heterogeneous blisters; children (chronic bullous disease of childhood)"
+      },
+      {
+        "dx": "Bullous pemphigoid",
+        "disc": "Linear IgG + C3 at BMZ; eosinophil-predominant; no papillary microabscesses; tense blisters; elderly; no coeliac association"
+      },
+      {
+        "dx": "IgA vasculitis (HSP)",
+        "disc": "IgA deposits in vessel walls (not papillae); leukocytoclastic vasculitis; palpable purpura; abdominal pain; nephritis"
+      }
+    ],
+    "comments": [
+      "DIF is diagnostic: granular IgA at dermal papillae = DH. Linear IgA at BMZ = linear IgA disease. This distinction is the single most important exam point in blistering disease DIF.",
+      "All DH patients have coeliac: duodenal biopsy mandatory (Marsh classification). GI symptoms may be absent — subclinical enteropathy. GFD treats both skin and gut disease.",
+      "Dapsone: rapid symptom control (within 48 hours); mechanism = neutrophil inhibition. Side effects: haemolysis (check G6PD first), methaemoglobinaemia, agranulocytosis.",
+      "GFD: only definitive treatment — reduces EATL risk. Dapsone controls symptoms but does not treat underlying coeliac or reduce lymphoma risk.",
+      "Exam trap: granular IgA at papillae = DH. Linear IgA at BMZ = linear IgA disease. If the question gives you DIF with IgA — the PATTERN determines the diagnosis."
+    ],
+    "cytoLink": null,
+    "related": [
+      "bp-001",
+      "pemphigus-vulgaris-001",
+      "skin-patterns-001"
+    ]
   }
 ];
 const EXAM_DATA = [{"section": "Short Surgicals", "sitting": "2007", "system": "Urology", "site": "Bladder", "diagnosis": "Small cell CA", "notes": "looks like small cell elsewhere, often combined with UCC, adeno, often muscularis propria invasion/LVI/distant mets at presentation M>F, 70, pure (non-mixed) histology worse prognosis, + neuroendocrine markers, - CK20, GATA3, CK7, CK5/6, RB1, TP53, BRCA1/2, TERT promoter", "diffs": "Lung met (both TTF1 +, lacks tert promoter methylation), prostatic met (PSA may be raised, TMPRSS2::ERG maybe, lacks TERT promoter mthylation), Lymphoepithelioma-like carcinoma (+ GATA3, p63, - neuroendocrine), neuroblastoma (kids, + ALK1, N=MYC amp), Ewing (CD99, FLI1, NKX2.2, EWSR::FLI fusion)", "entityId": "lung-sclc-001"}, {"section": "Short Surgicals", "sitting": "2007", "system": "Urology", "site": "Kidney", "diagnosis": "Xanthogranulomatous pyelonephritis", "notes": "Zonal: inner: bacteria, inflammatory cells, FB giant cells, ofreign body granulomas, Middle zone: granulation tissue surrounded by Lipid laden CD68+ macrophages (xanthoma cells), touton giant cells, cholesterol clefts, Outer zone: giant cells, cholesterol clefts, fibrous tissue with lymph follicles", "diffs": "Malakoplakia (Michaelis-Gutmann bodies), ccRCC (+ keratin, PAX8, - CD68), TB (+ aafb/ZN stain)", "entityId": "xgp-001"}, {"section": "Short Surgicals", "sitting": "2001 A", "system": "Urology", "site": "Testis", "diagnosis": "ITGCN", "notes": "GCNISPrecursor lesion to post-pubertal germ cell neoplasia: Seminoma, Embryonal, YST, Teratoma.", "diffs": "", "entityId": "gcnis-001"}, {"section": "Short Surgicals", "sitting": "2001 A", "system": "Urology", "site": "Testis", "diagnosis": "Leydig cell tumour", "notes": "Most common SCST of testis, diffuse/nodular, polygonal cells, eosinophilic cyto, uniform round nuceli, prominent nucleoli, Reinke crystals. Inhibin A, Calretinin, Melan A, SF1, AR +. Malign. if >5cm, infiltrative borders, atypia, mitoses (>3/10 hpf), VI, necrosis", "diffs": "", "entityId": "leydig-001"}, {"section": "Short Surgicals", "sitting": "2001 A", "system": "Urology", "site": "Prostate", "diagnosis": "Rectal adenoCA", "notes": "", "diffs": "", "entityId": "prostate-adeno-001"}, {"section": "Short Surgicals", "sitting": "2009 A", "system": "Urology", "site": "Epididymis", "diagnosis": "Adenomatoid tumour", "notes": "", "diffs": "", "entityId": "adenomatoid-001"}, {"section": "Short Surgicals", "sitting": "2009 A", "system": "Urology", "site": "Kidney", "diagnosis": "Polypoid RXN urothelium", "notes": "", "diffs": "", "entityId": "nephrog-001"}, {"section": "Short Surgicals", "sitting": "2009 S", "system": "Urology", "site": "Kidney", "diagnosis": "Papillary type I RCC", "notes": "", "diffs": "", "entityId": "prcc-001"}, {"section": "Short Surgicals", "sitting": "2009 S", "system": "Urology", "site": "Vas", "diagnosis": "Vasitis nodosa", "notes": "", "diffs": "", "entityId": "nephrog-001"}, {"section": "Short Surgicals", "sitting": "2010 A", "system": "Urology", "site": "Kidney", "diagnosis": "Malakoplakia of polycystic kidney", "notes": "", "diffs": "", "entityId": "malakoplakia-001"}, {"section": "Short Surgicals", "sitting": "2010 A", "system": "Urology", "site": "Testis", "diagnosis": "Metastatic prostatic CA", "notes": "", "diffs": "", "entityId": "prostate-adeno-001"}, {"section": "Short Surgicals", "sitting": "2010 A", "system": "Urology", "site": "Bladder", "diagnosis": "Vilous adenoma bladder, no invasion", "notes": "", "diffs": "", "entityId": "utc-001"}, {"section": "Short Surgicals", "sitting": "2010 S", "system": "Urology", "site": "Kidney", "diagnosis": "Chromophobe RCC", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Short Surgicals", "sitting": "2010 S", "system": "Urology", "site": "Bladder", "diagnosis": "Nephrogenic adenoma", "notes": "", "diffs": "", "entityId": "nephrog-001"}, {"section": "Short Surgicals", "sitting": "2010 S", "system": "Urology", "site": "Bladder", "diagnosis": "Schistosomiasis", "notes": "", "diffs": "", "entityId": "schistosomiasis-001"}, {"section": "Short Surgicals", "sitting": "2011 A", "system": "Urology", "site": "Bladder", "diagnosis": "Polypoid cystitis + cystitis cystica + glandular metaplasia", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Short Surgicals", "sitting": "2011 A", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma + embryonal CA + ITGCN", "notes": "", "diffs": "", "entityId": "gcnis-001"}, {"section": "Short Surgicals", "sitting": "2011 S", "system": "Urology", "site": "Prostate", "diagnosis": "Granulomatous prostatitis due to BCG", "notes": "", "diffs": "", "entityId": "gran-prostatitis-001"}, {"section": "Short Surgicals", "sitting": "2011 S", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma with syncitiotrophoblasts", "notes": "", "diffs": "", "entityId": "seminoma-001"}, {"section": "Short Surgicals", "sitting": "2011 S", "system": "Urology", "site": "Bladder", "diagnosis": "Urothelial CA & CIS", "notes": "", "diffs": "", "entityId": "utc-001"}, {"section": "Short Surgicals", "sitting": "2012 A", "system": "Urology", "site": "Kidney", "diagnosis": "Papillary type II RCC", "notes": "", "diffs": "", "entityId": "prcc-001"}, {"section": "Short Surgicals", "sitting": "2012 S", "system": "Urology", "site": "Epididymis", "diagnosis": "Necrotising granulomatous inflammation", "notes": "", "diffs": "", "entityId": "gran-hepatitis-001"}, {"section": "Short Surgicals", "sitting": "2012 S", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma", "notes": "", "diffs": "", "entityId": "seminoma-001"}, {"section": "Short Surgicals", "sitting": "2013 A", "system": "Urology", "site": "Bladder", "diagnosis": "Schistosomiasis", "notes": "", "diffs": "", "entityId": "schistosomiasis-001"}, {"section": "Short Surgicals", "sitting": "2013 A", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma + choriocarcinoma", "notes": "", "diffs": "", "entityId": "seminoma-001"}, {"section": "Short Surgicals", "sitting": "2013 S", "system": "Urology", "site": "Testis", "diagnosis": "Granulomatous orchitis with features of mycobacterial infection", "notes": "", "diffs": "", "entityId": "gran-prostatitis-001"}, {"section": "Short Surgicals", "sitting": "2014 A", "system": "Urology", "site": "Testis", "diagnosis": "Embryonal CA + immature teratoma + syncytiotrophoblast + ITGCN", "notes": "", "diffs": "", "entityId": "gcnis-001"}, {"section": "Short Surgicals", "sitting": "2014 A", "system": "Urology", "site": "Bladder", "diagnosis": "Neuroblastoma", "notes": "", "diffs": "", "entityId": "bladder-para-001"}, {"section": "Short Surgicals", "sitting": "2014 S", "system": "Urology", "site": "Bladder", "diagnosis": "Amyloid", "notes": "", "diffs": "", "entityId": "prostate-adeno-001"}, {"section": "Short Surgicals", "sitting": "2014 S", "system": "Urology", "site": "Kidney", "diagnosis": "Angiomyolipoma", "notes": "", "diffs": "", "entityId": "aml-001"}, {"section": "Short Surgicals", "sitting": "2015 A", "system": "Urology", "site": "Kidney", "diagnosis": "Xanthogranulomatous pyelonephritis", "notes": "", "diffs": "", "entityId": "xgp-001"}, {"section": "Short Surgicals", "sitting": "2015 A", "system": "Urology", "site": "Testis", "diagnosis": "Yolk sac tumour", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Short Surgicals", "sitting": "2015 S", "system": "Urology", "site": "Kidney", "diagnosis": "Chromophobe RCC", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Short Surgicals", "sitting": "2015 S", "system": "Urology", "site": "Bladder", "diagnosis": "Nephrogenic metaplasia", "notes": "", "diffs": "", "entityId": "nephrog-001"}, {"section": "Short Surgicals", "sitting": "2016 A", "system": "Urology", "site": "Bladder", "diagnosis": "Nephrogenic metaplasia + post-operative spindle cell nodule", "notes": "", "diffs": "", "entityId": "nephrog-001"}, {"section": "Short Surgicals", "sitting": "2016 A", "system": "Urology", "site": "Kidney", "diagnosis": "Translocation associated RCC", "notes": "", "diffs": "", "entityId": "tfe3rcc-001"}, {"section": "Short Surgicals", "sitting": "2016 S", "system": "Urology", "site": "Testis", "diagnosis": "Embryonal CA", "notes": "", "diffs": "", "entityId": "ec-001"}, {"section": "Short Surgicals", "sitting": "2016 S", "system": "Urology", "site": "Loin", "diagnosis": "RCC", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Short Surgicals", "sitting": "2017 S", "system": "Urology", "site": "Kidney", "diagnosis": "Clear cell papillary RCC", "notes": "", "diffs": "", "entityId": "ccprcc-001"}, {"section": "Short Surgicals", "sitting": "2017 S", "system": "Urology", "site": "Scrotal mass", "diagnosis": "Leiomyosarcoma", "notes": "", "diffs": "", "entityId": "lms-001"}, {"section": "Short Surgicals", "sitting": "2017 S", "system": "Urology", "site": "Bladder biopsy", "diagnosis": "Malakoplakia", "notes": "", "diffs": "", "entityId": "malakoplakia-001"}, {"section": "Short Surgicals", "sitting": "2018 A", "system": "Urology", "site": "Bladder", "diagnosis": "NEphrogenic metaplasia/adenoma", "notes": "", "diffs": "", "entityId": "nephrog-001"}, {"section": "Short Surgicals", "sitting": "2018 S", "system": "Urology", "site": "Bladder", "diagnosis": "Paraganglioma", "notes": "", "diffs": "", "entityId": "bladder-para-001"}, {"section": "Short Surgicals", "sitting": "2018 S", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma", "notes": "", "diffs": "", "entityId": "seminoma-001"}, {"section": "Short Surgicals", "sitting": "2019 A", "system": "Urology", "site": "Testis", "diagnosis": "Mixed germ cell tumour (Embryonal/teratoma)", "notes": "", "diffs": "", "entityId": "mature-teratoma-001"}, {"section": "Short Surgicals", "sitting": "2019 A", "system": "Urology", "site": "Bladder", "diagnosis": "Schistosomiasis", "notes": "", "diffs": "", "entityId": "schistosomiasis-001"}, {"section": "Short Surgicals", "sitting": "2019 S", "system": "Urology", "site": "Testis", "diagnosis": "Diffuse large B cell lymphoma", "notes": "", "diffs": "", "entityId": "dlbcl-001"}, {"section": "Short Surgicals", "sitting": "2019 S", "system": "Urology", "site": "Bladder", "diagnosis": "Malakoplakia", "notes": "", "diffs": "", "entityId": "malakoplakia-001"}, {"section": "Short Surgicals", "sitting": "2019 S", "system": "Urology", "site": "Bladder", "diagnosis": "Prostatic adenocarcinoma", "notes": "", "diffs": "", "entityId": "prostate-adeno-001"}, {"section": "Short Surgicals", "sitting": "2020 A", "system": "Urology", "site": "Foreskin", "diagnosis": "HSV", "notes": "", "diffs": "", "entityId": "hsv-001"}, {"section": "Short Surgicals", "sitting": "2021A", "system": "Urology", "site": "Prostate", "diagnosis": "Small cell carcinoma", "notes": "", "diffs": "", "entityId": "lung-sclc-001"}, {"section": "Short Surgicals", "sitting": "2021A", "system": "Urology", "site": "Testis", "diagnosis": "Mixed germ cell tumour", "notes": "", "diffs": "", "entityId": "ec-001"}, {"section": "Short Surgicals", "sitting": "2022A", "system": "Urology", "site": "Bladder", "diagnosis": "Nephrogenic adenoma", "notes": "", "diffs": "", "entityId": "nephrog-001"}, {"section": "Short Surgicals", "sitting": "2022A", "system": "Urology", "site": "Prostate", "diagnosis": "Granulomatous prostatitis", "notes": "", "diffs": "", "entityId": "gran-prostatitis-001"}, {"section": "Short Surgicals", "sitting": "2023S", "system": "Urology", "site": "Bladder", "diagnosis": "Prostate CA in bladder", "notes": "", "diffs": "", "entityId": "prostate-adeno-001"}, {"section": "Short Surgicals", "sitting": "2023S", "system": "Urology", "site": "Seminal vesicle", "diagnosis": "Seminal vesicle amyloid", "notes": "", "diffs": "", "entityId": "prostate-adeno-001"}, {"section": "Short Surgicals", "sitting": "2023A", "system": "Urology", "site": "Bladder", "diagnosis": "Plasmacytoid urothelial cell carcinoma", "notes": "", "diffs": "", "entityId": "plasmacytoid-ucc-001"}, {"section": "Short Surgicals", "sitting": "2023A", "system": "Urology", "site": "Testis", "diagnosis": "Diffuse large B-cell lymphoma", "notes": "", "diffs": "", "entityId": "dlbcl-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "Cardiothoracic", "site": "Bronchial brushings", "diagnosis": "NMCS", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "Cardiothoracic", "site": "Pleural effusion", "diagnosis": "Lymphocytic effusion", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "HPB", "site": "Biliary brushings", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "cyto-biliary-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "Small cell carcinoma", "notes": "", "diffs": "", "entityId": "lung-sclc-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "Breast", "site": "Breast FNA", "diagnosis": "Fibroadenoma", "notes": "", "diffs": "", "entityId": "fibroadenoma-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "GIT", "site": "Peritoneal fluid", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "Cardiothoracic", "site": "Lung mass FNA", "diagnosis": "Squamous cell carcinoma", "notes": "", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Cytology", "sitting": "2018 S", "system": "Urology", "site": "Ureteric washings", "diagnosis": "Instrumentation effect", "notes": "", "diffs": "", "entityId": "cyto-hguc-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "Haematopath", "site": "Cervical LN", "diagnosis": "Hodgkin lymphoma", "notes": "", "diffs": "", "entityId": "cyto-hl-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "GIT", "site": "Peritoneal fluid", "diagnosis": "NMCS", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "Head & Neck", "site": "Neck Mass", "diagnosis": "Acute inflammation, NMCS", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "Urology", "site": "Ureteric washings", "diagnosis": "Reactive changes", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "HPB", "site": "Biliary brushings", "diagnosis": "Suspicious for adenocarcinoma", "notes": "", "diffs": "", "entityId": "cyto-biliary-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "Cardiothoracic", "site": "Pleural effusion", "diagnosis": "Metastatic adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "Cardiothoracic", "site": "Mediastinal LN", "diagnosis": "Small cell carcinoma", "notes": "", "diffs": "", "entityId": "lung-sclc-001"}, {"section": "Cytology", "sitting": "2017 S", "system": "Cardiothoracic", "site": "Pleural effusion", "diagnosis": "Reactive changes", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "Urology", "site": "Urine", "diagnosis": "High-grade urothelial carcinoma", "notes": "", "diffs": "", "entityId": "cyto-hguc-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "Cardiothoracic", "site": "EBUS TBNA", "diagnosis": "Granulomatous inflammation", "notes": "", "diffs": "", "entityId": "gran-hepatitis-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "GIT/Gyn", "site": "Peritoneal fluid", "diagnosis": "ccRCC", "notes": "", "diffs": "", "entityId": "tfe3rcc-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "NMCS", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "Haematopath", "site": "Groin LN", "diagnosis": "Metastatic small cell", "notes": "", "diffs": "", "entityId": "lung-sclc-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "Haematopath", "site": "Axillary LN", "diagnosis": "Metastatic melanoma", "notes": "", "diffs": "", "entityId": "cyto-melanoma-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "GIT", "site": "Peritoneal fluid", "diagnosis": "Benign", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Cytology", "sitting": "2019 A", "system": "Cardiothoracic", "site": "Bronchial washings", "diagnosis": "Benign", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "Cardiothoracic", "site": "Mediastinal LN", "diagnosis": "Metastatic SCC", "notes": "60M, mediastinal lymph node, EBUS", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "Haematopath", "site": "Axillary LN", "diagnosis": "Reactive lymph node", "notes": "56F breast mass clinically", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "Urology", "site": "Ureteric washings", "diagnosis": "Recurrence of urothelial carcinoma", "notes": "Previous cystectomy and ileal conduit. Now thickened ureter ?Infection ?Recurrence", "diffs": "", "entityId": "utc-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "Reactive effusion", "notes": "Unilateral effusion and shortness of breath", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "GIT/GYN", "site": "Ascitic fluid", "diagnosis": "Malignant", "notes": "Elderly man with weight loss and ascited", "diffs": "", "entityId": "hgsc-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "Head & Neck", "site": "Parotid gland", "diagnosis": "Warthin's tumour", "notes": "Male, mass at angle of mandible", "diffs": "", "entityId": "cyto-warthin-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "Cardiothoracic", "site": "Bronchial brushings", "diagnosis": "Small cell carcinoma", "notes": "Suspected mass", "diffs": "", "entityId": "lung-sclc-001"}, {"section": "Cytology", "sitting": "2021 A", "system": "HPB", "site": "Biliary brushings", "diagnosis": "Malignant", "notes": "60F, painless jaundice", "diffs": "", "entityId": "cyto-biliary-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "Cardiothroacic", "site": "Pleural fluid", "diagnosis": "Eosinophil rich effusion", "notes": "Pneumothorax with in situ chest drain", "diffs": "", "entityId": "cyto-eosinophilic-effusion-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "Lymphocytic effusion", "notes": "58F, shortness of breath", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "Haematopath", "site": "Axillary LN", "diagnosis": "Metastatic melanoma", "notes": "44M, histoty of back lump, axillary node", "diffs": "", "entityId": "cyto-melanoma-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "Cardiothoracic", "site": "Mediastinal LN", "diagnosis": "Metastatic small cell carcinoma", "notes": "", "diffs": "", "entityId": "lung-sclc-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "GIT/GYN", "site": "Ascitic fluid", "diagnosis": "Metastatic signet ring adenocarcinoma", "notes": "F, bilateral ovarian masses", "diffs": "", "entityId": "net-g1g2-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "Urology", "site": "Urine", "diagnosis": "Acute inflammation, NMCS", "notes": "Haematuria, investigation for UCC", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "Cardiothroacic", "site": "BAL", "diagnosis": "Pneumocystis", "notes": "38M, HIV+", "diffs": "", "entityId": "yst-001"}, {"section": "Cytology", "sitting": "2022 S", "system": "Head & Neck", "site": "Thyroid", "diagnosis": "Hurthle cell neoplasm", "notes": "U3 nodule", "diffs": "", "entityId": "thy-thy3f-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "HPB", "site": "Biliary brushings", "diagnosis": "NEGATIVE FOR MALIGNANCY", "notes": "Middle aged man. Biliary brushing. CBD structure and painless jaundice.", "diffs": "", "entityId": "cyto-biliary-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "Haematopath", "site": "Lymph node", "diagnosis": "MELANOMA", "notes": "66-year-old man. Weight loss and groin lymphadenopathy.", "diffs": "", "entityId": "cyto-melanoma-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "Gynae", "site": "Peritoneal washings", "diagnosis": "NEGATIVE FOR MALIGNANCY", "notes": "55-year-old woman with BRCA1. Left ovarian cyst. Peritoneal washings.", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "Urology", "site": "Urine", "diagnosis": "HIGH GRADE UROTHELIAL CARCINOMA", "notes": "58-year-old man. Urine. Haematuria and lethargy.", "diffs": "", "entityId": "cyto-hguc-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "Cardiothoracic", "site": "Bronchial brushings", "diagnosis": "SQUAMOUS CELL CARCINOMA", "notes": "Middle aged woman. Obstructing mass in left bronchus with haemoptysis. Smoker.", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "Endocrine", "site": "Thyroid", "diagnosis": "THY 1C", "notes": "Thyroid FNA. 44-year-old man. Large anterior neck mass. Normal TSH.", "diffs": "", "entityId": "thy-categories-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "MESOTHELIOMA", "notes": "Middle aged man. Pleural effusion. Left lung mass with mediastinal shift", "diffs": "", "entityId": "cyto-mesothelioma-001"}, {"section": "Cytology", "sitting": "2023 S", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "NEGATIVE FOR MALIGNANCY", "notes": "60-year-old man. Pleuritic chest pain. Unilateral effusion.", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "HPB", "site": "Biliary brushings", "diagnosis": "Adenocarcinoma", "notes": "70M, jaundice and stricture", "diffs": "", "entityId": "cyto-biliary-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "Head & Neck", "site": "Salivary Gland FNA", "diagnosis": "Pleomorphic adenoma", "notes": "38M, lump posterior to mandible", "diffs": "", "entityId": "cyto-pleomorphic-adenoma-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "Urology", "site": "Ureteric washings", "diagnosis": "Instrumentation effect", "notes": "70M, PMHx bladder urothelial carcinoma. Thickened ureter.", "diffs": "", "entityId": "cyto-hguc-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "Musculoskeletal", "site": "Knee joint fluid", "diagnosis": "Acute inflammation with calcium pyrophosphate (pseudogout)", "notes": "68F, acute joint pain", "diffs": "", "entityId": "gran-prostatitis-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "Metastatic high grade serous carcinoma", "notes": "59F, chest pain and pleural effusion", "diffs": "", "entityId": "hgsc-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "Cardiothoracic", "site": "Pleural fluid", "diagnosis": "Eosinophil rich effusion", "notes": "25M, unexplained recurrent effusions, never smoker", "diffs": "", "entityId": "cyto-eosinophilic-effusion-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "Skin", "site": "Skin mass FNA", "diagnosis": "Melanoma", "notes": "68F, mass on arm, Hx of sun exposure", "diffs": "", "entityId": "cyto-melanoma-001"}, {"section": "Cytology", "sitting": "2023 A", "system": "GIT/GYN", "site": "Peritoneal washings", "diagnosis": "NMCS", "notes": "35F, unilateral ovarian mass", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Long Cases", "sitting": "2023 A", "system": "Renal", "site": "Renal", "diagnosis": "Acute tubulointerstitial nephritis", "notes": "20F, generally unwell, Hx of asthma, now AKI", "diffs": "", "entityId": "atin-001"}, {"section": "Long Cases", "sitting": "2023 A", "system": "Liver", "site": "Liver", "diagnosis": "Congestive hepatopathy (venous outflow obstruction or Budd-Chiari syndrome)", "notes": "38M, ascites, abdominal pain, jaundice. Hx of UC. Liver explant", "diffs": "", "entityId": "budd-chiari-001"}, {"section": "Long Cases", "sitting": "2023 A", "system": "Skin", "site": "Skin", "diagnosis": "Pleomorphic dermal sarcoma", "notes": "77M, mass on scalp", "diffs": "", "entityId": "pds-001"}, {"section": "Long Cases", "sitting": "2023 A", "system": "Urology", "site": "Kidney", "diagnosis": "Urothelial carcinoma on a background of CIS", "notes": "60M, renal mass", "diffs": "", "entityId": "utc-001"}, {"section": "Frozen Sections", "sitting": "2012 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Frozen Sections", "sitting": "2012 S", "system": "Cardiothoracic", "site": "LN", "diagnosis": "Reactive (HX of Hodgkin lymphoma)", "notes": "", "diffs": "", "entityId": "cyto-hl-001"}, {"section": "Frozen Sections", "sitting": "2012 S", "system": "Cardiothoracic", "site": "Pleura", "diagnosis": "Reactive (HX of adenocarcinoma)", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Frozen Sections", "sitting": "2012 S", "system": "Haematopath", "site": "LN", "diagnosis": "Reactive (HX of AML)", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2012 S", "system": "Head & Neck", "site": "Tongue base", "diagnosis": "Resection margin free of SCC", "notes": "", "diffs": "", "entityId": "cscc-001"}, {"section": "Frozen Sections", "sitting": "2012 S", "system": "Soft tissue", "site": "Muscle", "diagnosis": "Malignant tumour, involved margin", "notes": "", "diffs": "", "entityId": "mpnst-001"}, {"section": "Frozen Sections", "sitting": "2013 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Frozen Sections", "sitting": "2013 A", "system": "Cardiothoracic", "site": "LN", "diagnosis": "Reactive with anthracotic pigment", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2013 A", "system": "Cardiothoracic", "site": "Pleura", "diagnosis": "Reactive fibrosis", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2013 A", "system": "Endocrine", "site": "Adrenal", "diagnosis": "Normal adrenal", "notes": "", "diffs": "", "entityId": "parathyroid-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2013 A", "system": "GIT", "site": "GOJ", "diagnosis": "No evidence of malignancy (HX of adenocarcinoma)", "notes": "", "diffs": "", "entityId": "gastric-adeno-001"}, {"section": "Frozen Sections", "sitting": "2013 A", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma", "notes": "", "diffs": "", "entityId": "seminoma-001"}, {"section": "Frozen Sections", "sitting": "2013 S", "system": "Gyn", "site": "Ovary", "diagnosis": "Fibroma", "notes": "", "diffs": "", "entityId": "ovarian-fibroma-001"}, {"section": "Frozen Sections", "sitting": "2013 S", "system": "Head & Neck", "site": "Mandible", "diagnosis": "SCC, involved margin", "notes": "", "diffs": "", "entityId": "cscc-001"}, {"section": "Frozen Sections", "sitting": "2013 S", "system": "Hepatobiliary", "site": "Liver", "diagnosis": "Bile duct hamartoma", "notes": "", "diffs": "", "entityId": "von-meyenburg-001"}, {"section": "Frozen Sections", "sitting": "2013 S", "system": "Pancreas", "site": "Pancreas", "diagnosis": "Chronic pancreatitis", "notes": "", "diffs": "", "entityId": "chronic-pancreatitis-001"}, {"section": "Frozen Sections", "sitting": "2013 S", "system": "Peritoneum", "site": "Peritoneum", "diagnosis": "Adenocarcinoma (HX of SCC)", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Frozen Sections", "sitting": "2013 S", "system": "Peritoneum", "site": "Peritoneum", "diagnosis": "NET", "notes": "", "diffs": "", "entityId": "net-g1g2-001"}, {"section": "Frozen Sections", "sitting": "2014 A", "system": "Cardiothoracic", "site": "Pleura", "diagnosis": "Reactive (HX of lung CA)", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2014 A", "system": "GIT", "site": "Peritoneum", "diagnosis": "Necrotising granulomatous inflammation (HX of Colon CA)", "notes": "", "diffs": "", "entityId": "gran-hepatitis-001"}, {"section": "Frozen Sections", "sitting": "2014 A", "system": "Gyn", "site": "LN", "diagnosis": "Metastatic serous CA", "notes": "", "diffs": "", "entityId": "hgsc-001"}, {"section": "Frozen Sections", "sitting": "2014 A", "system": "Head & Neck", "site": "LN", "diagnosis": "Metastatic papillary thyroid CA", "notes": "", "diffs": "", "entityId": "thy-ptc-001"}, {"section": "Frozen Sections", "sitting": "2014 A", "system": "Head & Neck", "site": "Parotid", "diagnosis": "Pleomorphic adenoma, involved margin", "notes": "", "diffs": "", "entityId": "cyto-pleomorphic-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2014 A", "system": "Hepatobiliary", "site": "Liver", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "pac-001"}, {"section": "Frozen Sections", "sitting": "2014 S", "system": "Cardiothoracic", "site": "LN", "diagnosis": "Necrotising granulomatous inflammation", "notes": "", "diffs": "", "entityId": "gran-hepatitis-001"}, {"section": "Frozen Sections", "sitting": "2014 S", "system": "CNS", "site": "Pituitary", "diagnosis": "Pituitary adenoma", "notes": "", "diffs": "", "entityId": "pituitary-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2014 S", "system": "Head & Neck", "site": "Parathyroid", "diagnosis": "Parathyroid tissue confirmed", "notes": "", "diffs": "", "entityId": "parathyroid-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2014 S", "system": "Hepatobiliary", "site": "Liver", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "pac-001"}, {"section": "Frozen Sections", "sitting": "2014 S", "system": "Hepatobiliary", "site": "Liver", "diagnosis": "Bile duct hamartoma", "notes": "", "diffs": "", "entityId": "von-meyenburg-001"}, {"section": "Frozen Sections", "sitting": "2014 S", "system": "Urology", "site": "Kidney'", "diagnosis": "Normal adrenal (lesion in donor's)", "notes": "", "diffs": "", "entityId": "parathyroid-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2015 S", "system": "Breast", "site": "Breast", "diagnosis": "Fibroadenoma", "notes": "", "diffs": "", "entityId": "fibroadenoma-001"}, {"section": "Frozen Sections", "sitting": "2015 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Hamartoma", "notes": "", "diffs": "", "entityId": "pulmonary-hamartoma-001"}, {"section": "Frozen Sections", "sitting": "2015 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "NET", "notes": "", "diffs": "", "entityId": "net-g1g2-001"}, {"section": "Frozen Sections", "sitting": "2015 S", "system": "Gyn", "site": "Ovary", "diagnosis": "Endometrioid CA", "notes": "", "diffs": "", "entityId": "endometrioid-ovarian-001"}, {"section": "Frozen Sections", "sitting": "2015 S", "system": "Gyn", "site": "Ovary", "diagnosis": "Fibroma", "notes": "", "diffs": "", "entityId": "ovarian-fibroma-001"}, {"section": "Frozen Sections", "sitting": "2015 S", "system": "Hepatobiliary", "site": "Gallbladder", "diagnosis": "Xanthogranulomatous cholecystitis", "notes": "", "diffs": "", "entityId": "xgc-001"}, {"section": "Frozen Sections", "sitting": "2016 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Frozen Sections", "sitting": "2016 A", "system": "Cardiothoracic", "site": "LN", "diagnosis": "Reactive", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2016 A", "system": "Gyn", "site": "Ovary", "diagnosis": "Fibroma", "notes": "", "diffs": "", "entityId": "ovarian-fibroma-001"}, {"section": "Frozen Sections", "sitting": "2016 A", "system": "Hepatobiliary", "site": "Liver", "diagnosis": "Bile duct hamartoma", "notes": "", "diffs": "", "entityId": "von-meyenburg-001"}, {"section": "Frozen Sections", "sitting": "2016 A", "system": "Hepatobiliary", "site": "Liver", "diagnosis": "Metastatic adenocarcinoma", "notes": "", "diffs": "", "entityId": "hcc-001"}, {"section": "Frozen Sections", "sitting": "2016 A", "system": "Urology", "site": "Kidney", "diagnosis": "Xanthogranulomatous pyelonephritis", "notes": "", "diffs": "", "entityId": "xgp-001"}, {"section": "Frozen Sections", "sitting": "2016 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "SCC (HX of porocarcinoma)", "notes": "", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Frozen Sections", "sitting": "2016 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Hamartoma", "notes": "", "diffs": "", "entityId": "pulmonary-hamartoma-001"}, {"section": "Frozen Sections", "sitting": "2016 S", "system": "Cardiothoracic", "site": "LN, mediastinum", "diagnosis": "Necrotising granulomatous inflammation", "notes": "", "diffs": "", "entityId": "gran-hepatitis-001"}, {"section": "Frozen Sections", "sitting": "2016 S", "system": "Gyn", "site": "Ovary", "diagnosis": "Fibroma", "notes": "", "diffs": "", "entityId": "ovarian-fibroma-001"}, {"section": "Frozen Sections", "sitting": "2016 S", "system": "Hepatobiliary", "site": "LN'", "diagnosis": "Adrenal cortical rest (surgery for cholangiocarcinoma)", "notes": "", "diffs": "", "entityId": "parathyroid-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2016 S", "system": "Urology", "site": "Testis", "diagnosis": "Leydig cell tumour", "notes": "", "diffs": "", "entityId": "leydig-001"}, {"section": "Frozen Sections", "sitting": "2017 A", "system": "Breast", "site": "LN", "diagnosis": "Metastatic CA", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Frozen Sections", "sitting": "2017 A", "system": "Cardiothoracic", "site": "LN, hilar", "diagnosis": "Necrotising granulomatous inflammation", "notes": "", "diffs": "", "entityId": "gran-hepatitis-001"}, {"section": "Frozen Sections", "sitting": "2017 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Carcinoid Tumour (HX of Prostate CA)", "notes": "", "diffs": "", "entityId": "lung-tc-001"}, {"section": "Frozen Sections", "sitting": "2017 A", "system": "GIT", "site": "Duodenum", "diagnosis": "Mucinous adenocarcinoma", "notes": "", "diffs": "", "entityId": "ipmn-001"}, {"section": "Frozen Sections", "sitting": "2017 A", "system": "Hepatobiliary", "site": "Liver", "diagnosis": "Metastatic adenocarcinoma", "notes": "", "diffs": "", "entityId": "hcc-001"}, {"section": "Frozen Sections", "sitting": "2017 A", "system": "Urology", "site": "Kidney'", "diagnosis": "Normal adrenal (lesion in donor's)", "notes": "", "diffs": "", "entityId": "parathyroid-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "SCC", "notes": "", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Cardiothoracic", "site": "LN", "diagnosis": "Reactive", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Gyn", "site": "Ovary", "diagnosis": "Serous cystadenoma", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Gyn", "site": "Ovary", "diagnosis": "Fibroma", "notes": "", "diffs": "", "entityId": "ovarian-fibroma-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Pancreas", "site": "Pancreas", "diagnosis": "Insulinoma", "notes": "", "diffs": "", "entityId": "insulinoma-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Pancreas", "site": "Pancreas", "diagnosis": "Intraductal papillary mucinous neoplasm (IPMN)", "notes": "", "diffs": "", "entityId": "ipmn-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "HPB", "site": "Pancreas", "diagnosis": "Neuroendocrine neoplasm", "notes": "", "diffs": "", "entityId": "net-g1g2-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Gyn", "site": "Ovary", "diagnosis": "Borderline mucinous tumour", "notes": "", "diffs": "", "entityId": "borderline-mucinous-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "GIT", "site": "Peritoneal biopsy", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Keratinising SCC", "notes": "", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "HPB", "site": "Pancreas", "diagnosis": "PanIN 1-2 (clinically IPMN)", "notes": "", "diffs": "", "entityId": "ipmn-001"}, {"section": "Frozen Sections", "sitting": "2017 S", "system": "HPB", "site": "Mesenteric lymph node", "diagnosis": "? metastatic cholangio but NMCS", "notes": "", "diffs": "", "entityId": "von-meyenburg-001"}, {"section": "Frozen Sections", "sitting": "2018 S", "system": "GIT Upper", "site": "Whipple's Margin", "diagnosis": "Negative", "notes": "", "diffs": "", "entityId": "chronic-pancreatitis-001"}, {"section": "Frozen Sections", "sitting": "2018 S", "system": "Cardiothoracic", "site": "Lung nodule", "diagnosis": "Pulmonary hamartoma", "notes": "", "diffs": "", "entityId": "pulmonary-hamartoma-001"}, {"section": "Frozen Sections", "sitting": "2018 S", "system": "GIT Upper", "site": "Liver nodule", "diagnosis": "Bile duct adenoma", "notes": "", "diffs": "", "entityId": "bile-duct-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2018 S", "system": "Gyn", "site": "Ovarian Cyst", "diagnosis": "Endometrioid adenocarcinoma", "notes": "", "diffs": "", "entityId": "endometrioid-ovarian-001"}, {"section": "Frozen Sections", "sitting": "2018 S", "system": "Haematopath", "site": "Groin LN", "diagnosis": "Sinus histiocytosis", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2018 S", "system": "GIT/Gyn", "site": "Peritoneal nodule", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Frozen Sections", "sitting": "2019 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Abscess/necrosis", "notes": "", "diffs": "", "entityId": "chronic-pancreatitis-001"}, {"section": "Frozen Sections", "sitting": "2019 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Frozen Sections", "sitting": "2019 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Malignant spindle cell neoplasms", "notes": "", "diffs": "", "entityId": "sft-001"}, {"section": "Frozen Sections", "sitting": "2019 A", "system": "HPB", "site": "Bile duct", "diagnosis": "Benign (von Meyenberg)", "notes": "", "diffs": "", "entityId": "von-meyenburg-001"}, {"section": "Frozen Sections", "sitting": "2019 A", "system": "Head & Neck", "site": "Lacrimal gland", "diagnosis": "SCC", "notes": "", "diffs": "", "entityId": "cscc-001"}, {"section": "Frozen Sections", "sitting": "2019 A", "system": "Head & Neck", "site": "Salivary Gland", "diagnosis": "Benign", "notes": "", "diffs": "", "entityId": "pleomorphic-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2021 A", "system": "HPB", "site": "Liver", "diagnosis": "Bile duct adenoma", "notes": "", "diffs": "", "entityId": "bile-duct-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2021 A", "system": "GIT", "site": "Abdominal wall", "diagnosis": "Nodule, hx of breast and bladder Ca", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Frozen Sections", "sitting": "2021 A", "system": "Head & Neck", "site": "Oral cavity", "diagnosis": "Oral cavity SCC resection margin", "notes": "", "diffs": "", "entityId": "cscc-001"}, {"section": "Frozen Sections", "sitting": "2021 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Primary adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Frozen Sections", "sitting": "2021 A", "system": "Head & Neck", "site": "Parathyroid", "diagnosis": "Parathyroid confirmed", "notes": "", "diffs": "", "entityId": "parathyroid-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2021 A", "system": "HPB", "site": "Liver", "diagnosis": "Granulomatous inflammation", "notes": "", "diffs": "", "entityId": "gran-hepatitis-001"}, {"section": "Frozen Sections", "sitting": "2022A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Lymphoid hyperplasia", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2022A", "system": "HPB", "site": "Liver nodule", "diagnosis": "FNH", "notes": "", "diffs": "", "entityId": "fnh-001"}, {"section": "Frozen Sections", "sitting": "2022A", "system": "Gynae", "site": "Ovary", "diagnosis": "High grade serous", "notes": "", "diffs": "", "entityId": "hgsc-001"}, {"section": "Frozen Sections", "sitting": "2022A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Necrosis", "notes": "", "diffs": "", "entityId": "chronic-pancreatitis-001"}, {"section": "Frozen Sections", "sitting": "2022A", "system": "HPB", "site": "Liver", "diagnosis": "Von Meyenburg complex", "notes": "", "diffs": "", "entityId": "von-meyenburg-001"}, {"section": "Frozen Sections", "sitting": "2022A", "system": "GI", "site": "Peritoneum", "diagnosis": "Malignant glands", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Frozen Sections", "sitting": "2023 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Squamous cell carcinoma", "notes": "", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Frozen Sections", "sitting": "2023 A", "system": "Head and neck", "site": "\"Lymph node\"", "diagnosis": "Parathyroid adenoma", "notes": "", "diffs": "", "entityId": "parathyroid-adenoma-001"}, {"section": "Frozen Sections", "sitting": "2023 A", "system": "GYN/GIT", "site": "Omentum", "diagnosis": "Fat necrosis and FBGC reaction", "notes": "", "diffs": "", "entityId": "ovarian-fibroma-001"}, {"section": "Frozen Sections", "sitting": "2023 A", "system": "Head & Neck", "site": "Tongue margin", "diagnosis": "Positive for SCC", "notes": "", "diffs": "", "entityId": "cscc-001"}, {"section": "Frozen Sections", "sitting": "2023 A", "system": "GYN", "site": "Ovary", "diagnosis": "Malignant (high grade serous?)", "notes": "", "diffs": "", "entityId": "hgsc-001"}, {"section": "Frozen Sections", "sitting": "2023 A", "system": "Cardiothoracic", "site": "Bronchial margin", "diagnosis": "Negative", "notes": "", "diffs": "", "entityId": "cyto-lymphocytic-effusion-001"}, {"section": "Frozen Sections", "sitting": "2023 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Squamous carcinoma", "notes": "", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Frozen Sections", "sitting": "2023 S", "system": "Head & Neck", "site": "Tongue base", "diagnosis": "negative for malignancy", "notes": "", "diffs": "", "entityId": "hnscc-001"}, {"section": "Frozen Sections", "sitting": "2023 S", "system": "GI", "site": "Gallbladder", "diagnosis": "florid inflammation, no malignancy", "notes": "", "diffs": "", "entityId": "xgc-001"}, {"section": "Frozen Sections", "sitting": "2023 S", "system": "GI", "site": "Peritoneum", "diagnosis": "poorly differentiated carcinoma in peritoneal biopsy.", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Frozen Sections", "sitting": "2023 S", "system": "Gynae", "site": "Ovary", "diagnosis": "borderline ovarian tumour, mucinous", "notes": "", "diffs": "", "entityId": "borderline-mucinous-001"}, {"section": "Frozen Sections", "sitting": "2023 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "pulmonary hamartoma", "notes": "", "diffs": "", "entityId": "pulmonary-hamartoma-001"}, {"section": "Macroscopy", "sitting": "2006 A", "system": "Gyn", "site": "Total hysterectomy", "diagnosis": "Endometrial CA", "notes": "", "diffs": "", "entityId": "endometrial-ca-001"}, {"section": "Macroscopy", "sitting": "2006 A", "system": "Urology", "site": "Orchiectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Macroscopy", "sitting": "2006 A", "system": "Cardiothoracic", "site": "Pneumonectomy", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2006 A", "system": "Breast", "site": "WLE", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2013 S", "system": "GIT lower", "site": "Small bowel resection", "diagnosis": "Diaphragm disease", "notes": "", "diffs": "", "entityId": "diaphragm-disease-001"}, {"section": "Macroscopy", "sitting": "2013 S", "system": "Sot tissue & Bone", "site": "Subcutaneous mass", "diagnosis": "Myxoid lesion", "notes": "", "diffs": "", "entityId": "imt-001"}, {"section": "Macroscopy", "sitting": "2013 S", "system": "Head & Neck", "site": "Laryngectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "hnscc-001"}, {"section": "Macroscopy", "sitting": "2013 S", "system": "Urology", "site": "Orchiectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Macroscopy", "sitting": "2013 A", "system": "Sot tissue & Bone", "site": "Bone resection", "diagnosis": "Osteosarcoma", "notes": "", "diffs": "", "entityId": "osteosarcoma-001"}, {"section": "Macroscopy", "sitting": "2013 A", "system": "GIT lower", "site": "Lower anterior resection", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "crc-001"}, {"section": "Macroscopy", "sitting": "2013 A", "system": "Cardiothoracic", "site": "Pneumonectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2013 A", "system": "Gyn", "site": "Hysterectomy", "diagnosis": "Tumour, polypoid", "notes": "", "diffs": "", "entityId": "endometrial-ca-001"}, {"section": "Macroscopy", "sitting": "2014 S", "system": "Gyn", "site": "Total hysterectomy", "diagnosis": "Endometrial CA", "notes": "", "diffs": "", "entityId": "endometrial-ca-001"}, {"section": "Macroscopy", "sitting": "2014 S", "system": "Urology", "site": "Orchiectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Macroscopy", "sitting": "2014 S", "system": "GIT upper", "site": "Oesophagogastrectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "gastric-adeno-001"}, {"section": "Macroscopy", "sitting": "2014 S", "system": "Breast", "site": "WLE", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2014 A", "system": "Urology", "site": "Nephrectomy", "diagnosis": "Urothelial CA", "notes": "", "diffs": "", "entityId": "cyto-hguc-001"}, {"section": "Macroscopy", "sitting": "2014 A", "system": "Cardiothoracic", "site": "Pneumonectomy", "diagnosis": "Carcinoid Tumour", "notes": "", "diffs": "", "entityId": "lung-tc-001"}, {"section": "Macroscopy", "sitting": "2014 A", "system": "Gyn", "site": "Oophorectomy", "diagnosis": "Teratoma", "notes": "", "diffs": "", "entityId": "mature-teratoma-001"}, {"section": "Macroscopy", "sitting": "2014 A", "system": "GIT upper", "site": "Gastrectomy", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "gastric-adeno-001"}, {"section": "Macroscopy", "sitting": "2015 S", "system": "GIT lower", "site": "Subtotal Colectomy", "diagnosis": "IBD", "notes": "", "diffs": "", "entityId": "ibd-001"}, {"section": "Macroscopy", "sitting": "2015 S", "system": "Urology", "site": "Nephrectomy", "diagnosis": "RCC", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Macroscopy", "sitting": "2015 S", "system": "Head & Neck", "site": "Laryngectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "hnscc-001"}, {"section": "Macroscopy", "sitting": "2015 S", "system": "Gyn", "site": "Total hysterectomy", "diagnosis": "Endometrial CA", "notes": "", "diffs": "", "entityId": "endometrial-ca-001"}, {"section": "Macroscopy", "sitting": "2015 A", "system": "Cardiothoracic", "site": "Pneumonectomy", "diagnosis": "Multiple tumours", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2015 A", "system": "Urology", "site": "Orchiectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Macroscopy", "sitting": "2015 A", "system": "Gyn", "site": "Total hysterectomy", "diagnosis": "Cervical CA", "notes": "", "diffs": "", "entityId": "cervical-ca-001"}, {"section": "Macroscopy", "sitting": "2016 S", "system": "Breast", "site": "WLE", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2016 S", "system": "Gyn", "site": "Total hysterectomy", "diagnosis": "Endometrial CA", "notes": "", "diffs": "", "entityId": "endometrial-ca-001"}, {"section": "Macroscopy", "sitting": "2016 S", "system": "Sot tissue & Bone", "site": "Bone resection", "diagnosis": "Osteosarcoma", "notes": "", "diffs": "", "entityId": "osteosarcoma-001"}, {"section": "Macroscopy", "sitting": "2016 S", "system": "GIT lower", "site": "Panproctocolectomy", "diagnosis": "IBD", "notes": "", "diffs": "", "entityId": "ibd-001"}, {"section": "Macroscopy", "sitting": "2016 A", "system": "Cardiothoracic", "site": "Pneumonectomy", "diagnosis": "Multiple tumours", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2016 A", "system": "Urology", "site": "Orchiectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "yst-001"}, {"section": "Macroscopy", "sitting": "2016 A", "system": "Gyn", "site": "Oophorectomy", "diagnosis": "Teratoma", "notes": "", "diffs": "", "entityId": "mature-teratoma-001"}, {"section": "Macroscopy", "sitting": "2016 A", "system": "GIT upper", "site": "Oesophagogastrectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "gastric-adeno-001"}, {"section": "Macroscopy", "sitting": "2017 S", "system": "Cardiothoracic", "site": "Pneumonectomy", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2017 S", "system": "Gyn", "site": "Hysterectomy", "diagnosis": "Leiomyoma with degeneration", "notes": "", "diffs": "", "entityId": "leiomyoma-001"}, {"section": "Macroscopy", "sitting": "2017 S", "system": "Urology", "site": "Nephrectomy", "diagnosis": "Urothelial CA", "notes": "", "diffs": "", "entityId": "cyto-hguc-001"}, {"section": "Macroscopy", "sitting": "2017 S", "system": "Breast", "site": "Mastectomy", "diagnosis": "Tumour and Paget disease", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2017 A", "system": "Breast", "site": "WLE", "diagnosis": "Tumour", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2017 A", "system": "Gyn", "site": "Total hysterectomy", "diagnosis": "Cervical CA", "notes": "", "diffs": "", "entityId": "cervical-ca-001"}, {"section": "Macroscopy", "sitting": "2017 A", "system": "GIT upper", "site": "Gastrectomy", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "gastric-adeno-001"}, {"section": "Macroscopy", "sitting": "2017 A", "system": "Cardiothoracic", "site": "Pneumonectomy", "diagnosis": "Multiple tumours", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2018 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Proximal tumour (differentials)", "notes": "", "diffs": "", "entityId": "lung-scc-001"}, {"section": "Macroscopy", "sitting": "2018 S", "system": "Gyn", "site": "Ovarian mass", "diagnosis": "teratoma (poor prognostic factors)", "notes": "", "diffs": "", "entityId": "mature-teratoma-001"}, {"section": "Macroscopy", "sitting": "2018 S", "system": "Urology", "site": "Kidney", "diagnosis": "Tumour (differentials and staging)", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Macroscopy", "sitting": "2018 S", "system": "GIT lower", "site": "Colectomy", "diagnosis": "Crohn's (differentials)", "notes": "", "diffs": "", "entityId": "ibd-001"}, {"section": "Macroscopy", "sitting": "2018 A", "system": "Urology", "site": "Kidney", "diagnosis": "Central tumour (urothelial)", "notes": "", "diffs": "", "entityId": "utc-001"}, {"section": "Macroscopy", "sitting": "2018 A", "system": "Breast", "site": "Mastectomy", "diagnosis": "Inflammatory carcinoma", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2018 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Tumour with invasion of parietal pleura", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2018 A", "system": "Gyn", "site": "Uterus", "diagnosis": "?Leiomyoma ?LMS", "notes": "", "diffs": "", "entityId": "leiomyoma-001"}, {"section": "Macroscopy", "sitting": "2019 A", "system": "Skin", "site": "Thumb/toe", "diagnosis": "Melanoma", "notes": "", "diffs": "", "entityId": "cyto-melanoma-001"}, {"section": "Macroscopy", "sitting": "2019 A", "system": "Breast", "site": "WLE", "diagnosis": "IDC", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2019 A", "system": "Gyn", "site": "Hysterectomy", "diagnosis": "Cervical CA", "notes": "", "diffs": "", "entityId": "cervical-ca-001"}, {"section": "Macroscopy", "sitting": "2019 A", "system": "Urology", "site": "Kidney", "diagnosis": "Tumour infiltrating adrenal", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Macroscopy", "sitting": "2021 A", "system": "Gynae", "site": "Hysterectomy", "diagnosis": "Endometrioid Ca, 1A", "notes": "", "diffs": "", "entityId": "endometrioid-ovarian-001"}, {"section": "Macroscopy", "sitting": "2021 A", "system": "Cardiothroactic", "site": "Mitral valve", "diagnosis": "Vegetations", "notes": "", "diffs": "", "entityId": "cardiac-vegetations-001"}, {"section": "Macroscopy", "sitting": "2021 A", "system": "GI", "site": "Subtotal colectomy", "diagnosis": "UC", "notes": "", "diffs": "", "entityId": "borderline-mucinous-001"}, {"section": "Macroscopy", "sitting": "2021 A", "system": "URology", "site": "Total nephrectomy", "diagnosis": "RCC", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Macroscopy", "sitting": "2022 S", "system": "HPB", "site": "Whipples", "diagnosis": "Fibrosis ? tumour + CBD dilated", "notes": "", "diffs": "", "entityId": "chronic-pancreatitis-001"}, {"section": "Macroscopy", "sitting": "2022 S", "system": "GI", "site": "Small bowel resection", "diagnosis": "Deposit on external surface", "notes": "", "diffs": "", "entityId": "cyto-peritoneal-001"}, {"section": "Macroscopy", "sitting": "2022 S", "system": "Gynae", "site": "Ovary", "diagnosis": "Large ovarian mass", "notes": "", "diffs": "", "entityId": "ovarian-fibroma-001"}, {"section": "Macroscopy", "sitting": "2022 S", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma (pT3)", "notes": "", "diffs": "", "entityId": "seminoma-001"}, {"section": "Macroscopy", "sitting": "2022A", "system": "Urology", "site": "Nephroureterectomy", "diagnosis": "Urothelial CA", "notes": "", "diffs": "", "entityId": "cyto-hguc-001"}, {"section": "Macroscopy", "sitting": "2022A", "system": "Head & Neck", "site": "Thyroid", "diagnosis": "Papillary", "notes": "", "diffs": "", "entityId": "ptc-histo-001"}, {"section": "Macroscopy", "sitting": "2022A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Adenocarcinoma", "notes": "", "diffs": "", "entityId": "lung-adeno-001"}, {"section": "Macroscopy", "sitting": "2022A", "system": "Gynae", "site": "Uterus", "diagnosis": "Endometrial carcinoma", "notes": "", "diffs": "", "entityId": "endometrial-ca-001"}, {"section": "Macroscopy", "sitting": "2023S", "system": "Breast", "site": "Breast", "diagnosis": "WLE", "notes": "", "diffs": "", "entityId": "ibc-nst-001"}, {"section": "Macroscopy", "sitting": "2023S", "system": "Head & Neck", "site": "Tongue", "diagnosis": "SCC", "notes": "", "diffs": "", "entityId": "cscc-001"}, {"section": "Macroscopy", "sitting": "2023S", "system": "GI", "site": "Subtotal colectomy", "diagnosis": "Ulcerative colitis", "notes": "", "diffs": "", "entityId": "ibd-001"}, {"section": "Macroscopy", "sitting": "2023S", "system": "Urology", "site": "Testis", "diagnosis": "Seminoma (pT3)", "notes": "", "diffs": "", "entityId": "seminoma-001"}, {"section": "Macroscopy", "sitting": "2023 A", "system": "Gynae", "site": "Simple hysterectomy", "diagnosis": "Fibroid and adenomyosis", "notes": "", "diffs": "", "entityId": "endometrial-ca-001"}, {"section": "Macroscopy", "sitting": "2023 A", "system": "Skin/MSK", "site": "Amputated digit", "diagnosis": "Subungual SCC", "notes": "", "diffs": "", "entityId": "cscc-001"}, {"section": "Macroscopy", "sitting": "2023 A", "system": "Urology", "site": "Kidney", "diagnosis": "RCC invading colo", "notes": "", "diffs": "", "entityId": "chrcc-001"}, {"section": "Macroscopy", "sitting": "2023 A", "system": "HPB", "site": "Liver", "diagnosis": "Hepatocellular carcinoma", "notes": "", "diffs": "", "entityId": "hcc-001"}, {"section": "Long Cases", "sitting": "2017 S", "system": "Renal", "site": "Renal", "diagnosis": "TMA, favouring cryoglobulinaemia", "notes": "", "diffs": "", "entityId": "tma-001"}, {"section": "Long Cases", "sitting": "2018 S", "system": "Renal", "site": "Renal", "diagnosis": "IgA nephropathy and tubulointerstitial nephritis", "notes": "", "diffs": "", "entityId": "igan-001"}, {"section": "Long Cases", "sitting": "2019 A", "system": "Renal", "site": "Renal", "diagnosis": "Pauciimmune GN", "notes": "", "diffs": "", "entityId": "pauci-gn-001"}, {"section": "Long Cases", "sitting": "2021 A", "system": "Renal", "site": "Renal", "diagnosis": "Pyelonephritis", "notes": "", "diffs": "", "entityId": "atin-001"}, {"section": "Long Cases", "sitting": "2022 S", "system": "Renal", "site": "Renal", "diagnosis": "Minimal change disease", "notes": "", "diffs": "", "entityId": "mcd-001"}, {"section": "Long Cases", "sitting": "2022 A", "system": "Renal", "site": "Renal", "diagnosis": "Membranous glomerulopathy", "notes": "", "diffs": "", "entityId": "membranous-001"}, {"section": "Long Cases", "sitting": "2023 S", "system": "Renal", "site": "Renal", "diagnosis": "Nodular glomerulosclerosis (diabetes)", "notes": "", "diffs": "", "entityId": "diabetic-nephropathy-001"}, {"section": "Long Cases", "sitting": "2017 S", "system": "HPB", "site": "Liver", "diagnosis": "Moderately differentiated HCC on a background of cirrhosis", "notes": "", "diffs": "", "entityId": "hcc-001"}, {"section": "Long Cases", "sitting": "2017 S", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Solitary fibrous tumour", "notes": "", "diffs": "", "entityId": "sft-001"}, {"section": "Long Cases", "sitting": "2017 S", "system": "Haematopath", "site": "Lymph node", "diagnosis": "Burkitt's lymphoma", "notes": "", "diffs": "", "entityId": "burkitt-001"}, {"section": "Long Cases", "sitting": "2018 S", "system": "Haematopath", "site": "Lymph node", "diagnosis": "Nodular lymphocyte predominant Hodgkin's", "notes": "", "diffs": "", "entityId": "nlphl-001"}, {"section": "Long Cases", "sitting": "2018 S", "system": "Soft tissue", "site": "Soft tissue", "diagnosis": "Solitary fibrous tumour", "notes": "", "diffs": "", "entityId": "sft-001"}, {"section": "Long Cases", "sitting": "2019 A", "system": "Liver", "site": "Liver", "diagnosis": "HCC with haemochromatosis and cirrhosis", "notes": "", "diffs": "", "entityId": "hcc-001"}, {"section": "Long Cases", "sitting": "2019 A", "system": "Gyn", "site": "Ovary", "diagnosis": "Mucinous borderline tumour", "notes": "", "diffs": "", "entityId": "borderline-mucinous-001"}, {"section": "Long Cases", "sitting": "2019 A", "system": "Haematopath", "site": "Skin", "diagnosis": "DLBCL (Leg type)", "notes": "", "diffs": "", "entityId": "dlbcl-001"}, {"section": "Long Cases", "sitting": "2021 A", "system": "Gyn", "site": "Abdominal wall", "diagnosis": "Granulosa cell tumour", "notes": "", "diffs": "", "entityId": "granulosa-cell-001"}, {"section": "Long Cases", "sitting": "2021 A", "system": "HPB", "site": "Liver", "diagnosis": "Cirrhosis secondary to PSC", "notes": "", "diffs": "", "entityId": "psc-001"}, {"section": "Long Cases", "sitting": "2021 A", "system": "Haematopath", "site": "Lymph node", "diagnosis": "Nodular lymphocyte predominant Hodgkin's", "notes": "", "diffs": "", "entityId": "nlphl-001"}, {"section": "Long Cases", "sitting": "2022 S", "system": "HPB", "site": "Liver", "diagnosis": "Acute hepatitis secondary to paracetamol overdose", "notes": "", "diffs": "", "entityId": "alf-001"}, {"section": "Long Cases", "sitting": "2022 S", "system": "Haematopath", "site": "Lung", "diagnosis": "Marginal zone lymphoma", "notes": "", "diffs": "", "entityId": "mzl-001"}, {"section": "Long Cases", "sitting": "2022 S", "system": "Skin", "site": "Skin", "diagnosis": "Spindle cell melanoma", "notes": "", "diffs": "", "entityId": "melanoma-001"}, {"section": "Long Cases", "sitting": "2022 A", "system": "Haematopath", "site": "Lymph node", "diagnosis": "Castleman's disease", "notes": "", "diffs": "", "entityId": "castleman-001"}, {"section": "Long Cases", "sitting": "2022 A", "system": "Cardiothoracic", "site": "Lung", "diagnosis": "Synovial sarcoma", "notes": "", "diffs": "", "entityId": "synovial-001"}, {"section": "Long Cases", "sitting": "2022 A", "system": "HPB", "site": "Liver", "diagnosis": "Chronic viral hepatitis", "notes": "", "diffs": "", "entityId": "aih-001"}, {"section": "Long Cases", "sitting": "2023 S", "system": "Haematopath", "site": "Lymph node", "diagnosis": "Sarcomatoid anaplastic large cell lymphoma", "notes": "", "diffs": "", "entityId": "alcl-001"}, {"section": "Long Cases", "sitting": "2023 S", "system": "GIT", "site": "Colon", "diagnosis": "Medullary colorectal carcinoma", "notes": "", "diffs": "", "entityId": "medullary-crc-001"}, {"section": "Long Cases", "sitting": "2023 S", "system": "HPB", "site": "Liver", "diagnosis": "Cirrhosis, siderosis and A1AT", "notes": "", "diffs": "", "entityId": "a1at-001"}];
@@ -11938,7 +12418,7 @@ function addDeletedId(id) {
 const BASE_SUBSPECIALTIES = [
   "LGI","UGI","LGI / UGI","Hepatobiliary","Haempath","Medical Renal",
   "Gynaecological","Thoracic","Neuropath","Skin / Dermatopath",
-  "Head & Neck","Breast","Soft Tissue / Bone","Urological"
+  "Head & Neck","Breast","Soft Tissue / Bone","Urological","Endocrine"
 ];
 
 let activeFilter    = 'all';
@@ -13260,4 +13740,4 @@ getExamFreqMap(); // pre-build frequency map
 </script>
 
 
-</body><u95e172c1-4140-4887-ae24-d97e7817fde1></u95e172c1-4140-4887-ae24-d97e7817fde1></html>
+</body></html>
