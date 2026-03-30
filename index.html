@@ -14110,7 +14110,7 @@ const GENE_REGISTRY = [
     fullName: 'MYB proto-oncogene; MYB-NFIB fusion t(6;9)',
     inheritance: 'Somatic translocation t(6;9)(q22-23;p23-24)',
     mechanism: 'Fusion drives MYB overexpression → proliferation',
-    examNote: 'Adenoid Cystic Carcinoma (AdCC): MYB-NFIB t(6;9) in ~50%; MYBL1 rearrangements in MYB-negative. Cribriform/tubular/solid subtypes. MYB IHC (nuclear) as surrogate. Most perineural invasion of any salivary tumour. Lung metastases decades later (indolent metastatic disease). ACC IHC: p63+, p40+, CD117+, S100+, SOX10+, CK5/6+; dual myoepithelial-luminal population.',
+    examNote: 'Adenoid Cystic Carcinoma (AdCC): MYB-NFIB t(6;9) in ~50%; MYBL1 rearrangements in MYB-negative. Cribriform/tubular/solid subtypes. MYB IHC (nuclear) as surrogate. Most perineural invasion of any salivary tumour. Lung metastases decades later (indolent metastatic disease). AdCC IHC: p63+, p40+, CD117+, S100+, SOX10+, CK5/6+; dual myoepithelial-luminal population.',
     therapy: 'Surgery ± RT; no effective systemic therapy for metastatic disease'
   },
   // ── PRKD1 ──
@@ -14317,8 +14317,9 @@ function setMolFilter(f, btn) {
 function buildMolecularIndex() {
   const allEntities = getAllEntities();
   // Fields to scan
-  const TEXT_FIELDS = ['clinical','micro','comments','ihcPos','ihcNeg','pattern','behaviour',
-                       'cytologicalFeatures','pitfalls','adequacy'];
+  // Only scan fields where the entity OWNS the molecular feature.
+  // Differentials deliberately excluded — mentions there are contextual/exclusionary only.
+  const TEXT_FIELDS = ['clinical','micro','comments','cytologicalFeatures','pitfalls'];
 
   const index = {}; // gene → Set of entity ids
 
@@ -14333,13 +14334,6 @@ function buildMolecularIndex() {
       if (Array.isArray(v)) textBits.push(...v);
       else if (typeof v === 'string') textBits.push(v);
     });
-    // Also scan differentials
-    if (entity.differentials) {
-      entity.differentials.forEach(d => {
-        if (d.disc) textBits.push(d.disc);
-        if (d.dx) textBits.push(d.dx);
-      });
-    }
     const blob = textBits.join(' ');
 
     GENE_REGISTRY.forEach(g => {
