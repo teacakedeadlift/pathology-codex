@@ -4148,6 +4148,10 @@ const SEED_DATA = [
       {
         "dx": "Conventional Schwannoma",
         "disc": "Antoni A/B, Verocay bodies, thick vessels, NF2 mutation; rarely in GI tract"
+      },
+      {
+        "dx": "Neurofibroma",
+        "disc": "Wavy collagen ('shredded carrot'); entrapped axons (NF+); CD34+ stromal cells; less uniform S100; plexiform variant pathognomonic NF1; NF2 mutation absent in both"
       }
     ],
     "comments": [
@@ -4156,6 +4160,10 @@ const SEED_DATA = [
       "Microcystic/reticular subtype: GFAP+, alarming morphology but still benign.",
       "Signet-ring cell variant: intracytoplasmic mucin; S100+ distinguishes from mucinous carcinoma.",
       "H. pylori gastritis association reported (controversial)."
+    ],
+    "cytoLink": null,
+    "related": [
+      "neurofibroma-001"
     ]
   },
   {
@@ -6715,7 +6723,527 @@ const SEED_DATA = [
     "cytoLink": null,
     "related": [
       "synovial-001",
+      "schwannoma-001",
+      "neurofibroma-001",
+      "schwannoma-soft-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "neurofibroma-001",
+    "name": "NEUROFIBROMA",
+    "subspecialty": "Soft Tissue",
+    "category": "Neural",
+    "pattern": "Spindle cell",
+    "behaviour": "Benign",
+    "clinical": [
+      "Benign peripheral nerve sheath tumour arising from nerve fascicles (intraneural) or dermis/soft tissue (cutaneous/plexiform). Sporadic solitary cutaneous neurofibroma is common and incidental.",
+      "NF1 (neurofibromatosis type 1, AD, 17q11.2): multiple cutaneous neurofibromas, plexiform neurofibromas (pathognomonic), café-au-lait macules (≥6), Lisch nodules, axillary/inguinal freckling. 5–10% lifetime MPNST risk (arising from plexiform neurofibroma).",
+      "Trigger: rapidly enlarging or painful plexiform neurofibroma in NF1 patient → biopsy urgently to exclude MPNST transformation. NF1 is the most important predisposing condition for MPNST."
+    ],
+    "micro": [
+      "Loosely arranged spindle cells with wavy/buckled (comma-shaped) nuclei and tapered cytoplasmic processes; ill-defined pale cytoplasm. Nuclei less uniform than schwannoma — admixture of Schwann cells, perineural fibroblasts, and endoneurial fibroblasts.",
+      "Abundant myxocollagenous stroma with 'shredded carrot' wavy collagen bundles — characteristic at low power.",
+      "Entrapped axons within lesion (highlighted by neurofilament IHC) — distinguishes from schwannoma which displaces axons to periphery.",
+      "Plexiform variant: expanded individual nerve fascicles in a multinodular configuration — pathognomonic for NF1 when plexiform architecture present.",
+      "Atypical/ancient neurofibroma: scattered enlarged hyperchromatic nuclei (degenerative atypia); NO mitoses. Mitoses or increased cellularity → H3K27me3 IHC mandatory to exclude MPNST.",
+      "Lacks Antoni A/B areas, Verocay bodies, thick-walled hyalinised vessels, and nuclear palisading of schwannoma."
+    ],
+    "ihcPos": [
+      "S100 – positive but less diffuse/uniform than schwannoma (subset of cells)",
+      "SOX10 – positive (Schwann cell component)",
+      "CD34 – positive (stromal fibroblast-like cells — characteristic)",
+      "Neurofilament – highlights entrapped axons (key distinguishing feature)"
+    ],
+    "ihcNeg": [
+      "H3K27me3 – RETAINED (loss confirms MPNST transformation — single most important marker)",
+      "EMA – negative (unlike perineurioma)",
+      "SMA – negative",
+      "STAT6 – negative (excludes SFT)"
+    ],
+    "differentials": [
+      {
+        "dx": "Schwannoma",
+        "disc": "Antoni A/B areas; Verocay bodies; thick-walled hyalinised vessels; well encapsulated; no entrapped axons; S100 diffuse uniform; CD34 only in capsule; H3K27me3 retained; no NF1 association"
+      },
+      {
+        "dx": "MPNST",
+        "disc": "H3K27me3 loss (most important); increased mitoses; fascicular hyperchromatic spindle cells; perivascular condensation; geographic necrosis; loss of S100 uniformity"
+      },
+      {
+        "dx": "Perineurioma",
+        "disc": "EMA+, Claudin-1+; S100−; whorled storiform architecture around blood vessels; no NF1 association"
+      },
+      {
+        "dx": "Dermatofibrosarcoma Protuberans",
+        "disc": "CD34 diffuse+; COL1A1-PDGFB fusion; infiltrative storiform; more cellular and uniform; S100 negative"
+      }
+    ],
+    "comments": [
+      "H3K27me3 IHC: RETAINED in benign neurofibroma — loss of nuclear staining (with positive internal stromal/vascular control) confirms MPNST transformation. This is the single most important IHC in the neurofibroma→MPNST diagnostic pathway.",
+      "Plexiform neurofibroma: always consider NF1; refer for clinical genetics. Surgical resection difficult due to involvement of normal nerve fascicles.",
+      "Sporadic solitary cutaneous neurofibroma: excision curative; no recurrence risk; no malignant potential.",
+      "Exam trap: atypical neurofibroma — bizarre nuclei may alarm; key message is NO mitoses + H3K27me3 retained = still benign. Even a single mitosis warrants very careful consideration.",
+      "NF1 patients: selumetinib (MEK inhibitor) approved for inoperable plexiform neurofibromas in children."
+    ],
+    "cytoLink": null,
+    "related": [
+      "mpnst-001",
       "schwannoma-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "schwannoma-soft-001",
+    "name": "SCHWANNOMA (CONVENTIONAL / PERIPHERAL)",
+    "subspecialty": "Soft Tissue",
+    "category": "Neural",
+    "pattern": "Spindle cell",
+    "behaviour": "Benign",
+    "clinical": [
+      "Benign peripheral nerve sheath tumour of pure Schwannian differentiation. Sporadic or NF2-associated (bilateral vestibular schwannomas = pathognomonic NF2). Any site; most common in posterior mediastinum, retroperitoneum, head/neck, extremity flexor surfaces.",
+      "Vestibular schwannoma (acoustic neuroma): most common cerebellopontine angle tumour — sensorineural hearing loss, tinnitus, vertigo. NF2 germline (22q12.2): bilateral = diagnostic.",
+      "Ancient schwannoma: long-standing lesion with degenerative nuclear atypia (hyperchromatic nuclei, no mitoses) — do not over-diagnose as malignant; H3K27me3 retained."
+    ],
+    "micro": [
+      "Encapsulated; biphasic: Antoni A (hypercellular — compact spindle cells with nuclear palisading forming Verocay bodies) and Antoni B (hypocellular — loose myxoid stroma, lipid-laden macrophages).",
+      "Verocay bodies: nuclear palisading with acellular eosinophilic fibrillar processes between — pathognomonic when present.",
+      "Thick-walled hyalinised vessels — characteristic; often with haemosiderin deposition.",
+      "Entrapped axons absent (displaced to capsule) — distinguishes from neurofibroma.",
+      "Cellular schwannoma: hypercellular Antoni A, no/rare Antoni B, mitoses up to 4/10HPF — benign but can mimic MPNST. H3K27me3 retained = key."
+    ],
+    "ihcPos": [
+      "S100 – diffuse strong (most uniform S100 of all peripheral nerve sheath tumours)",
+      "SOX10 – diffuse nuclear",
+      "GFAP – positive (variable)",
+      "CD34 – positive in capsule only (not within tumour)"
+    ],
+    "ihcNeg": [
+      "H3K27me3 – RETAINED (loss = MPNST)",
+      "EMA – negative within tumour (positive in perineural capsule only)",
+      "SMA – negative",
+      "Neurofilament – negative within lesion (axons displaced to capsule)"
+    ],
+    "differentials": [
+      {
+        "dx": "Neurofibroma",
+        "disc": "No Antoni A/B; no Verocay bodies; wavy 'shredded carrot' collagen; entrapped axons (NF+); CD34+ stromal cells; S100 patchy not diffuse; plexiform = NF1"
+      },
+      {
+        "dx": "MPNST",
+        "disc": "H3K27me3 loss (key); fascicular hyperchromatic cells; perivascular condensation; geographic necrosis; mitoses >4/10HPF; S100 focal/lost; NF1 background"
+      },
+      {
+        "dx": "Solitary Fibrous Tumour",
+        "disc": "STAT6 nuclear+; CD34 diffuse+; hemangiopericytoma 'staghorn' vessels; NAB2-STAT6 fusion; S100 negative"
+      },
+      {
+        "dx": "Leiomyoma / Leiomyosarcoma",
+        "disc": "SMA+, Desmin+, h-caldesmon+; pink fibrillar cytoplasm; cigar-shaped blunt nuclei; S100 negative"
+      }
+    ],
+    "comments": [
+      "H3K27me3: retained in ALL schwannomas including cellular and ancient variants — loss definitively excludes schwannoma and confirms MPNST in the right context.",
+      "Cellular schwannoma: mitoses ≤4/10HPF with retained H3K27me3 = still benign. If mitoses >4 + any H3K27me3 loss → reclassify as MPNST.",
+      "NF2 association: bilateral vestibular schwannomas. GI schwannoma is a distinct entity — no NF2 mutation, peripheral lymphoid cuff.",
+      "Ancient/degenerate change: nuclear hyperchromasia, pleomorphism, no mitoses — benign degenerative atypia; H3K27me3 retained confirms.",
+      "Exam trap: cellular schwannoma can have high cellularity and focal mitotic activity — always check H3K27me3 before diagnosing MPNST."
+    ],
+    "cytoLink": null,
+    "related": [
+      "neurofibroma-001",
+      "mpnst-001",
+      "schwannoma-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "dfsp-001",
+    "name": "DERMATOFIBROSARCOMA PROTUBERANS (DFSP)",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Fibroblastic",
+    "pattern": "Spindle cell",
+    "behaviour": "Intermediate",
+    "clinical": [
+      "Low-grade fibroblastic sarcoma of dermis/subcutis. Locally aggressive with high recurrence rate; low metastatic potential (<5%) unless fibrosarcomatous transformation (FS-DFSP, ~10-15%).",
+      "Young-middle aged adults; trunk and proximal limbs most common. Slow-growing indurated plaque → nodular protuberance; often misdiagnosed clinically as scar/keloid for years.",
+      "FS-DFSP (fibrosarcomatous transformation): herringbone fascicular pattern superimposed on classic DFSP — metastatic risk rises to ~15%; treat as intermediate/high-grade sarcoma."
+    ],
+    "micro": [
+      "Dense monotonous uniform spindle cells in tight storiform (cartwheel/pinwheel) pattern — characteristic at low power.",
+      "Infiltrates dermis and subcutaneous fat in a characteristic 'honeycomb' pattern — lace-like entrapment of fat lobules; extends along fibrous septa.",
+      "Low mitotic rate (<5/10HPF in classic DFSP); minimal atypia; no necrosis.",
+      "FS-DFSP: abrupt transition to cellular herringbone fascicles with increased mitoses (>5/10HPF) and atypia — must be reported as changes treatment.",
+      "Myxoid DFSP variant: prominent myxoid stroma — can mimic myxofibrosarcoma; CD34+ confirms."
+    ],
+    "ihcPos": [
+      "CD34 – diffuse strong (most useful; retained in classic DFSP)",
+      "Vimentin – diffuse",
+      "Nestin – positive",
+      "COL1A1-PDGFB fusion – diagnostic (FISH/RT-PCR)"
+    ],
+    "ihcNeg": [
+      "S100 – negative (key; excludes neurofibroma/schwannoma/desmoplastic melanoma)",
+      "SMA – negative (excludes nodular fasciitis/leiomyoma)",
+      "Desmin – negative",
+      "CD68 – negative (excludes dermatofibroma)"
+    ],
+    "differentials": [
+      {
+        "dx": "Dermatofibroma (fibrous histiocytoma)",
+        "disc": "CD34 negative (or only at periphery); CD68+; EMA+ (surrounding epidermis hyperplastic); smaller, well-demarcated; no fat infiltration; no COL1A1-PDGFB"
+      },
+      {
+        "dx": "Neurofibroma",
+        "disc": "S100+ (subset); SOX10+; wavy collagen; entrapped axons; NF1 association; CD34 in stroma only (not diffuse)"
+      },
+      {
+        "dx": "Nodular Fasciitis",
+        "disc": "SMA+; rapid growth (weeks); self-limiting; 'tissue culture' myofibroblasts; USP6 rearrangement; no storiform; no fat infiltration"
+      },
+      {
+        "dx": "Solitary Fibrous Tumour",
+        "disc": "STAT6 nuclear+; NAB2-STAT6 fusion; hemangiopericytoma vessels; CD34+ but patternless not storiform; S100 negative"
+      }
+    ],
+    "comments": [
+      "COL1A1-PDGFB fusion t(17;22)(q21;q13): constitutively activates PDGFR-β signalling. Imatinib approved for unresectable/metastatic DFSP — dramatic responses. Test with FISH or RT-PCR.",
+      "FS-DFSP: CD34 may be lost in the fibrosarcomatous component — do not use CD34 loss to exclude DFSP if classic areas are present.",
+      "Margins: wide local excision (2-3cm) or Mohs surgery for facial/acral sites. High local recurrence (up to 50%) with narrow margins — always comment on margin status.",
+      "Exam trap: honeycomb fat infiltration is a key low-power feature — without this, DFSP may be mistaken for dermatofibroma. Always assess deep margin.",
+      "Myxoid variant: CD34+ diffuse storiform pattern persists despite myxoid change — MUC4 negative (distinguishes from LGFMS)."
+    ],
+    "cytoLink": null,
+    "related": [
+      "neurofibroma-001",
+      "nodular-fasciitis-001",
+      "lgfms-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "nodular-fasciitis-001",
+    "name": "NODULAR FASCIITIS",
+    "subspecialty": "Soft Tissue",
+    "category": "Fibroblastic",
+    "pattern": "Spindle cell",
+    "behaviour": "Benign",
+    "clinical": [
+      "Reactive myofibroblastic proliferation — the most important benign spindle cell mimic of sarcoma. Rapid growth over days to weeks (history is diagnostic); typically <3cm; spontaneously regresses.",
+      "Young adults; upper extremity (forearm/arm) most common, then trunk and head/neck. Subcutaneous, rarely intramuscular or intravascular (intravascular fasciitis — do not misdiagnose as angiosarcoma).",
+      "Trigger: rapidly enlarging subcutaneous nodule in a young adult — ALWAYS consider nodular fasciitis before diagnosing sarcoma. History of rapid growth is the single most useful clinical feature."
+    ],
+    "micro": [
+      "Loosely arranged plump myofibroblasts in a myxoid stroma with feathery 'tissue culture'-like appearance — characteristic at scanning magnification.",
+      "Short irregular fascicles; cells with vesicular nuclei and prominent nucleoli; abundant pale cytoplasm with indistinct borders.",
+      "Mitoses can be brisk (up to 10+/10HPF) but atypical mitoses absent — high mitotic rate without atypia is a key reassuring feature.",
+      "Extravasated red blood cells, lymphocytes, and occasional osteoclast-like giant cells scattered throughout.",
+      "Variable collagenisation ('keloid-like' hyaline collagen at periphery); microcystic spaces; no necrosis."
+    ],
+    "ihcPos": [
+      "SMA – diffuse (myofibroblastic differentiation)",
+      "Vimentin – diffuse",
+      "MSA – positive",
+      "USP6 rearrangement – present (~90%; FISH or RNA-seq)"
+    ],
+    "ihcNeg": [
+      "S100 – negative (excludes schwannoma/neurofibroma)",
+      "CD34 – negative (excludes DFSP/SFT)",
+      "Desmin – negative or focal (excludes leiomyoma)",
+      "STAT6 – negative (excludes SFT)",
+      "ALK – negative (excludes IMT)"
+    ],
+    "differentials": [
+      {
+        "dx": "Fibrosarcoma / Myxofibrosarcoma",
+        "disc": "Persistent growth; herringbone fascicles; nuclear atypia; atypical mitoses; no tissue culture appearance; no USP6 rearrangement; >3cm"
+      },
+      {
+        "dx": "IMT (Inflammatory Myofibroblastic Tumour)",
+        "disc": "ALK+ (50-60%); plasma cell-rich inflammatory infiltrate; less myxoid; slower growth; retroperitoneal/mesenteric common; ALK rearrangement"
+      },
+      {
+        "dx": "DFSP",
+        "disc": "CD34 diffuse+; storiform pattern; honeycomb fat infiltration; COL1A1-PDGFB fusion; slow growth over years"
+      },
+      {
+        "dx": "Spindle cell lipoma",
+        "disc": "CD34+; RB1 loss; short bland spindle cells + mature fat + ropey collagen; posterior neck/shoulder; no myxoid tissue culture pattern"
+      }
+    ],
+    "comments": [
+      "USP6 rearrangement (17p13): present in ~90% of nodular fasciitis (various partners — MYH9 most common). Diagnostic when detected; supports benign behaviour. RNA-seq or FISH on paraffin material.",
+      "Self-limiting: if diagnosis is certain, conservative excision or observation (some cases regress spontaneously post-biopsy). No adjuvant treatment required.",
+      "Cranial fasciitis: occurs in children on the skull — can erode bone, alarming imaging; same histology, same behaviour.",
+      "Intravascular fasciitis: within vessel walls — do not misinterpret vascular invasion as angiosarcoma. SMA+, USP6 rearrangement confirms.",
+      "Exam trap: brisk mitotic activity in a myxoid spindle cell tumour → do NOT diagnose sarcoma without first excluding nodular fasciitis. Clinical history (rapid growth, young adult) is mandatory."
+    ],
+    "cytoLink": null,
+    "related": [
+      "imt-001",
+      "dfsp-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "lgfms-001",
+    "name": "LOW GRADE FIBROMYXOID SARCOMA (LGFMS / EVANS TUMOUR)",
+    "subspecialty": "Soft Tissue",
+    "category": "Fibroblastic",
+    "pattern": "Spindle cell",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Deceptively bland low-grade fibroblastic sarcoma with significant long-term metastatic potential despite innocuous histology — the original 'wolf in sheep's clothing'. Young to middle-aged adults; deep soft tissue of proximal extremities and trunk.",
+      "Metastases occur in up to 50% of cases at 10+ years (lung most common) despite low-grade appearance — long-term surveillance mandatory. No reliable histological predictor of metastasis.",
+      "Trigger: deep soft tissue spindle cell tumour with alternating fibrous and myxoid zones in a young adult — always exclude LGFMS before diagnosing benign fibromatosis."
+    ],
+    "micro": [
+      "Alternating hypocellular fibrous (collagenous) and myxoid zones — characteristic low-power zoning pattern.",
+      "Bland uniform spindle cells with minimal atypia and low mitotic rate (<2/10HPF); deceptively benign nuclear morphology.",
+      "Whorling/storiform growth pattern with arcuate curvilinear blood vessels.",
+      "Giant rosettes of collagen (collagen rosettes with central fibrous core surrounded by epithelioid cells) — present in subset (~40%); pathognomonic when present.",
+      "Sclerosing epithelioid fibrosarcoma (SEF): variant with round/epithelioid cells in hyalinised collagen; same FUS-CREB3L2 fusion; more aggressive."
+    ],
+    "ihcPos": [
+      "MUC4 – diffuse strong (most sensitive/specific IHC marker; surrogate for FUS fusion)",
+      "Vimentin – diffuse",
+      "EMA – variable/focal (~20%)",
+      "FUS-CREB3L2 or FUS-CREB3L1 fusion – diagnostic (FISH/RNA-seq)"
+    ],
+    "ihcNeg": [
+      "S100 – negative (excludes schwannoma/neurofibroma)",
+      "CD34 – negative (excludes SFT/DFSP)",
+      "SMA – negative (excludes desmoid/nodular fasciitis)",
+      "STAT6 – negative (excludes SFT)",
+      "Nuclear β-catenin – negative (excludes desmoid fibromatosis)"
+    ],
+    "differentials": [
+      {
+        "dx": "Desmoid Fibromatosis",
+        "disc": "Nuclear β-catenin+; APC/CTNNB1 mutation; no myxoid zones; no MUC4; infiltrative into muscle; associated with Gardner/FAP or prior surgery"
+      },
+      {
+        "dx": "Neurofibroma (myxoid)",
+        "disc": "S100+; SOX10+; CD34 stromal+; wavy collagen; entrapped axons; no MUC4; NF1 association"
+      },
+      {
+        "dx": "Myxofibrosarcoma",
+        "disc": "Older patients; superficial; curvilinear vessels with perivascular condensation; nuclear atypia; no alternating fibrous/myxoid zones; MUC4 negative; no FUS fusion"
+      },
+      {
+        "dx": "Solitary Fibrous Tumour",
+        "disc": "STAT6 nuclear+; CD34+; NAB2-STAT6 fusion; hemangiopericytoma vasculature; no myxoid zoning; MUC4 negative"
+      }
+    ],
+    "comments": [
+      "MUC4 IHC: highly sensitive and specific for LGFMS (and SEF) — nearly always negative in desmoid, SFT, neurofibroma, myxofibrosarcoma. Single best IHC screening test.",
+      "FUS-CREB3L2 t(7;16)(q33;p11): present in ~90% of LGFMS; minority have FUS-CREB3L1. RNA-seq is preferred for molecular confirmation (FISH may miss inversion-based variants).",
+      "SEF (sclerosing epithelioid fibrosarcoma): overlapping entity — EWSR1-CREB3L1/2 fusions also described; more aggressive; may have WT1 expression. Recognise by hyalinised stroma + epithelioid cells.",
+      "Prognosis: deceptively good short-term (low grade, slow growth) but 50% metastatic rate at 10 years — must convey long-term risk to clinicians. Wide excision with clear margins essential.",
+      "Exam trap: bland spindle cell tumour with myxoid areas → DO NOT report as benign without MUC4 IHC. LGFMS can be misdiagnosed as fibroma, desmoid, or low-grade fibrosarcoma."
+    ],
+    "cytoLink": null,
+    "related": [
+      "desmoid-001",
+      "dfsp-001",
+      "sft-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "perineurioma-001",
+    "name": "PERINEURIOMA",
+    "subspecialty": "Soft Tissue",
+    "category": "Neural",
+    "pattern": "Spindle cell",
+    "behaviour": "Benign",
+    "clinical": [
+      "Rare benign peripheral nerve sheath tumour showing pure perineural cell differentiation. Two main subtypes: intraneural perineurioma (young adults, fusiform nerve enlargement, motor deficits) and soft tissue perineurioma (adults, subcutaneous/intramuscular mass, no nerve association).",
+      "No association with NF1 or NF2. Sclerosing perineurioma: distinct variant — digits of young adults, no nerve involvement.",
+      "Trigger: 'onion bulb' formations on nerve biopsy in a young patient with progressive focal weakness — consider intraneural perineurioma."
+    ],
+    "micro": [
+      "Bland spindle cells with elongated bipolar cytoplasmic processes; indistinct cell borders; parallel or whorling arrangement.",
+      "Intraneural: concentric layering of perineural cells around axons ('onion bulb' pattern) — expanded nerve fascicle.",
+      "Soft tissue: storiform or whorling architecture in collagenous stroma; no axons within lesion.",
+      "Sclerosing variant: hypocellular, hyalinised stroma with epithelioid/spindle cells in cords and trabeculae — hands/fingers of young adults."
+    ],
+    "ihcPos": [
+      "EMA – diffuse (most reliable marker; lost in schwannoma/neurofibroma)",
+      "Claudin-1 – positive (tight junction protein; sensitive for perineural differentiation)",
+      "Glut-1 – positive",
+      "GFAP – negative (key negative)"
+    ],
+    "ihcNeg": [
+      "S100 – negative (key; distinguishes from schwannoma and neurofibroma)",
+      "SOX10 – negative",
+      "CD34 – negative (soft tissue type; occasional focal staining)",
+      "SMA – negative",
+      "Neurofilament – negative (no axons within lesion in soft tissue type)"
+    ],
+    "differentials": [
+      {
+        "dx": "Neurofibroma",
+        "disc": "S100+ (subset); SOX10+; EMA negative; entrapped axons (NF+); wavy collagen; CD34 stromal+; NF1 association"
+      },
+      {
+        "dx": "Schwannoma",
+        "disc": "S100 diffuse+; SOX10+; Antoni A/B; Verocay bodies; EMA in capsule only; thick-walled vessels; encapsulated"
+      },
+      {
+        "dx": "Synovial Sarcoma (monophasic)",
+        "disc": "TLE1+; SS18-SSX fusion (FISH); BCL2+; CD99+; focal CK/EMA; no EMA whorling pattern; more aggressive"
+      },
+      {
+        "dx": "Low-grade fibromyxoid sarcoma",
+        "disc": "MUC4+; FUS-CREB3L2 fusion; alternating fibrous/myxoid zones; EMA focal not diffuse"
+      }
+    ],
+    "comments": [
+      "EMA + Claudin-1 + Glut-1 combined: highly specific for perineural differentiation. S100 negativity is the key discriminator from schwannoma and neurofibroma.",
+      "Intraneural perineurioma: clinical presentation of progressive focal weakness in young adult with nerve enlargement on MRI — biopsy shows onion bulb formations.",
+      "Soft tissue perineurioma: benign, complete excision curative. No malignant counterpart (malignant perineurioma extremely rare).",
+      "Sclerosing perineurioma: most common in fingers of young adults; hyalinised stroma; EMA+ cords and trabeculae; must be distinguished from epithelioid sarcoma (INI1 retained in perineurioma).",
+      "Exam relevance: a rare entity but tests knowledge of EMA in the context of peripheral nerve sheath tumours — EMA+ PNST = perineurioma (not schwannoma)."
+    ],
+    "cytoLink": null,
+    "related": [
+      "neurofibroma-001",
+      "schwannoma-soft-001",
+      "mpnst-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "afxups-001",
+    "name": "ATYPICAL FIBROXANTHOMA (AFX) / SUPERFICIAL UPS",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Fibroblastic",
+    "pattern": "Spindle cell",
+    "behaviour": "Intermediate",
+    "clinical": [
+      "AFX: low-grade undifferentiated pleomorphic sarcoma confined to dermis; superficial UPS (sUPS) is the deeper variant extending into subcutis with higher metastatic potential. Both are diagnoses of exclusion.",
+      "Elderly patients; sun-damaged skin of head and neck; strong UV association (p53 mutations, TERT promoter mutations). Rapid growth; polypoid/ulcerated nodule.",
+      "Trigger: rapidly growing ulcerated nodule on sun-damaged scalp in an elderly patient — extensive IHC panel required to exclude all other spindle cell malignancies before AFX diagnosis."
+    ],
+    "micro": [
+      "Dermal-based nodule (does NOT extend into subcutis in classic AFX); no epidermal involvement.",
+      "Highly pleomorphic spindle, epithelioid, and bizarre multinucleate giant cells; marked nuclear atypia; brisk mitotic rate including atypical mitoses.",
+      "Minimal stroma; haemorrhage common; overlying ulceration.",
+      "Paradox: extreme pleomorphism + dermal confinement = low metastatic potential. Extension into subcutis/fascia = sUPS → reclassify.",
+      "No necrosis in classic AFX (necrosis raises suspicion for sUPS or other high-grade sarcoma)."
+    ],
+    "ihcPos": [
+      "CD10 – positive (most consistently expressed)",
+      "Vimentin – diffuse",
+      "Procollagen 1 – positive",
+      "p53 – aberrant (TP53 mutation)",
+      "TERT promoter mutation – present"
+    ],
+    "ihcNeg": [
+      "S100 – negative (excludes desmoplastic melanoma — most critical exclusion)",
+      "SOX10 – negative (excludes desmoplastic melanoma/spindle cell melanoma)",
+      "MelanA/HMB45 – negative",
+      "CK (AE1/AE3, MNF116) – negative (excludes spindle cell SCC/sarcomatoid carcinoma)",
+      "p63/p40 – negative (excludes spindle cell SCC)",
+      "Desmin/SMA – negative (excludes leiomyosarcoma/myofibroblastic tumours)",
+      "CD34 – negative (excludes DFSP/SFT)"
+    ],
+    "differentials": [
+      {
+        "dx": "Desmoplastic melanoma",
+        "disc": "S100+, SOX10+; associated melanoma in situ component; perineural invasion common; NTRK fusions; clinically more indolent but deeper invasion; MelanA/HMB45 usually negative"
+      },
+      {
+        "dx": "Spindle cell / sarcomatoid SCC",
+        "disc": "p63+, p40+; CK+; often arises in actinic keratosis/in situ SCC; dysplastic epidermal connection; FISH for CDKN2A"
+      },
+      {
+        "dx": "Leiomyosarcoma (cutaneous)",
+        "disc": "SMA+, Desmin+, h-caldesmon+; fascicular arrangement; less pleomorphic than AFX; cigar-shaped nuclei"
+      },
+      {
+        "dx": "Pleomorphic Dermal Sarcoma (PDS/sUPS)",
+        "disc": "Subcutaneous invasion + necrosis + PNI distinguishes PDS from AFX — same IHC profile; AFX is diagnosis of exclusion within dermis only"
+      }
+    ],
+    "comments": [
+      "AFX is a diagnosis of exclusion: before diagnosing AFX, a panel must be run and be negative for: S100/SOX10 (melanoma), CK/p63/p40 (SCC), SMA/Desmin (LMS), CD34 (DFSP/SFT). CD10 is the only consistently positive marker.",
+      "AFX vs PDS/sUPS: the distinction is anatomical and prognostic. AFX = dermis only, no necrosis, no PNI → low metastatic risk. PDS = subcutaneous extension OR necrosis OR PNI → intermediate/high risk.",
+      "TERT promoter and TP53 mutations: present in both AFX and PDS — not discriminatory between the two but support the diagnosis in the spindle cell pleomorphic context.",
+      "UV mutational signature: characteristic C>T transitions at dipyrimidine sites — supports UV pathogenesis.",
+      "Exam trap: S100 is the most important exclusion — desmoplastic melanoma and spindle cell melanoma can be markedly pleomorphic on sun-damaged skin. Never diagnose AFX without S100 and SOX10."
+    ],
+    "cytoLink": null,
+    "related": [
+      "pds-001",
+      "melanoma-001",
+      "cscc-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "desmoplastic-melanoma-001",
+    "name": "DESMOPLASTIC MELANOMA",
+    "subspecialty": "Skin / Dermatopath",
+    "category": "Melanocytic",
+    "pattern": "Spindle cell",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Rare variant of melanoma (~4% of all melanomas) with predominantly spindle cell, fibroblast-like morphology in a desmoplastic (sclerosing) stroma. Sun-damaged skin of head and neck; elderly patients; male predominance.",
+      "Pure desmoplastic melanoma (>90% desmoplastic component): paradoxically lower nodal metastasis rate (~5%) but high local recurrence. Mixed desmoplastic melanoma (>10% non-desmoplastic component): nodal risk similar to conventional melanoma.",
+      "Trigger: poorly marginated indurated scar-like lesion on sun-damaged face/scalp in elderly patient — always consider desmoplastic melanoma. Often clinically underestimated or missed."
+    ],
+    "micro": [
+      "Spindled melanocytes embedded in dense desmoplastic (collagenised/sclerosing) stroma — low cellularity, deceptively bland at first glance.",
+      "Perineural invasion: characteristic and common — infiltrating spindle cells tracking along nerve twigs; key diagnostic feature.",
+      "Overlying epidermal component: melanoma in situ or lentigo maligna-type change present in ~50-70% — critical clue; always examine full epidermis.",
+      "Lymphoid aggregates at periphery (Breslow depth assessed from granular cell layer to deepest invasive cell — same as conventional melanoma).",
+      "Nuclear atypia variable; mitoses may be sparse in pure desmoplastic variant."
+    ],
+    "ihcPos": [
+      "S100 – diffuse strong (most reliable; the critical positive marker)",
+      "SOX10 – diffuse nuclear",
+      "p75 (NGFR) – positive",
+      "Vimentin – diffuse"
+    ],
+    "ihcNeg": [
+      "HMB45 – negative (key; positive in conventional melanoma)",
+      "Melan-A (MART-1) – negative (key; positive in conventional melanoma)",
+      "MiTF – variable/weak (usually negative in pure desmoplastic)",
+      "CK – negative (excludes spindle cell SCC/sarcomatoid carcinoma)",
+      "CD34 – negative (excludes DFSP/SFT)"
+    ],
+    "differentials": [
+      {
+        "dx": "Spindle cell / sarcomatoid SCC",
+        "disc": "p63+, p40+, CK+; S100 negative; SOX10 negative; dysplastic epidermal connection; no lentigo maligna in situ component; no perineural tracking"
+      },
+      {
+        "dx": "AFX / Pleomorphic Dermal Sarcoma",
+        "disc": "S100 negative (key); SOX10 negative; CD10+; diagnosis of exclusion; no in situ melanocytic component; highly pleomorphic (AFX more so than DM)"
+      },
+      {
+        "dx": "Neurofibroma (desmoplastic/sclerotic)",
+        "disc": "S100 patchy (not diffuse); SOX10+; CD34 stromal+; entrapped axons; no lentigo maligna; NF1 association"
+      },
+      {
+        "dx": "Conventional Schwannoma",
+        "disc": "S100 diffuse+ (shared); Antoni A/B; Verocay bodies; encapsulated; no epidermal melanocytic in situ component; HMB45/Melan-A negative (shared)"
+      }
+    ],
+    "comments": [
+      "S100 + SOX10 are the critical positive markers — HMB45 and Melan-A are typically NEGATIVE in pure desmoplastic melanoma (unlike conventional melanoma). Failure to recognise this leads to false negatives.",
+      "NTRK1/2/3 fusions: present in ~5-10% of desmoplastic melanomas — targetable with larotrectinib/entrectinib. Test in metastatic disease.",
+      "NF1 mutation: most common driver (~50%) in desmoplastic melanoma — distinct from BRAF V600E-driven conventional melanoma. BRAF V600E rare in desmoplastic melanoma.",
+      "Pure vs mixed desmoplastic melanoma: pure = sentinel node biopsy may be omitted (low nodal risk ~5%); mixed = sentinel node biopsy as per conventional melanoma. Report percentage desmoplastic component.",
+      "Exam trap: HMB45/Melan-A negative spindle cell tumour on sun-damaged skin = do NOT exclude melanoma — always include S100 and SOX10. Desmoplastic melanoma is the classic false negative for the conventional melanoma panel."
+    ],
+    "cytoLink": null,
+    "related": [
+      "melanoma-001",
+      "afxups-001",
+      "neurofibroma-001"
     ]
   },
   {
@@ -10530,7 +11058,7 @@ const SEED_DATA = [
     ]
   },
   {
-    "id": "bcc-001",
+    "id": "bcc-v1-001",
     "type": "histology",
     "name": "BASAL CELL CARCINOMA (BCC)",
     "subspecialty": "Skin / Dermatopath",
@@ -10855,7 +11383,9 @@ const SEED_DATA = [
     "related": [
       "cscc-001",
       "melanoma-001",
-      "mpnst-001"
+      "mpnst-001",
+      "afxups-001",
+      "desmoplastic-melanoma-001"
     ]
   },
   {
@@ -13515,13 +14045,21 @@ function ihcExplore() {
   const allPos = [...posH, ...posC];
   const allNeg = [...negH, ...negC];
 
-  // Discriminatory pairs
+  // Discriminatory pairs — only fire when diff.dx is substantial (≥8 chars)
+  // This prevents short acronyms (SCC, AFX, PA, MTC) from spuriously matching
+  // unrelated entity names and pulling in wrong discriminator text.
   const pairs = [];
   const posIds = new Set(allPos.map(x => x.entity.id));
   const negIds = new Set(allNeg.map(x => x.entity.id));
   allPos.forEach(({ entity: posE, note: posNote }) => {
     (posE.differentials||[]).forEach(diff => {
-      const negMatch = allNeg.find(ne => ne.entity.id !== posE.id && (ne.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) || diff.dx.toLowerCase().includes(ne.entity.name.toLowerCase().substring(0,10))));
+      if (!diff.dx || diff.dx.trim().length < 8) return;
+      const dxL = diff.dx.toLowerCase();
+      const negMatch = allNeg.find(ne =>
+        ne.entity.id !== posE.id &&
+        (ne.entity.name.toLowerCase().includes(dxL) ||
+         dxL.includes(ne.entity.name.toLowerCase().substring(0, Math.min(20, ne.entity.name.length))))
+      );
       if (negMatch) {
         const key = [posE.id, negMatch.entity.id].sort().join('|');
         if (!pairs.find(p => p.key === key)) pairs.push({ key, posE, negE: negMatch.entity, posNote, negNote: negMatch.note, disc: diff.disc });
@@ -13530,7 +14068,13 @@ function ihcExplore() {
   });
   allNeg.forEach(({ entity: negE, note: negNote }) => {
     (negE.differentials||[]).forEach(diff => {
-      const posMatch = allPos.find(pe => pe.entity.id !== negE.id && (pe.entity.name.toLowerCase().includes(diff.dx.toLowerCase()) || diff.dx.toLowerCase().includes(pe.entity.name.toLowerCase().substring(0,10))));
+      if (!diff.dx || diff.dx.trim().length < 8) return;
+      const dxL = diff.dx.toLowerCase();
+      const posMatch = allPos.find(pe =>
+        pe.entity.id !== negE.id &&
+        (pe.entity.name.toLowerCase().includes(dxL) ||
+         dxL.includes(pe.entity.name.toLowerCase().substring(0, Math.min(20, pe.entity.name.length))))
+      );
       if (posMatch) {
         const key = [negE.id, posMatch.entity.id].sort().join('|');
         if (!pairs.find(p => p.key === key)) pairs.push({ key, posE: posMatch.entity, negE, posNote: posMatch.note, negNote, disc: diff.disc });
