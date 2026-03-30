@@ -674,8 +674,212 @@
   }
   #toast.show { opacity: 1; transform: translateY(0); }
 
-  /* ── Import hidden ─────────────────────────────────── */
-  #import-input { display: none; }
+  /* ── Molecular Panel ─────────────────────────────────── */
+  #mol-panel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--bg);
+  }
+  #mol-panel.active { display: block; }
+  #mol-panel::-webkit-scrollbar { width: 6px; }
+  #mol-panel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  .mol-container { max-width: 1000px; margin: 0 auto; }
+
+  .mol-header-wrap {
+    margin-bottom: 28px;
+  }
+  .mol-search-wrap h2 {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .mol-search-wrap p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .mol-search-row { margin-bottom: 12px; }
+  #mol-search {
+    width: 100%;
+    max-width: 560px;
+    padding: 11px 16px;
+    border-radius: 9px;
+    border: 2px solid var(--border);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #mol-search:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(59,130,246,0.1); }
+
+  .mol-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mol-chip {
+    padding: 5px 13px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .mol-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .mol-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Gene cards */
+  .mol-gene-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .mol-gene-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+
+  .mol-gene-header {
+    display: flex;
+    align-items: center;
+    padding: 13px 18px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+  .mol-gene-card.open .mol-gene-chevron { transform: rotate(90deg); }
+  .mol-gene-chevron {
+    width: 18px; height: 18px;
+    color: var(--light);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .mol-gene-name {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    min-width: 120px;
+  }
+  .mol-gene-badges { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; }
+  .mol-badge {
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .mol-badge-type-tsg { background: #fee2e2; color: #991b1b; }
+  .mol-badge-type-onco { background: #fef3c7; color: #92400e; }
+  .mol-badge-type-fusion { background: #f3e8ff; color: #6b21a8; }
+  .mol-badge-type-other { background: #e0eaff; color: #1d4ed8; }
+  .mol-badge-germline { background: #dcfce7; color: #166534; }
+  .mol-badge-targeted { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+  .mol-badge-highyield { background: #fef9c3; color: #713f12; }
+  .mol-entity-count {
+    font-size: 11px;
+    color: var(--muted);
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .mol-gene-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 16px 20px 18px;
+  }
+  .mol-gene-card.open .mol-gene-body { display: block; }
+
+  .mol-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .mol-info-block {
+    background: #f8fafc;
+    border: 1px solid #e8edf5;
+    border-radius: 7px;
+    padding: 10px 13px;
+  }
+  .mol-info-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 5px;
+  }
+  .mol-info-value {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .mol-exam-note {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 7px;
+    padding: 10px 13px;
+    margin-bottom: 14px;
+  }
+  .mol-exam-note .mol-info-label { color: var(--orange); }
+  .mol-exam-note .mol-info-value { font-size: 12.5px; color: #44403c; }
+
+  .mol-entities-section { margin-top: 2px; }
+  .mol-entities-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--navy2);
+    margin-bottom: 8px;
+  }
+  .mol-entity-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mol-entity-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #bfdbfe;
+    transition: all 0.15s;
+    line-height: 1.3;
+  }
+  .mol-entity-chip:hover { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+  .mol-entity-chip .chip-sub {
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+  .mol-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .mol-results-info {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  @media (max-width: 640px) {
+    #mol-panel { padding: 16px; }
+    .mol-info-grid { grid-template-columns: 1fr 1fr; }
+    .mol-gene-name { font-size: 14px; min-width: 90px; }
+  }
+
 
   /* ── Highlight ─────────────────────────────────────── */
   mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 1px; }
@@ -1324,6 +1528,7 @@
   <button class="tab-btn" onclick="switchTab('ihc', this)">🔬 IHC Explorer</button>
   <button class="tab-btn" onclick="switchTab('revision', this)">📝 Revision</button>
   <button class="tab-btn" onclick="switchTab('exams', this)">📅 Past Exams</button>
+  <button class="tab-btn" onclick="switchTab('molecular', this)">🧬 Molecular</button>
 </div>
 <input type="file" id="import-input" accept=".json" onchange="importData(event)">
 
@@ -3508,6 +3713,29 @@
           <tbody id="exam-table-body"></tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <!-- Molecular panel -->
+  <div id="mol-panel">
+    <div class="mol-container">
+      <div class="mol-header-wrap">
+        <div class="mol-search-wrap">
+          <h2>🧬 Molecular Index</h2>
+          <p>Gene-centric pivot derived from all Codex entities. Search a gene or select a category.</p>
+          <div class="mol-search-row">
+            <input type="text" id="mol-search" placeholder="Search gene, e.g. DICER1, BRAF, ALK…" oninput="renderMolPanel()">
+          </div>
+          <div class="mol-filter-chips" id="mol-filter-chips">
+            <button class="mol-chip active" data-mf="all" onclick="setMolFilter('all',this)">All</button>
+            <button class="mol-chip" data-mf="germline" onclick="setMolFilter('germline',this)">Germline / Syndromic</button>
+            <button class="mol-chip" data-mf="fusion" onclick="setMolFilter('fusion',this)">Fusion Genes</button>
+            <button class="mol-chip" data-mf="targeted" onclick="setMolFilter('targeted',this)">Targeted Therapy</button>
+            <button class="mol-chip" data-mf="highyield" onclick="setMolFilter('highyield',this)">⭐ Exam High-Yield</button>
+          </div>
+        </div>
+      </div>
+      <div id="mol-results"></div>
     </div>
   </div>
 
@@ -13198,6 +13426,7 @@ function switchTab(tab, btn) {
   const ihcPanel    = document.getElementById('ihc-panel');
   const revPanel    = document.getElementById('revision-panel');
   const examPanel   = document.getElementById('exam-panel');
+  const molPanel    = document.getElementById('mol-panel');
 
   sidebar.style.display     = tab === 'entities'  ? '' : 'none';
   main.style.display        = tab === 'entities'  ? '' : 'none';
@@ -13206,12 +13435,14 @@ function switchTab(tab, btn) {
   ihcPanel.classList.toggle('active', tab === 'ihc');
   revPanel.classList.toggle('active', tab === 'revision');
   examPanel.classList.toggle('active', tab === 'exams');
+  molPanel.classList.toggle('active', tab === 'molecular');
 
   if (tab === 'entities')  render();
   if (tab === 'cytology')  renderCytology();
   if (tab === 'ihc')       { document.getElementById('ihc-search').focus(); buildIhcSuggestions(); }
   if (tab === 'revision')  revPopulateFilters();
   if (tab === 'exams')     { initExamStats(); renderExamTable(); }
+  if (tab === 'molecular') renderMolPanel();
   closeSidebar();
 }
 
@@ -13732,8 +13963,514 @@ function revStop() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// INIT
+// MOLECULAR TAB — GENE REGISTRY + PIVOT ENGINE
 // ═══════════════════════════════════════════════════════════════════════════
+
+// Each entry: gene name (used as search key), aliases for text scanning,
+// type (tsg/onco/fusion/other), flags, exam note, drug/therapy note
+const GENE_REGISTRY = [
+  // ── DICER1 ──
+  { gene: 'DICER1', aliases: ['DICER1'],
+    type: 'other', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'DICER1 RNase III endonuclease',
+    inheritance: 'AD (germline); somatic second hit required (two-hit)',
+    mechanism: 'Loss-of-function → impaired miRNA processing → dysregulation of development',
+    examNote: 'Spectrum: PPB (Type I→III), SLCT (ovary), embryonal RMS (cervix), cystic nephroma/CPDN, thyroid nodular goitre/DTC, pituitary blastoma, nasal chondromesenchymal hamartoma, Sertoli-Leydig cell tumour. Knowing the FULL tumour spectrum is a direct exam ask.',
+    therapy: 'No approved targeted therapy; surveillance protocols for carriers'
+  },
+  // ── BRAF ──
+  { gene: 'BRAF', aliases: ['BRAF', 'BRAF V600E', 'V600E', 'dabrafenib', 'vemurafenib'],
+    type: 'onco', germline: false, fusion: false, targeted: true, highYield: true,
+    fullName: 'B-Raf proto-oncogene serine/threonine kinase',
+    inheritance: 'Somatic; germline in Noonan/LEOPARD',
+    mechanism: 'V600E activating mutation → constitutive MEK/ERK signalling',
+    examNote: 'V600E in: PTC (80% classical), ATC (40%), GIST wild-type subset, LCH, HCL, low-grade glioma (paediatric), melanoma, colorectal (right-sided, MSI-H). PTC: BRAF+ IHC (VE1 clone) as surrogate. ATC: dabrafenib+trametinib (BRAF+MEK) approved. LGSC: BRAF/KRAS/NRAS → MEK inhibitor (binimetinib).',
+    therapy: 'Dabrafenib + trametinib (ATC, melanoma); vemurafenib (melanoma); MEK inhibitor for LGSC'
+  },
+  // ── RET ──
+  { gene: 'RET', aliases: ['RET', 'RET/PTC', 'vandetanib', 'cabozantinib', 'selpercatinib', 'pralsetinib'],
+    type: 'onco', germline: true, fusion: true, targeted: true, highYield: true,
+    fullName: 'REarranged during Transfection proto-oncogene',
+    inheritance: 'Germline (MEN2A codon 634; MEN2B codon 918; FMTC) or somatic (sporadic MTC ~50%; RET/PTC rearrangement in PTC)',
+    mechanism: 'Activating point mutation (MTC) or rearrangement/fusion (PTC)',
+    examNote: 'ALL MTC: test for germline RET. MEN2A: codon 634 (phaeochromocytoma + PHPT). MEN2B: codon 918 — most aggressive, marfanoid + mucosal neuromas. RET/PTC rearrangements: radiation-associated PTC (younger patients). Prophylactic thyroidectomy in RET carriers by risk stratification.',
+    therapy: 'Selpercatinib/pralsetinib (selective RET inhibitors); vandetanib/cabozantinib (multi-kinase)'
+  },
+  // ── ALK ──
+  { gene: 'ALK', aliases: ['ALK', 'ALK rearrangement', 'crizotinib', 'entrectinib', 'alectinib'],
+    type: 'onco', germline: false, fusion: true, targeted: true, highYield: true,
+    fullName: 'Anaplastic Lymphoma Kinase',
+    inheritance: 'Somatic rearrangement; various fusion partners (TPM3, CLTC, EML4, RANBP2)',
+    mechanism: 'Fusion creates constitutively active kinase → proliferation, anti-apoptosis',
+    examNote: 'IMT (50–60%): cytoplasmic/perinuclear/nuclear pattern depends on partner. RANBP2-ALK = epithelioid IMT, more aggressive. ALCL (T-cell lymphoma). Lung adenocarcinoma (EML4-ALK). IHC screening; confirm with FISH or RNA-seq. RANBP2 fusion → perinuclear (dot-like) pattern.',
+    therapy: 'Crizotinib (1st-gen); alectinib, lorlatinib (2nd/3rd-gen); entrectinib'
+  },
+  // ── KIT ──
+  { gene: 'KIT', aliases: ['KIT', 'CD117', 'c-KIT', 'imatinib', 'sunitinib'],
+    type: 'onco', germline: false, fusion: false, targeted: true, highYield: true,
+    fullName: 'KIT proto-oncogene receptor tyrosine kinase',
+    inheritance: 'Somatic; germline rare (familial GIST)',
+    mechanism: 'Activating mutation → ligand-independent receptor activation',
+    examNote: 'GIST: exon 11 del/ins (50%, best imatinib response); exon 9 (double-dose imatinib); exon 13/17 (resistance). PDGFRA D842V = imatinib-resistant → avapritinib. Wild-type GIST (no KIT/PDGFRA): SDH-deficient, NF1, BRAF, NTRK subsets — all imatinib-insensitive. Mutational analysis mandatory for high-risk/metastatic.',
+    therapy: 'Imatinib (1st-line), sunitinib (2nd), regorafenib (3rd); avapritinib for PDGFRA D842V'
+  },
+  // ── PDGFRA ──
+  { gene: 'PDGFRA', aliases: ['PDGFRA', 'PDGFRA D842V', 'avapritinib'],
+    type: 'onco', germline: false, fusion: false, targeted: true, highYield: false,
+    fullName: 'Platelet-derived growth factor receptor alpha',
+    inheritance: 'Somatic (GIST); germline rare',
+    mechanism: 'Activating mutation; D842V in exon 18 = imatinib-resistant',
+    examNote: 'GIST exon 18 D842V (~10%): gastric location, epithelioid morphology; imatinib-resistant. Avapritinib (specific PDGFRA inhibitor) approved. Inflammatory fibroid polyp: PDGFRA exon 12/14/18 mutations — benign.',
+    therapy: 'Avapritinib for D842V GIST; imatinib-insensitive'
+  },
+  // ── KRAS ──
+  { gene: 'KRAS', aliases: ['KRAS', 'GNAS', 'RAS', 'NRAS', 'HRAS'],
+    type: 'onco', germline: false, fusion: false, targeted: false, highYield: true,
+    fullName: 'Kirsten rat sarcoma viral proto-oncogene',
+    inheritance: 'Somatic',
+    mechanism: 'Activating mutation → constitutive RAS/MAPK signalling',
+    examNote: 'Colorectal: KRAS/NRAS/BRAF/MSI testing mandatory for anti-EGFR eligibility (cetuximab/panitumumab only if RAS wild-type). Appendiceal mucinous neoplasms (LAMN/HAMN): KRAS codon 12/13 + GNAS. LGSC (ovary): KRAS/BRAF/NRAS/ERBB2 mutations — MEK inhibitor target. Pancreatic PDAC: KRAS G12C inhibitors emerging.',
+    therapy: 'KRAS G12C: sotorasib/adagrasib; anti-EGFR only if RAS wild-type colorectal'
+  },
+  // ── TP53 ──
+  { gene: 'TP53', aliases: ['TP53', 'p53', 'Li-Fraumeni'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Tumour protein p53 (guardian of the genome)',
+    inheritance: 'Germline in Li-Fraumeni syndrome (AD); somatic in most cancers',
+    mechanism: 'Loss of cell cycle arrest, apoptosis, DNA repair regulation',
+    examNote: 'IHC surrogates: aberrant = diffuse strong (missense) OR complete null (nonsense/frameshift). Wild-type = heterogeneous/moderate. HGSC: p53 aberrant (definition). ATC: >70%. NEC (GI/pulm): TP53+RB1 loss. Endometrial TCGA: p53-mutant = worst prognostic group (NSMP/p53abn). Do NOT over-interpret patchy moderate staining as aberrant.',
+    therapy: 'No direct targeted therapy; guides molecular subtyping'
+  },
+  // ── BRCA1/2 ──
+  { gene: 'BRCA1/2', aliases: ['BRCA1', 'BRCA2', 'BRCA', 'HRD', 'homologous recombination', 'olaparib', 'niraparib', 'rucaparib', 'PARP'],
+    type: 'tsg', germline: true, fusion: false, targeted: true, highYield: true,
+    fullName: 'Breast Cancer gene 1/2 — homologous recombination repair',
+    inheritance: 'Germline (hereditary breast/ovarian); somatic BRCA alteration ~10% additional in HGSC',
+    mechanism: 'Loss of HR → genomic instability; sensitises to PARP inhibition (synthetic lethality)',
+    examNote: 'HGSC: ~15-20% germline BRCA1/2; overall HRD ~50%. BRCA/HRD testing mandatory on ALL HGSC for PARP inhibitor eligibility. Triple-negative breast carcinoma: germline BRCA testing. Report BRCA status in effusion cytology if known. BRCA1 carrier: higher lifetime breast/ovarian risk; risk-reducing BSO by 35-40.',
+    therapy: 'PARP inhibitors: olaparib, niraparib, rucaparib (maintenance therapy)'
+  },
+  // ── MLH1/MSH2/MSH6/PMS2 (MMR/Lynch) ──
+  { gene: 'MMR/Lynch', aliases: ['MLH1', 'MSH2', 'MSH6', 'PMS2', 'MMR', 'Lynch', 'MSI', 'mismatch repair', 'microsatellite instability', 'pembrolizumab'],
+    type: 'tsg', germline: true, fusion: false, targeted: true, highYield: true,
+    fullName: 'Mismatch repair genes (MLH1, MSH2, MSH6, PMS2)',
+    inheritance: 'Germline AD (Lynch syndrome); sporadic via MLH1 promoter methylation',
+    mechanism: 'Loss of MMR → microsatellite instability → hypermutation',
+    examNote: 'Lynch syndrome: colorectal (right-sided, mucin-poor, TILs, Crohn-like), endometrial, ovarian (clear cell/endometrioid), sebaceous neoplasms (Muir-Torre). Test ALL endometrial/colorectal: MLH1 loss → reflex MLH1 methylation (sporadic vs germline Lynch). PD-1 blockade (pembrolizumab) approved MSI-H/dMMR tumours regardless of origin.',
+    therapy: 'Pembrolizumab (MSI-H/dMMR); dostarlimab (endometrial dMMR)'
+  },
+  // ── POLE ──
+  { gene: 'POLE', aliases: ['POLE', 'POLE-ultramutated', 'ultramutated'],
+    type: 'other', germline: false, fusion: false, targeted: false, highYield: true,
+    fullName: 'DNA polymerase epsilon catalytic subunit',
+    inheritance: 'Somatic (proofreading domain mutations)',
+    mechanism: 'Loss of proofreading → ultramutation → immunogenic tumour',
+    examNote: 'Endometrial carcinoma TCGA group 1 (POLE-ultramutated): paradoxically BEST prognosis despite high-grade morphology and brisk TILs. Do NOT over-treat based on morphology. Ultramutated → high immunogenicity → checkpoint inhibitor potential. Also described in colorectal.',
+    therapy: 'Excellent prognosis with surgery alone; immunotherapy potential'
+  },
+  // ── SS18-SSX ──
+  { gene: 'SS18-SSX', aliases: ['SS18', 'SSX', 'SS18-SSX1', 'SS18-SSX2', 'synovial sarcoma'],
+    type: 'fusion', germline: false, fusion: true, targeted: false, highYield: true,
+    fullName: 'SS18-SSX fusion (t(X;18)(p11;q11))',
+    inheritance: 'Somatic translocation t(X;18)',
+    mechanism: 'Fusion protein disrupts SWI/SNF chromatin remodelling',
+    examNote: 'Defining event of synovial sarcoma — present in all subtypes. TLE1 IHC: sensitive screening (also focal in SFT/MPNST — confirm with FISH/RNA-seq). SS18-SSX1: more biphasic; SS18-SSX2: more monophasic. Ifosfamide-sensitive. Young adults; GI, lung, extremity. Exam: IHC panel (TLE1+, CD99+, BCL2+; S100 focal; Cytokeratin in epithelial component).',
+    therapy: 'Ifosfamide-based chemotherapy; NY-ESO-1 (cancer-testis antigen) targeted approaches in trials'
+  },
+  // ── NAB2-STAT6 ──
+  { gene: 'NAB2-STAT6', aliases: ['NAB2', 'STAT6', 'NAB2-STAT6', 'solitary fibrous'],
+    type: 'fusion', germline: false, fusion: true, targeted: false, highYield: true,
+    fullName: 'NAB2-STAT6 fusion (12q13 inversion)',
+    inheritance: 'Somatic intrachromosomal inversion inv(12)',
+    mechanism: 'Creates constitutive transcriptional activator',
+    examNote: 'Defining event of solitary fibrous tumour (SFT). STAT6 nuclear IHC: highly sensitive/specific surrogate for fusion. CD34+ in classic SFT (lost in higher-grade). Malignant SFT: hypercellularity, ≥4 mitoses/10HPF, necrosis, MDM2 amplification. Risk stratification: Demicco score. Meningeal SFT/haemangiopericytoma = same entity.',
+    therapy: 'Surgery; temozolomide + bevacizumab for metastatic; no approved targeted therapy'
+  },
+  // ── ETV6-NTRK3 ──
+  { gene: 'ETV6-NTRK3', aliases: ['ETV6', 'NTRK3', 'ETV6-NTRK3', 'secretory carcinoma', 'entrectinib', 'larotrectinib', 'NTRK'],
+    type: 'fusion', germline: false, fusion: true, targeted: true, highYield: true,
+    fullName: 'ETV6-NTRK3 fusion t(12;15)(p13;q25)',
+    inheritance: 'Somatic translocation',
+    mechanism: 'Constitutive TrkC kinase activation',
+    examNote: 'Defining event of Secretory Carcinoma (salivary, breast, thyroid). GCDFP-15+, mammaglobulin+, S100+, MUC4+. Indolent behaviour. Pan-NTRK inhibitors (larotrectinib/entrectinib) approved for NTRK-fusion positive solid tumours regardless of histology. NTRK rearrangements also in: GIST (wild-type), IMT (ALK-negative), congenital fibrosarcoma (ETV6-NTRK3).',
+    therapy: 'Larotrectinib, entrectinib (pan-TRK inhibitors); agnostic approval'
+  },
+  // ── MAML2 ──
+  { gene: 'MAML2', aliases: ['MAML2', 'CRTC1-MAML2', 'mucoepidermoid'],
+    type: 'fusion', germline: false, fusion: true, targeted: false, highYield: true,
+    fullName: 'Mastermind-like transcriptional coactivator 2; CRTC1-MAML2 t(11;19)',
+    inheritance: 'Somatic translocation t(11;19)(q21;p13)',
+    mechanism: 'Fusion disrupts Notch signalling; activates CREB pathway',
+    examNote: 'Most mucoepidermoid carcinomas (70%). MAML2-positive MEC: better prognosis than MAML2-negative. Fusion FISH diagnostic in Milan IVb/V salivary FNA. Low-grade MEC: MAML2+ essentially benign behaviour. High-grade MAML2-negative: aggressive, adenocarcinoma-like. IHC marker: p63+, CK5/6+; mucin stains. Exam: epidermoid + mucous + intermediate cells.',
+    therapy: 'Surgery; no approved targeted therapy'
+  },
+  // ── MYB/MYBL1 ──
+  { gene: 'MYB', aliases: ['MYB', 'MYBL1', 'MYB-NFIB', 'adenoid cystic'],
+    type: 'fusion', germline: false, fusion: true, targeted: false, highYield: true,
+    fullName: 'MYB proto-oncogene; MYB-NFIB fusion t(6;9)',
+    inheritance: 'Somatic translocation t(6;9)(q22-23;p23-24)',
+    mechanism: 'Fusion drives MYB overexpression → proliferation',
+    examNote: 'Adenoid Cystic Carcinoma (AdCC): MYB-NFIB t(6;9) in ~50%; MYBL1 rearrangements in MYB-negative. Cribriform/tubular/solid subtypes. MYB IHC (nuclear) as surrogate. Most perineural invasion of any salivary tumour. Lung metastases decades later (indolent metastatic disease). ACC IHC: p63+, p40+, CD117+, S100+, SOX10+, CK5/6+; dual myoepithelial-luminal population.',
+    therapy: 'Surgery ± RT; no effective systemic therapy for metastatic disease'
+  },
+  // ── PRKD1 ──
+  { gene: 'PRKD1', aliases: ['PRKD1', 'PRKD2', 'PRKD3', 'polymorphous adenocarcinoma', 'PAC'],
+    type: 'onco', germline: false, fusion: false, targeted: false, highYield: false,
+    fullName: 'Protein kinase D1 — E710D hotspot mutation',
+    inheritance: 'Somatic',
+    mechanism: 'E710D hotspot activating mutation → constitutive PRKD1 kinase activity',
+    examNote: 'Polymorphous Adenocarcinoma (PAC): PRKD1 E710D in 73-89%; PRKD1/2/3 gene fusions in ~11%. Distinguishes PAC from AdCC (MYB/MYBL1). PAC: minor salivary glands (palate); cytologic uniformity + architectural diversity (cribriform, papillary, tubular, fascicular). p63+; CD117− (distinguishes from AdCC).',
+    therapy: 'Surgery; favourable prognosis'
+  },
+  // ── PLAG1/HMGA2 ──
+  { gene: 'PLAG1/HMGA2', aliases: ['PLAG1', 'HMGA2', 'pleomorphic adenoma', 'carcinoma ex PA'],
+    type: 'fusion', germline: false, fusion: true, targeted: false, highYield: false,
+    fullName: 'Pleomorphic adenoma gene 1 / High mobility group AT-hook 2',
+    inheritance: 'Somatic rearrangement',
+    mechanism: 'Transcription factor deregulation driving PA proliferation',
+    examNote: 'Pleomorphic adenoma: PLAG1 rearrangement (most common); HMGA2 rearrangement (second). Carcinoma ex PA: PLAG1/HMGA2 retained (clonal origin confirmed). Recurrent PA after incomplete excision: risk of malignant transformation increases with each recurrence. Exam: PA IHC — PLAG1 nuclear IHC available; HMGA2 nuclear.',
+    therapy: 'Surgery (complete excision reduces recurrence/transformation risk)'
+  },
+  // ── FUS-CREB3L2 ──
+  { gene: 'FUS-CREB3L2', aliases: ['FUS', 'CREB3L2', 'FUS-CREB3L2', 'LGFMS', 'low grade fibromyxoid'],
+    type: 'fusion', germline: false, fusion: true, targeted: false, highYield: false,
+    fullName: 'FUS-CREB3L2 fusion t(7;16); rarely FUS-CREB3L1',
+    inheritance: 'Somatic translocation t(7;16)(q33;p11)',
+    mechanism: 'Fusion creates aberrant bZIP transcription factor',
+    examNote: 'Defining event of Low Grade Fibromyxoid Sarcoma (LGFMS / Evans tumour). MUC4 IHC: sensitive/specific surrogate. Deceptively bland morphology — metastatic potential despite low-grade appearance. Alternating fibrous and myxoid zones; arcuate vessels. Deep soft tissue adults. Exam trap: bland spindle cells with myxoid areas → always consider LGFMS if MUC4+.',
+    therapy: 'Surgery (wide margins); no effective systemic therapy'
+  },
+  // ── MDM2 / CDK4 ──
+  { gene: 'MDM2/CDK4', aliases: ['MDM2', 'CDK4', 'well differentiated liposarcoma', 'dedifferentiated liposarcoma', 'WDLPS', 'DDLPS'],
+    type: 'onco', germline: false, fusion: false, targeted: false, highYield: true,
+    fullName: 'MDM2 amplification + CDK4 amplification (12q13-15 amplicon)',
+    inheritance: 'Somatic gene amplification',
+    mechanism: 'MDM2 → p53 degradation; CDK4 → cell cycle entry; co-amplified in WDLPS/DDLPS',
+    examNote: 'WDLPS and DDLPS: MDM2 amplification (FISH) defines both. MDM2+/CDK4+ IHC as screening. Retroperitoneal/paratesticular. DDLPS: areas of WD component + non-lipogenic dedifferentiated component. Exam: "giant cells in spindle cell tumour" → consider DDLPS. MDM2 FISH mandatory for all retroperitoneal lipomatous tumours. Also seen in intimal sarcoma, some osteosarcoma.',
+    therapy: 'MDM2 inhibitors (milademetan) in trials; surgery primary'
+  },
+  // ── SDHx ──
+  { gene: 'SDHx', aliases: ['SDH', 'SDHA', 'SDHB', 'SDHC', 'SDHD', 'succinate dehydrogenase', 'Carney-Stratakis', 'paraganglioma'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Succinate dehydrogenase subunits A/B/C/D',
+    inheritance: 'AD (SDHB/C/D germline); SDHA AR or de novo',
+    mechanism: 'Loss of SDH complex → succinate accumulation → HIF-α stabilisation → pseudohypoxia',
+    examNote: 'SDH-deficient GIST: young adults; gastric; multinodular; LVI; lymph node mets (unique to GIST). SDHB IHC loss = surrogate for any SDH subunit loss. Carney-Stratakis syndrome: GIST + paraganglioma (SDH germline). Carney triad: GIST + paraganglioma + pulmonary chondroma (non-hereditary). SDH-deficient renal cell carcinoma (bubbly/foamy cytoplasm). Paraganglioma/phaeochromocytoma: SDHB loss = ~70% malignant risk.',
+    therapy: 'Imatinib-insensitive; sunitinib second-line; surveillance for related tumours'
+  },
+  // ── VHL ──
+  { gene: 'VHL', aliases: ['VHL', 'von Hippel-Lindau', 'clear cell RCC', 'haemangioblastoma', 'bevacizumab'],
+    type: 'tsg', germline: true, fusion: false, targeted: true, highYield: true,
+    fullName: 'Von Hippel-Lindau tumour suppressor',
+    inheritance: 'AD (germline); somatic loss in sporadic clear cell RCC (~80%)',
+    mechanism: 'Loss → HIF-1α/2α stabilisation → VEGF/PDGF overexpression → angiogenesis',
+    examNote: 'VHL syndrome: bilateral/multifocal clear cell RCC, haemangioblastoma (cerebellum/retina/spine), phaeochromocytoma, pancreatic NETs, endolymphatic sac tumour. Sporadic ccRCC: biallelic VHL loss (~80%). HIF-2α inhibitor (belzutifan) FDA-approved for VHL-mutant RCC, haemangioblastoma. Exam: bilateral RCC in young patient → VHL until proven otherwise.',
+    therapy: 'Belzutifan (HIF-2α inhibitor) for VHL disease; VEGF pathway TKIs for sporadic ccRCC'
+  },
+  // ── NF1/NF2 ──
+  { gene: 'NF1/NF2', aliases: ['NF1', 'NF2', 'neurofibromatosis', 'MPNST', 'schwannoma', 'meningioma'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Neurofibromin 1 / Neurofibromin 2 (Merlin)',
+    inheritance: 'AD (both)',
+    mechanism: 'NF1: RAS-GAP loss → RAS hyperactivation. NF2: Merlin loss → Hippo/mTOR pathway dysregulation',
+    examNote: 'NF1: plexiform neurofibromas → MPNST (50% of all MPNST arise in NF1). Multiple small bowel GISTs. Loss of H3K27me3 (EED/SUZ12 loss) in MPNST — IHC surrogate for malignant transformation. NF2: bilateral vestibular schwannomas (pathognomonic), meningiomas (often multiple), spinal ependymomas. GI Schwannomas: no NF2 mutation (distinct entity).',
+    therapy: 'MEK inhibitors (selumetinib) for NF1-related plexiform neurofibromas; bevacizumab for NF2 vestibular schwannoma'
+  },
+  // ── PTCH1 ──
+  { gene: 'PTCH1', aliases: ['PTCH1', 'Gorlin', 'basal cell naevus', 'hedgehog', 'vismodegib'],
+    type: 'tsg', germline: true, fusion: false, targeted: true, highYield: true,
+    fullName: 'Patched homolog 1 — Hedgehog pathway receptor',
+    inheritance: 'AD (Gorlin/NBCCS)',
+    mechanism: 'Loss of PTCH1 → constitutive Hedgehog/SMO signalling → proliferation',
+    examNote: 'Gorlin syndrome (NBCCS): multiple BCCs (childhood), jaw keratocysts (odontogenic), calcified falx cerebri, bifid ribs, medulloblastoma (desmoplastic/nodular type), bilateral/calcified ovarian fibromas. Vismodegib (SMO inhibitor) for locally advanced BCC. Jaw keratocyst exam feature: orthokeratotic, thin corrugated epithelium, palisaded basal layer.',
+    therapy: 'Vismodegib, sonidegib (Hedgehog inhibitors) for advanced BCC'
+  },
+  // ── CDH1 ──
+  { gene: 'CDH1', aliases: ['CDH1', 'E-cadherin', 'HDGC', 'hereditary diffuse gastric', 'lobular breast', 'signet ring'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Cadherin 1 (E-cadherin)',
+    inheritance: 'AD (hereditary diffuse gastric cancer — HDGC)',
+    mechanism: 'Loss of epithelial adhesion → diffuse/signet ring cell infiltration without cohesion',
+    examNote: 'HDGC: CDH1 germline → prophylactic total gastrectomy by 20-30 years (if family history confirmed). IHC: E-cadherin loss in signet ring/lobular phenotype. Sporadic signet ring gastric carcinoma: also E-cadherin loss (somatic). Lobular breast carcinoma: E-cadherin negative (loss of membranous staining). Peritoneal signet ring disease → always consider gastric primary + CDH1. Exam: loss of E-cadherin = lobular breast or diffuse gastric.',
+    therapy: 'Prophylactic gastrectomy; no targeted therapy for established disease'
+  },
+  // ── APC ──
+  { gene: 'APC', aliases: ['APC', 'FAP', 'Gardner', 'familial adenomatous polyposis', 'CTNNB1', 'beta-catenin'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Adenomatous polyposis coli',
+    inheritance: 'AD (FAP/Gardner); somatic loss in ~80% sporadic colorectal',
+    mechanism: 'Loss of β-catenin degradation complex → constitutive WNT/β-catenin signalling',
+    examNote: 'FAP: ≥100 colorectal adenomas; 100% CRC by 40 without colectomy. Gardner syndrome: FAP + desmoid tumours + osteomas + epidermoid cysts + CHRPE. Desmoid tumours: APC mutation + post-surgical trauma trigger; IHC nuclear β-catenin. CTNNB1 mutation: endometrial endometrioid carcinoma (~25%), hepatoblastoma, other. Nuclear β-catenin IHC = surrogate for WNT activation.',
+    therapy: 'Prophylactic colectomy; COX-2 inhibitors for desmoids; imatinib/sorafenib for progressive desmoid'
+  },
+  // ── MEN1 ──
+  { gene: 'MEN1', aliases: ['MEN1', 'menin', 'multiple endocrine neoplasia', 'MEN2A', 'MEN2B', 'MEN type 1', 'MEN type 2'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Menin (MEN1) / RET proto-oncogene (MEN2)',
+    inheritance: 'AD (both MEN1 and MEN2)',
+    mechanism: 'MEN1: menin loss → deregulated cell cycle. MEN2: RET gain-of-function (see RET entry)',
+    examNote: 'MEN1: hyperparathyroidism (first/most common), pancreatic NETs (gastrinoma → ZES most common), pituitary adenoma (prolactinoma most common). DAXX/ATRX loss in pancreatic NETs (ALT) → worse prognosis. MEN2A: MTC + phaeochromocytoma + PHPT (RET codon 634). MEN2B: MTC + phaeochromocytoma + mucosal neuromas + marfanoid habitus (codon 918, most aggressive).',
+    therapy: 'MEN1: surveillance/resection; MEN2: prophylactic thyroidectomy + RET inhibitors'
+  },
+  // ── DAXX/ATRX ──
+  { gene: 'DAXX/ATRX', aliases: ['DAXX', 'ATRX', 'ALT', 'alternative lengthening', 'pancreatic NET'],
+    type: 'tsg', germline: false, fusion: false, targeted: false, highYield: false,
+    fullName: 'Death domain-associated protein / Alpha thalassaemia/mental retardation X-linked',
+    inheritance: 'Somatic (pancreatic/GI NETs); germline in ATRX syndrome',
+    mechanism: 'Loss → alternative lengthening of telomeres (ALT) → genomic instability',
+    examNote: 'Pancreatic and GI NETs G1-G3: DAXX/ATRX loss → ALT phenotype → worse prognosis even at low Ki67. IHC: loss of nuclear DAXX or ATRX staining. Distinguishes WD NET from NEC (NEC has TP53/RB1 loss, not DAXX/ATRX). Important for prognostication in Grade 1/2 pancreatic NETs.',
+    therapy: 'No targeted therapy; guides prognosis and surveillance intensity'
+  },
+  // ── IDH1/2 ──
+  { gene: 'IDH1/2', aliases: ['IDH1', 'IDH2', 'IDH', 'isocitrate dehydrogenase', 'R132H', 'enasidenib', 'ivosidenib'],
+    type: 'onco', germline: false, fusion: false, targeted: true, highYield: true,
+    fullName: 'Isocitrate dehydrogenase 1/2',
+    inheritance: 'Somatic; germline rare (Ollier/Maffucci)',
+    mechanism: 'Gain-of-function → 2-hydroxyglutarate production → epigenetic dysregulation (CpG methylation)',
+    examNote: 'Lower-grade glioma (WHO 2021): IDH mutation defines astrocytoma and oligodendroglioma (1p/19q codeletion in oligo). IDH1 R132H IHC: 90% of IDH-mutant gliomas. Cholangiocarcinoma (intrahepatic): IDH1/2 ~20% → ivosidenib. Acute myeloid leukaemia: IDH1 (ivosidenib)/IDH2 (enasidenib). Chondrosarcoma/enchondroma: IDH1/2 common (Ollier/Maffucci: multiple enchondromas + IDH1/2).',
+    therapy: 'Ivosidenib (IDH1, cholangiocarcinoma/AML); enasidenib (IDH2, AML); vorasidenib (glioma)'
+  },
+  // ── HHV-8 ──
+  { gene: 'HHV-8/KSHV', aliases: ['HHV-8', 'KSHV', 'Kaposi', 'PEL', 'Castleman', 'LANA'],
+    type: 'other', germline: false, fusion: false, targeted: false, highYield: true,
+    fullName: 'Human Herpesvirus 8 / Kaposi Sarcoma Herpesvirus',
+    inheritance: 'Viral oncogenesis (sexually transmitted/blood-borne)',
+    mechanism: 'Viral oncoproteins mimic cellular signalling; LANA binds p53/Rb',
+    examNote: 'HHV-8 triad: (1) Kaposi sarcoma — LANA1 IHC (nuclear dotlike); (2) Primary Effusion Lymphoma (PEL) — body cavity B-cell lymphoma, CD20−, CD138+; (3) Multicentric Castleman disease (MCD). KS: 4 forms (classic/Mediterranean, endemic/African, iatrogenic, AIDS-related). AIDS-KS is defining AIDS illness. LANA1 IHC on cell block in effusion cytology.',
+    therapy: 'HAART for AIDS-KS; liposomal doxorubicin; pomalidomide for MCD'
+  },
+  // ── EZH2/PRC2 ──
+  { gene: 'EZH2', aliases: ['EZH2', 'H3K27me3', 'H3K27', 'MPNST', 'tazemetostat', 'SMARCB1', 'INI1'],
+    type: 'onco', germline: false, fusion: false, targeted: true, highYield: true,
+    fullName: 'Enhancer of zeste homolog 2 (PRC2 complex histone methyltransferase)',
+    inheritance: 'Somatic gain-of-function (EZH2 in lymphoma); loss of H3K27me3 via EED/SUZ12/PRC2 loss (MPNST)',
+    mechanism: 'EZH2 gain → increased H3K27me3 → gene silencing; loss in MPNST (EED/SUZ12) → global H3K27me3 loss',
+    examNote: 'MPNST: H3K27me3 loss (IHC) = malignant transformation marker from neurofibroma. Used to distinguish MPNST from atypical neurofibroma. EZH2 gain-of-function mutation in follicular lymphoma and DLBCL (germinal centre type) → tazemetostat. SMARCB1/INI1 loss: rhabdoid tumour, epithelioid sarcoma, SS (SS18-SSX drives INI1 partial loss).',
+    therapy: 'Tazemetostat (EZH2 inhibitor) for relapsed FL with EZH2 mutation; epithelioid sarcoma'
+  },
+  // ── BAP1 ──
+  { gene: 'BAP1', aliases: ['BAP1', 'BRCA1-associated protein', 'mesothelioma', 'uveal melanoma'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'BRCA1-associated protein 1',
+    inheritance: 'Germline (BAP1 tumour predisposition syndrome); somatic in mesothelioma (~60%)',
+    mechanism: 'Loss of ubiquitin hydrolase → deregulated histone deubiquitination → epigenetic dysregulation',
+    examNote: 'Malignant mesothelioma: BAP1 IHC loss (~60%) + CDKN2A deletion (p16 FISH) — bimodal IHC approach. BAP1 loss: high sensitivity for malignant mesothelioma over reactive mesothelium. BAP1 syndrome: mesothelioma + uveal melanoma + clear cell RCC + cutaneous melanoma + other. IHC: loss of nuclear BAP1 in tumour cells with retained internal control.',
+    therapy: 'No targeted therapy; immunotherapy combinations under investigation'
+  },
+  // ── CDKN2A ──
+  { gene: 'CDKN2A', aliases: ['CDKN2A', 'p16', 'CDKN2A deletion', 'p16 FISH', 'homozygous deletion'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Cyclin-dependent kinase inhibitor 2A (p16/INK4A)',
+    inheritance: 'Germline (familial melanoma); somatic deletion/methylation widespread',
+    mechanism: 'Loss of CDK4/6 inhibition → unrestrained cell cycle progression',
+    examNote: 'Mesothelioma: CDKN2A homozygous deletion (p16 FISH) + BAP1 loss = diagnostic pair. p16 FISH: homozygous deletion (both alleles) = strong evidence of malignancy over reactive mesothelium. p16 IHC: diffuse block positivity in HGSC (indirectly via Rb pathway), HSIL/SCC (HPV-driven). Familial atypical mole-malignant melanoma (FAMMM): CDKN2A germline.',
+    therapy: 'CDK4/6 inhibitors (palbociclib, ribociclib, abemaciclib) — breast carcinoma; CDK4 is frequent co-target'
+  },
+  // ── TERT ──
+  { gene: 'TERT', aliases: ['TERT', 'TERT promoter', 'telomerase'],
+    type: 'onco', germline: false, fusion: false, targeted: false, highYield: false,
+    fullName: 'Telomerase reverse transcriptase — promoter mutations',
+    inheritance: 'Somatic promoter mutation',
+    mechanism: 'Promoter mutation → increased TERT transcription → telomere maintenance → immortalisation',
+    examNote: 'Thyroid carcinoma: TERT promoter mutations >70% in ATC and PDTC; TERT + BRAF/RAS co-mutation = adverse prognosis. Melanoma: TERT promoter most common somatic mutation in cutaneous melanoma. Bladder carcinoma: high frequency. Glioblastoma (IDH-wild-type GBM): TERT promoter + EGFR amplification + +7/−10 trisomy.',
+    therapy: 'No direct targeted therapy; prognostic biomarker'
+  },
+  // ── ERBB2/HER2 ──
+  { gene: 'ERBB2/HER2', aliases: ['ERBB2', 'HER2', 'HER-2', 'trastuzumab', 'pertuzumab', 'T-DM1', 'T-DXd'],
+    type: 'onco', germline: false, fusion: false, targeted: true, highYield: true,
+    fullName: 'Erb-B2 receptor tyrosine kinase 2 (HER2)',
+    inheritance: 'Somatic amplification/overexpression',
+    mechanism: 'Receptor tyrosine kinase overactivation → PI3K/AKT and RAS/MAPK → proliferation/survival',
+    examNote: 'Breast: IHC 0/1+/2+/3+; FISH for 2+ equivocal (ISH). HER2-low (1+ or 2+/FISH−): trastuzumab-deruxtecan (T-DXd) now approved. Gastric/GEJ: HER2 testing on biopsy; heterogeneity common; ToGA protocol. Urothelial/endometrial/CRC: HER2 testing emerging. Report amplification ratio and mean gene copy number. LGSC (ovary): ERBB2/ERBB3 amplification in ~15% → potential target.',
+    therapy: 'Trastuzumab+pertuzumab; T-DM1; T-DXd (HER2-low); tucatinib for CNS mets'
+  },
+  // ── RB1 ──
+  { gene: 'RB1', aliases: ['RB1', 'Rb', 'retinoblastoma', 'RB loss'],
+    type: 'tsg', germline: true, fusion: false, targeted: false, highYield: true,
+    fullName: 'Retinoblastoma tumour suppressor protein',
+    inheritance: 'Germline (hereditary retinoblastoma, AD); somatic in many cancers',
+    mechanism: 'Rb loss → unchecked E2F-driven S-phase entry; loss of cell cycle G1 checkpoint',
+    examNote: 'NEC (GI/pulmonary): Rb loss + TP53 mutation = NEC hallmark (distinguishes from WD NET). WD NET G3: intact Rb/TP53 — key management implication (do NOT treat as NEC). Spindle cell/pleomorphic liposarcoma: Rb loss. Small cell lung carcinoma: near-universal Rb loss. IHC: absent nuclear staining with retained internal control (stromal/inflammatory cells).',
+    therapy: 'No targeted therapy; guides NEC vs NET G3 treatment pathway'
+  },
+  // ── SMARCB1/SMARCA4 ──
+  { gene: 'SMARCB1/SMARCA4', aliases: ['SMARCB1', 'INI1', 'SMARCA4', 'BRG1', 'rhabdoid', 'epithelioid sarcoma', 'SCCOHT'],
+    type: 'tsg', germline: true, fusion: false, targeted: true, highYield: false,
+    fullName: 'SWI/SNF chromatin remodelling complex subunits',
+    inheritance: 'Germline (rhabdoid tumour predisposition syndrome); somatic in many sarcomas',
+    mechanism: 'Loss of SWI/SNF chromatin remodelling → transcriptional dysregulation; EZH2 dependency',
+    examNote: 'SMARCB1/INI1 loss: atypical teratoid-rhabdoid tumour (AT/RT), malignant rhabdoid tumour (extra-CNS), epithelioid sarcoma (proximal type), epithelioid malignant mesothelioma, some SFT/myoepithelial tumours. SMARCA4/BRG1 loss: SCCOHT (small cell carcinoma of ovary hypercalcaemic type), some NSCLC. Tazemetostat (EZH2 inhibitor) active in epithelioid sarcoma (SMARCB1-deficient).',
+    therapy: 'Tazemetostat (epithelioid sarcoma); no standard for others'
+  },
+];
+
+let molFilterActive = 'all';
+
+function setMolFilter(f, btn) {
+  molFilterActive = f;
+  document.querySelectorAll('.mol-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderMolPanel();
+}
+
+// ── Pivot engine: scan all entity text fields for gene mentions ──
+function buildMolecularIndex() {
+  const allEntities = getAllEntities();
+  // Fields to scan
+  const TEXT_FIELDS = ['clinical','micro','comments','ihcPos','ihcNeg','pattern','behaviour',
+                       'cytologicalFeatures','pitfalls','adequacy'];
+
+  const index = {}; // gene → Set of entity ids
+
+  GENE_REGISTRY.forEach(g => { index[g.gene] = new Set(); });
+
+  allEntities.forEach(entity => {
+    // Collect all text from entity
+    let textBits = [];
+    TEXT_FIELDS.forEach(f => {
+      const v = entity[f];
+      if (!v) return;
+      if (Array.isArray(v)) textBits.push(...v);
+      else if (typeof v === 'string') textBits.push(v);
+    });
+    // Also scan differentials
+    if (entity.differentials) {
+      entity.differentials.forEach(d => {
+        if (d.disc) textBits.push(d.disc);
+        if (d.dx) textBits.push(d.dx);
+      });
+    }
+    const blob = textBits.join(' ');
+
+    GENE_REGISTRY.forEach(g => {
+      const found = g.aliases.some(alias => {
+        const re = new RegExp('\\b' + alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '[\\s\\-/]') + '\\b', 'i');
+        return re.test(blob);
+      });
+      if (found) index[g.gene].add(entity.id);
+    });
+  });
+
+  // Convert sets to arrays of entity objects
+  const result = {};
+  GENE_REGISTRY.forEach(g => {
+    result[g.gene] = [...index[g.gene]].map(id => allEntities.find(e => e.id === id)).filter(Boolean);
+  });
+  return result;
+}
+
+function renderMolPanel() {
+  const q = (document.getElementById('mol-search').value || '').toLowerCase().trim();
+  const allEntities = getAllEntities();
+  const molIndex = buildMolecularIndex();
+
+  let genes = GENE_REGISTRY.filter(g => {
+    // Filter by search
+    if (q) {
+      const matchGene = g.gene.toLowerCase().includes(q);
+      const matchAlias = g.aliases.some(a => a.toLowerCase().includes(q));
+      const matchName = (g.fullName||'').toLowerCase().includes(q);
+      if (!matchGene && !matchAlias && !matchName) return false;
+    }
+    // Filter by category chip
+    if (molFilterActive === 'germline' && !g.germline) return false;
+    if (molFilterActive === 'fusion' && !g.fusion) return false;
+    if (molFilterActive === 'targeted' && !g.targeted) return false;
+    if (molFilterActive === 'highyield' && !g.highYield) return false;
+    return true;
+  });
+
+  // Sort: high-yield first, then by entity count desc
+  genes = genes.sort((a, b) => {
+    if (b.highYield !== a.highYield) return b.highYield ? 1 : -1;
+    return (molIndex[b.gene]||[]).length - (molIndex[a.gene]||[]).length;
+  });
+
+  const container = document.getElementById('mol-results');
+  if (!genes.length) {
+    container.innerHTML = '<div class="mol-empty">No genes match your search.</div>';
+    return;
+  }
+
+  const typeBadge = (type) => {
+    const map = {tsg: ['mol-badge-type-tsg','TSG'], onco: ['mol-badge-type-onco','Oncogene'],
+                 fusion: ['mol-badge-type-fusion','Fusion'], other: ['mol-badge-type-other','Other']};
+    const [cls, label] = map[type] || map.other;
+    return `<span class="mol-badge ${cls}">${label}</span>`;
+  };
+
+  let html = `<div class="mol-results-info">${genes.length} gene${genes.length!==1?'s':''} shown</div>`;
+
+  genes.forEach((g, idx) => {
+    const entities = molIndex[g.gene] || [];
+    const cardId = 'mol-card-' + g.gene.replace(/[^a-zA-Z0-9]/g,'_');
+
+    const badges = [
+      typeBadge(g.type),
+      g.germline ? '<span class="mol-badge mol-badge-germline">Germline</span>' : '',
+      g.fusion ? '<span class="mol-badge mol-badge-type-fusion">Fusion</span>' : '',
+      g.targeted ? '<span class="mol-badge mol-badge-targeted">Targeted Rx</span>' : '',
+      g.highYield ? '<span class="mol-badge mol-badge-highyield">⭐ High-Yield</span>' : '',
+    ].filter(Boolean).join('');
+
+    const infoBlocks = [
+      g.fullName ? `<div class="mol-info-block"><div class="mol-info-label">Full Name</div><div class="mol-info-value">${escHtml(g.fullName)}</div></div>` : '',
+      g.inheritance ? `<div class="mol-info-block"><div class="mol-info-label">Inheritance / Origin</div><div class="mol-info-value">${escHtml(g.inheritance)}</div></div>` : '',
+      g.mechanism ? `<div class="mol-info-block"><div class="mol-info-label">Mechanism</div><div class="mol-info-value">${escHtml(g.mechanism)}</div></div>` : '',
+      g.therapy ? `<div class="mol-info-block"><div class="mol-info-label">Therapy / Implication</div><div class="mol-info-value">${escHtml(g.therapy)}</div></div>` : '',
+    ].filter(Boolean).join('');
+
+    const entityChips = entities.length
+      ? entities.map(e => {
+          const sub = e.subspecialty || '';
+          return `<span class="mol-entity-chip" onclick="molJumpTo('${escHtml(e.id)}','${escHtml(e.type)}')">`
+               + escHtml(e.name)
+               + (sub ? ` <span class="chip-sub">${escHtml(sub)}</span>` : '')
+               + `</span>`;
+        }).join('')
+      : '<span style="font-size:12px;color:var(--muted);font-style:italic">No linked entities yet — data in SEED_DATA may use variant naming.</span>';
+
+    html += `
+    <div class="mol-gene-card" id="${cardId}">
+      <div class="mol-gene-header" onclick="toggleMolCard('${cardId}')">
+        <svg class="mol-gene-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 4.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L11.586 10 7.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        <span class="mol-gene-name">${escHtml(g.gene)}</span>
+        <div class="mol-gene-badges">${badges}</div>
+        <span class="mol-entity-count">${entities.length} entit${entities.length!==1?'ies':'y'}</span>
+      </div>
+      <div class="mol-gene-body">
+        <div class="mol-info-grid">${infoBlocks}</div>
+        ${g.examNote ? `<div class="mol-exam-note"><div class="mol-info-label">⚡ Exam Note</div><div class="mol-info-value">${escHtml(g.examNote)}</div></div>` : ''}
+        <div class="mol-entities-section">
+          <div class="mol-entities-label">Linked Codex Entities (${entities.length})</div>
+          <div class="mol-entity-chips">${entityChips}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function toggleMolCard(id) {
+  const card = document.getElementById(id);
+  if (card) card.classList.toggle('open');
+}
+
+function molJumpTo(entityId, entityType) {
+  if (entityType === 'histology') {
+    switchTab('entities', document.querySelector('.tab-btn'));
+    setTimeout(() => jumpTo(entityId), 80);
+  } else if (entityType === 'cytology') {
+    switchTab('cytology', document.querySelectorAll('.tab-btn')[1]);
+    setTimeout(() => jumpTo(entityId), 80);
+  } else {
+    switchTab('entities', document.querySelector('.tab-btn'));
+    setTimeout(() => jumpTo(entityId), 80);
+  }
+}
+
+
 render();
 renderCytology();
 getExamFreqMap(); // pre-build frequency map
