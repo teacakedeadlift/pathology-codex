@@ -674,6 +674,373 @@
   }
   #toast.show { opacity: 1; transform: translateY(0); }
 
+  /* ── Renal Panel ─────────────────────────────────────── */
+  #renal-panel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--bg);
+  }
+  #renal-panel.active { display: block; }
+  #renal-panel::-webkit-scrollbar { width: 6px; }
+  #renal-panel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  .renal-container { max-width: 980px; margin: 0 auto; }
+
+  .renal-intro {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid #7c3aed;
+    border-radius: 9px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+  }
+  .renal-intro h2 {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 20px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .renal-intro p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .renal-triple {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .renal-triple-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .rtb-lm { background: #dbeafe; color: #1e40af; }
+  .rtb-if { background: #fef3c7; color: #92400e; }
+  .rtb-em { background: #f3e8ff; color: #6b21a8; }
+
+  /* Pattern sections */
+  .renal-pattern-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .renal-pattern-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .renal-pattern-header:hover { background: #f8fafc; }
+  .renal-pattern-icon { font-size: 20px; flex-shrink: 0; }
+  .renal-pattern-info { flex: 1; min-width: 0; }
+  .renal-pattern-label {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+  }
+  .renal-pattern-clinical {
+    font-size: 11.5px;
+    color: var(--muted);
+    display: block;
+    margin-top: 2px;
+  }
+  .renal-pattern-count {
+    font-size: 11px;
+    color: var(--muted);
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .renal-chevron {
+    width: 18px; height: 18px;
+    color: var(--light);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .renal-pattern-section.open .renal-chevron { transform: rotate(180deg); }
+
+  .renal-pattern-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 0 12px 12px;
+  }
+  .renal-pattern-section.open .renal-pattern-body { display: block; }
+
+  .renal-exam-note {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 7px;
+    padding: 8px 12px;
+    margin: 10px 0 6px;
+    font-size: 12px;
+    color: #44403c;
+  }
+  .renal-exam-note strong { color: var(--orange); }
+
+  /* Renal entity cards — reuse entity-card CSS with ren- prefix */
+  .renal-entity-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-top: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+  }
+  .renal-entity-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .renal-entity-card.open .renal-card-chevron { transform: rotate(90deg); }
+
+  .renal-card-header {
+    display: flex;
+    align-items: center;
+    padding: 11px 15px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+  }
+  .renal-card-chevron {
+    width: 16px; height: 16px;
+    color: var(--light);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .renal-card-name {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    flex: 1;
+  }
+  .renal-card-preview {
+    font-size: 11.5px;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+  }
+
+  .renal-card-body {
+    display: none;
+    border-top: 1px solid #e2e8f0;
+    padding: 14px 16px 16px;
+    background: #fff;
+  }
+  .renal-entity-card.open .renal-card-body { display: block; }
+
+  .renal-if-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .renal-if-block {
+    border-radius: 7px;
+    padding: 9px 12px;
+  }
+  .renal-if-pos { background: #fef3c7; border: 1px solid #fde68a; }
+  .renal-if-neg { background: #f0f4ff; border: 1px solid #dbeafe; }
+  .renal-if-title {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .renal-if-pos .renal-if-title { color: #92400e; }
+  .renal-if-neg .renal-if-title { color: #1e40af; }
+  .renal-if-marker {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 2px 2px 2px 0;
+    background: rgba(255,255,255,0.6);
+  }
+
+  @media (max-width: 640px) {
+    #renal-panel { padding: 14px; }
+    .renal-if-grid { grid-template-columns: 1fr; }
+    .renal-card-preview { display: none; }
+    .renal-pattern-clinical { display: none; }
+  }
+
+  .renal-view-toggle {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .renal-view-btn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .renal-view-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+  .renal-view-btn.active { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+
+  /* Pattern view cards */
+  .renal-patt-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .renal-patt-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.07); }
+
+  .renal-patt-header {
+    display: flex;
+    align-items: flex-start;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+    transition: background 0.1s;
+  }
+  .renal-patt-header:hover { background: #f8fafc; }
+  .renal-patt-card.open .renal-patt-chevron { transform: rotate(180deg); }
+
+  .renal-patt-chevron {
+    width: 18px; height: 18px;
+    color: var(--light);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .renal-patt-title-wrap { flex: 1; min-width: 0; }
+  .renal-patt-title {
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+  }
+  .renal-patt-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    display: block;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+  .renal-patt-entity-count {
+    font-size: 11px;
+    color: var(--muted);
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .renal-patt-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 16px 18px 18px;
+  }
+  .renal-patt-card.open .renal-patt-body { display: block; }
+
+  /* IF discrimination table */
+  .renal-if-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 14px;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+  }
+  .renal-if-table th {
+    background: #f1f5f9;
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--navy2);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .renal-if-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .renal-if-table tr:last-child td { border-bottom: none; }
+  .renal-if-table tr:hover td { background: #f8fafc; }
+  .renal-if-table .dx-name {
+    font-weight: 700;
+    color: var(--navy);
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 12.5px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .renal-if-table .dx-name:hover { color: var(--accent); text-decoration: underline; }
+  .renal-if-cell-pos { color: #b45309; font-family: 'Courier New', monospace; font-size: 11px; }
+  .renal-if-cell-neg { color: #6b7280; font-family: 'Courier New', monospace; font-size: 11px; }
+  .renal-if-cell-em  { color: #6d28d9; font-size: 11px; }
+  .renal-if-cell-key { font-size: 11.5px; color: var(--text); }
+
+  .renal-patt-note {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 7px;
+    padding: 9px 13px;
+    font-size: 12px;
+    color: #44403c;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .renal-patt-note strong { color: var(--orange); }
+
+  .renal-entity-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .renal-entity-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    background: #ede9fe;
+    color: #5b21b6;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #ddd6fe;
+    transition: all 0.15s;
+  }
+  .renal-entity-chip:hover { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+
+  @media (max-width: 640px) {
+    .renal-if-table { font-size: 11px; }
+    .renal-if-table td, .renal-if-table th { padding: 6px 7px; }
+    .renal-patt-subtitle { display: none; }
+  }
+
   /* ── Molecular Panel ─────────────────────────────────── */
   #mol-panel {
     display: none;
@@ -1528,6 +1895,7 @@
   <button class="tab-btn" onclick="switchTab('ihc', this)">🔬 IHC Explorer</button>
   <button class="tab-btn" onclick="switchTab('revision', this)">📝 Revision</button>
   <button class="tab-btn" onclick="switchTab('exams', this)">📅 Past Exams</button>
+  <button class="tab-btn" onclick="switchTab('renal', this)">🫘 Renal</button>
   <button class="tab-btn" onclick="switchTab('molecular', this)">🧬 Molecular</button>
 </div>
 <input type="file" id="import-input" accept=".json" onchange="importData(event)">
@@ -3713,6 +4081,27 @@
           <tbody id="exam-table-body"></tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <!-- Renal panel -->
+  <div id="renal-panel">
+    <div class="renal-container">
+      <div class="renal-intro">
+        <h2>🫘 Medical Renal Pathology</h2>
+        <p>Each diagnosis requires correlation of all three modalities.</p>
+        <div class="renal-triple">
+          <span class="renal-triple-badge rtb-lm">🔬 LM — architecture, cellularity, crescents, deposits</span>
+          <span class="renal-triple-badge rtb-if">💛 IF — immunoglobulin/complement localisation and pattern</span>
+          <span class="renal-triple-badge rtb-em">🔷 EM — deposit electron density, location, substructure</span>
+        </div>
+        <div class="renal-view-toggle">
+          <button class="renal-view-btn active" id="renal-btn-clinical" onclick="switchRenalView('clinical',this)">🩺 Clinical Syndrome</button>
+          <button class="renal-view-btn" id="renal-btn-pattern" onclick="switchRenalView('pattern',this)">🔬 Morphological Pattern</button>
+        </div>
+      </div>
+      <div id="renal-results"></div>
+      <div id="renal-pattern-results" style="display:none"></div>
     </div>
   </div>
 
@@ -11001,6 +11390,601 @@ const SEED_DATA = [
     ]
   },
   {
+    "type": "histology",
+    "id": "antigbm-001",
+    "name": "ANTI-GBM DISEASE (GOODPASTURE SYNDROME)",
+    "subspecialty": "Medical Renal",
+    "category": "Glomerulonephritis",
+    "pattern": "Crescentic",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Type II hypersensitivity — autoantibodies against the α3 chain of type IV collagen (NC1 domain of COL4A3) in the GBM and alveolar basement membrane. Bimodal age distribution: young men (20s–30s) and older women (60s–70s).",
+      "Pulmonary-renal syndrome (Goodpasture syndrome): rapidly progressive GN + pulmonary haemorrhage. Renal-limited anti-GBM disease occurs without lung involvement (~30%).",
+      "Trigger: rapidly progressive renal failure + haemoptysis + linear IgG on IF → anti-GBM. Up to 30% ANCA positive (MPO > PR3) — double-positive confers worse prognosis. Serology: anti-GBM ELISA (sensitive and specific).",
+      "Treatment: emergency plasmapheresis (remove circulating antibody) + pulse IV methylprednisolone + cyclophosphamide. Renal outcome correlates with creatinine at presentation and % crescents on biopsy."
+    ],
+    "micro": [
+      "Necrotising crescentic glomerulonephritis: cellular crescents (parietal epithelial cells + infiltrating monocytes filling Bowman's space) ± fibrous crescents in later biopsies.",
+      "Glomerular tuft necrosis (fibrinoid necrosis): segmental or global — key LM finding.",
+      "Minimal mesangial hypercellularity and endocapillary proliferation — unlike immune complex GN.",
+      "Interstitial inflammation with tubulitis; tubular red cell casts. In end-stage: >50% fibrous crescents = dialysis-dependent, unlikely to recover renal function."
+    ],
+    "ihcPos": [
+      "IgG – linear along GBM (pathognomonic — differentiates from immune complex granular and pauci-immune negative patterns)",
+      "C3 – linear (variable)",
+      "IgA / IgM – linear (minor, variable)"
+    ],
+    "ihcNeg": [
+      "EM: NO discrete electron-dense deposits (anti-GBM antibody is GBM-bound; not visible as deposits — distinguishes from immune complex GN)",
+      "ANCA – negative in pure anti-GBM (positive in ~30% double-positive disease)",
+      "ANA/anti-dsDNA – negative (excludes lupus nephritis)"
+    ],
+    "differentials": [
+      {
+        "dx": "Pauci-immune crescentic GN (ANCA)",
+        "disc": "IF negative (no IgG/C3); ANCA positive (MPO or PR3); same crescentic LM; no linear IgG; no anti-GBM antibody"
+      },
+      {
+        "dx": "Lupus nephritis (Class IV)",
+        "disc": "Full house IF (IgG+IgA+IgM+C3+C1q); granular not linear deposits; anti-dsDNA+; endocapillary proliferation; wire loops; subendothelial deposits on EM"
+      },
+      {
+        "dx": "IgA Nephropathy (crescentic)",
+        "disc": "IgA dominant mesangial deposits (not linear); granular IF; anti-GBM negative; ANCA negative; history of macroscopic haematuria post-URTI"
+      }
+    ],
+    "comments": [
+      "IF pattern is pathognomonic: LINEAR IgG along GBM is essentially diagnostic of anti-GBM disease. Granular = immune complex. Negative = pauci-immune. This three-way IF classification of crescentic GN is core exam knowledge.",
+      "Lung haemorrhage trigger: smoking, pulmonary infection, cocaine, hydrocarbon exposure (all cause alveolar injury exposing alveolar BM antigen). Non-smokers rarely get pulmonary haemorrhage.",
+      "Creatinine threshold: if creatinine >600µmol/L or dialysis-dependent with >50% fibrous crescents at presentation — renal recovery unlikely; plasmapheresis still indicated to protect lungs.",
+      "Double-positive (anti-GBM + ANCA): treat both. Worse renal prognosis than ANCA alone. After anti-GBM titres clear, manage as AAV for relapse prevention.",
+      "Exam trap: do NOT confuse with ANCA vasculitis on IF — pauci-immune has NO IF staining. Anti-GBM has LINEAR IgG. Immune complex has GRANULAR staining."
+    ],
+    "cytoLink": null,
+    "related": [
+      "pauci-gn-001",
+      "igan-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "lupus-nephritis-001",
+    "name": "LUPUS NEPHRITIS (ISN/RPS CLASSIFICATION)",
+    "subspecialty": "Medical Renal",
+    "category": "Glomerulonephritis",
+    "pattern": "Variable (class-dependent)",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Renal involvement in SLE: present in ~50%. Most common in young women of Afro-Caribbean descent. Can present as any glomerular syndrome depending on class.",
+      "ISN/RPS 2003 classification (class I–VI): guides treatment intensity. Class III and IV = proliferative → aggressive immunosuppression. Class V = membranous → nephrotic. Class VI = advanced sclerosing → no treatment benefit.",
+      "Serology: anti-dsDNA titres correlate with disease activity; complement consumption (↓C3/C4) = active LN. Anti-Sm, anti-Ro/La, antiphospholipid antibodies. ANA positive in >95% SLE.",
+      "Renal biopsy indication: new proteinuria >500mg/day, unexplained haematuria, rising creatinine, or change in clinical status. Class determines treatment: mycophenolate or cyclophosphamide for III/IV; ACEi for V."
+    ],
+    "micro": [
+      "CLASS I (Minimal mesangial): normal LM; mesangial deposits on IF/EM only.",
+      "CLASS II (Mesangial proliferative): mesangial hypercellularity ± matrix expansion; mesangial deposits on IF; no endocapillary proliferation.",
+      "CLASS III (Focal, <50% glomeruli): segmental endocapillary/extracapillary proliferation, necrosis, or sclerosis in <50% of glomeruli; subendothelial ± mesangial deposits.",
+      "CLASS IV (Diffuse, ≥50% glomeruli): endocapillary proliferation in ≥50% of glomeruli. Wire loops (massive subendothelial deposits thickening GBM — pathognomonic). Hyaline thrombi (intraluminal protein deposits). Fibrinoid necrosis. Cellular crescents. Global (IVG) or segmental (IVS) involvement.",
+      "CLASS V (Membranous LN): subepithelial deposits (like idiopathic MN) ± mesangial deposits. Concurrent Class III/IV must be recorded (III+V, IV+V).",
+      "CLASS VI (Advanced sclerosing): >90% glomeruli globally sclerosed; end-stage; no treatment benefit."
+    ],
+    "ihcPos": [
+      "FULL HOUSE IF — IgG + IgA + IgM + C3 + C1q + C4: pathognomonic combination; virtually diagnostic of lupus when all six present",
+      "C1q – positive (unique among GN; C1q activation indicates classic pathway activation; absent in C3G and most other GN)",
+      "IgG – subclass IgG1 and IgG3 predominant"
+    ],
+    "ihcNeg": [
+      "EM: mesangial + subendothelial deposits (Class III/IV); subepithelial deposits (Class V); fingerprint substructure (tubuloreticular inclusions in endothelial cells — characteristic of interferon-driven disease in SLE)",
+      "Anti-GBM – negative (no linear IgG pattern)",
+      "ANCA – negative in pure LN (positive in rare overlap with AAV)"
+    ],
+    "differentials": [
+      {
+        "dx": "Membranous nephropathy (Class V LN vs idiopathic MN)",
+        "disc": "Idiopathic MN: anti-PLA2R+ (~70%), subepithelial deposits only, no mesangial deposits, no full house IF, no C1q. Class V LN: mesangial deposits present, full house IF, ANA/anti-dsDNA+"
+      },
+      {
+        "dx": "MPGN / C3 Glomerulopathy",
+        "disc": "C3G: C3 dominant IF (not full house); no C1q; complement pathway mutations/antibodies; no anti-dsDNA. Immune complex MPGN: full house possible but infection/cryoglobulin history; no ANA"
+      },
+      {
+        "dx": "Anti-GBM disease",
+        "disc": "Linear IgG (not granular); no full house; anti-GBM antibody; no anti-dsDNA; crescentic with minimal proliferation"
+      }
+    ],
+    "comments": [
+      "'Full house' IF (IgG+IgA+IgM+C3+C1q+C4) is virtually diagnostic of lupus nephritis — no other GN shows all six consistently. Memorise this combination.",
+      "Wire loops (Class IV): massive subendothelial deposits thicken capillary wall on LM without cellular hypercellularity — appear as rigid wire-like contours; PAS positive; pathognomonic for Class IV LN.",
+      "Tubuloreticular inclusions (TRI) on EM: endoplasmic reticulum inclusions in endothelial cells (resembling myxovirus); seen in SLE and HIV nephropathy; driven by interferon-α excess.",
+      "Activity vs chronicity indices (NIH): activity — endocapillary proliferation, karyorrhexis, wire loops, hyaline thrombi, fibrinoid necrosis, cellular crescents. Chronicity — fibrous crescents, tubular atrophy, interstitial fibrosis, glomerular sclerosis. Guides prognosis.",
+      "Exam trap: always report concurrent classes (e.g. Class IV+V = worst prognosis, most aggressive treatment). Pure Class V LN = manageable with ACEi ± mycophenolate; IV+V = treat as Class IV."
+    ],
+    "cytoLink": null,
+    "related": [
+      "membranous-001",
+      "pauci-gn-001",
+      "antigbm-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "mpgn-c3g-001",
+    "name": "MPGN PATTERN / C3 GLOMERULOPATHY (C3G)",
+    "subspecialty": "Medical Renal",
+    "category": "Glomerulonephritis",
+    "pattern": "Membranoproliferative",
+    "behaviour": "Malignant",
+    "clinical": [
+      "MPGN is a morphological LM pattern (not a single disease). Defined by: mesangial and endocapillary hypercellularity + GBM double contours ('tram-tracks') + lobular accentuation. Classification is IF/EM-based.",
+      "IF-based classification: (1) Immune complex-mediated MPGN — IgG/IgM/C3/C1q (secondary: HCV, HBV, endocarditis, cryoglobulinaemia, MGUS/paraprotein, autoimmune); (2) C3 Glomerulopathy (C3G) — alternative complement pathway dysregulation.",
+      "C3G subclassification by EM: Dense Deposit Disease (DDD) — ribbon-like lamina densa deposits; C3 Glomerulonephritis (C3GN) — mesangial/subendothelial/subepithelial deposits without DDD pattern. Both C3 dominant on IF (≥2+ above any Ig).",
+      "Investigations for C3G: complement pathway screen — C3/C4 levels (↓C3, normal C4 = alternative pathway); C3 nephritic factor (C3NeF; stabilises C3 convertase); anti-CFH antibodies; genetic panel (CFH, CFI, C3, CFB, CFHR5)."
+    ],
+    "micro": [
+      "Mesangial and endocapillary hypercellularity — increased mesangial matrix and cells; endocapillary leucocyte infiltration.",
+      "GBM double contours ('tram-tracks') on PAS/silver stain: mesangial cell interposition into GBM creates duplicated basement membrane layers — pathognomonic for MPGN pattern.",
+      "Lobular accentuation: exaggerated lobular architecture of glomerular tuft.",
+      "Variable crescents (especially in immune complex-mediated disease). Hyaline deposits may be visible in cryoglobulinaemic MPGN (intraluminal cryoglobulin 'plugs')."
+    ],
+    "ihcPos": [
+      "Immune complex MPGN: IgG + IgM + C3 + C1q (full house possible) — granular mesangial + subendothelial deposits",
+      "C3G: C3 dominant (C3 ≥2+ stronger than IgG/IgM/IgA); IgG/IgM absent or trace",
+      "Cryoglobulinaemic MPGN: IgM κ or λ restriction (Type II cryoglobulin); rheumatoid factor positive"
+    ],
+    "ihcNeg": [
+      "DDD on EM: highly electron-dense ribbon-like deposits within GBM lamina densa (sausage-shaped, replacing lamina densa) — pathognomonic; not seen on LM or IF",
+      "C3GN on EM: mesangial + subendothelial ± subepithelial deposits (not ribbon-like)",
+      "Immune complex MPGN on EM: subendothelial + mesangial deposits (electron dense but not ribbon-like)"
+    ],
+    "differentials": [
+      {
+        "dx": "Lupus Nephritis (Class IV)",
+        "disc": "Full house IF (IgG+IgA+IgM+C3+C1q); ANA+/anti-dsDNA+; wire loops; tubuloreticular inclusions on EM; clinical SLE diagnosis"
+      },
+      {
+        "dx": "Diabetic Nephropathy",
+        "disc": "No immune deposits on IF; nodular glomerulosclerosis (Kimmelstiel-Wilson); GBM thickening without double contours; clinical diabetes"
+      },
+      {
+        "dx": "Thrombotic Microangiopathy",
+        "disc": "Double contours in TMA are due to endothelial swelling/expansion, not mesangial interposition; pauci-immune IF; fibrin/platelet thrombi; clinical TMA (MAHA + thrombocytopenia)"
+      }
+    ],
+    "comments": [
+      "The MPGN pattern on LM always requires IF and EM to classify — 'MPGN' alone is not a complete diagnosis. Always classify as immune complex-mediated or C3G.",
+      "DDD (Dense Deposit Disease): the EM finding of ribbon-like lamina densa deposits is pathognomonic. Most patients have C3NeF. Recurs in ~100% of renal transplants.",
+      "C3G workup: always screen for underlying MGUS/paraproteinaemia (monoclonal protein activates complement), infection (HCV, endocarditis), and autoimmune disease. Genetic panel in younger patients.",
+      "Treatment: immune complex MPGN — treat underlying cause (antiviral for HCV; antibiotics for endocarditis; chemotherapy for MGUS-driven). C3G — complement inhibitors (eculizumab) for severe disease; mycophenolate for moderate.",
+      "Exam trap: C3 alone on IF does not mean C3G — normal repair after any GN can show residual C3. C3G requires C3 to be ≥2+ stronger than any immunoglobulin, AND the MPGN pattern to be present."
+    ],
+    "cytoLink": null,
+    "related": [
+      "lupus-nephritis-001",
+      "membranous-001",
+      "tma-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "light-chain-cast-001",
+    "name": "LIGHT CHAIN CAST NEPHROPATHY (MYELOMA KIDNEY)",
+    "subspecialty": "Medical Renal",
+    "category": "Tubulointerstitial",
+    "pattern": "Tubular cast",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Most common cause of renal failure in multiple myeloma (~50% of myeloma-associated renal disease). Caused by tubular precipitation of monoclonal free light chains (Bence Jones protein) with Tamm-Horsfall glycoprotein.",
+      "Presentation: AKI ± CKD in context of myeloma. Serum FLC ratio markedly abnormal; SPEP/UPEP shows M-protein or Bence Jones protein. Hypercalcaemia, hyperuricaemia, and NSAIDs aggravate cast formation.",
+      "Biopsy indicated when: cause of AKI uncertain; to confirm diagnosis and guide treatment intensity; to exclude concurrent amyloidosis, LCDD, or other renal pathology.",
+      "Treatment: aggressive hydration + chemotherapy targeting plasma cell clone (VRd = bortezomib/lenalidomide/dexamethasone; daratumumab regimens). Reduce serum FLC rapidly — FLC >500mg/L with rising creatinine = urgent treatment. Plasmapheresis: no proven benefit in RCTs."
+    ],
+    "micro": [
+      "Tubular casts: large, pale eosinophilic, PAS-negative or weakly positive, hard (glassy/waxy) casts filling and distending tubular lumina — predominantly distal tubules and collecting ducts.",
+      "Fracture planes within casts: characteristic cracked/fractured appearance on H&E — pathognomonic in context.",
+      "Giant cell (histiocytic) reaction surrounding casts: multinucleated giant cells and macrophages surrounding and engulfing cast material — virtually diagnostic combination.",
+      "Tubular epithelial injury/necrosis around casts; variable interstitial inflammation; tubular atrophy and interstitial fibrosis in chronic cases.",
+      "Concurrent findings: look for amyloid (Congo red) and light chain deposition disease (LCDD — nodular GS without amyloid staining)."
+    ],
+    "ihcPos": [
+      "IF — κ OR λ monotypic restriction on casts (not both): confirms monoclonal nature; κ more common than λ",
+      "Tamm-Horsfall protein – positive (casts contain co-precipitated THP)",
+      "SPEP/UPEP/serum FLC: markedly elevated monoclonal FLC ratio (>100 or <0.01)"
+    ],
+    "ihcNeg": [
+      "Congo red – NEGATIVE (distinguishes from renal amyloidosis)",
+      "IF: no significant glomerular immune deposits (glomeruli usually unremarkable unless concurrent LCDD or amyloid)",
+      "EM: no organised fibrils (unlike amyloid) or granular deposits (unlike immune complex GN)"
+    ],
+    "differentials": [
+      {
+        "dx": "Renal Amyloidosis (AL)",
+        "disc": "Congo red positive (apple-green birefringence); EM fibrils 8–12nm; glomerular and vascular deposits; no fractured casts; no giant cell reaction; same monoclonal light chain aetiology"
+      },
+      {
+        "dx": "Light Chain Deposition Disease (LCDD)",
+        "disc": "Nodular glomerulosclerosis (resembles diabetic nephropathy); Congo red negative; PAS-positive nodules; IF shows linear GBM/TBM deposits (not cast pattern); EM granular deposits along GBM/TBM"
+      },
+      {
+        "dx": "Acute Tubular Injury (other causes)",
+        "disc": "No fractured hard casts; no giant cell reaction; no monotypic IF on casts; no M-protein on SPEP/FLC; ischaemic/toxic history"
+      }
+    ],
+    "comments": [
+      "The combination of fracture-plane casts + giant cell reaction is virtually pathognomonic for light chain cast nephropathy — no other cast nephropathy shows this.",
+      "κ:λ ratio in myeloma: κ more common overall but λ light chains are more nephrotoxic and more likely to cause cast nephropathy. λ cast nephropathy = worse renal prognosis.",
+      "Concurrent pathology in myeloma kidney: always examine for amyloidosis (Congo red), LCDD (nodular GS, PAS positive nodules), and hypercalcaemia-related nephrocalcinosis — multiple pathologies can coexist.",
+      "FLC threshold for biopsy: no firm consensus, but most centres biopsy when FLC >500mg/L with AKI to exclude concurrent amyloid/LCDD that would change management.",
+      "Exam trap: Congo red negativity distinguishes from AL amyloidosis — the most important distinction since both involve monoclonal light chains. Always perform Congo red on suspected myeloma kidney biopsy."
+    ],
+    "cytoLink": null,
+    "related": [
+      "renal-amyloid-001",
+      "atin-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "renal-amyloid-001",
+    "name": "RENAL AMYLOIDOSIS",
+    "subspecialty": "Medical Renal",
+    "category": "Deposition",
+    "pattern": "Amyloid deposition",
+    "behaviour": "Malignant",
+    "clinical": [
+      "AL amyloidosis (light chain-derived; most common in developed world): plasma cell dyscrasia → misfolded Ig light chains → amyloid fibril deposition. Systemic — kidneys, heart, liver, peripheral nerves, tongue. Renal presentation: nephrotic syndrome ± AKI.",
+      "AA amyloidosis (serum amyloid A; reactive): chronic inflammation — rheumatoid arthritis, IBD, chronic infection, familial Mediterranean fever, bronchiectasis. SAA protein → amyloid fibrils. Predominantly renal (nephrotic) and hepatosplenic.",
+      "Investigations: serum/urine electrophoresis + FLC ratio (AL); SAA level (AA); fat pad aspirate or rectal biopsy (Congo red — less invasive than renal biopsy); bone marrow biopsy. Mass spectrometry (LA-ICP-MS) on biopsy: gold standard for amyloid typing.",
+      "Treatment: AL — plasma cell clone-directed chemotherapy (daratumumab-VCd; autologous SCT in eligible). AA — treat underlying inflammatory disease; colchicine for FMF. Anti-SAP antibody (miridesap + dezamizumab): depletes amyloid deposits (trial)."
+    ],
+    "micro": [
+      "Amorphous, homogeneous, eosinophilic, PAS-negative deposits in glomerular mesangium and capillary walls, blood vessel walls (especially arterioles), and tubular basement membranes — all three compartments may be involved.",
+      "Glomerular: expansion of mesangium and GBM by amyloid with effacement of normal architecture. Deposits may mimic nodular glomerulosclerosis (distinguish: Congo red positive, no Kimmelstiel-Wilson nodules).",
+      "Vascular: arteriolar amyloid deposition with thickening and rigidity of vessel walls.",
+      "Special stains: Congo red → apple-green birefringence under polarised light (pathognomonic); Thioflavin T → green fluorescence (more sensitive, less specific).",
+      "Subtyping on biopsy: IF/IHC — AL: κ or λ restriction; AA: SAA antibody positive. EM: non-branching, randomly oriented fibrils 8–12nm diameter — pathognomonic of amyloid (all types)."
+    ],
+    "ihcPos": [
+      "Congo red – apple-green birefringence under polarised light (pathognomonic for amyloid of any type)",
+      "Thioflavin T/S – fluorescence positive (more sensitive than Congo red)",
+      "AL amyloid: κ or λ monotypic restriction on IF/IHC (κ more common; λ associated with worse cardiac involvement)",
+      "AA amyloid: SAA (serum amyloid A) IHC positive; permanganate-sensitive (AA loses Congo red reactivity after KMnO4 treatment — rarely used now)"
+    ],
+    "ihcNeg": [
+      "EM: non-branching randomly oriented fibrils 8–12nm diameter (all amyloid types share this ultrastructure)",
+      "Mass spectrometry (LA-ICP-MS): gold standard typing — identifies amyloid protein definitively (AL, AA, ATTR, etc.); essential when IHC inconclusive",
+      "ATTR (transthyretin amyloid): TTR IHC positive; associated with cardiomyopathy; wildtype (senile) or hereditary (Val122Ile, Val30Met); tafamidis for ATTR-CM"
+    ],
+    "differentials": [
+      {
+        "dx": "Diabetic Nephropathy (nodular GS)",
+        "disc": "Congo red NEGATIVE; PAS-positive Kimmelstiel-Wilson nodules; GBM thickening; no vascular amyloid; clinical diabetes; no M-protein"
+      },
+      {
+        "dx": "Light Chain Deposition Disease (LCDD)",
+        "disc": "Congo red NEGATIVE; PAS-positive linear GBM/TBM deposits; IF shows linear (not mesangial granular) κ or λ; EM granular (not fibrillar) deposits; resembles diabetic nodular GS"
+      },
+      {
+        "dx": "Light Chain Cast Nephropathy",
+        "disc": "Congo red NEGATIVE; fractured casts + giant cell reaction in tubules; no glomerular amyloid deposits; same monoclonal light chain aetiology but different compartment"
+      }
+    ],
+    "comments": [
+      "Congo red under polarised light (apple-green birefringence) is the definitive histological diagnosis of amyloid — sensitivity ~80%, specificity >95%. Do not diagnose amyloid without polarised light confirmation.",
+      "Amyloid typing is essential before treatment: AL requires plasma cell clone therapy; AA requires treating the underlying inflammatory disease; ATTR requires tafamidis/diflunisal. Wrong treatment = patient harm.",
+      "Mass spectrometry (LA-ICP-MS) from paraffin block: supersedes permanganate sensitivity and immunofluorescence in difficult cases — can type any amyloid variant including rarer types (AFib, ALys, AGel). Request if IHC inconclusive.",
+      "Fat pad aspirate: ~70–80% sensitivity for AL/AA; quick, minimally invasive; Congo red performed at bedside. Negative fat pad does not exclude organ-specific amyloid.",
+      "Exam trap: amyloid can look like nodular glomerulosclerosis on H&E — Congo red is mandatory in any biopsy showing mesangial nodular expansion, especially in non-diabetic patients."
+    ],
+    "cytoLink": null,
+    "related": [
+      "light-chain-cast-001",
+      "diabetic-nephropathy-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "pan-renal-001",
+    "name": "POLYARTERITIS NODOSA (PAN) — RENAL",
+    "subspecialty": "Medical Renal",
+    "category": "Vascular",
+    "pattern": "Necrotising arteritis",
+    "behaviour": "Malignant",
+    "clinical": [
+      "PAN: necrotising arteritis of medium-sized arteries (arcuate, interlobar). Critically: NO glomerulonephritis, NO small vessel involvement. This distinguishes it from ANCA-associated vasculitis (MPA/GPA which affect small vessels and cause GN).",
+      "Renal features: renovascular hypertension (renal artery stenosis), renal infarcts, haematuria (from infarction, not GN), microaneurysms visible on angiography ('beading' pattern — diagnostic). Renal insufficiency from infarction, not GN.",
+      "HBV-associated PAN: 10–30% of PAN; treat HBV first (antiviral + short-course steroids, then taper steroids quickly to avoid viral replication). Non-HBV PAN: cyclophosphamide + glucocorticoids.",
+      "ANCA negative (key diagnostic criterion) — ANCA positivity redirects to MPA/GPA. Check HBsAg, anti-HCV. Angiography (CT or conventional): microaneurysms and stenoses of medium-sized arteries = characteristic."
+    ],
+    "micro": [
+      "Segmental transmural inflammation of medium-sized muscular arteries (arcuate and interlobar renal arteries): neutrophilic infiltrate → fibrinoid necrosis of vessel wall → disruption of elastic lamina.",
+      "Lesions at different stages in same biopsy: acute (fibrinoid necrosis + neutrophils) + healing (fibroblastic repair) + healed (fibrous occlusion ± aneurysm formation) — pathognomonic feature of PAN.",
+      "Renal parenchyma: wedge-shaped cortical infarcts (from artery occlusion); viable parenchyma adjacent. NO glomerulonephritis, NO glomerular necrosis, NO crescents — if crescents present, reconsider diagnosis.",
+      "Small vessel sparing: interlobular arteries, arterioles, and glomeruli unremarkable — key distinguishing feature from ANCA vasculitis."
+    ],
+    "ihcPos": [
+      "ANCA serology – NEGATIVE (essential diagnostic criterion; ANCA+ = reconsider MPA/GPA)",
+      "HBsAg / anti-HCV – positive in HBV/HCV-associated PAN",
+      "IF on renal biopsy: pauci-immune (no immune deposits in vessels) — fibrinoid necrosis is non-immune mediated"
+    ],
+    "ihcNeg": [
+      "NO glomerulonephritis (no mesangial hypercellularity, no crescents, no endocapillary proliferation) — critical distinguishing feature",
+      "NO small vessel vasculitis (arterioles and glomerular capillaries spared)",
+      "C-ANCA/PR3 and P-ANCA/MPO – negative (MPA has P-ANCA/MPO in ~60%; GPA has C-ANCA/PR3 in ~90%)"
+    ],
+    "differentials": [
+      {
+        "dx": "Microscopic Polyangiitis (MPA)",
+        "disc": "Small vessel + glomerular involvement (pauci-immune crescentic GN); P-ANCA/MPO positive (~60%); NO medium artery aneurysms; no HBV association"
+      },
+      {
+        "dx": "ANCA-associated vasculitis (GPA)",
+        "disc": "Upper/lower respiratory tract granulomas; C-ANCA/PR3+ (~90%); pauci-immune crescentic GN; small vessel — not medium artery only"
+      },
+      {
+        "dx": "Thrombotic Microangiopathy",
+        "disc": "Small vessel/glomerular thrombi; MAHA + thrombocytopenia; no fibrinoid arterial necrosis; no microaneurysms on angiography"
+      }
+    ],
+    "comments": [
+      "The cardinal rule of PAN: medium vessel vasculitis with NO GN. If there is GN (haematuria + proteinuria + casts), reconsider MPA or other ANCA vasculitis. PAN causes haematuria only from infarction.",
+      "Lesions at different stages (acute + healing + healed) in the same biopsy: pathognomonic of PAN. Other vasculitides tend to show synchronous lesions.",
+      "Microaneurysms on angiography: caused by post-necrotic dilatation of medium artery walls. Rupture → retroperitoneal haemorrhage — life-threatening. CT angiography is the diagnostic investigation of choice.",
+      "HBV-PAN: steroid monotherapy promotes viral replication. Protocol: short-course steroids (to control acute inflammation) + antiviral (lamivudine/tenofovir) + plasma exchange. Taper steroids rapidly.",
+      "Exam trap: ANCA is negative in PAN — do not call ANCA-negative MPA 'PAN'. MPA is small vessel + GN + ANCA positive in majority. PAN is medium vessel + NO GN + ANCA negative."
+    ],
+    "cytoLink": null,
+    "related": [
+      "pauci-gn-001",
+      "tma-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "post-infectious-gn-001",
+    "name": "POST-INFECTIOUS GLOMERULONEPHRITIS (PIGN)",
+    "subspecialty": "Medical Renal",
+    "category": "Glomerulonephritis",
+    "pattern": "Endocapillary proliferative",
+    "behaviour": "Variable",
+    "clinical": [
+      "Immune complex GN triggered by infection — classically post-streptococcal (Group A β-haemolytic Strep; throat/skin infection), but any bacterial, viral, or parasitic infection can cause PIGN.",
+      "Post-streptococcal GN (PSGN): children 5–12 years; 1–3 weeks after throat infection (type 12) or 3–6 weeks after skin infection (impetigo). Presents with nephritic syndrome — haematuria, hypertension, oedema, oliguria. Usually self-limiting.",
+      "IgA-dominant PIGN: staphylococcal (particularly in diabetics, elderly, IV drug users) — IgA dominant deposits but distinct from IgAN (acute onset, concurrent infection, resolves with treatment).",
+      "Investigations: ASOT rising titre (strep); C3 markedly depressed (alternative complement pathway activation); C4 normal (distinguishes from LN/cryoglobulin where C4 also low). Urine: haematuria + proteinuria + RBC casts."
+    ],
+    "micro": [
+      "Diffuse endocapillary hypercellularity: glomerular capillary lumina obliterated by infiltrating neutrophils and monocytes + endothelial/mesangial proliferation — 'exudative' appearance.",
+      "Glomerular tufts enlarged and hypercellular; Bowman's space compressed.",
+      "Variable mesangial expansion. Occasional small crescents (<20% of glomeruli typical in PSGN; >20% suggests more aggressive disease).",
+      "Interstitial oedema and mild inflammatory infiltrate. Tubular red cell casts (haemoglobinuric casts).",
+      "Resolution phase: hypercellularity decreases; mesangial residual deposits persist longest."
+    ],
+    "ihcPos": [
+      "C3 – dominant (C3 > IgG in acute phase); 'starry sky' pattern in capillary walls",
+      "IgG – present but less intense than C3 in classic PSGN",
+      "IgA – dominant in staph-associated PIGN (IgA-dominant PIGN; concurrent staph infection)"
+    ],
+    "ihcNeg": [
+      "EM: subepithelial 'humps' — large, coarse, electron-dense deposits on epithelial side of GBM (pathognomonic in acute phase; resolve over months)",
+      "C1q – negative or trace (distinguishes from LN; positive C1q with full house → LN)",
+      "Anti-GBM – negative; ANCA – negative; ANA – negative"
+    ],
+    "differentials": [
+      {
+        "dx": "IgA Nephropathy",
+        "disc": "IgA dominant mesangial deposits (no acute onset after infection; chronic recurrent haematuria); C3 normal; ASOT negative; no subepithelial humps on EM; C3 not markedly depressed"
+      },
+      {
+        "dx": "IgA-dominant PIGN (staphylococcal)",
+        "disc": "Identical IgA dominant IF — distinguished by: acute onset, concurrent staphylococcal infection (bacteraemia, skin infection, endocarditis), elderly/diabetic, resolves with infection treatment; IgAN has no concurrent infection"
+      },
+      {
+        "dx": "Lupus Nephritis Class IV",
+        "disc": "Full house IF (IgG+IgA+IgM+C3+C1q); C4 low (SLE activates classical pathway); ANA/anti-dsDNA+; wire loops; TRIs on EM; no concurrent infection"
+      },
+      {
+        "dx": "MPGN (endocapillary pattern)",
+        "disc": "GBM double contours (absent in acute PIGN); persistent complement depression; C3G: C3-dominant but no humps; no acute infection history"
+      }
+    ],
+    "comments": [
+      "Subepithelial 'humps' on EM: large, coarse, hump-shaped electron-dense deposits on epithelial (subepithelial) aspect of GBM — pathognomonic for PIGN in acute phase. Resolve over months as complement clears deposits.",
+      "C3 vs C4 in diagnosis: C3 markedly low + C4 normal = alternative pathway activation (PSGN, C3G, aHUS). C3 + C4 both low = classical pathway (SLE, cryoglobulin, endocarditis). Important for diagnosis.",
+      "Prognosis: PSGN in children — >95% full recovery. Adults and elderly: less favourable, especially with extensive crescents or pre-existing renal disease. No specific treatment — supportive (antihypertensives, diuretics, penicillin if active infection).",
+      "Exam trap: IgA-dominant PIGN (staph) can look identical to IgAN on IF — only clinical context (acute onset, concurrent infection, elderly/diabetic) distinguishes. IgAN is chronic; IgA-dominant PIGN resolves."
+    ],
+    "cytoLink": null,
+    "related": [
+      "igan-001",
+      "mpgn-c3g-001",
+      "lupus-nephritis-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "fibrillary-gn-001",
+    "name": "FIBRILLARY GLOMERULONEPHRITIS",
+    "subspecialty": "Medical Renal",
+    "category": "Glomerulonephritis",
+    "pattern": "Mesangial/membranoproliferative",
+    "behaviour": "Malignant",
+    "clinical": [
+      "Rare immune complex GN (~1% of native biopsies) defined by polyclonal fibrillar deposits on EM. Adults; mean age ~50 years; slight male predominance.",
+      "Presentation: proteinuria (often nephrotic-range), haematuria, hypertension, progressive renal insufficiency. Not associated with systemic amyloidosis or cryoglobulinaemia.",
+      "Association with malignancy (~30%): hepatitis C, autoimmune disease, dysproteinaemia. DNAJB9 IHC (heat shock protein): highly sensitive and specific IHC marker for fibrillary GN — positive in >95%.",
+      "Treatment: no proven effective therapy. Rituximab used in some series. Renal survival ~50% at 10 years. Recurs in transplant."
+    ],
+    "micro": [
+      "LM: mesangial expansion ± endocapillary proliferation ± membranoproliferative pattern ± membranous change. No single LM pattern — variable.",
+      "Congo red NEGATIVE — critical distinction from amyloidosis (both have fibrillar deposits on EM but amyloid is Congo red positive).",
+      "PAS-positive mesangial and capillary wall deposits."
+    ],
+    "ihcPos": [
+      "IgG – dominant (polyclonal — both κ AND λ; distinguishes from AL amyloid which is monotypic)",
+      "C3 – positive",
+      "DNAJB9 (DnaJ heat shock protein B9) – positive by IHC (>95% sensitive and specific; most useful single marker)",
+      "κ AND λ – both positive (polyclonal; key distinction from amyloid/LCDD)"
+    ],
+    "ihcNeg": [
+      "Congo red – NEGATIVE (most important: distinguishes from ALL amyloid subtypes)",
+      "EM: randomly oriented fibrils 12–24nm diameter (larger than amyloid 8–12nm; smaller than immunotactoid 30–50nm — size is the discriminating EM measurement)",
+      "Monoclonal restriction – absent (polyclonal κ+λ; unlike AL amyloid or LCDD)"
+    ],
+    "differentials": [
+      {
+        "dx": "AL Amyloidosis",
+        "disc": "Congo red POSITIVE (apple-green birefringence) — the single most important distinction. EM: fibrils 8–12nm (smaller than fibrillary GN). Monotypic light chain restriction. DNAJB9 negative"
+      },
+      {
+        "dx": "Immunotactoid Glomerulopathy",
+        "disc": "EM: large microtubules 30–50nm (much larger than fibrillary GN 12–24nm) in parallel arrays/stacked bundles. Associated with lymphoproliferative disorder/MGUS. Monoclonal IgG (usually IgGκ). Congo red negative"
+      },
+      {
+        "dx": "Diabetic Nephropathy (nodular)",
+        "disc": "Congo red negative (shared); no fibrillar EM deposits; GBM thickening; Kimmelstiel-Wilson nodules PAS+; no IgG/C3 deposits; clinical diabetes"
+      }
+    ],
+    "comments": [
+      "DNAJB9 IHC: the key advance in fibrillary GN diagnosis. Positive in >95% of fibrillary GN, negative in amyloid, immunotactoid GP, MPGN, lupus, and diabetic nephropathy. Request on any biopsy with fibrillar deposits on EM.",
+      "Fibril size on EM is the key parameter: amyloid 8–12nm, fibrillary GN 12–24nm, immunotactoid 30–50nm. Random orientation (fibrillary GN/amyloid) vs parallel arrays (immunotactoid) is the other distinguishing feature.",
+      "Polyclonal vs monoclonal: fibrillary GN = polyclonal (IgG κ+λ both positive). AL amyloid = monotypic (κ OR λ only). LCDD = monotypic. This single IF feature largely solves the differential.",
+      "Exam trap: Congo red must be performed under polarised light — weakly staining amyloid can be overlooked in bright field. Never exclude amyloid without polarised light examination."
+    ],
+    "cytoLink": null,
+    "related": [
+      "renal-amyloid-001",
+      "mpgn-c3g-001",
+      "membranous-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "alport-tbmd-001",
+    "name": "ALPORT SYNDROME / THIN BASEMENT MEMBRANE DISEASE (TBMD)",
+    "subspecialty": "Medical Renal",
+    "category": "Hereditary",
+    "pattern": "GBM structural abnormality",
+    "behaviour": "Variable",
+    "clinical": [
+      "Alport syndrome: inherited COL4A3/COL4A4/COL4A5 mutations → defective type IV collagen (α3α4α5 network) in GBM, cochlea, and lens. X-linked (XLAS, COL4A5 — 80%; males affected, females variable); autosomal recessive (ARAS, COL4A3/4 — 15%, severe in both sexes); autosomal dominant (ADAS — milder).",
+      "Clinical triad: persistent microscopic haematuria (from birth) + sensorineural hearing loss (bilateral, high-frequency) + ocular abnormalities (anterior lenticonus, macular flecks). Progression to ESRD: males with XLAS ~50% by age 25, ~90% by age 40.",
+      "Thin Basement Membrane Disease (TBMD/Benign Familial Haematuria): heterozygous COL4A3/COL4A4 mutations → GBM thinning alone — isolated haematuria, no hearing loss, generally benign. Overlaps with ADAS.",
+      "Genetic testing: COL4A3/COL4A4/COL4A5 panel now preferred over biopsy in young patients with family history of haematuria. Biopsy required if diagnosis uncertain or to assess chronicity."
+    ],
+    "micro": [
+      "Light microscopy: usually normal or minimal change in early disease. Focal mesangial hypercellularity in later stages. Foam cells (lipid-laden interstitial cells) — non-specific but characteristic in advanced Alport.",
+      "Advanced disease: focal segmental glomerulosclerosis (secondary FSGS pattern), tubular atrophy, interstitial fibrosis — end-stage features.",
+      "TBMD on LM: entirely normal (thinning only visible on EM)."
+    ],
+    "ihcPos": [
+      "EM: GBM thinning (<250nm; normal ~350nm in adults) — TBMD diagnosis. In Alport: irregular GBM with alternating thinning and thickening, lamellation (splitting), and basket-weave pattern of lamina densa",
+      "COL4A5 IHC (α5 chain): absent from GBM in X-linked Alport (males); discontinuous/absent in female XLAS carriers",
+      "COL4A3/COL4A4 IHC: absent in ARAS; present in XLAS (α3/α4 may be retained despite α5 loss)"
+    ],
+    "ihcNeg": [
+      "IF: NEGATIVE (no immune deposits — Alport/TBMD are non-immune diseases)",
+      "COL4A5 on skin biopsy: absent epidermal BM staining in X-linked Alport males — less invasive than renal biopsy for initial diagnosis",
+      "FSGS markers (if secondary FSGS develops): podocin/synaptopodin — may show reduction in advanced disease"
+    ],
+    "differentials": [
+      {
+        "dx": "IgA Nephropathy",
+        "disc": "IgA dominant mesangial deposits on IF (absent in Alport/TBMD); mesangial hypercellularity; no GBM thinning or lamellation on EM; no family history of ESRD/deafness"
+      },
+      {
+        "dx": "Primary FSGS",
+        "disc": "No family history of haematuria/deafness; no GBM thinning/lamellation on EM; IF negative (shared); podocyte effacement on EM (shared in nephrotic phase); COL4A5 retained"
+      },
+      {
+        "dx": "Thin GBM disease (TBMD) vs Alport",
+        "disc": "TBMD: uniform diffuse thinning only (no lamellation/basket-weave); isolated haematuria; no deafness/lens; heterozygous COL4A3/4 mutation; generally benign. Alport: thinning + thickening + lamellation + basket-weave; systemic features"
+      }
+    ],
+    "comments": [
+      "EM basket-weave/lamellation of GBM: irregular splitting and layering of the lamina densa in a 'moth-eaten' appearance — pathognomonic for established Alport syndrome. This EM finding alone is diagnostic in the right clinical context.",
+      "Type IV collagen network: α1α2 (ubiquitous GBM) replaced in mature GBM by α3α4α5 (glomerular-specific). Alport mutations disrupt this mature network → persistent fetal α1α2 → GBM structural weakness.",
+      "COL4A5 IHC on skin biopsy: α5 chain normally present in epidermal basement membrane. Absent in X-linked Alport males — allows diagnosis without renal biopsy. Carrier females show mosaic/patchy staining.",
+      "Prognosis modifiers in XLAS: missense mutations milder than truncating/splice site. Females with XLAS: 15% ESRD by 40 years but significant proportion develop proteinuria and CKD. Genetic counselling essential.",
+      "Exam trap: TBMD has entirely normal LM and IF — EM is the only diagnostic modality. Never dismiss isolated persistent haematuria in a young patient with family history without EM or genetic testing."
+    ],
+    "cytoLink": null,
+    "related": [
+      "fsgs-001",
+      "igan-001"
+    ]
+  },
+  {
+    "type": "histology",
+    "id": "sclerosing-pneumocytoma-001",
+    "name": "SCLEROSING PNEUMOCYTOMA (SP)",
+    "subspecialty": "Thoracic",
+    "category": "Epithelial",
+    "pattern": "Mixed epithelial/stromal",
+    "behaviour": "Benign",
+    "clinical": [
+      "Benign primary lung neoplasm of type II pneumocyte differentiation — previously known as 'sclerosing haemangioma' (misnomer; not vascular). Almost exclusively in Asian women (F:M ~5:1); wide age range but peak 40–60 years.",
+      "Typically incidental solitary peripheral coin lesion on imaging; well-circumscribed, lobulated. Rarely symptomatic; very rarely bilateral or multifocal.",
+      "Trigger: solitary well-defined lung nodule in a middle-aged Asian woman — include SP in differential alongside carcinoid, hamartoma, and metastasis. Frozen section: benign — no further resection needed.",
+      "Excellent prognosis after resection; recurrence exceptionally rare. Lymph node metastasis reported in <5% but does NOT alter excellent prognosis — behaves as benign."
+    ],
+    "micro": [
+      "Two cell populations (both required for diagnosis): (1) surface cuboidal cells lining papillary structures — resemble type II pneumocytes (TTF1+, NapsinA+, Surfactant protein+); (2) round/polygonal stromal cells filling solid areas — bland, uniform, pale eosinophilic cytoplasm, absent/rare mitoses (TTF1+, EMA+, but NapsinA−).",
+      "Four architectural patterns (varying proportions in same tumour): papillary (papillary fronds lined by surface cells), sclerotic (hyalinised collagen), solid (sheets of stromal cells), and haemorrhagic (blood-filled spaces lined by surface cells).",
+      "Sclerosis: dense hyalinised stroma between cellular areas — low-power clue at scanning magnification.",
+      "Haemorrhagic areas: blood-filled cystic spaces lined by cuboidal surface cells — the original 'haemangioma' misinterpretation.",
+      "Cholesterol clefts and haemosiderin-laden macrophages common in haemorrhagic areas. No significant atypia, no necrosis, mitoses <1/10HPF."
+    ],
+    "ihcPos": [
+      "TTF1 – positive in BOTH cell populations (key: dual TTF1 positivity is characteristic)",
+      "EMA – positive in stromal (round) cells",
+      "CK7 – positive in surface cells (cuboidal lining cells)",
+      "NapsinA – positive in surface cells only (negative in stromal cells — helps distinguish the two populations)",
+      "Surfactant protein A/B – positive in surface cells"
+    ],
+    "ihcNeg": [
+      "CD34 – negative (key: excludes SFT and haemangioma — original misdiagnosis)",
+      "Synaptophysin / Chromogranin – negative (excludes carcinoid/NET — important DDx)",
+      "p40 / p63 – negative (excludes squamous differentiation)",
+      "Ki67 – very low (<5% in stromal cells; confirms benign behaviour)"
+    ],
+    "differentials": [
+      {
+        "dx": "Carcinoid / Well-differentiated NET",
+        "disc": "Synaptophysin+, Chromogranin+, INSM1+; organoid/trabecular architecture; uniform salt-and-pepper nuclei; no dual TTF1 cell populations; no haemorrhagic/sclerotic pattern"
+      },
+      {
+        "dx": "Lung Adenocarcinoma (lepidic/papillary)",
+        "disc": "Single malignant cell population; nuclear atypia + mitoses; invasive growth; TTF1+ but no bland dual-population architecture; NapsinA+ throughout; no sclerotic/haemorrhagic zones"
+      },
+      {
+        "dx": "Pulmonary Hamartoma",
+        "disc": "Cartilage + fat + fibromyxoid stroma + entrapped epithelial clefts; no TTF1+ stromal cells; no dual cell populations; HMGA2 rearrangement; 'popcorn' calcification on imaging"
+      },
+      {
+        "dx": "Solitary Fibrous Tumour (pulmonary)",
+        "disc": "STAT6 nuclear+; CD34+; NAB2-STAT6 fusion; hemangiopericytoma vasculature; no TTF1; no dual cell populations; patternless architecture"
+      },
+      {
+        "dx": "Meningothelial-like nodule (chemodectoma)",
+        "disc": "Incidental finding; whorled nests of bland epithelioid cells around vessels; EMA+; small (<3mm); no papillary/haemorrhagic/sclerotic pattern; TTF1−"
+      }
+    ],
+    "comments": [
+      "The two-cell population is the diagnostic hallmark: surface cells (type II pneumocyte-like: TTF1+/NapsinA+/CK7+) line papillary structures; stromal cells (TTF1+/EMA+/NapsinA−) fill solid areas. Dual TTF1 positivity across both populations is key.",
+      "Frozen section: four architectural patterns (papillary + sclerotic + solid + haemorrhagic) in a well-circumscribed lesion = SP. Reassure surgeon — benign, conservative resection adequate.",
+      "Lymph node metastasis: reported in <5% cases but does NOT indicate malignant behaviour — excise involved nodes, observe. Overall prognosis unaffected.",
+      "'Sclerosing haemangioma' misnomer: abandoned since the tumour is of type II pneumocyte origin, not endothelial. WHO 2021 designates it Sclerosing Pneumocytoma.",
+      "Exam trap: the haemorrhagic pattern with blood-filled spaces can mimic vascular tumour — CD34 negativity (excludes haemangioma) and dual TTF1 positivity resolves this. Always request CD34 in any suspected SP."
+    ],
+    "cytoLink": null,
+    "related": [
+      "pulmonary-hamartoma-001",
+      "lung-tc-001",
+      "lung-adeno-001",
+      "sft-001"
+    ]
+  },
+  {
     "id": "cscc-001",
     "type": "histology",
     "name": "CUTANEOUS SQUAMOUS CELL CARCINOMA (cSCC)",
@@ -14044,6 +15028,7 @@ function switchTab(tab, btn) {
   const revPanel    = document.getElementById('revision-panel');
   const examPanel   = document.getElementById('exam-panel');
   const molPanel    = document.getElementById('mol-panel');
+  const renalPanel  = document.getElementById('renal-panel');
 
   sidebar.style.display     = tab === 'entities'  ? '' : 'none';
   main.style.display        = tab === 'entities'  ? '' : 'none';
@@ -14053,6 +15038,7 @@ function switchTab(tab, btn) {
   revPanel.classList.toggle('active', tab === 'revision');
   examPanel.classList.toggle('active', tab === 'exams');
   molPanel.classList.toggle('active', tab === 'molecular');
+  renalPanel.classList.toggle('active', tab === 'renal');
 
   if (tab === 'entities')  render();
   if (tab === 'cytology')  renderCytology();
@@ -14060,6 +15046,7 @@ function switchTab(tab, btn) {
   if (tab === 'revision')  revPopulateFilters();
   if (tab === 'exams')     { initExamStats(); renderExamTable(); }
   if (tab === 'molecular') renderMolPanel();
+  if (tab === 'renal')     renderRenalPanel();
   closeSidebar();
 }
 
@@ -15095,6 +16082,385 @@ function molJumpTo(entityId, entityType) {
   }
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// RENAL TAB — PATTERN-GROUPED VIEW
+// ═══════════════════════════════════════════════════════════════════════════
+
+const RENAL_PATTERNS = [
+  {
+    id: 'nephrotic',
+    label: 'Nephrotic Pattern',
+    icon: '🔵',
+    colour: '#1d4ed8',
+    clinical: 'Proteinuria >3.5g/24h · hypoalbuminaemia · oedema · hyperlipidaemia · lipiduria',
+    examNote: 'Podocyte or GBM injury → massive protein leak without inflammatory destruction. Glomeruli may appear entirely normal on LM (MCD) or show structural change (FSGS, membranous, diabetic).',
+    entities: ['mcd-001', 'fsgs-001', 'membranous-001', 'diabetic-nephropathy-001']
+  },
+  {
+    id: 'nephritic',
+    label: 'Nephritic / Crescentic GN',
+    icon: '🔴',
+    colour: '#b91c1c',
+    clinical: 'Haematuria · red cell casts · hypertension · oliguria/AKI · sub-nephrotic proteinuria · dysmorphic RBCs',
+    examNote: 'Classify crescentic GN by IF: LINEAR IgG = anti-GBM disease. GRANULAR = immune complex (IgAN, lupus, MPGN). NEGATIVE = pauci-immune (ANCA vasculitis). This three-way IF classification is core exam knowledge.',
+    entities: ['igan-001', 'pauci-gn-001', 'antigbm-001', 'lupus-nephritis-001', 'mpgn-c3g-001', 'post-infectious-gn-001']
+  },
+  {
+    id: 'vascular',
+    label: 'Vascular / Thrombotic',
+    icon: '⚡',
+    colour: '#b45309',
+    clinical: 'TMA: MAHA + thrombocytopenia + AKI. PAN: renovascular hypertension + infarcts + microaneurysms',
+    examNote: 'TMA: small vessel (arteriolar/capillary) thrombi — pauci-immune IF, no GN deposits. PAN: medium vessel fibrinoid necrotising arteritis — NO GN, NO ANCA. ANCA status and vessel size are the key discriminators.',
+    entities: ['tma-001', 'pan-renal-001']
+  },
+  {
+    id: 'tubuloint',
+    label: 'Tubulointerstitial',
+    icon: '💊',
+    colour: '#059669',
+    clinical: 'AKI · sterile pyuria · eosinophiluria · WBC casts · drug history · proximal tubular dysfunction',
+    examNote: 'Glomeruli spared or mildly involved. Drug hypersensitivity most common cause — always take drug history (NSAIDs, antibiotics, PPIs, immune checkpoint inhibitors). Eosinophils in interstitium are characteristic but not invariable.',
+    entities: ['atin-001', 'light-chain-cast-001']
+  },
+  {
+    id: 'deposition',
+    label: 'Deposition / Paraprotein',
+    icon: '🧬',
+    colour: '#6d28d9',
+    clinical: 'Nephrotic syndrome or AKI in context of plasma cell dyscrasia or chronic inflammation · M-protein on SPEP/FLC',
+    examNote: 'Congo red is the key stain: POSITIVE (apple-green birefringence) = amyloid. NEGATIVE = LCDD or light chain cast nephropathy. All three can coexist in the same patient — always examine all compartments.',
+    entities: ['renal-amyloid-001', 'light-chain-cast-001', 'fibrillary-gn-001']
+  },
+  {
+    id: 'hereditary',
+    label: 'Hereditary / Structural GBM Disease',
+    icon: '🔬',
+    colour: '#0891b2',
+    clinical: 'Persistent haematuria from childhood · family history of haematuria/ESRD · sensorineural hearing loss · anterior lenticonus',
+    examNote: 'EM is essential — LM and IF are normal in TBMD and early Alport. GBM thinning alone = TBMD. Thinning + thickening + lamellation + basket-weave = Alport. Genetic testing (COL4A3/4/5) now preferred over biopsy in index cases.',
+    entities: ['alport-tbmd-001']
+  }
+];
+
+function renderRenalPanel() {
+  const allEntities = getAllEntities();
+  const renalEntities = allEntities.filter(e =>
+    e.type === 'histology' && e.subspecialty === 'Medical Renal'
+  );
+
+  const coveredIds = new Set(RENAL_PATTERNS.flatMap(p => p.entities));
+  const uncovered = renalEntities.filter(e => !coveredIds.has(e.id));
+
+  const container = document.getElementById('renal-results');
+  if (!renalEntities.length) {
+    container.innerHTML = '<div style="text-align:center;padding:60px;color:var(--muted)">No Medical Renal entities found.</div>';
+    return;
+  }
+
+  let html = '';
+
+  RENAL_PATTERNS.forEach(pattern => {
+    const patternEntities = pattern.entities
+      .map(id => renalEntities.find(e => e.id === id))
+      .filter(Boolean);
+    if (!patternEntities.length) return;
+
+    html += `
+    <div class="renal-pattern-section open" id="renal-sec-${escHtml(pattern.id)}">
+      <div class="renal-pattern-header" onclick="toggleRenalSection('${escHtml(pattern.id)}')"
+           style="border-left:4px solid ${pattern.colour};">
+        <span class="renal-pattern-icon">${pattern.icon}</span>
+        <div class="renal-pattern-info">
+          <span class="renal-pattern-label">${escHtml(pattern.label)}</span>
+          <span class="renal-pattern-clinical">${escHtml(pattern.clinical)}</span>
+        </div>
+        <span class="renal-pattern-count">${patternEntities.length} entit${patternEntities.length!==1?'ies':'y'}</span>
+        <svg class="renal-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </div>
+      <div class="renal-pattern-body">
+        <div class="renal-exam-note"><strong>⚡ Pattern note:</strong> ${escHtml(pattern.examNote)}</div>
+        ${patternEntities.map(e => buildRenalCard(e)).join('')}
+      </div>
+    </div>`;
+  });
+
+  if (uncovered.length) {
+    html += `
+    <div class="renal-pattern-section open" id="renal-sec-misc">
+      <div class="renal-pattern-header" onclick="toggleRenalSection('misc')" style="border-left:4px solid #94a3b8;">
+        <span class="renal-pattern-icon">📋</span>
+        <div class="renal-pattern-info"><span class="renal-pattern-label">Other Renal Entities</span></div>
+        <span class="renal-pattern-count">${uncovered.length}</span>
+        <svg class="renal-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </div>
+      <div class="renal-pattern-body">
+        ${uncovered.map(e => buildRenalCard(e)).join('')}
+      </div>
+    </div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+function buildRenalCard(entity) {
+  const cardId = 'ren-' + entity.id;
+  const preview = Array.isArray(entity.clinical) && entity.clinical.length
+    ? entity.clinical[0].substring(0, 90) + (entity.clinical[0].length > 90 ? '…' : '')
+    : '';
+
+  const ifPos = (entity.ihcPos || []).filter(s => s && s !== 'N/A');
+  const ifNeg = (entity.ihcNeg || []).filter(s => s && s !== 'N/A');
+
+  const ifSection = (ifPos.length || ifNeg.length) ? `
+    <div class="renal-if-grid">
+      ${ifPos.length ? `<div class="renal-if-block renal-if-pos">
+        <div class="renal-if-title">💛 IF / Deposits — Positive</div>
+        ${ifPos.map(s => `<span class="renal-if-marker">${escHtml(s)}</span>`).join('')}
+      </div>` : ''}
+      ${ifNeg.length ? `<div class="renal-if-block renal-if-neg">
+        <div class="renal-if-title">🔷 EM / Key Negatives</div>
+        ${ifNeg.map(s => `<span class="renal-if-marker">${escHtml(s)}</span>`).join('')}
+      </div>` : ''}
+    </div>` : '';
+
+  const clinHtml = (entity.clinical||[]).length ? `
+    <div class="section-block" style="margin-bottom:10px;">
+      <div class="section-title">Clinical</div>
+      <ul>${entity.clinical.map(s=>`<li>${escHtml(s)}</li>`).join('')}</ul>
+    </div>` : '';
+
+  const microHtml = (entity.micro||[]).length ? `
+    <div class="section-block" style="margin-bottom:10px;">
+      <div class="section-title">🔬 LM Findings</div>
+      <ul>${entity.micro.map(s=>`<li>${escHtml(s)}</li>`).join('')}</ul>
+    </div>` : '';
+
+  const diffsHtml = (entity.differentials||[]).length ? `
+    <div class="diffs-block" style="margin-bottom:10px;">
+      <div class="section-title" style="margin-bottom:6px;">Differentials</div>
+      ${entity.differentials.map(d=>`
+        <div class="diff-item">
+          <span class="diff-vs">${escHtml(d.dx)}</span>
+          <span class="diff-discriminator">${escHtml(d.disc)}</span>
+        </div>`).join('')}
+    </div>` : '';
+
+  const commentsHtml = (entity.comments||[]).length ? `
+    <div class="comments-block">
+      <div class="section-title">⚡ Exam Notes</div>
+      <ul>${entity.comments.map(s=>`<li>${escHtml(s)}</li>`).join('')}</ul>
+    </div>` : '';
+
+  return `
+  <div class="renal-entity-card" id="card-${cardId}">
+    <div class="renal-card-header" onclick="toggleRenalCard('${cardId}')">
+      <svg class="renal-card-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 4.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L11.586 10 7.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      <span class="renal-card-name">${escHtml(entity.name)}</span>
+      <span class="renal-card-preview">${escHtml(preview)}</span>
+    </div>
+    <div class="renal-card-body">
+      ${clinHtml}${microHtml}${ifSection}${diffsHtml}${commentsHtml}
+    </div>
+  </div>`;
+}
+
+function toggleRenalCard(cardId) {
+  const card = document.getElementById('card-' + cardId);
+  if (card) card.classList.toggle('open');
+}
+
+function toggleRenalSection(patternId) {
+  const sec = document.getElementById('renal-sec-' + patternId);
+  if (sec) sec.classList.toggle('open');
+}
+
+// ── Renal view state ────────────────────────────────────
+let renalView = 'clinical'; // 'clinical' | 'pattern'
+
+function switchRenalView(view, btn) {
+  renalView = view;
+  document.querySelectorAll('.renal-view-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('renal-results').style.display        = view === 'clinical' ? '' : 'none';
+  document.getElementById('renal-pattern-results').style.display = view === 'pattern'  ? '' : 'none';
+  if (view === 'pattern') renderRenalPatternView();
+}
+
+// ── Morphological pattern data ───────────────────────────
+const RENAL_MORPH_PATTERNS = [
+  {
+    id: 'mp-crescentic',
+    title: 'Crescentic GN',
+    subtitle: 'Cellular/fibrocellular/fibrous crescents filling Bowman\'s space — parietal epithelial cell proliferation ± monocyte infiltration',
+    examNote: 'The IF pattern is the SOLE discriminator between the three causes of crescentic GN. Learn this table cold. Always biopsy urgently — extent of fibrous crescents determines renal recovery.',
+    rows: [
+      { dx: 'anti-GBM disease', entityId: 'antigbm-001', ifPos: 'Linear IgG along GBM', ifNeg: 'No granular deposits; ANCA−', em: 'No deposits (antibody bound to GBM — not deposit-forming)', key: 'Linear IgG = anti-GBM until proven otherwise' },
+      { dx: 'Pauci-immune GN (AAV)', entityId: 'pauci-gn-001', ifPos: 'Negative / trace only', ifNeg: 'No IgG/IgA/IgM/C3; ANCA+ serology', em: 'No immune deposits', key: 'Absence of deposits on IF = pauci-immune; look for ANCA serology (MPO/PR3)' },
+      { dx: 'IgA Nephropathy (crescentic)', entityId: 'igan-001', ifPos: 'IgA dominant mesangial ± capillary wall', ifNeg: 'Anti-GBM−; ANCA−', em: 'Mesangial ± paramesangial deposits', key: 'Crescents in IgAN = rapidly progressive course; still granular IgA-dominant IF' },
+      { dx: 'Lupus Nephritis Class IV', entityId: 'lupus-nephritis-001', ifPos: 'Full house (IgG+IgA+IgM+C3+C1q)', ifNeg: 'Not pauci-immune; not linear', em: 'Subendothelial + mesangial deposits; TRIs in endothelium', key: 'Full house + wire loops + TRIs = Class IV LN; ANA/anti-dsDNA+' },
+      { dx: 'MPGN/C3G (with crescents)', entityId: 'mpgn-c3g-001', ifPos: 'C3 dominant (C3G) OR IgG+C3 granular (IC-MPGN)', ifNeg: 'C3G: no significant Ig; IC-MPGN: no linear IgG', em: 'Subendothelial + mesangial; DDD: ribbon lamina densa', key: 'MPGN can form crescents in severe disease; IF type distinguishes' },
+    ]
+  },
+  {
+    id: 'mp-mpgn',
+    title: 'MPGN / Membranoproliferative Pattern',
+    subtitle: 'Mesangial + endocapillary hypercellularity · GBM double contours (tram-tracks) · lobular accentuation on LM',
+    examNote: 'The MPGN pattern on LM is a morphological description, NOT a diagnosis. Always classify by IF. Tram-tracks = mesangial cell interposition into GBM (true MPGN) vs endothelial swelling (TMA) — distinguish on EM.',
+    rows: [
+      { dx: 'C3 Glomerulopathy (C3G/DDD)', entityId: 'mpgn-c3g-001', ifPos: 'C3 dominant (≥2+ over any Ig)', ifNeg: 'IgG/IgA/IgM absent or trace; C1q negative', em: 'DDD: ribbon-like lamina densa (pathognomonic). C3GN: mesangial + subendothelial', key: 'C3 dominant IF + complement pathway mutation/C3NeF = C3G' },
+      { dx: 'Immune complex MPGN', entityId: 'mpgn-c3g-001', ifPos: 'IgG+IgM+C3 (full house possible); C1q+', ifNeg: 'Not C3-dominant', em: 'Subendothelial + mesangial deposits (not ribbon-like)', key: 'Look for secondary cause: HCV, HBV, endocarditis, cryoglobulin, MGUS' },
+      { dx: 'Lupus Nephritis Class IV', entityId: 'lupus-nephritis-001', ifPos: 'Full house + C1q', ifNeg: '—', em: 'Subendothelial dominant; TRIs', key: 'Wire loops; ANA+/anti-dsDNA+; TRIs on EM' },
+      { dx: 'Cryoglobulinaemic GN', entityId: 'mpgn-c3g-001', ifPos: 'IgM κ/λ restricted; IgG; C3', ifNeg: '—', em: 'Curved/cylindrical organised deposits (cryoglobulin structure)', key: 'Intraluminal cryoglobulin "plugs" on LM; RF+; monoclonal IgM' },
+      { dx: 'Chronic TMA', entityId: 'tma-001', ifPos: 'Pauci-immune (negative or fibrin+)', ifNeg: 'No IgG/C3 deposits', em: 'Endothelial swelling; subendothelial "fluffy" expansion (not true deposits)', key: 'Double contours from endothelial injury — not mesangial interposition; clinical TMA history' },
+    ]
+  },
+  {
+    id: 'mp-nodular',
+    title: 'Nodular Glomerulosclerosis',
+    subtitle: 'Nodular expansion of mesangial matrix ± GBM thickening — acellular PAS-positive nodules widening mesangium',
+    examNote: 'Congo red is the single most important special stain in this pattern. Positive = amyloid. Negative → check PAS and IF. The clinical context (diabetes, myeloma, chronic inflammation) usually points to the diagnosis before biopsy.',
+    rows: [
+      { dx: 'Diabetic Nephropathy', entityId: 'diabetic-nephropathy-001', ifPos: 'IgG linear GBM (non-specific trapping); Albumin linear', ifNeg: 'Congo red NEGATIVE; no specific Ig/complement deposits', em: 'GBM thickening; mesangial expansion; no deposits', key: 'Kimmelstiel-Wilson nodules; GBM thickening; clinical diabetes; no Congo red' },
+      { dx: 'AL/AA Amyloidosis', entityId: 'renal-amyloid-001', ifPos: 'AL: κ OR λ restriction. AA: SAA+', ifNeg: 'LCDD: Congo red NEGATIVE (key distinction)', em: 'Non-branching fibrils 8–12nm, randomly oriented (all amyloid)', key: 'Congo red POSITIVE — apple-green birefringence under polarised light = diagnostic' },
+      { dx: 'Light Chain Deposition Disease (LCDD)', entityId: 'light-chain-cast-001', ifPos: 'Linear κ or λ along GBM + TBM (κ >> λ)', ifNeg: 'Congo red NEGATIVE; no fibrils on EM', em: 'Granular electron-dense deposits along GBM and TBM (not fibrillar)', key: 'Congo red NEGATIVE + PAS-positive nodules + linear GBM κ/λ on IF = LCDD' },
+      { dx: 'Idiopathic Nodular GS', entityId: null, ifPos: 'Non-specific (IgM/C3 in sclerotic areas)', ifNeg: 'Congo red negative; no specific deposits', em: 'GBM thickening; no deposits', key: 'Diagnosis of exclusion: diabetes/amyloid/LCDD/MPGN ruled out; smoking association' },
+      { dx: 'Fibrillary GN', entityId: 'fibrillary-gn-001', ifPos: 'IgG (polyclonal) + C3; κ and λ (polyclonal)', ifNeg: 'Congo red NEGATIVE (unlike amyloid)', em: 'Randomly oriented fibrils 12–24nm (larger than amyloid 8–12nm)', key: 'Fibrils larger than amyloid on EM; polyclonal IF; DNAJB9 IHC positive' },
+    ]
+  },
+  {
+    id: 'mp-membranous',
+    title: 'Membranous Pattern',
+    subtitle: 'GBM thickening with subepithelial deposits — "spikes" on silver stain; no hypercellularity',
+    examNote: 'Subepithelial deposits are the EM hallmark. PLA2R is positive in ~70% of primary (idiopathic) MN — test serum AND IHC on biopsy. Always exclude secondary causes before labelling as primary.',
+    rows: [
+      { dx: 'Primary (idiopathic) MN', entityId: 'membranous-001', ifPos: 'IgG4 dominant; PLA2R+ (70%); C3; no C1q/C4', ifNeg: 'No mesangial deposits; no full house', em: 'Stage I–IV: subepithelial deposits ± spikes (Ehrenreich-Churg staging)', key: 'PLA2R serum/IHC positive = primary; absent = secondary until proven otherwise' },
+      { dx: 'Lupus Nephritis Class V', entityId: 'lupus-nephritis-001', ifPos: 'Full house (IgG+IgA+IgM+C3+C1q); IgG1/IgG3', ifNeg: '—', em: 'Subepithelial + mesangial deposits; TRIs', key: 'Mesangial deposits + full house IF distinguishes from primary MN; ANA+' },
+      { dx: 'Malignancy-associated MN', entityId: 'membranous-001', ifPos: 'IgG1/IgG2; THSD7A+ (if PLA2R−); EXT1/EXT2+ (LN-associated)', ifNeg: 'PLA2R often negative', em: 'Subepithelial deposits (identical to primary on EM)', key: 'Age >65, PLA2R negative, IgG1/2 dominant → screen for malignancy' },
+      { dx: 'HBV-associated MN', entityId: 'membranous-001', ifPos: 'IgG+IgA+IgM+C3; HBsAg/HBeAg may be detectable in deposits', ifNeg: '—', em: 'Subepithelial ± subendothelial deposits', key: 'Children/endemic areas; HBsAg+ serology; antiviral treatment' },
+    ]
+  },
+  {
+    id: 'mp-mesangial',
+    title: 'Mesangial Hypercellularity / Mesangial Deposits',
+    subtitle: 'Increased mesangial cells (>3/mesangial area) ± increased matrix — minimal or no endocapillary changes',
+    examNote: 'The IF pattern immediately distinguishes these. IgA dominant = IgAN. C1q prominent = consider LN. C3 alone = C3G or post-infectious. No deposits = consider FSGS early change.',
+    rows: [
+      { dx: 'IgA Nephropathy', entityId: 'igan-001', ifPos: 'IgA dominant (2–3+); IgG/IgM/C3 minor; C4d+', ifNeg: 'C1q negative (negative C1q helps exclude LN)', em: 'Mesangial ± paramesangial deposits', key: 'IgA dominant mesangial = IgAN until proven otherwise; Oxford MEST-C score' },
+      { dx: 'Lupus Nephritis Class II', entityId: 'lupus-nephritis-001', ifPos: 'Full house (IgG+IgA+IgM+C3+C1q)', ifNeg: '—', em: 'Mesangial deposits only', key: 'Mesangial LN: full house IF; ANA+; no treatment beyond standard SLE therapy' },
+      { dx: 'Post-infectious GN (resolving)', entityId: 'post-infectious-gn-001', ifPos: 'C3 > IgG (dominant C3); "starry sky" pattern', ifNeg: 'C1q negative; no IgA dominance', em: 'Subepithelial "humps" (large, coarse) — pathognomonic in acute phase', key: 'Subepithelial humps on EM + C3 dominant IF = post-strep GN; resolves spontaneously' },
+      { dx: 'Thin GBM disease / TBMD', entityId: 'alport-tbmd-001', ifPos: 'Negative IF', ifNeg: 'No deposits', em: 'GBM thinning <250nm (normal ~350nm); no deposits', key: 'Isolated haematuria; EM diagnosis; COL4A3/4/5 mutation (Alport carrier)' },
+    ]
+  },
+  {
+    id: 'mp-tma',
+    title: 'Thrombotic Microangiopathy (TMA) Pattern',
+    subtitle: 'Arteriolar and/or glomerular capillary thrombi · endothelial swelling · double contours (chronic) · no immune deposits',
+    examNote: 'TMA is a pathological pattern, not a diagnosis. Identical morphology — cause is determined by clinical/laboratory context. ADAMTS13, complement pathway, drug history, and shiga toxin testing are all required.',
+    rows: [
+      { dx: 'TTP (ADAMTS13 deficiency)', entityId: 'tma-001', ifPos: 'Pauci-immune; fibrin in capillaries', ifNeg: 'No IgG/C3/IgA deposits', em: 'Endothelial swelling; platelet/fibrin thrombi; no immune deposits', key: 'ADAMTS13 <10% activity; predominantly neurological; plasma exchange life-saving' },
+      { dx: 'HUS (Stx-mediated)', entityId: 'tma-001', ifPos: 'Pauci-immune; fibrin', ifNeg: 'No immune deposits', em: 'Glomerular > arteriolar injury; endothelial swelling', key: 'Children; diarrhoea prodrome; E. coli O157:H7; supportive — NO antibiotics/plasma exchange' },
+      { dx: 'Complement-mediated HUS (aHUS)', entityId: 'tma-001', ifPos: 'Pauci-immune; C5b-9 (MAC) deposition on EM/IHC', ifNeg: 'ADAMTS13 normal; Stx negative', em: 'Arteriolar > glomerular; endothelial swelling; no fibrillar deposits', key: 'CFH/CFI/C3/CFB/CFHR mutations; eculizumab (anti-C5) life-changing treatment' },
+      { dx: 'PAN (medium vessel)', entityId: 'pan-renal-001', ifPos: 'Pauci-immune (fibrinoid necrosis, not deposits)', ifNeg: 'No glomerular involvement (key!); ANCA−', em: 'Fibrinoid necrosis of medium artery wall; no GBM deposits', key: 'MEDIUM vessel only; NO GN; NO ANCA; microaneurysms on angiography' },
+    ]
+  },
+  {
+    id: 'mp-tubulointerstitial',
+    title: 'Tubulointerstitial Pattern',
+    subtitle: 'Primary tubulointerstitial injury — glomeruli normal or mildly affected; tubulitis ± interstitial inflammation',
+    examNote: 'Glomerular preservation is the key low-power clue that this is tubulointerstitial disease. Eosinophils in the infiltrate strongly suggest drug hypersensitivity. Always look for casts in tubular lumina.',
+    rows: [
+      { dx: 'Drug-induced ATIN', entityId: 'atin-001', ifPos: 'Pauci-immune or TBM IgG/C3 (anti-TBM type)', ifNeg: 'No glomerular deposits', em: 'Normal GBM; tubular injury; interstitial oedema', key: 'Eosinophilic infiltrate + drug history; TBM IgG linear rare but diagnostic of anti-TBM ATIN' },
+      { dx: 'Light Chain Cast Nephropathy', entityId: 'light-chain-cast-001', ifPos: 'κ OR λ monotypic restriction on casts', ifNeg: 'No glomerular deposits; Congo red negative', em: 'Fractured eosinophilic casts; giant cell reaction; no fibrillar deposits', key: 'Fractured casts + giant cell reaction + monotypic IF = diagnostic triad' },
+      { dx: 'Sarcoid ATIN', entityId: 'atin-001', ifPos: 'Pauci-immune', ifNeg: 'No deposits', em: 'Normal GBM; interstitial granulomas', key: 'Non-caseating granulomas in interstitium; serum ACE elevated; hypercalcaemia' },
+      { dx: 'ICI-associated nephritis', entityId: 'atin-001', ifPos: 'Pauci-immune; rare TBM deposits', ifNeg: 'No immune complex deposits', em: 'CD8+ T-cell infiltrate; tubulitis; no deposits', key: 'Checkpoint inhibitor (anti-PD1/CTLA4) therapy; CD8 dominant; steroids ± hold ICI' },
+    ]
+  },
+];
+
+function renderRenalPatternView() {
+  const allEntities = getAllEntities();
+  const container = document.getElementById('renal-pattern-results');
+
+  let html = '';
+  RENAL_MORPH_PATTERNS.forEach(pat => {
+    const cardId = 'rpatt-' + pat.id;
+    const tableRows = pat.rows.map(row => {
+      const entity = row.entityId ? allEntities.find(e => e.id === row.entityId) : null;
+      const dxLabel = entity
+        ? `<span class="dx-name" onclick="renalJumpToEntity('${escHtml(row.entityId)}')" title="Jump to entity">${escHtml(row.dx)} ↗</span>`
+        : `<span class="dx-name" style="cursor:default;color:var(--navy)">${escHtml(row.dx)}</span>`;
+      return `<tr>
+        <td>${dxLabel}</td>
+        <td><span class="renal-if-cell-pos">${escHtml(row.ifPos)}</span></td>
+        <td><span class="renal-if-cell-neg">${escHtml(row.ifNeg)}</span></td>
+        <td><span class="renal-if-cell-em">${escHtml(row.em)}</span></td>
+        <td><span class="renal-if-cell-key">${escHtml(row.key)}</span></td>
+      </tr>`;
+    }).join('');
+
+    // Unique linked entities for chips
+    const linkedIds = [...new Set(pat.rows.filter(r=>r.entityId).map(r=>r.entityId))];
+    const chips = linkedIds.map(id => {
+      const e = allEntities.find(x => x.id === id);
+      return e ? `<span class="renal-entity-chip" onclick="renalJumpToEntity('${escHtml(id)}')">${escHtml(e.name)}</span>` : '';
+    }).filter(Boolean).join('');
+
+    html += `
+    <div class="renal-patt-card open" id="${escHtml(cardId)}">
+      <div class="renal-patt-header" onclick="toggleRenalPattCard('${escHtml(cardId)}')">
+        <div class="renal-patt-title-wrap">
+          <span class="renal-patt-title">${escHtml(pat.title)}</span>
+          <span class="renal-patt-subtitle">${escHtml(pat.subtitle)}</span>
+        </div>
+        <span class="renal-patt-entity-count">${pat.rows.length} diagnoses</span>
+        <svg class="renal-patt-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </div>
+      <div class="renal-patt-body">
+        <div class="renal-patt-note"><strong>⚡ Exam note:</strong> ${escHtml(pat.examNote)}</div>
+        <div style="overflow-x:auto;">
+          <table class="renal-if-table">
+            <thead>
+              <tr>
+                <th style="min-width:140px">Diagnosis</th>
+                <th style="min-width:160px">💛 IF — Positive</th>
+                <th style="min-width:140px">IF — Key Negatives</th>
+                <th style="min-width:160px">🔷 EM Findings</th>
+                <th style="min-width:180px">🔑 Discriminating Key</th>
+              </tr>
+            </thead>
+            <tbody>${tableRows}</tbody>
+          </table>
+        </div>
+        ${chips ? `<div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5b21b6;margin-bottom:6px;">Linked Codex Entities</div><div class="renal-entity-chips">${chips}</div></div>` : ''}
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function toggleRenalPattCard(cardId) {
+  const card = document.getElementById(cardId);
+  if (card) card.classList.toggle('open');
+}
+
+function renalJumpToEntity(entityId) {
+  // Switch to clinical view and open entity
+  switchRenalView('clinical', document.getElementById('renal-btn-clinical'));
+  // Find entity type to route correctly
+  const allEntities = getAllEntities();
+  const entity = allEntities.find(e => e.id === entityId);
+  if (!entity) return;
+  // Scroll to clinical view entity card
+  setTimeout(() => {
+    const card = document.getElementById('card-ren-' + entityId);
+    if (card) {
+      card.classList.add('open');
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 120);
+}
 
 render();
 renderCytology();
