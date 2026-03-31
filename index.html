@@ -12012,7 +12012,94 @@ const SEED_DATA = [
     ]
   },
   {
-    "id": "diaphragm-disease-001",
+    "id": "cyto-effusion-adeno-ddx-001",
+    "type": "cytology",
+    "name": "SEROUS FLUID — ADENOCARCINOMA SITE-OF-ORIGIN DDx (IHC ALGORITHM)",
+    "subspecialty": "Thoracic",
+    "category": "Effusion",
+    "specimenType": "Effusion",
+    "reportingSystem": "IAC Harrogate (Effusion)",
+    "reportingCategory": "Positive for malignancy — Adenocarcinoma (site-specific IHC required)",
+    "behaviour": "Malignant",
+    "adequacy": [
+      "Cell block mandatory for IHC-based site-of-origin workup. Minimum 2 levels from cell block; retain unstained sections for extended panel.",
+      "If cell block insufficient: repeat tap or liquid biopsy (cfDNA) for molecular site assignment."
+    ],
+    "cytologicalFeatures": [
+      "STEP 1 — MESOTHELIAL vs NON-MESOTHELIAL: Calretinin, WT1, D2-40 positive = mesothelial lineage → proceed to BAP1/MTAP/CDKN2A algorithm (see Mesothelioma entry). BerEP4+, MOC31+, B72.3+ = epithelial (non-mesothelial).",
+      "STEP 2 — EPITHELIAL SUBCLASSIFICATION: p40/p63+ + Chromogranin− + Synaptophysin− = SCC. Chromogranin+/Synaptophysin+ + p40/p63− = NE neoplasm (SCLC until proven otherwise). p40/p63− + Chromo/Synapto− = Adenocarcinoma → proceed to site-specific panel.",
+      "STEP 3 — ADENOCARCINOMA SITE-SPECIFIC IHC PANEL: CK7/CK20 + WT1 + PAX8 + TTF1 + NapsinA + GATA3 + ER + CDX2 + SATB2 + Calretinin (as mesothelial control).",
+      "NON-EPITHELIAL (BerEP4−/MOC31−/B72.3−): consider haematological (CD45/CD20/CD3), melanocytic (S100/SOX10/HMB45/MelanA), mesenchymal (Vimentin/SMA/Desmin), germ cell (PLAP/OCT3-4/AFP)."
+    ],
+    "ihcPos": [
+      "HGSC (ovary/FT/peritoneum): WT1++ PAX8+ p53-aberrant p16-block CK7+ BerEP4+",
+      "Endometrial carcinoma: PAX8+ ER+ CK7+ WT1-NEGATIVE (key vs HGSC)",
+      "Lung adenocarcinoma: TTF1+ NapsinA+ CK7+ BerEP4+ PAX8−",
+      "Breast carcinoma: GATA3+ ER+/− Mammaglobulin+ GCDFP-15+ CK7+ WT1− PAX8−",
+      "Colorectal: CK20+ CDX2++ SATB2+ CK7−/+ BerEP4+",
+      "Gastric: CK7+ MUC5AC+ CK20−/+ CDX2−/+ SATB2− E-cadherin loss (signet ring)",
+      "Pancreatic/biliary: CK7+ CK17+ MUC1+ CDX2−/+ (no specific marker; diagnosis of exclusion within adenocarcinoma)",
+      "ccRCC: PAX8+ CA9+ CD10+ RCC-ma+ CK7−/low Calretinin− BerEP4 variable"
+    ],
+    "ihcNeg": [
+      "HGSC: CK20− WT1+ (not negative — listed for clarity); ER−/weak; CDX2−",
+      "Endometrial: WT1− (KEY discriminator vs HGSC); HNF1β+ NapsinA+ in clear cell type",
+      "Lung: PAX8− (distinguishes from thyroid/Müllerian); WT1−; GATA3−",
+      "Breast: WT1− PAX8− TTF1− NapsinA− CDX2−",
+      "Colorectal: CK7− (classic); WT1−; GATA3−",
+      "Mesothelioma: BerEP4− MOC31− B72.3− (key panel — all negative in mesothelioma)"
+    ],
+    "differentials": [
+      {
+        "dx": "HGSC vs Endometrial serous carcinoma",
+        "disc": "WT1: HGSC positive, endometrial serous NEGATIVE — single most useful discriminator. Morphologically identical. Clinical/imaging context essential (ovarian mass vs uterine primary)"
+      },
+      {
+        "dx": "HGSC vs Malignant mesothelioma",
+        "disc": "Both WT1+; discriminate: BerEP4/MOC31+ (HGSC), Calretinin/CK5/6/D2-40+ (meso); BAP1 loss + CDKN2A del = mesothelioma. Never rely on WT1 alone"
+      },
+      {
+        "dx": "Lung adenocarcinoma vs Thyroid carcinoma",
+        "disc": "Both TTF1+; Thyroglobulin and NapsinA discriminate (Thyroglobulin+ = thyroid; NapsinA+ = lung; thyroid NapsinA negative)"
+      },
+      {
+        "dx": "Gastric signet ring vs ILC (breast)",
+        "disc": "Both: discohesive single cells, E-cadherin loss, CK7+. Discriminate: GATA3+/ER+/mammaglobulin+ = ILC; MUC5AC+/SATB2−/CDH1 mutation = gastric. Clinical history essential"
+      },
+      {
+        "dx": "Colorectal vs Appendiceal/mucinous primary",
+        "disc": "Both SATB2+/CK20+/CDX2+; appendiceal: mucinous background, KRAS/GNAS mutations, PMP clinical context. IHC cannot reliably distinguish — molecular and clinical correlation required"
+      },
+      {
+        "dx": "Pancreatic/biliary vs other adenocarcinoma",
+        "disc": "No specific positive marker for pancreatic/biliary adenocarcinoma — diagnosis of exclusion when CK7+/CK20−/PAX8−/TTF1−/GATA3−/SATB2−/WT1−. CK17 and MUC1 supportive but non-specific"
+      }
+    ],
+    "pitfalls": [
+      "WT1 is positive in BOTH HGSC and mesothelioma — NEVER use WT1 alone to diagnose HGSC in an effusion. Always co-stain with BerEP4/MOC31 and Calretinin/CK5/6.",
+      "HMB45 and MelanA are NEGATIVE in desmoplastic melanoma — always include S100 and SOX10 to exclude melanoma in any BerEP4-negative effusion with pleomorphic cells.",
+      "Desmoplastic melanoma and spindle cell melanoma can shed into effusions — non-epithelial morphology + S100+ is the clue.",
+      "NapsinA: also positive in thyroid clear cell carcinoma and type II pneumocytes (reactive) — always co-stain with TTF1 and Thyroglobulin.",
+      "E-cadherin loss is shared by gastric signet ring and ILC — use GATA3/ER/mammaglobulin to distinguish. Do NOT diagnose ILC on E-cadherin loss alone.",
+      "SATB2 is positive in colorectal AND appendiceal — cannot distinguish these two by IHC alone.",
+      "Cell block quality is the rate-limiting step: insufficient block = cannot run full panel = report as 'adenocarcinoma, site-of-origin not determinable on available material; clinical and radiological correlation required'."
+    ],
+    "comments": [
+      "Minimum first-line panel for unknown malignant effusion (adenocarcinoma): CK7, CK20, BerEP4, Calretinin, WT1, PAX8, TTF1, NapsinA, GATA3, ER — covers the great majority of primaries and separates from mesothelioma.",
+      "MTAP IHC: now preferred over p16 FISH as first-line screen for malignant mesothelioma (co-deleted with CDKN2A at 9p21). Loss of MTAP + loss of BAP1 = highly specific for mesothelioma.",
+      "Most common causes of malignant pleural effusion: lung > breast > lymphoma > mesothelioma > ovary. Most common malignant peritoneal effusion: ovary > colorectal > gastric > pancreatic > breast (ILC).",
+      "IAC Harrogate reporting: 'Positive for malignancy — adenocarcinoma; IHC profile consistent with [primary site]; clinical and radiological correlation recommended for site confirmation.'",
+      "Molecular ancillary testing: if IHC panel inconclusive, cfDNA from fluid (liquid biopsy) for somatic mutation profiling (KRAS, BRAF, PIK3CA, TP53 patterns) can support site-of-origin assignment."
+    ],
+    "histoLink": null,
+    "related": [
+      "cyto-mesothelioma-001",
+      "cyto-hgsc-effusion-001",
+      "cyto-peritoneal-001",
+      "cyto-lymphocytic-effusion-001"
+    ]
+  },
+  {
     "type": "histology",
     "name": "DIAPHRAGM DISEASE (NSAID ENTEROPATHY)",
     "subspecialty": "LGI",
